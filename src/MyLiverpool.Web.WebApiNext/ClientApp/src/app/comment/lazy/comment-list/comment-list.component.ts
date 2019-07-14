@@ -80,7 +80,7 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
         filters.currentPage = this.paginator.pageIndex + 1;
         filters.pageSize = this.paginator.pageSize;
         return this.materialCommentService
-            .getAllNew(filters);
+            .getAll(filters);
     }
 
     private updateUrl(): void {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Poll, PollFilters } from "../../models";
 import { RolesCheckedService } from "@app/+auth";
 import { PollService } from "../../core/poll.service";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 
 @Component({
     selector: "poll-list",
@@ -21,8 +21,7 @@ export class PollListComponent implements OnInit {
     public ngOnInit(): void {
         this.service
            .getAll(new PollFilters())
-            .subscribe((data: Pageable<Poll>) => this.items = data.list,
-                e => console.log(e));
+            .subscribe((data: PagedList<Poll>) => this.items = data.results);
     }
     
     public delete(index: number): void {
@@ -31,7 +30,6 @@ export class PollListComponent implements OnInit {
                 if (data) {
                     this.items.splice(index, 1);
                 }
-            },
-            () => {});
+            });
     }
 }

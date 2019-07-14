@@ -9,7 +9,7 @@ import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { PersonService } from "@app/person/core";
 import { Person, PersonType, PersonFilters } from "@app/person/model";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { KEYUP, DEBOUNCE_TIME, PERSONS_ROUTE, PAGE } from "@app/+constants";
 
 @Component({
@@ -36,8 +36,7 @@ export class PersonListComponent implements OnInit {
     public ngOnInit(): void {
         this.parseQueryParams();
         this.personService.getTypes()
-            .subscribe((data: PersonType[]) => this.personTypes = data,
-                e => console.log(e));
+            .subscribe((data: PersonType[]) => this.personTypes = data);
 
         merge(this.sort.sortChange,
             this.typeSelect.selectionChange,
@@ -55,12 +54,12 @@ export class PersonListComponent implements OnInit {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Person>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Person>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -68,8 +67,7 @@ export class PersonListComponent implements OnInit {
         ).subscribe((data: Person[]) => {
                 this.items = data;
                 this.updateUrl();
-            },
-                e => console.log(e));
+            });
     }
 
     public showDeleteModal(index: number): void {
@@ -78,17 +76,17 @@ export class PersonListComponent implements OnInit {
             if (result) {
                 this.delete(index);
             }
-        }, e => console.log(e));
+        });
     }
 
-    public update(): Observable<Pageable<Person>> {
+    public update(): Observable<PagedList<Person>> {
         const filters = new PersonFilters();
         filters.name = this.nameInput.nativeElement.value;
         filters.type = this.typeSelect.value;
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
-        filters.sortBy = this.sort.active;
-        filters.order = this.sort.direction;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.personService
             .getAll(filters);
@@ -96,8 +94,7 @@ export class PersonListComponent implements OnInit {
 
     public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
-            .subscribe((data: boolean) => data,
-                e => console.log(e));
+            .subscribe((data: boolean) => data);
     }
 
     private updateUrl(): void {

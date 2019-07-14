@@ -6,7 +6,7 @@ import { MatchEventService } from "../../core";
 import { MatchEvent, MatchEventType } from "@app/matchEvent/models";
 import { Person, PersonService, PersonFilters } from "@app/person";
 import { DEBOUNCE_TIME } from "@app/+constants";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 
 @Component({
     selector: "matchEvent-edit-panel",
@@ -88,8 +88,8 @@ export class MatchEventEditPanelComponent implements OnInit {
                     filter.matchId = this.matchId;
                     return this.personService.getAll(filter);
                 }),
-                switchMap((pagingPersons: Pageable<Person>): Observable<Person[]> => {
-                    return of(pagingPersons.list);
+                switchMap((pagingPersons: PagedList<Person>): Observable<Person[]> => {
+                    return of(pagingPersons.results);
                 }));
     }
 }

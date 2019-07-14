@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.HelpEntities;
+using MyLfc.Application.Matches;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -131,28 +130,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 async () => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
-        
+
         /// <summary>
         /// Returns matches list by filter.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        [AllowAnonymous, HttpGet("{dto}")]
-        public async Task<IActionResult> List([FromRoute] string dto)
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> List([FromQuery] GetMatchListQuery.Request request)
         {
-            if (string.IsNullOrWhiteSpace(dto))
-            {
-                return BadRequest();
-            }
-            var obj = JsonConvert.DeserializeObject<MatchFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Include,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
-            });
-
-            var model = await _matchService.GetListAsync(obj);
-            return Ok(model);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>

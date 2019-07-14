@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -10,8 +9,6 @@ using MyLfc.Application.Clubs;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -136,53 +133,6 @@ namespace MyLiverpool.Business.Services
         public Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<PageableData<MatchDto>> GetListAsync(MatchFiltersDto filters)
-        {
-            Expression<Func<Match, bool>> filter = m => true;
-            if (filters.SeasonId.HasValue)
-            {
-                filter = filter.And(m => m.SeasonId == filters.SeasonId.Value);
-            }
-            var dtos = await GetMatchesAsync(filters.Page, filters.ItemsPerPage, filter);
-            var count = await _matchRepository.CountAsync(filter);
-            return new PageableData<MatchDto>(dtos, filters.Page, count);
-        }
-
-        public async Task<IEnumerable<MatchDto>> GetListForSeasonAsync(int seasonId)
-        {
-            var pageForGettingAllItems = 1;
-            var itemsPerPageForMatch = 100;
-            var result = await GetMatchesAsync(pageForGettingAllItems, itemsPerPageForMatch, x => x.SeasonId == seasonId);
-            var dtos = _mapper.Map<IEnumerable<MatchDto>>(result);
-            return dtos;
-        }
-
-        private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int? page, int itemsPerPage,
-            Expression<Func<Match, bool>> filter)
-        {
-            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request());
-            var matches = await _matchRepository.GetListAsync(page, itemsPerPage, true, filter,
-                orderBy: m => m.DateTime,
-                include: x => x.Include(m => m.Club)
-                    .Include(m => m.Stadium)
-                    .Include(m => m.Events));
-            var dtos = new List<MatchDto>();
-            foreach (var match in matches)
-            {
-                var dto = _mapper.Map<MatchDto>(match);
-                if (match.IsHome)
-                {
-                    FillClubsFields(dto, liverpoolClub, match.Club);
-                }
-                else
-                {
-                    FillClubsFields(dto, match.Club, liverpoolClub);
-                }
-                dtos.Add(dto);
-            }
-            return dtos;
         }
 
         private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)

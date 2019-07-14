@@ -9,7 +9,7 @@ import { Transfer } from "@app/transfer/model";
 import { ClubService, Club, ClubFilters } from "@app/club";
 import { SeasonService, Season, SeasonFilters } from "@app/season";
 import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
-import { Pageable, PagedList } from "@app/shared";
+import { PagedList } from "@app/shared";
 
 @Component({
     selector: "transfer-edit",
@@ -118,8 +118,8 @@ export class TransferEditComponent implements OnInit, OnDestroy {
                 filter.name = value;
                 return this.personService.getAll(filter);
             }),
-            switchMap((pagingClubs: Pageable<Person>): Observable<Person[]> => {
-                return of(pagingClubs.list);
+            switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
+                return of(pagingClubs.results);
             }));
 
         this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges
@@ -129,7 +129,7 @@ export class TransferEditComponent implements OnInit, OnDestroy {
                 switchMap((value: string): Observable<PagedList<Club>> => {
                     const filter = new ClubFilters();
                     filter.name = value;
-                    return this.clubService.getAllNew(filter);
+                    return this.clubService.getAll(filter);
                 }),
                 switchMap((pagingClubs: PagedList<Club>): Observable<Club[]> => {
                     return of(pagingClubs.results);

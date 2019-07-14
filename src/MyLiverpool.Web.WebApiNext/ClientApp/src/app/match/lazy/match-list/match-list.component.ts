@@ -5,10 +5,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
-
 import { Match, MatchFilters } from "@app/match/model";
 import { MatchService } from "@app/match/core";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { PAGE, MATCHES_ROUTE } from "@app/+constants/";
 
 @Component({
@@ -20,7 +19,6 @@ export class MatchListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Match[];
-    private categoryId: number;
     @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
@@ -34,7 +32,6 @@ export class MatchListComponent implements OnInit, OnDestroy {
         this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
-                this.categoryId = +qParams["categoryId"];
             },
             e => console.log(e));
 
@@ -44,12 +41,12 @@ export class MatchListComponent implements OnInit, OnDestroy {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Match>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Match>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -57,8 +54,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
         ).subscribe((data: Match[]) => {
                     this.items = data;
                     this.updateUrl();
-                },
-                e => console.log(e));
+                });
     }
 
     public ngOnDestroy(): void {
@@ -70,11 +66,11 @@ export class MatchListComponent implements OnInit, OnDestroy {
         }
     }
 
-    public update(): Observable<Pageable<Match>> {
+    public update(): Observable<PagedList<Match>> {
         const filters = new MatchFilters();
-        filters.categoryId = this.categoryId;
-        filters.itemsPerPage = this.paginator.pageSize;
-        filters.page = this.paginator.pageIndex + 1;
+       //todo add input to filter? filters.seasonId = this.categoryId;
+        filters.pageSize = this.paginator.pageSize;
+        filters.currentPage = this.paginator.pageIndex + 1;
 
         return this.matchService
             .getAll(filters);
@@ -91,8 +87,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
                 if (result) {
                     this.delete(index);
                 }
-            },
-            e => console.log(e));
+            });
     }
 
     private delete(index: number): void {
@@ -101,7 +96,6 @@ export class MatchListComponent implements OnInit, OnDestroy {
                     if (res) {
                         this.items.splice(index, 1);
                     }
-                },
-                e => console.log(e));
+                });
     }
 }

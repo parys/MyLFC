@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -18,24 +16,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <inheritdoc />
     /// <summary>
-    /// Controller for manage comments.
+    /// Manages comments.
     /// </summary>
     public class CommentsController : BaseController
     {
         private readonly ICommentService _commentService;
-        private readonly IDistributedCacheManager _cacheManager;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="commentService"></param>
-        /// <param name="cache"></param>
         /// <param name="signalRHubAggregator"></param>
-        public CommentsController(ICommentService commentService, IDistributedCacheManager cache, ISignalRHubAggregator signalRHubAggregator)
+        public CommentsController(ICommentService commentService, ISignalRHubAggregator signalRHubAggregator)
         {
             _commentService = commentService;
-            _cacheManager = cache;
             _signalRHubAggregator = signalRHubAggregator;
         }
         
@@ -57,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("last")]
         public async Task<IActionResult> GetLastList()
         {
-            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
+            var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
                 async () => await _commentService.GetLastListAsync());
             return Ok(result);
         }
@@ -119,7 +114,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
 
-            _cacheManager.Remove(CacheKeysConstants.MaterialsLatest,
+            CacheManager.Remove(CacheKeysConstants.MaterialsLatest,
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
 
@@ -146,7 +141,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            _cacheManager.Remove(CacheKeysConstants.MaterialsLatest, 
+            CacheManager.Remove(CacheKeysConstants.MaterialsLatest, 
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
 
             return Ok(result);
@@ -173,7 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
 
             var result = await _commentService.UpdateAsync(dto);
-            _cacheManager.Remove(CacheKeysConstants.LastComments);
+            CacheManager.Remove(CacheKeysConstants.LastComments);
 
             return Ok(result);
         }       

@@ -2,22 +2,18 @@
 import { Observable } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
-import { Pageable, PagedList } from "@app/shared";
+import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { COMMENTS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()
-export class CommentService extends BaseRestService<Comment, CommentFilter | any> {
+export class CommentService extends BaseRestService<Comment, CommentFilter> {
     private actionUrl: string = COMMENTS_ROUTE + "/";
 
     constructor(public http: HttpWrapper) {
         super(http, COMMENTS_ROUTE + "/");
     }
-
-    public getAllNew(filters: CommentFilter | any): Observable<PagedList<Comment>> {
-        return this.http.getWithParams<PagedList<Comment>>(this.actionUrl, filters);
-    };
     
     public getLastList(): Observable<Comment[]> {
         return this.http.get<Comment[]>(this.actionUrl + "last");
@@ -32,7 +28,7 @@ export class CommentService extends BaseRestService<Comment, CommentFilter | any
     };
     
     public verify(id: number): Observable<number> {
-        return this.http.put<number>(this.actionUrl + id + "/verify", new Object());
+        return this.http.put<number>(this.actionUrl + id + "/verify", "");
     };
 
     public vote(vote: CommentVote): Observable<boolean> {

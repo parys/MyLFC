@@ -10,7 +10,6 @@ using MyLfc.Application.HelpEntities;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -36,61 +35,7 @@ namespace MyLiverpool.Business.Services
             var result = await _personRepository.CreateAsync(model);
             return _mapper.Map<PersonDto>(result);
         }
-
-        public async Task<PageableData<PersonDto>> GetListAsync(PersonFiltersDto dto)
-        {
-            Expression<Func<Person, bool>> filter = x => true;
-            if (dto.Type.HasValue)
-            {
-                filter = filter.And(x => x.Type == dto.Type.Value);
-            }
-            if (!string.IsNullOrWhiteSpace(dto.Name))
-            {
-                filter = filter.And(x => x.FirstName.Contains(dto.Name) ||
-                                         x.LastName.Contains(dto.Name) ||
-                                         x.FirstRussianName.Contains(dto.Name) ||
-                                         x.LastRussianName.Contains(dto.Name));
-            }
-
-            if (dto.MatchId.HasValue)
-            {
-                filter = filter.And(x => x.Matches.Any(m => m.MatchId == dto.MatchId.Value));
-            }
-
-            Expression<Func<Person, object>> sortBy = x => x.LastRussianName;
-            if (!string.IsNullOrWhiteSpace(dto.SortBy))
-            {
-                if (dto.SortBy.Contains(nameof(Person.LastRussianName),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.LastRussianName;
-                }
-                else if (dto.SortBy.Contains(nameof(Person.FirstRussianName),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.FirstRussianName;
-                }
-                else if (dto.SortBy.Contains(nameof(Person.Birthday),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.Birthday;
-                }
-                else if (dto.SortBy.Contains(nameof(Person.Position),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.Position;
-                }else if (dto.SortBy.Contains(nameof(Person.Country),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.Country;
-                }
-            }
-            var model = await _personRepository.GetListAsync(dto.Page, dto.ItemsPerPage, true, filter, dto.SortOrder, sortBy);
-            var personDto = _mapper.Map<IEnumerable<PersonDto>>(model);
-            var count = await _personRepository.CountAsync(filter);
-            return new PageableData<PersonDto>(personDto, dto.Page, count, dto.ItemsPerPage);
-        }
-
+        
         public async Task<PersonDto> GetByIdAsync(int id)
         {
             var person = await _personRepository.GetFirstByPredicateAsync(x => x.Id == id);

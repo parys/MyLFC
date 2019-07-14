@@ -1,5 +1,5 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class MatchFilters extends BaseRestFilter {
-    categoryId: number;
+export class MatchFilters extends PagedQueryBase {
+    seasonId?: number;
 }

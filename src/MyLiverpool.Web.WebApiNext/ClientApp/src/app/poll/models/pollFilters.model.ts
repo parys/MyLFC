@@ -1,4 +1,4 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class PollFilters extends BaseRestFilter {
+export class PollFilters extends PagedQueryBase {
 }

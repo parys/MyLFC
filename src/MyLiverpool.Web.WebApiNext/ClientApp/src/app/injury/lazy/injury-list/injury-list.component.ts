@@ -8,7 +8,7 @@ import { merge, of, fromEvent, Observable, Subscription } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { Injury, InjuryFilters } from "@app/injury/model";
 import { InjuryService } from "@app/injury/core";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP, PAGE } from "@app/+constants";
 
 @Component({
@@ -34,8 +34,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-            },
-            e => console.log(e));
+            });
 
         merge(this.sort.sortChange,
             fromEvent(this.nameInput.nativeElement, KEYUP)
@@ -52,12 +51,12 @@ export class InjuryListComponent implements OnInit, OnDestroy {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Injury>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Injury>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -65,8 +64,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
             ).subscribe((data: Injury[]) => {
                     this.items = data;
                     this.updateUrl();
-                },
-                e => console.log(e));
+                });
     }
 
     public ngOnDestroy(): void {
@@ -79,16 +77,16 @@ export class InjuryListComponent implements OnInit, OnDestroy {
             if (result) {
                 this.delete(injury.id);
             }
-        }, e => console.log(e));
+        });
     }
 
-    public update(): Observable<Pageable<Injury>> {
+    public update(): Observable<PagedList<Injury>> {
         const filters = new InjuryFilters();
         filters.name = this.nameInput.nativeElement.value;
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
-        filters.sortBy = this.sort.active;
-        filters.order = this.sort.direction;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.injuryService
             .getAll(filters);
@@ -105,7 +103,6 @@ export class InjuryListComponent implements OnInit, OnDestroy {
                 if (res) {
                     this.items.splice(index, 1);
                     this.paginator.length -= 1;
-                }},
-                e => console.log(e));
+                }});
     }
 }

@@ -1,17 +1,17 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { Observable } from "rxjs";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { BaseRestFilter } from "./base-rest-filter.model";
+import { PagedQueryBase } from './paged-query-base.model';
 
 @Injectable()
-export class BaseRestService<T, TF extends BaseRestFilter> {
+export class BaseRestService<T, TF extends PagedQueryBase> {
     constructor(public http: HttpWrapper,
         @Inject("baseActionUrl") public baseActionUrl: string) {
     }
 
-    public getAll(filters: TF): Observable<Pageable<T>> {
-        return this.http.get<Pageable<T>>(this.baseActionUrl + `${encodeURIComponent(JSON.stringify(filters))}`);
+    public getAll(filters: TF): Observable<PagedList<T>> {
+        return this.http.getWithParams<PagedList<T>>(this.baseActionUrl, filters);
     };
 
     public getSingle(id: number): Observable<T> {

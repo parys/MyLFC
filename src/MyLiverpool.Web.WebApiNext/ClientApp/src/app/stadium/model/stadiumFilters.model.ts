@@ -1,5 +1,5 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class StadiumFilters extends BaseRestFilter {
+export class StadiumFilters extends PagedQueryBase {
     public name: string;
 }

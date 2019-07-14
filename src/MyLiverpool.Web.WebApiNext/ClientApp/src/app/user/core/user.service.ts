@@ -1,23 +1,18 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { UserFilters, User, UserConfig, UserFiltersOld } from "../model";
+import { UserFilters, User, UserConfig } from "../model";
 import { UsersOnline } from "@app/+common-models";
 import { USERS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
-import { PagedList } from '@app/shared';
 
 @Injectable()
-export class UserService extends BaseRestService<User, UserFiltersOld> {
+export class UserService extends BaseRestService<User, UserFilters> {
     private actionUrl: string = USERS_ROUTE + "/";
 
     constructor(public http: HttpWrapper) {
         super(http, USERS_ROUTE + "/");
     }
-    
-    public getList(filters: UserFilters | any): Observable<PagedList<User>> {
-        return this.http.getWithParams<PagedList<User>>(this.actionUrl, filters);
-    };
 
     public updateRoleGroup(id: number, roleGroupId: number): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, "");

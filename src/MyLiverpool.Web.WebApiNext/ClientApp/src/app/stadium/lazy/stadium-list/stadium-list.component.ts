@@ -7,7 +7,7 @@ import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Stadium, StadiumFilters } from "../../model";
 import { StadiumService } from "../../core";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { PAGE, STADIUMS_ROUTE } from "@app/+constants";
 
 @Component({
@@ -42,12 +42,12 @@ export class StadiumListComponent implements OnInit, OnDestroy {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Stadium>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Stadium>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -72,10 +72,10 @@ export class StadiumListComponent implements OnInit, OnDestroy {
             });
     }
 
-    public update(): Observable<Pageable<Stadium>> {
+    public update(): Observable<PagedList<Stadium>> {
         const filters = new StadiumFilters();
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
 
         return this.service
             .getAll(filters);
@@ -89,10 +89,10 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     private delete(index: number): void {
         this.service.delete(this.items[index].id)
             .subscribe((res: boolean) => {
-                    if (res) {
-                        this.items.splice(index, 1);
-                        this.paginator.length -= 1;
-                    }
-                });
+                if (res) {
+                    this.items.splice(index, 1);
+                    this.paginator.length -= 1;
+                }
+            });
     }
 }

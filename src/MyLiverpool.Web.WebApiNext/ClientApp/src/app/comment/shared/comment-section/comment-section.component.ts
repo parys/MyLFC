@@ -5,7 +5,7 @@ import { Comment } from "@app/+common-models";
 import { CommentService } from "../../core/comment.service";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { SignalRService } from '../../../+signalr/signalr.common.service';
+import { SignalRService } from '@app/+signalr/signalr.common.service';
 
 @Component({
     selector: "comment-section",

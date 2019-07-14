@@ -7,7 +7,7 @@ import { ClubService } from "@app/club/core";
 import { Club } from "@app/club/model";
 import { Stadium, StadiumService, StadiumFilters } from "@app/stadium";
 import { CLUBS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 
 @Component({
     selector: "club-edit",
@@ -102,8 +102,8 @@ export class ClubEditComponent implements OnInit, OnDestroy {
                 filter.name = value;
                 return this.stadiumService.getAll(filter);
             }),
-            switchMap((pagingStadiums: Pageable<Stadium>): Observable<Stadium[]> => {
-                return of(pagingStadiums.list);
+            switchMap((pagingStadiums: PagedList<Stadium>): Observable<Stadium[]> => {
+                return of(pagingStadiums.results);
             }));
     }
 }
