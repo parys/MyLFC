@@ -94,7 +94,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="request">The identifier.</param>
         /// <returns>Found match entity.</returns>
-        [AllowAnonymous, HttpGet("{materialId:int}")]
+        [AllowAnonymous, HttpGet("{materialId:int}/comments")]
         public async Task<IActionResult> GetComments([FromRoute]GetCommentListByEntityIdQuery.Request request)
         {
             return Ok(await Mediator.Send(request));

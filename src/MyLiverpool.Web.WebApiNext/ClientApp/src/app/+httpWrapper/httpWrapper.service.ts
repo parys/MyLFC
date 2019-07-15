@@ -63,7 +63,15 @@ export class HttpWrapper {
         let searchParams = new HttpParams();
         for (const key in params) {
             if (params.hasOwnProperty(key)) {
-                searchParams = searchParams.append(key, params[key] || typeof(params[key])=== 'number' ? '0' : '');
+                let value = params[key];
+                if (!value) {
+                    if (typeof (params[key]) === 'number') {
+                        value = 0;
+                    } else {
+                        continue;
+                    }
+                }
+                searchParams = searchParams.append(key, value);
             }
         }
         return searchParams;

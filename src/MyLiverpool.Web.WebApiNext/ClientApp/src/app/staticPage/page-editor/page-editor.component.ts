@@ -41,9 +41,9 @@ export class PageEditorComponent implements OnInit, OnDestroy {
                 this.id = +data["id"];
                 if (this.id > 0) {
                     this.title = HelperType[this.id];
-                    this.sub2 = this.service.getValue(this.id).subscribe((pageData: StaticPage) => {
+                    this.sub2 = this.service.getValue(this.id).subscribe((pageData: string) => {
                             if (pageData) {
-                                this.content = pageData.value;
+                                this.content = pageData;
                                 this.editPageForm.get("content").patchValue(pageData);
                             }
                         });

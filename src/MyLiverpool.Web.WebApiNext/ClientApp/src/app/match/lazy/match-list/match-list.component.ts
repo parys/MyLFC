@@ -32,8 +32,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
         this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
-            },
-            e => console.log(e));
+            });
 
         merge(this.paginator.page)
             .pipe(

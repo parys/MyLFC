@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AdminService } from "@app/admin/core";
 import { RolesCheckedService } from "@app/+auth";
+import { StaticPage } from '@app/staticPage';
 
 @Component({
     selector: "<static-page>",

@@ -38,7 +38,9 @@ namespace MyLfc.Application.Comments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var commentsQuery = _context.MaterialComments.AsNoTracking();
+                var commentsQuery = _context.MaterialComments
+                    .Include(x => x.Author)
+                    .AsNoTracking();
 
                 if (request.MatchId.HasValue)
                 {

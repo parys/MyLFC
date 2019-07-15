@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { HELPERS_ROUTE } from "@app/+constants";
 import { StaticPage } from '@app/staticPage';
+import { SingleResponse } from '../../+common-models/singleResponse.model';
 
 @Injectable()
 export class AdminService {
@@ -12,12 +13,12 @@ export class AdminService {
     constructor(private http: HttpWrapper) {
     }
 
-    public updateEplTable(): Observable<string> {
-        return this.http.getString(this.actionUrl + "updateTable/");
+    public updateEplTable(): Observable<SingleResponse<string>>{
+        return this.http.get<SingleResponse<string>>(this.actionUrl + "updateTable/");
     };
 
     //duplicates in static page service
-    public getValue(id: number): Observable<StaticPage> {
+    public getValue(id: number): Observable<string> {
         return this.http.get(`${this.actionHelperUrl}${id}`);
     };
 }

@@ -17,7 +17,7 @@ export class StaticPageService {
     };
 
     //duplicates in admin service
-    public getValue(id: number): Observable<StaticPage> {
+    public getValue(id: number): Observable<string> {
         return this.http.get(`${this.actionHelperUrl}${id}`);
     };
 }
