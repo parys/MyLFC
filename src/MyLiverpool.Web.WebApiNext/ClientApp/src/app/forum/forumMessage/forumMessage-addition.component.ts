@@ -35,8 +35,7 @@ export class ForumMessageAdditionComponent implements OnInit {
             .subscribe(data => {
                     this.newMessage.emit(data);
                     this.commentForm.reset();
-                },
-                e => console.log(e)
+                }
             );
     }
 }

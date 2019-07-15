@@ -34,13 +34,11 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.service
                     .getSingle(this.id)
-                    .subscribe(data => this.editForm.patchValue(data),
-                    error => console.log(error));
+                    .subscribe(data => this.editForm.patchValue(data));
             }
         });
         this.sectionService.getAll()
-            .subscribe(data => this.forumSections = data,
-                error => console.log(error));
+            .subscribe(data => this.forumSections = data);
     }
 
     ngOnDestroy() {

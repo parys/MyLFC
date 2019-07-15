@@ -17,7 +17,7 @@ export class HttpWrapper {
         });
     }  
 
-    public getWithParams<T>(url: string, params: HttpParams | { [param: string]: string | string[] }): Observable<T> {
+    public getWithParams<T>(url: string, params: HttpParams | { [param: string]: string | string[] } | any): Observable<T> {
         return this.http.get<T>(this.baseUrl + API_URL + url, {
             headers: this.updateHeaders(),
             params: this.buildUrlSearchParams(params)
@@ -63,7 +63,7 @@ export class HttpWrapper {
         let searchParams = new HttpParams();
         for (const key in params) {
             if (params.hasOwnProperty(key)) {
-                searchParams = searchParams.append(key, params[key] || "");
+                searchParams = searchParams.append(key, params[key] || typeof(params[key])=== 'number' ? '0' : '');
             }
         }
         return searchParams;

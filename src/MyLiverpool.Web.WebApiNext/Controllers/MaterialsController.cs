@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyLfc.Application.Comments;
 using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
@@ -56,8 +57,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> ActivateAsync([FromRoute]ActivateMaterialCommand.Request request)
         {
             var result = await Mediator.Send(request);
-                _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
-         //todo think about different models       _cacheManager.Set(CacheKeysConstants.Material + id, result);
+                _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest
+                    , CacheKeysConstants.Material + request.Id);
             
             return Ok(true);
         }
@@ -88,7 +89,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Returns material comments.
+        /// </summary>
+        /// <param name="request">The identifier.</param>
+        /// <returns>Found match entity.</returns>
+        [AllowAnonymous, HttpGet("{materialId:int}")]
+        public async Task<IActionResult> GetComments([FromRoute]GetCommentListByEntityIdQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
+        
         /// <summary>
         /// Updates material.
         /// </summary>

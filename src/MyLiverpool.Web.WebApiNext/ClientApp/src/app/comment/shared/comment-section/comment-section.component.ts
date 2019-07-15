@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Comment } from "@app/+common-models";
 import { CommentService } from "../../core/comment.service";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from '@app/+signalr/signalr.common.service';
+import { CommentFilter } from '../../model/commentFilter.model';
 
 @Component({
     selector: "comment-section",
@@ -158,9 +159,12 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
     };
 
     public update(): void {
+        var filters = new CommentFilter();
+        filters.materialId = this.materialId;
+        filters.matchId = this.matchId;
         if (this.materialId) {
             this.commentService
-                .getAllByMaterial(this.page, this.materialId)
+                .getAllByMaterial(filters)
                 .subscribe(data => this.parsePageable(data),
                     () => {},
                     () => {
@@ -168,7 +172,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
                     });
         } else if (this.matchId) {
             this.commentService
-                .getAllByMatch(this.page, this.matchId)
+                .getAllByMatch(filters)
                 .subscribe(data => this.parsePageable(data),
                     () => {},
                     () => {
@@ -177,11 +181,11 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         }
     }
 
-    private parsePageable(pageable: Pageable<Comment>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
+    private parsePageable(pageable: PagedList<Comment>): void {
+        this.items = pageable.results;
+        this.page = pageable.currentPage;
+        this.itemsPerPage = pageable.pageSize;
+        this.totalItems = pageable.rowCount;
     }
 
     public onSubmit(): void {

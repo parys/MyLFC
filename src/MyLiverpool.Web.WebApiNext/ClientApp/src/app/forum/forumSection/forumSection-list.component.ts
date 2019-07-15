@@ -18,7 +18,6 @@ export class ForumSectionListComponent implements OnInit {
     public ngOnInit(): void {
         this.service
             .getAll()
-            .subscribe(data => this.items = data,
-            error => console.log(error));
+            .subscribe(data => this.items = data);
     }
 }

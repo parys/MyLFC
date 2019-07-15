@@ -130,10 +130,6 @@ namespace MyLiverpool.Business.Services
             return dto;
         }
 
-        public Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
-        {
-            throw new NotImplementedException();
-        }
 
         private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)
         {

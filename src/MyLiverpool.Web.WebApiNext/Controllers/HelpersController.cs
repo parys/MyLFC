@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Result of update.</returns>
         [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{type:int}")]
-        public async Task<IActionResult> UpdateAsync(int type, [FromBody]CreateOrUpdateEntityCommand.Request request)
+        public async Task<IActionResult> UpdateAsync([FromRoute]int type, [FromBody]CreateOrUpdateEntityCommand.Request request)
         {
             request.Type = (HelperEntityType) type;
             var result = await Mediator.Send(request);

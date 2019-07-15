@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Comments;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Matches;
 using MyLfc.Common.Web;
@@ -79,6 +80,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchService.GetByIdAsync(id);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns match comments.
+        /// </summary>
+        /// <param name="request">The identifier.</param>
+        /// <returns>Found match entity.</returns>
+        [AllowAnonymous, HttpGet("{matchId:int}")]
+        public async Task<IActionResult> GetComments([FromRoute]GetCommentListByEntityIdQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>

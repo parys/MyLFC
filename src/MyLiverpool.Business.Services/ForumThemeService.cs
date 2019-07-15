@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -44,7 +42,7 @@ namespace MyLiverpool.Business.Services
         {
             var theme = await _forumThemeRepository.GetByIdWithMessagesAsync(id, page);
             var model = _mapper.Map<ForumThemeDto>(theme);
-            model.Messages = new PageableData<ForumMessageDto>(_mapper.Map<IEnumerable<ForumMessageDto>>(theme.Messages), page, theme.MessagesCount);
+      //todo      model.Messages = new PageableData<ForumMessageDto>(_mapper.Map<IEnumerable<ForumMessageDto>>(theme.Messages), page, theme.MessagesCount);
             return model;
         }
 

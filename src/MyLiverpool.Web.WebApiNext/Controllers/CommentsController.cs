@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -63,15 +64,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of material.</param>
         /// <param name="page">The page of comments list.</param>
         /// <returns>Selected page comments list for material.</returns>
+        [Obsolete("Remove after 1 Aug 19")]
         [AllowAnonymous, HttpGet("material/{id:int}/list/{page:int}")]
         public async Task<IActionResult> GetListForMaterialAsync(int id, int page = 1)
         {
-            if (page < 1)
+            var request = new GetCommentListByEntityIdQuery.Request
             {
-                page = 1;
-            }
-            var result = await _commentService.GetListByMaterialIdAsync(id, page);
-            return Ok(result);
+                MaterialId = id,
+                CurrentPage = 1,
+                PageSize = 500 //temporary
+
+            };
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -80,15 +84,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of match.</param>
         /// <param name="page">The page of comments list.</param>
         /// <returns>Selected page comments list for match.</returns>
+        [Obsolete("Remove after 1 Aug 19")]
         [AllowAnonymous, HttpGet("match/{id:int}/list/{page:int}")]
         public async Task<IActionResult> GetListForMatchAsync(int id, int page = 1)
         {
-            if (page < 1)
+            var request = new GetCommentListByEntityIdQuery.Request
             {
-                page = 1;
-            }
-            var result = await _commentService.GetListByMatchIdAsync(id, page);
-            return Ok(result);
+                MatchId = id,
+                CurrentPage = 1,
+                PageSize = 500 //temporary
+
+            };
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>

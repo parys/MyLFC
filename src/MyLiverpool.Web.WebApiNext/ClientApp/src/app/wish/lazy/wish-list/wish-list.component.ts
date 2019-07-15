@@ -69,7 +69,7 @@ export class WishListComponent implements OnInit {
         filters.pageSize = this.paginator.pageSize;
         filters.currentPage = this.paginator.pageIndex + 1;
 
-        return this.service.getAllNew(filters);
+        return this.service.getAll(filters);
     }
 
     public getTypeClass(i: number): string {

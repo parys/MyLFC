@@ -54,10 +54,9 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
         this.service.getSingleWithThemes(id, this.page)
             .subscribe(data => {
                 this.item = data;
-                this.itemsPerPage = data.themes.itemPerPage;
-                this.items = data.themes.list;
-                this.totalItems = data.themes.totalItems;
-            },
-            error => console.log(error));
+                this.itemsPerPage = data.themes.pageSize;
+                this.items = data.themes.results;
+                this.totalItems = data.themes.rowCount;
+            });
     }
 }

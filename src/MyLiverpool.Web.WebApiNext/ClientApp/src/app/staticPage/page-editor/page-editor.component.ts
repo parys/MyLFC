@@ -5,6 +5,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subscription } from "rxjs";
 import { StaticPageService } from "../staticPage.service";
 import { HelperType } from "@app/home";
+import { StaticPage } from '../staticPage.model';
 
 //import "tinymce/plugins/fullscreen/plugin.min.js";
 //import "tinymce/plugins/code/plugin.min.js";
@@ -40,9 +41,9 @@ export class PageEditorComponent implements OnInit, OnDestroy {
                 this.id = +data["id"];
                 if (this.id > 0) {
                     this.title = HelperType[this.id];
-                    this.sub2 = this.service.getValue(this.id).subscribe((pageData: string) => {
+                    this.sub2 = this.service.getValue(this.id).subscribe((pageData: StaticPage) => {
                             if (pageData) {
-                                this.content = pageData;
+                                this.content = pageData.value;
                                 this.editPageForm.get("content").patchValue(pageData);
                             }
                         });
@@ -63,9 +64,10 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        let model: string = this.editPageForm.controls["content"].value;
-        if (model === "&nbsp;") model = "";
-        this.service.updateValue(this.id, model).subscribe(data => {
+        const pageModel = new StaticPage();
+        pageModel.value = this.editPageForm.controls["content"].value;
+        if (pageModel.value === "&nbsp;") pageModel.value = "";
+        this.service.updateValue(this.id, pageModel).subscribe(data => {
             if (data) {
                 this.snackBar.open("Страница обновлена.");
             } else {

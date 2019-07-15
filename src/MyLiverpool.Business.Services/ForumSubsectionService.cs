@@ -47,9 +47,9 @@ namespace MyLiverpool.Business.Services
             var subsection = await _forumSubsectionRepository.GetByIdWithThemesAsync(subsectionId, page);
 
             var model = _mapper.Map<ForumSubsectionDto>(subsection);
-            model.Themes =
-                new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsection.Themes), page,
-                    subsection.ThemesCount);
+       //todo     model.Themes =
+        //        new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsection.Themes), page,
+        //            subsection.ThemesCount);
             return model;
         } 
 

@@ -1,5 +1,5 @@
-﻿import { ForumMessage } from "../forumMessage/index";
-import { Pageable } from "../../shared/index";
+﻿import { ForumMessage } from "../forumMessage";
+import { PagedList } from "@app/shared";
 
 export class ForumTheme {
     id: number;
@@ -17,5 +17,5 @@ export class ForumTheme {
     authorId: number;
     //    virtual User LastAnswerUser: ;
     lastAnswerUserId: number;
-    messages: Pageable<ForumMessage>;
+    messages: PagedList<ForumMessage>;
 }

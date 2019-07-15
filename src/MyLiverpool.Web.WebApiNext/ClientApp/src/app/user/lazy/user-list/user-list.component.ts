@@ -102,7 +102,7 @@ export class UserListComponent implements OnInit {
         filters.sortDirection = this.sort.direction;
 
         return this.userService
-            .getList(filters);
+            .getAll(filters);
     }
 
     private updateUrl(): void {

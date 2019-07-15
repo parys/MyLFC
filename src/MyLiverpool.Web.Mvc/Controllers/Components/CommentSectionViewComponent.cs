@@ -1,30 +1,29 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Comments;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     [ViewComponent(Name = "CommentSection")]
     public class CommentSectionViewComponent : ViewComponent
     {
-        private readonly ICommentService _commentService;
+        private readonly IMediator _mediator;
 
-        public CommentSectionViewComponent(ICommentService commentService)
+        public CommentSectionViewComponent(IMediator mediator)
         {
-            _commentService = commentService;
+            _mediator = mediator;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int? materialId = null, int? matchId = null)
         {
-            PageableData<CommentDto> result = null;
-            if (materialId.HasValue) {
-                result = await _commentService.GetListByMaterialIdAsync(materialId.Value, 1);
-            } else if (matchId.HasValue) {
-                 result = await _commentService.GetListByMatchIdAsync(matchId.Value, 1);
-            }
-            return View(result);
+            var request = new GetCommentListByEntityIdQuery.Request
+            {
+                MaterialId = materialId,
+                MatchId = matchId
+            };
+
+            return View(await _mediator.Send(request));
         }
     }
 }

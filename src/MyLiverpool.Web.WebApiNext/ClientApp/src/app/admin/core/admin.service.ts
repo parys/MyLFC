@@ -2,6 +2,7 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { HELPERS_ROUTE } from "@app/+constants";
+import { StaticPage } from '@app/staticPage';
 
 @Injectable()
 export class AdminService {
@@ -15,8 +16,8 @@ export class AdminService {
         return this.http.getString(this.actionUrl + "updateTable/");
     };
 
-    ///duplicates in static page service
-    public getValue(id: number): Observable<string> {
-        return this.http.getString(`${this.actionHelperUrl}${id}`);
+    //duplicates in static page service
+    public getValue(id: number): Observable<StaticPage> {
+        return this.http.get(`${this.actionHelperUrl}${id}`);
     };
 }

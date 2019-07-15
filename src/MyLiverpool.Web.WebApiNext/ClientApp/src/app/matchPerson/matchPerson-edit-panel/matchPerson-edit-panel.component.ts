@@ -7,7 +7,7 @@ import { MatchPersonType } from "../matchPersonType.model";
 import { PersonService, Person, PersonFilters } from "@app/person";
 import { MatchPersonService } from "../matchPerson.service";
 import { DEBOUNCE_TIME } from "@app/+constants";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 
 @Component({
     selector: "matchPerson-edit-panel",
@@ -118,8 +118,8 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
            //todo fix during rewrite to Mediatr     filter.type = this.personTypeId;
                 return this.personService.getAll(filter);
             }),
-            switchMap((pagingClubs: Pageable<Person>): Observable<Person[]> => {
-                return of(pagingClubs.list);
+            switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
+                return of(pagingClubs.results);
             }));
     }
 }

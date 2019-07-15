@@ -4,11 +4,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
-import { DeleteDialogComponent } from "@app/shared";
+import { DeleteDialogComponent, PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
 import { EditorComponent } from "@app/editor";
 import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from "@app/+constants";
+import { ChatFilters } from '../model';
 
 @Component({
     selector: "chat-window",
@@ -52,10 +53,13 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
 
     public update(): void {
         const id: number = this.items.length > 0 ? this.items[0].id : 0;
+        const chatFilters = new ChatFilters();
+        chatFilters.lastMessageId = id;
+        chatFilters.typeId = this.type;
         this.service
-            .getLatest(id, this.type) //todo use filter?
-            .subscribe((data: ChatMessage[]) => {
-                    this.items = data.concat(this.items);
+            .getAll(chatFilters)
+            .subscribe((data: PagedList<ChatMessage>) => {
+                    this.items = data.results.concat(this.items);
                 },
                 () => {},
                 () => this.cd.markForCheck());
@@ -94,9 +98,9 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     }
 
     public addReply(index: number): void {
-        let message: string = this.messageForm.get(MESSAGE).value;
-        let userName: string = this.items[index].userName;
-        let newMessage: string = `<i>${userName}</i>, ${message}`;
+        const message: string = this.messageForm.get(MESSAGE).value;
+        const userName: string = this.items[index].userName;
+        const newMessage: string = `<i>${userName}</i>, ${message}`;
         this.messageForm.get(MESSAGE).patchValue(newMessage);
         this.elementRef.setFocus();
         this.cd.markForCheck();

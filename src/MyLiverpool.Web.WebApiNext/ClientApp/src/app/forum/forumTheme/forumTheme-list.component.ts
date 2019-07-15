@@ -37,8 +37,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = +qParams["page"] || 1;
-            },
-            e => console.log(e));
+            });
         this.update(+this.route.snapshot.params["id"]);
     };
 
@@ -75,7 +74,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
             if (result) {
                 this.delete(index);
             }
-        }, e => console.log(e));
+        });
     }
 
     public editComment(index: number): void {
@@ -86,8 +85,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
                 this.items[index].message = data.message;
                 this.items[index].lastModifiedTime = data.lastModifiedTime;
                 this.hideEditModal();
-            },
-            e => console.log(e));
+            });
     }
 
     private delete(index: number): void {
@@ -98,8 +96,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
                         this.items.splice(index, 1);
                         this.totalItems -= 1;
                     }
-                },
-            e => console.log(e));
+                });
     }
 
     private initForm(index: number = null) {
@@ -114,10 +111,9 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
         this.service.getSingleWithMessages(id, this.page)
             .subscribe(data => {
                 this.item = data;
-                this.itemsPerPage = data.messages.itemPerPage;
-                this.items = data.messages.list;
-                this.totalItems = data.messages.totalItems;
-            },
-            error => console.log(error));
+                this.itemsPerPage = data.messages.pageSize;
+                this.items = data.messages.results;
+                this.totalItems = data.messages.rowCount;
+            });
     }
 }

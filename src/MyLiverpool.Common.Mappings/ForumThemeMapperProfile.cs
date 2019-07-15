@@ -27,7 +27,8 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.SubsectionId, src => src.MapFrom(x => x.SubsectionId))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
-                .ForMember(dest => dest.Messages, src => src.Ignore());
+               //todo .ForMember(dest => dest.Messages, src => src.Ignore())
+                ;
 
             CreateMap<ForumThemeDto, ForumTheme>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))

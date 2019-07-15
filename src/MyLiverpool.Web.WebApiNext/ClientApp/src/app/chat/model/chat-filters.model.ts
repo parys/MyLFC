@@ -1,5 +1,6 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class ChatFilters extends BaseRestFilter {
-    public name: string;
+export class ChatFilters extends PagedQueryBase {
+    public typeId: number;
+    public lastMessageId : number;
 }

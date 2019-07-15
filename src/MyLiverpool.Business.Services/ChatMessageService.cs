@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -60,15 +55,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = await _chatMessageRepository.GetFirstByPredicateAsync(x => x.Id == id, true, x => x.Include(c => c.Author));
             return _mapper.Map<ChatMessageDto>(model);
-        }
-
-        public async Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId, ChatMessageTypeEnum type)
-        {
-            Expression<Func<ChatMessage, bool>> filter = x => x.Type == type && x.Id > lastMessageId;
-            var messages = await _chatMessageRepository.GetQueryableList(1, GlobalConstants.TakingChatMessagesCount, true, filter,
-                SortOrder.Descending, x => x.AdditionTime, c => c.Include(y => y.Author))
-                    .ToListAsync();
-            return _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
         }
     }
 }

@@ -2,9 +2,9 @@
 import { Observable } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { COMMENTS_ROUTE } from "@app/+constants";
+import { COMMENTS_ROUTE, MATERIALS_ROUTE, MATCHES_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()
@@ -19,12 +19,12 @@ export class CommentService extends BaseRestService<Comment, CommentFilter> {
         return this.http.get<Comment[]>(this.actionUrl + "last");
     };
 
-    public getAllByMaterial(page: number, id: number): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(`${this.actionUrl}material/${id}/list/${page}`);//todo move to material service
+    public getAllByMaterial(filter: CommentFilter): Observable<PagedList<Comment>> {
+        return this.http.getWithParams<PagedList<Comment>>(`${MATERIALS_ROUTE}/${filter.materialId}/comments`, filter);//todo move to material service
     };
 
-    public getAllByMatch(page: number, id: number): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(`${this.actionUrl}match/${id}/list/${page}`);//todo move to match service
+    public getAllByMatch(filter: CommentFilter): Observable<PagedList<Comment>> {
+        return this.http.getWithParams<PagedList<Comment>>(`${MATCHES_ROUTE}/${filter.matchId}/comments`, filter);//todo move to match service
     };
     
     public verify(id: number): Observable<number> {

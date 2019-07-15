@@ -84,7 +84,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
         const filters = new InjuryFilters();
         filters.name = this.nameInput.nativeElement.value;
         filters.currentPage = this.paginator.pageIndex + 1;
-        filters.pageSize = this.paginator.pageSize;
+        filters.pageSize = this.paginator.pageSize || 10;
         filters.sortOn = this.sort.active;
         filters.sortDirection = this.sort.direction;
 

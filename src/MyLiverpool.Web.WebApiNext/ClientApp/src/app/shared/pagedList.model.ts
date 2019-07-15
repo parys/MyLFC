@@ -1,7 +1,7 @@
 ﻿export class PagedList<T> {
     results: T[];
-    currentPage: number;
-    pageSize: number;
+    currentPage: number = 1;
+    pageSize: number = 10;
     rowCount: number;
     pageCount: number;
 }

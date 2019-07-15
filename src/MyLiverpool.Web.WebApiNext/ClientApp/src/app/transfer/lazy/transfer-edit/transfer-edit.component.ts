@@ -142,7 +142,7 @@ export class TransferEditComponent implements OnInit, OnDestroy {
             switchMap((value: string): Observable<PagedList<Season>> => {
                 const filter = new SeasonFilters();
                 filter.name = value;
-                return this.seasonService.getAllNew(filter);
+                return this.seasonService.getAll(filter);
             }),
             switchMap((pagingSeasons: PagedList<Season>): Observable<Season[]> => {
                 return of(pagingSeasons.results);

@@ -81,12 +81,13 @@ export class ClubListComponent implements OnInit {
         const filters = new ClubFilters();
         filters.name = this.nameInput.nativeElement.value;
         filters.currentPage = this.paginator.pageIndex + 1;
-        filters.pageSize = this.paginator.pageSize;
+        filters.pageSize = this.paginator.pageSize || 10;
+        console.log(this.paginator.pageSize);
         filters.sortOn = this.sort.active;
         filters.sortDirection = this.sort.direction;
 
         return this.clubService
-            .getAllNew(filters);
+            .getAll(filters);
     }
 
     public updateUrl(): void {

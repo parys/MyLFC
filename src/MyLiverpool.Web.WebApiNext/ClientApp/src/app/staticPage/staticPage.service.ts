@@ -2,6 +2,7 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { HELPERS_ROUTE } from "@app/+constants";
+import { StaticPage } from './staticPage.model';
 
 @Injectable()
 export class StaticPageService {
@@ -11,12 +12,12 @@ export class StaticPageService {
     constructor(private http: HttpWrapper) {
     }
 
-    public updateValue(id: number, value: string): Observable<boolean> {
+    public updateValue(id: number, value: StaticPage): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionHelperUrl}${id}`, JSON.stringify(value));
     };
 
     //duplicates in admin service
-    public getValue(id: number): Observable<string> {
-        return this.http.getString(`${this.actionHelperUrl}${id}`);
+    public getValue(id: number): Observable<StaticPage> {
+        return this.http.get(`${this.actionHelperUrl}${id}`);
     };
 }

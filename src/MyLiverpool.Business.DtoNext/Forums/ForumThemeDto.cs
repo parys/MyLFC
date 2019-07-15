@@ -16,7 +16,7 @@ namespace MyLiverpool.Business.Dto
 
         public string AuthorUserName { get; set; }
 
-        public PageableData<ForumMessageDto> Messages { get;set; }
+     //todo   public PageableData<ForumMessageDto> Messages { get;set; }
 
         public int Answers { get; set; }
     }

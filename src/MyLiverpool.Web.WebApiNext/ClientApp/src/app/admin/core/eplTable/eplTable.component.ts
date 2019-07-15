@@ -24,7 +24,7 @@ export class EplTableComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.service
             .getValue(HelperType.EplTable)
-            .subscribe(data => this.eplTable = data,
+            .subscribe(data => this.eplTable = data.value,
                 () => {},
                 () => {
                     this.cd.markForCheck();

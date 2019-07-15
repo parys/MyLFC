@@ -31,7 +31,7 @@ export class CupTableComponent implements OnInit, OnDestroy {
             this.sub = this.service
                 .getValue(HelperType.CupTable)
                 .subscribe(data => {
-                        this.parse(data);
+                        this.parse(data.value);
                     this.transferState.set(CUP_TABLE_KEY, data);
                 });
         }

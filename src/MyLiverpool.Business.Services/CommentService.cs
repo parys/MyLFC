@@ -15,7 +15,6 @@ using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -30,9 +29,7 @@ namespace MyLiverpool.Business.Services
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
-
-        private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
-
+        
         public CommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IHttpContextAccessor accessor,
             IEmailSender messageService, ISignalRHubAggregator signalRHubAggregator,
@@ -51,6 +48,7 @@ namespace MyLiverpool.Business.Services
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.AdditionTime = comment.LastModified = DateTime.Now;
+            comment.Message = comment.Message;
     //todo        comment.Message = await _helperService.SanitizeRudWordsAsync(comment.Message);
             try
             {
@@ -79,6 +77,7 @@ namespace MyLiverpool.Business.Services
             }
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
+            comment.Message = model.Message;
           //todo  comment.Message = await _helperService.SanitizeRudWordsAsync(model.Message);
             try
             {
@@ -90,33 +89,7 @@ namespace MyLiverpool.Business.Services
             }
             return true;
         }
-
-        public async Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page)
-        {
-            Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
-
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
-            UpdateCurrentUserField(comments);
-            var unitedComments = UniteComments(comments, page);
-            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(unitedComments);
-          //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
-            var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<CommentDto>(commentDtos, page, commentsCount, ItemPerPage);
-        }
-
-        public async Task<PageableData<CommentDto>> GetListByMatchIdAsync(int matchId, int page)//todo need to unite with above
-        {
-            Expression<Func<MaterialComment, bool>> filter = x => x.MatchId == matchId;// && x.ParentId == null;
-
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
-            UpdateCurrentUserField(comments);
-            var unitedComments = UniteComments(comments, page);
-            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(unitedComments);
-          //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
-            var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<CommentDto>(commentDtos, page, commentsCount, ItemPerPage);
-        }
-
+        
         public async Task<int> CountAsync(Expression<Func<MaterialComment, bool>> filter = null)
         {
             return await _commentService.GetCountAsync(filter);
@@ -169,41 +142,7 @@ namespace MyLiverpool.Business.Services
                 await SendNotificationToEmailAsync(parentComment, commentId, authorUserName, commentText);
             }
         }
-
-        private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
-        {
-            if (_accessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                foreach (var materialComment in comments)
-                {
-                    materialComment.CurrentUserId = _accessor.HttpContext.User.GetUserId(); //todo need more elegant solution
-                }
-            }
-        }
-
-        private static IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments, int page)
-        {
-            var startNumber = ItemPerPage * (page - 1) + 1;
-            foreach (var comment in comments)
-            {
-                comment.Number = startNumber++;
-                if (comment.ParentId == null)
-                {
-                    continue;
-                }
-                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId || c.Id == comment.ParentId);
-                if (parent != null)
-                {
-                    if (parent.Children == null)
-                    {
-                        parent.Children = new List<MaterialComment>();
-                    }
-                    parent.Children.Add(comment);
-                }
-            }
-            return comments.Where(c => c.ParentId == null);
-        }
-
+        
         private async Task SendNotificationAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
             var notification = new CreateNotificationCommand.Request
