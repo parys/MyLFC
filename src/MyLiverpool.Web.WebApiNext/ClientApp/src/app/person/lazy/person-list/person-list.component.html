@@ -14,7 +14,7 @@
     </mat-form-field>
 </div>
 
-<table mat-table [dataSource]="items" matSort class="full-width">
+<table mat-table [dataSource]="items" matSort class="full-width" matSortActive="lastRussianName" matSortDirection="asc">
     <ng-container matColumnDef="lastRussianName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Фамилия </th>
         <td mat-cell *matCellDef="let person">

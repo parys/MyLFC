@@ -39,7 +39,9 @@ namespace MyLfc.Application.Transfers
                 transfersQuery = transfersQuery
                     .Where(x => x.SeasonId == currentSeason);
 
+
                 var result = await transfersQuery
+                    .OrderByDescending(x => x.StartDate)
                     .ProjectTo<TransferListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

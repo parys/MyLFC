@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyLfc.Application.Comments;
 using MyLfc.Business.ViewModels;
 using MyLiverpool.Business.Dto;
 
@@ -13,7 +14,7 @@ namespace MyLiverpool.Common.Mappings.Vm
 
         private void Map()
         {
-            CreateMap<CommentDto, CommentVm>();
+            CreateMap<GetCommentListByEntityIdQuery.CommentForEntityDto, CommentVm>();
         }
     }
 }

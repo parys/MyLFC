@@ -143,6 +143,7 @@ namespace MyLiverpool.Web.Mvc
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ISignalRHubAggregator, EmptyHubAggregator>();
+            services.AddScoped<RequestContext>();
         }
     }
 }

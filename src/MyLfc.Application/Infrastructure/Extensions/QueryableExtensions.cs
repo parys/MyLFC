@@ -48,18 +48,29 @@ namespace MyLfc.Application.Infrastructure.Extensions
         /// <param name="query">Paged query</param>
         /// <param name="mapper">AutoMapper instance</param>
         /// <param name="customSortBy"></param>
+        /// <param name="thenSortBy"></param>
         /// <returns></returns>
         public static async Task<TResponse> GetPagedAsync<TResponse, TEntity, TDto>(this IQueryable<TEntity> source,
-            PagedQueryBase query, IMapper mapper, Expression<Func<TEntity, object>> customSortBy = null)
+            PagedQueryBase query, IMapper mapper, Expression<Func<TEntity, object>> customSortBy = null,
+            Expression<Func<TEntity, object>> thenSortBy = null)
             where TDto : class where TResponse : PagedResult<TDto>, new()
         {
             if (!string.IsNullOrEmpty(query.SortDirection))
             {
                 if (customSortBy != null)
                 {
-                    source = query.SortDirection.ToUpper() == "ASC"
-                        ? source.OrderBy(customSortBy)
-                        : source.OrderByDescending(customSortBy);
+                    if (query.SortDirection.ToUpper() == "ASC")
+                    {
+                        source = thenSortBy != null
+                            ? source.OrderBy(customSortBy).ThenBy(thenSortBy)
+                            : source.OrderBy(customSortBy);
+                    }
+                    else
+                    {
+                        source = thenSortBy != null
+                            ? source.OrderByDescending(customSortBy).ThenByDescending(thenSortBy)
+                            : source.OrderByDescending(customSortBy);
+                    }
                 }
                 else if (!string.IsNullOrEmpty(query.SortOn))
                 {

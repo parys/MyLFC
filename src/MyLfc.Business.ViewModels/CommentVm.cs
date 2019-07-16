@@ -1,8 +1,8 @@
-﻿using MyLiverpool.Business.Dto;
+﻿using MyLfc.Application.Comments;
 
 namespace MyLfc.Business.ViewModels
 {
-    public class CommentVm : CommentDto
+    public class CommentVm : GetCommentListByEntityIdQuery.CommentForEntityDto
     {
         public int Deep { get; set; } = 0;
     }

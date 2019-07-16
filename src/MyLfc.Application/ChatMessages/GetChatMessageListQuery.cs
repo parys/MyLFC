@@ -58,11 +58,13 @@ namespace MyLfc.Application.ChatMessages
         }
 
 
+        [Serializable]
         public class Response : PagedResult<ChatMessageListDto>
         {
 
         }
 
+        [Serializable]
         public class ChatMessageListDto
         {
             public int Id { get; set; }

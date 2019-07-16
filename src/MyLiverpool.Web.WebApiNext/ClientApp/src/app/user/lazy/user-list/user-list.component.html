@@ -1,7 +1,7 @@
 ﻿<div class="table-container">
     <pm-reply *ngIf="selectedUserIndex" [userId]="items[selectedUserIndex].id" (close)="closePmWindow($event);" [userName]="items[selectedUserIndex].userName"></pm-reply>
 
-    <table mat-table [dataSource]="items" matSort class="user-table">
+    <table mat-table [dataSource]="items" matSort class="user-table" matSortActive="lastModified" matSortDirection="desc">
 
         <ng-container matColumnDef="userName" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Логин </th>

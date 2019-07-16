@@ -59,37 +59,43 @@ namespace MyLfc.Application.Persons
                     personsQuery = personsQuery.Where(x => x.Matches.Any(m => m.MatchId == request.MatchId.Value));
                 }
 
-                Expression<Func<Person, object>> sortBy = x => x.LastRussianName;
+                Expression<Func<Person, object>> sortBy = x => x.FirstRussianName;
+                Expression<Func<Person, object>> thenBy = x => x.LastRussianName;
                 if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
                     if (request.SortOn.Contains(nameof(Person.LastRussianName),
                         StringComparison.InvariantCultureIgnoreCase))
                     {
                         sortBy = x => x.LastRussianName;
+                        thenBy = x => x.FirstRussianName;
                     }
                     else if (request.SortOn.Contains(nameof(Person.FirstRussianName),
                         StringComparison.InvariantCultureIgnoreCase))
                     {
                         sortBy = x => x.FirstRussianName;
+                        thenBy = x => x.LastRussianName;
                     }
                     else if (request.SortOn.Contains(nameof(Person.Birthday),
                         StringComparison.InvariantCultureIgnoreCase))
                     {
                         sortBy = x => x.Birthday;
+                        thenBy = null;
                     }
                     else if (request.SortOn.Contains(nameof(Person.Position),
                         StringComparison.InvariantCultureIgnoreCase))
                     {
                         sortBy = x => x.Position;
+                        thenBy = null;
                     }
                     else if (request.SortOn.Contains(nameof(Person.Country),
                         StringComparison.InvariantCultureIgnoreCase))
                     {
                         sortBy = x => x.Country;
+                        thenBy = null;
                     }
                 }
-
-                return await personsQuery.GetPagedAsync<Response, Person, PersonListDto>(request, _mapper, sortBy);
+                 
+                return await personsQuery.GetPagedAsync<Response, Person, PersonListDto>(request, _mapper, sortBy, thenBy);
             }
         }
 

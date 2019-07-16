@@ -5,7 +5,7 @@
     </mat-form-field>
 </div>
 
-<table mat-table [dataSource]="items" matSort class="full-width">
+<table mat-table [dataSource]="items" matSort class="full-width" matSortActive="startTime" matSortDirection="asc">
 
     <ng-container matColumnDef="personName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Игрок </th>

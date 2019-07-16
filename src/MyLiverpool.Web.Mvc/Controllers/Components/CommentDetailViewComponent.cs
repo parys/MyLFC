@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Comments;
 using MyLfc.Business.ViewModels;
 using MyLiverpool.Business.Dto;
 
@@ -14,7 +15,7 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
             _mapper = mapper;
         }
 
-        public IViewComponentResult Invoke(CommentDto comment, int deep = 0)
+        public IViewComponentResult Invoke(GetCommentListByEntityIdQuery.CommentForEntityDto comment, int deep = 0)
         {
             var com = _mapper.Map<CommentVm>(comment);
             com.Deep = deep;
