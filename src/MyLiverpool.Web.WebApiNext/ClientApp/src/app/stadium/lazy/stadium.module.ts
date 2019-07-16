@@ -8,13 +8,17 @@ import { StadiumCoreModule } from "../core";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { STADIUMS_ROUTE, STADIUMS_RU } from "@app/+constants";
 import { MatInputModule } from "@angular/material/input";
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
     imports: [
         RouterModule.forChild(stadiumRoutes),
         SharedModule,
         StadiumCoreModule,
-        MatInputModule
+        MatInputModule,
+        MatSortModule,
+        MatTableModule
     ],
     declarations: [
         StadiumEditComponent,

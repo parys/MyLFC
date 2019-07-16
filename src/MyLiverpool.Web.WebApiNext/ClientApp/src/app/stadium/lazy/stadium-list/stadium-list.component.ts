@@ -3,6 +3,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Stadium, StadiumFilters } from "../../model";
@@ -18,7 +19,10 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Stadium[];
+    displayedColumns = ["name", "city"];
 
+
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
@@ -35,8 +39,15 @@ export class StadiumListComponent implements OnInit, OnDestroy {
 
             });
 
+        merge(this.sort.sortChange
+           //     ,
+          //      fromEvent(this.nameInput.nativeElement, KEYUP)
+          //      .pipe(debounceTime(DEBOUNCE_TIME),
+           //         distinctUntilChanged())
+                    )
+            .subscribe(() => this.paginator.pageIndex = 0);
 
-        merge(this.paginator.page)
+        merge(this.sort.sortChange, this.paginator.page)
             .pipe(
                 startWith({}),
                 switchMap(() => {
@@ -76,6 +87,8 @@ export class StadiumListComponent implements OnInit, OnDestroy {
         const filters = new StadiumFilters();
         filters.currentPage = this.paginator.pageIndex + 1;
         filters.pageSize = this.paginator.pageSize;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.service
             .getAll(filters);
