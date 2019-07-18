@@ -5,16 +5,16 @@ using MediatR;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Matches
 {
-    public class CreateInjuryCommand
+    public class CreateMatchCommand
     {
-        public class Request : UpsertInjuryCommand.Request, IRequest<Response>
+        public class Request : UpsertMatchCommand.Request, IRequest<Response>
         {
         }
 
 
-        public class Validator : UpsertInjuryCommand.Validator<Request>
+        public class Validator : UpsertMatchCommand.Validator<Request>
         {
             public Validator()
             {
@@ -36,12 +36,12 @@ namespace MyLfc.Application.Injuries
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity = _mapper.Map<Injury>(request);
+                var match = _mapper.Map<Match>(request);
 
-                _context.Injuries.Add(entity);
+                _context.Matches.Add(match);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = entity.Id};
+                return new Response {Id = match.Id};
             }
         }
 

@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.ChatMessages;
 using MyLfc.Common.Web;
-using MyLfc.Common.Web.Hubs;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
 
@@ -18,48 +14,32 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class ChatMessagesController : BaseController
     {
-        private readonly IChatMessageService _chatMessageService;
-        private readonly ISignalRHubAggregator _signalRHub;
-
-        /// <summary>
-        /// Controller.
-        /// </summary>
-        public ChatMessagesController(IChatMessageService chatMessageService, ISignalRHubAggregator signalRHub)
-        {
-            _chatMessageService = chatMessageService;
-            _signalRHub = signalRHub;
-        }
-
         /// <summary>
         /// Adds new chat message.
         /// </summary>
-        /// <param name="dto">Message entity</param>
+        /// <param name="request">Message entity</param>
         /// <returns>Result of creation message.</returns>
         [Authorize, HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]ChatMessageDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]CreateChatMessageCommand.Request request)
         {
-            dto.AuthorId = User.GetUserId();
-            dto.Ip = HttpContext.GetIp();
-            var result = await _chatMessageService.CreateAsync(dto);
-            result.Ip = string.Empty;
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)dto.Type);
+            request.Ip = HttpContext.GetIp();
+            var result = await Mediator.Send(request);
+            CacheManager.Remove(CacheKeysConstants.ChatName + (int)request.Type);
 
-             _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
             return Ok(result);
         }
 
         /// <summary>
         /// Deletes chat message.
         /// </summary>
-        /// <param name="id">Message identifier.</param>
+        /// <param name="request">Message identifier.</param>
         /// <returns>Result of deleting message.</returns>
         [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute]DeleteChatMessageCommand.Request request)
         {
-            var result = await _chatMessageService.DeleteAsync(id);
+            var result = await Mediator.Send(request);
 
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini);
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
+            CleanChatCache();
             return Ok(result);
         }     
         
@@ -105,32 +85,31 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             return Ok(result);
         }
-        
+
         /// <summary>
         /// Updates club.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified club entity.</param>
+        /// <param name="request">Modified club entity.</param>
         /// <returns>Returns of editing.</returns>
         [Authorize, HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAsync(int id, [FromBody]ChatMessageDto dto)
+        public async Task<IActionResult> EditAsync([FromRoute]int id, [FromBody]UpdateChatMessageCommand.Request request)
         {
-            if (id != dto.Id || !ModelState.IsValid)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            int? userId = null;
-            if (!User.IsInRole(nameof(RolesEnum.UserStart)))
-            {
-                userId = User.GetUserId();
-            }
-            var result = await _chatMessageService.UpdateAsync(dto, userId);
-            result.Ip = string.Empty;
 
-            _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
+            var result = await Mediator.Send(request);
 
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)dto.Type);
+            CleanChatCache();
             return Ok(result);
+        }
+
+        private void CleanChatCache()
+        {
+            CacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
+                CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
         }
     }
 }

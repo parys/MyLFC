@@ -40,6 +40,7 @@ namespace MyLfc.Application.Comments
             {
                 var commentsQuery = _context.MaterialComments
                     .Include(x => x.Author)
+                    .Include(x => x.CommentVotes)
                     .AsNoTracking();
 
                 if (request.MatchId.HasValue)

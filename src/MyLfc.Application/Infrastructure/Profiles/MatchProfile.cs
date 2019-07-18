@@ -32,17 +32,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(x => x.CommentCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(x => x.TypeId, src => src.MapFrom(x => x.MatchType));
 
-        }
+            CreateMap<CreateMatchCommand.Request, Match>()
+                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));
 
-        private static string GetScores(string scoreHome, string scoreAway)
-        {
-            if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
-            {
-                return null;
-            }
-            return $"{scoreHome}-{scoreAway}";
+            CreateMap<UpdateMatchCommand.Request, Match>()
+                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));
         }
-
+        
         private static string GetScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome, string score)
         {
             if (DateTimeOffset.Now >= dateTime)

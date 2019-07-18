@@ -9,9 +9,9 @@ using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
-namespace MyLfc.Application.Comments
+namespace MyLfc.Application.ChatMessages
 {
-    public class DeleteCommentCommand
+    public class DeleteChatMessageCommand
     {
         public class Request : IRequest<Response>
         {
@@ -33,30 +33,18 @@ namespace MyLfc.Application.Comments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var comment = await _context.MaterialComments
-                    .Include(x => x.Children)
+                var chatMessage = await _context.ChatMessages
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
                 
-                if (comment == null)
+                if (chatMessage == null)
                 {
-                    throw new NotFoundException(nameof(MaterialComment), request.Id);
+                    throw new NotFoundException(nameof(ChatMessage), request.Id);
                 }
 
-                if(!_requestContext.UserId.HasValue
-                   || (!_requestContext.User.IsInRole(nameof(RolesEnum.UserStart))
-                       && _requestContext.UserId.Value != comment.AuthorId))
-                {
-                    throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete comment {request.Id}");
-                }
-
-                comment.Deleted = true;
-                foreach (var item in comment.Children)
-                {
-                    item.Parent = comment.Parent;
-                }
-
+                _context.ChatMessages.Remove(chatMessage);
                 await _context.SaveChangesAsync(cancellationToken);
-                return new Response { Id = request.Id };
+
+                return new Response {Id = request.Id};
             }
         }
 

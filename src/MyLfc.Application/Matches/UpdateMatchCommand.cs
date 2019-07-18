@@ -1,23 +1,27 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Matches
 {
-    public class CreateInjuryCommand
+    public class UpdateMatchCommand
     {
-        public class Request : UpsertInjuryCommand.Request, IRequest<Response>
+        public class Request : UpsertMatchCommand.Request, IRequest<Response>
         {
+            public int Id { get; set; }
         }
 
-
-        public class Validator : UpsertInjuryCommand.Validator<Request>
+        public class Validator : UpsertMatchCommand.Validator<Request>
         {
             public Validator()
             {
+                RuleFor(v => v.Id).NotEmpty();
             }
         }
 
@@ -36,15 +40,21 @@ namespace MyLfc.Application.Injuries
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity = _mapper.Map<Injury>(request);
+                var match = await _context.Matches
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                _context.Injuries.Add(entity);
+                if (match == null)
+                {
+                    throw new NotFoundException(nameof(Match), request.Id);
+                }
+
+                match = _mapper.Map(request, match);
+
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = entity.Id};
+                return new Response {Id = match.Id};
             }
         }
-
 
         public class Response
         {

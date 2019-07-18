@@ -10,6 +10,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
         {
             CreateMap<ChatMessage, GetChatMessageListQuery.ChatMessageListDto>()
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName));
+
+            CreateMap<CreateChatMessageCommand.Request, ChatMessage>();
+
+            CreateMap<ChatMessage, GetChatMessageDetailQuery.Response>();
         }
     }
 }

@@ -52,16 +52,12 @@ namespace MyLfc.Application.Injuries
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response(injury.Id);
+                return new Response {Id = injury.Id};
             }
         }
 
         public class Response
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
             public int Id { get; set; }
         }
     }
