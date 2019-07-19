@@ -1,6 +1,6 @@
 ﻿    <div class="blockcontent-inside">
     <div class="chatMessage-block" [style.height.px]="height">
-        <div class="chat-message" *ngFor="let message of items; let i = index;">
+        <div class="chat-message" *ngFor="let message of items; let i = index; trackBy: trackByFn" >
             <div class="full-width flex-space-between">
                 <a [routerLink]="['/users', message.authorId]" [textContent]="message.userName"></a>
                 <span class="">

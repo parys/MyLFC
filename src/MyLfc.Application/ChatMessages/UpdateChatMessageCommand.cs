@@ -59,11 +59,11 @@ namespace MyLfc.Application.ChatMessages
                     throw new UnauthorizedAccessException("User cannot change message");
                 }
 
-                await _mediator.Send(new GetChatMessageDetailQuery.Request { Id = chatMessage.Id }, cancellationToken);
-
                 chatMessage.Message = request.Message;
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                await _mediator.Send(new GetChatMessageDetailQuery.Request { Id = chatMessage.Id }, cancellationToken);
 
                 return new Response {Id = chatMessage.Id};
             }

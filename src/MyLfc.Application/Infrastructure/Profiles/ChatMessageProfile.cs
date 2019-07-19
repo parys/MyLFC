@@ -13,7 +13,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<CreateChatMessageCommand.Request, ChatMessage>();
 
-            CreateMap<ChatMessage, GetChatMessageDetailQuery.Response>();
+            CreateMap<ChatMessage, GetChatMessageDetailQuery.Response>()
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName));
         }
     }
 }

@@ -22,7 +22,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
 
-    @ViewChild("chatInput", { static: true })private elementRef: EditorComponent;
+    @ViewChild("chatInput", { static: false })private elementRef: EditorComponent;
     @Input() public type: number;
     @Input() public height: number = 200;
 
@@ -48,7 +48,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     }
 
     public ngAfterContentChecked(): void {
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     }
 
     public update(): void {
@@ -76,16 +76,8 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
         }
 
         this.service.createOrUpdate(message.id, message).subscribe(data => {
-                this.putToChat(data);
                 this.cancelEdit();
             });
-        //} else {
-        //    this.service.create(message)
-        //        .subscribe(data => {
-        //                this.putToChat(data);
-        //            },
-        //            (e) => console.log(e));
-        //}
     }
 
     public showDeleteModal(index: number): void {
@@ -117,14 +109,18 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
         this.cd.markForCheck();
     }
 
+    public trackByFn(index: number, item: ChatMessage) {
+        if (!item) return null;
+        return item.id;
+    }
+
     private delete(index: number): void {
         this.service.delete(this.items[index].id).subscribe(data => {
-            if (data) {
-                this.items.slice(index, 1);
-                this.items = this.items.concat([]);
-                this.snackBar.open("Коммент удален");
-            }
-        },
+                if (data) {
+                    this.items.slice(index, 1);
+                    this.snackBar.open("Коммент удален");
+                }
+            },
             () => {
                 this.snackBar.open("Коммент НЕ удален");
             },
@@ -133,8 +129,10 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
             });
     }
 
+
     private putToChat(message: ChatMessage, clearAfter: boolean = true): void {
         const index = this.items.findIndex(x => x.id === message.id);
+
         if (index !== -1) {
             this.items[index] = message;
         } else {
