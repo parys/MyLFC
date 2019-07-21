@@ -42,8 +42,7 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.service
                     .getSingle(this.id)
-                    .subscribe(data => this.editCategoryForm.patchValue(data),
-                        error => console.log(error));
+                    .subscribe(data => this.editCategoryForm.patchValue(data));
             }
         });
     }
@@ -55,19 +54,16 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const model = this.editCategoryForm.value;
         model.id = this.id;
-
-        if (this.id > 0) {
-            this.service.update(this.id, model).subscribe(data => {
-                if (data) {
+        model.materialType = this.type;
+        
+        this.service.createOrUpdate(this.id, model).subscribe(data => {
+            if (data) {
+                if (this.id > 0) {
                     this.snackBar.open("Категория обновлена", null);
-                }
-            }, e => console.log(e));
-        } else {
-            this.service.create(model, this.type).subscribe(data => {
-                if (data) {
+                } else {
                     this.snackBar.open("Категория создана", null);
                 }
-            }, e => console.log(e));
-        }
+            }
+        });
     }
 }

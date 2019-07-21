@@ -1,4 +1,4 @@
-﻿@model ICollection<MaterialCategoryDto>
+﻿@model MyLfc.Application.MaterialCategories.GetMaterialCategoryListQuery.Response
 
 @{
     ViewBag.Title = "Категории материалов";
@@ -7,7 +7,7 @@
 
 @*<a *ngIf="roles.isEditor" [routerLink]="[0, 'edit']">Создать категорию</a>*@
 <ul>
-    @foreach (var category in Model)
+    @foreach (var category in Model.Results)
     {
         if (category.ItemsCount > 0)
         {

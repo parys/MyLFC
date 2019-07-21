@@ -17,8 +17,5 @@ namespace MyLfc.Domain
         public ICollection<Material> Materials { get; set; } = new HashSet<Material>();
 
         public MaterialType MaterialType { get; set; }
-
-        [NotMapped]
-        public int ItemsCount { get; set; }
     }
 }

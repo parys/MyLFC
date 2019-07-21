@@ -8,7 +8,6 @@ namespace MyLiverpool.Common.Mappings
     {
         public static IConfigurationProvider GetConfiration { get; } = new MapperConfiguration(cfg =>
         {
-            cfg.AddProfile(new ChatMessageMapperProfile());
             cfg.AddProfile(new ForumMessageMapperProfile());
             cfg.AddProfile(new ForumSectionMapperProfile());
             cfg.AddProfile(new ForumSubsectionMapperProfile());
@@ -16,7 +15,6 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new MatchMapperProfile());
             cfg.AddProfile(new MatchEventMapperProfile());
             cfg.AddProfile(new MatchPersonMapperProfile());
-            cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
             cfg.AddProfile(new PersonMapperProfile());
             cfg.AddProfile(new PollMapperProfile());

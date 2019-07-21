@@ -143,6 +143,7 @@ namespace MyLfc.Application.Seasons
             public List<SeasonCalendarMonthDto> Months = new List<SeasonCalendarMonthDto>();
         }
 
+        [Serializable]
         public class SeasonCalendarMonthDto
         {
             public string Name { get; set; }

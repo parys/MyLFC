@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from "@angular/core";   
 import { Router } from "@angular/router";
-import { MaterialCategory, MaterialType } from "../../model";
+import { MaterialCategory, MaterialType, MaterialCategoryFilter } from "../../model";
 import { MaterialCategoryService } from "../../core";
 import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService, PagedList } from "@app/shared";
 
 @Component({
     selector: "materialCategory-list",
@@ -26,23 +26,26 @@ export class MaterialCategoryListComponent implements OnInit {
         } else if (this.router.url.startsWith("/blogCategories")) {
             this.titleService.setTitle("Категории блогов");
             this.type = MaterialType.Blogs;
-        } 
+        }
+        const filter = new MaterialCategoryFilter();
+        filter.materialType = this.type;
+        filter.sortDirection = 'asc';
+        filter.sortOn = 'name';
         this.service
-            .getAll(this.type)
-            .subscribe(data => this.parsePageable(data),
-                e => console.log(e));
+            .getAll(filter)
+            .subscribe((data: PagedList<MaterialCategory>) => this.parsePageable(data));
     }
 
-    private parsePageable(model: MaterialCategory[]): void {
-        this.items = model;
+    private parsePageable(model: PagedList<MaterialCategory>): void {
+        this.items = model.results;
     }
 
     public delete(index: number): void {
-        this.service.delete(this.items[index].id).subscribe(data => {
+        this.service.delete(this.items[index].id)
+            .subscribe(data => {
                 if (data) {
                     this.items.splice(index, 1);
                 }
-            },
-            e => console.log(e));
+            });
     }
 }
