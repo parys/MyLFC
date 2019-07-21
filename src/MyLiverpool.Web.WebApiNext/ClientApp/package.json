@@ -62,7 +62,7 @@
     "@types/node": "12.6.8",
     "@types/tinymce": "4.5.22",
     "webpack-bundle-analyzer": "3.3.2",
-    "acorn": "6.2.0",
+    "acorn": "6.2.1",
     "source-map-explorer": "2.0.1"
   },
   "main": "package.json",
