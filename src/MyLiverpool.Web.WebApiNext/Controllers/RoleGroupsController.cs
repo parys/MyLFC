@@ -19,7 +19,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery]GetRoleGroupsQuery.Request request)
         {
-            return Ok(await Mediator.Send(request));
+            var result = await Mediator.Send(request);
+            return Ok(result.Results);
         }
     }
 }

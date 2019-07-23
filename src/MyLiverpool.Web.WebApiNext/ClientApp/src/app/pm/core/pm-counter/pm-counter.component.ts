@@ -7,7 +7,6 @@ import { SignalRService } from "@app/+signalr";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { PMS_ROUTE } from "@app/+constants";
 import { Pm } from "../../model/pm.model";
-import { SingleResponse } from '@app/+common-models';
 
 @Component({
     selector: "pm-counter",
@@ -53,8 +52,8 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     private updateCount() {
         this.sub = this.pmService.getUnreadCount()
-            .subscribe((data : SingleResponse<number>) => {
-                    this.count = data.result;
+            .subscribe((data : number) => {
+                    this.count = data;
                 if (this.count  > 0) {
                     this.titleService.addCount(this.count);
                     this.snackBar

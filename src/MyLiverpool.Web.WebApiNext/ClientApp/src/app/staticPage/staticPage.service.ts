@@ -6,7 +6,6 @@ import { StaticPage } from './staticPage.model';
 
 @Injectable()
 export class StaticPageService {
-    private actionUrl: string = "admin/";
     private actionHelperUrl: string = HELPERS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {

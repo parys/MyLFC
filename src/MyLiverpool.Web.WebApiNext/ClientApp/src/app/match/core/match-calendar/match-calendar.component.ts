@@ -2,7 +2,7 @@
 import { TransferState, makeStateKey } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MatchService } from "../match.service";
-import { Match } from "@app/match/model";
+import { Match, MatchCalendar } from "@app/match/model";
 import { RolesCheckedService } from "@app/+auth";
 
 const MATCH_CALENDAR_KEY = makeStateKey<Match[]>("match-calendar");
@@ -34,16 +34,9 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
             });
         }
     }
-    private parse(matches: Match[]): void {
-        if (matches.length === 1) {
-            if (matches[0].scoreHome) {
-                this.last = matches[0];
-            } else {
-                this.next = matches[0];
-            }
-        } else {
-            [this.last, this.next] = matches;
-        }
+    private parse(matches: MatchCalendar): void {
+        this.last = matches.last;
+        this.next = matches.next;
         this.cd.markForCheck();
     }
 

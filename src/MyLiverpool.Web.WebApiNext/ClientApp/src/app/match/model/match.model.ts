@@ -1,6 +1,4 @@
-﻿import { MatchEvent } from "@app/matchEvent";
-
-export class Match {
+﻿export class Match {
     public id: number;
     public isHome: boolean;
     public clubId: number;
@@ -29,5 +27,4 @@ export class Match {
     public previewId?: number;
     public reportId?: number;
     public commentCount: number;
-    public events: MatchEvent[];
 }

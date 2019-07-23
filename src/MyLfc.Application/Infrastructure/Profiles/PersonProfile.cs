@@ -11,6 +11,17 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Person, GetPersonListQuery.PersonListDto>()
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString()));
 
+            CreateMap<Person, GetPersonBirthdaysQuery.PersonBirthdayDto>();
+
+            CreateMap<Person, GetBestPlayerQuery.Response>();
+
+            CreateMap<Person, GetPersonDetailQuery.Response>();
+
+            CreateMap<Person, GetStuffListQuery.StuffPersonDto>();
+
+            CreateMap<CreatePersonCommand.Request, Person>();
+
+            CreateMap<UpdatePersonCommand.Request, Person>();
         }
     }
 }

@@ -1,31 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Matches;
 using MyLfc.Business.ViewModels;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class MatchPersonPanelViewComponent : ViewComponent
     {
-        private readonly IMatchPersonService _matchPersonService;
+        private readonly IMediator _mediator;
 
-        public MatchPersonPanelViewComponent(IMatchPersonService matchPersonService)
+        public MatchPersonPanelViewComponent(IMediator mediator)
         {
-            _matchPersonService = matchPersonService;
+            _mediator = mediator;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int matchId, bool isHome)
         {
-            var list = await _matchPersonService.GetListByMatchIdAsync(matchId);
-            var result = Parse(list, isHome);
+            var list = await _mediator.Send(new GetMatchPersonListQuery.Request {MatchId = matchId});
+            var result = Parse(list.Results, isHome);
             return View(result);
         }
 
-        private static MatchPersonPanelVm Parse(IEnumerable<MatchPersonDto> persons, bool isHome)
+        private static MatchPersonPanelVm Parse(IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> persons, bool isHome)
         {
             return new MatchPersonPanelVm
             {

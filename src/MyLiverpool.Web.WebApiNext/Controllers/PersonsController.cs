@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Persons;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -35,16 +34,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Creates new person item.
         /// </summary>
-        /// <param name="dto">New person model.</param>
+        /// <param name="request">New person model.</param>
         /// <returns>Created model.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]PersonDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]CreatePersonCommand.Request request)
         {
-            if (dto == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var result = await _personService.CreateAsync(dto);
+            var result = await Mediator.Send(request);
             CacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
@@ -74,8 +69,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 personType = personType == PersonType.First ? PersonType.Stuff : PersonType.StuffAcademy;
             }
-            var result = await _personService.GetStuffListAsync(personType);
-            return Ok(result);
+
+            return Ok(await Mediator.Send(new GetStuffListQuery.Request {Type = personType}));
         }
 
         /// <summary>
@@ -96,13 +91,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns person by id.
         /// </summary>
-        /// <param name="id">The identifier of person.</param>
+        /// <param name="request">The identifier of person.</param>
         /// <returns>Person.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromRoute] GetPersonDetailQuery.Request request)
         {
-            var result = await _personService.GetByIdAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -113,7 +107,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetBestPlayerAsync()
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.BestPlayerMemKey,
-                async () => await _personService.GetBestPlayerAsync());
+                async () => await Mediator.Send(new GetBestPlayerQuery.Request()));
             return Ok(result);
         }
 
@@ -137,24 +131,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetBirthdaysAsync()
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.PersonBday + DateTime.Today,
-                async () => await _personService.GetBirthdaysAsync());
-            return Ok(result);
+                async () => await Mediator.Send(new GetPersonBirthdaysQuery.Request()));
+            return Ok(result.Results);
         }
 
         /// <summary>
         /// Updates person.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified person entity.</param>
+        /// <param name="request">Modified person entity.</param>
         /// <returns>Result of editing.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAsync(int id, [FromBody]PersonDto dto)
+        public async Task<IActionResult> EditAsync([FromRoute]int id, [FromBody]UpdatePersonCommand.Request request)
         {
-            if (id != dto.Id || !ModelState.IsValid)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _personService.UpdateAsync(dto);
+            var result = await Mediator.Send(request);
             CacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
@@ -162,13 +156,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Deletes person.
         /// </summary>
-        /// <param name="id">The identifier of deleting person.</param>
+        /// <param name="request">The identifier of deleting person.</param>
         /// <returns>Result of deleting.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] DeletePersonCommand.Request request)
         {
-            var result = await _personService.DeleteAsync(id);
-            return Ok(result);
+            var result = await Mediator.Send(request);
+            return Ok(result.Id);
         }
 
         /// <summary>
@@ -176,6 +170,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Person types list.</returns>
         [AllowAnonymous, HttpGet("types")]
+        [ResponseCache(Duration = 10800)]
         public async Task<IActionResult> GetTypesAsync()
         {
             var list = new List<object>();
@@ -202,18 +197,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     return Ok(new { path = result });
             }
             return BadRequest();
-        }
-
-        /// <summary>
-        /// Returns persons which names contain types string.
-        /// </summary>
-        /// <param name="typed">Part of person name for search.</param>
-        /// <returns>List of keyValuePair of persons with identifiers.</returns>
-        [AllowAnonymous, HttpGet("getPersonsByName")]
-        public async Task<IActionResult> GetPersonsByNameAsync([FromQuery]string typed)
-        {
-            var result = await _personService.GetPersonsByNameAsync(typed);
-            return Ok(result);
         }
     }
 }

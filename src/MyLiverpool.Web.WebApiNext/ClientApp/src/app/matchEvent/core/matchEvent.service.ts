@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { MatchEvent, MatchEventType } from "@app/matchEvent/models";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { MATCH_EVENTS_ROUTE } from "@app/+constants";
+import { MATCH_EVENTS_ROUTE, MATCHES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class MatchEventService {
@@ -11,17 +11,9 @@ export class MatchEventService {
     constructor(private http: HttpWrapper) {
         this.actionUrl = MATCH_EVENTS_ROUTE + "/";
     }
-/*
-    public getAll(page: number): Observable<Pageable<MatchEvent>> {
-        return this.http.get<Pageable<MatchEvent>>(this.actionUrl + "list?page=" + page);
-    };
 
-    public getSingle(id: number): Observable<MatchEvent> {
-        return this.http.get<MatchEvent>(this.actionUrl + id);
-    };*/
-
-    public getForMatch(matchId: number): Observable<MatchEvent[]> {
-        return this.http.get<MatchEvent[]>(`${this.actionUrl}getForMatch/${matchId}`); // todo go to match endpoint
+    public getMatchEvents(matchId: number): Observable<MatchEvent[]> {
+        return this.http.get<MatchEvent[]>(`${MATCHES_ROUTE}/${matchId}/events`);
     };
 
     public create(item: MatchEvent): Observable<MatchEvent> {

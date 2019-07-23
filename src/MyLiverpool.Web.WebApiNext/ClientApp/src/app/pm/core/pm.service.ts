@@ -4,7 +4,6 @@ import { HttpWrapper } from "@app/+httpWrapper";
 import { Pm } from "../model";
 import { User } from "@app/user";
 import { PMS_ROUTE } from "@app/+constants";
-import { SingleResponse } from '@app/+common-models';
 
 @Injectable()
 export class PmService {
@@ -33,8 +32,8 @@ export class PmService {
         return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public getUnreadCount(): Observable<SingleResponse<number>> {
-        return this.http.get<SingleResponse<number>>(this.actionUrl + "unread/");
+    public getUnreadCount(): Observable<number> {
+        return this.http.get<number>(this.actionUrl + "unread/");
     };
 
     public getListByUserName(typed: string): Observable<User[]> { //bug temp workaround

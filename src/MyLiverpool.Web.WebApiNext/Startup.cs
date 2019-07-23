@@ -174,7 +174,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //   options.OperationFilter<AssignSecurityRequirements>();
                 });
             }
-            services.AddAutoMapper(typeof(MaterialProfile), typeof(MatchEventMapperProfile));
+            services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
             services.AddNodeServices(options =>
             {

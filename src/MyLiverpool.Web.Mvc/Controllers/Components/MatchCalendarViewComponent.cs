@@ -1,28 +1,28 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Matches;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class MatchCalendarViewComponent : ViewComponent
     {
-        private readonly IMatchService _matchService;
+        private readonly IMediator _mediator;
         private readonly IDistributedCacheManager _cacheManager;
 
-        public MatchCalendarViewComponent(IMatchService matchService, IDistributedCacheManager cache)
+        public MatchCalendarViewComponent(IMediator mediator, IDistributedCacheManager cache)
         {
-            _matchService = matchService;
+            _mediator = mediator;
             _cacheManager = cache;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
-                 async () => await _matchService.GetForCalendarAsync());
-            return View(result.ToList());
+                 async () => await _mediator.Send(new GetMatchCalendarQuery.Request()));
+            return View(result);
         }
     }
 }

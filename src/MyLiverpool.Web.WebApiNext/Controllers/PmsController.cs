@@ -42,17 +42,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             return Ok(await Mediator.Send(request));
         }
-
-        /// <summary>
-        /// Returns count of unread messages.
-        /// </summary>
-        /// <returns>Count of unread messages.</returns>
-        [Authorize, HttpGet("unreadCount")]
-        public async Task<IActionResult> GetUnreadPmCount()
-        {
-            return Ok(await Mediator.Send(new GetUnreadPmCountQuery.Request()));
-        }
-
+        
         /// <summary>
         /// Returns count of unread messages.
         /// </summary>
@@ -60,7 +50,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("unread")]
         public async Task<IActionResult> GetUnreadCount()
         {
-            return Ok(await Mediator.Send(new GetUnreadPmCountQuery.Request()));
+            var result = await Mediator.Send(new GetUnreadPmCountQuery.Request());
+            return Ok(result.Result);
         }
     }
 }

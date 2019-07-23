@@ -9,12 +9,8 @@ namespace MyLiverpool.Business.Contracts
         Task<string> GetPhotoPathAsync(int userId);
 
         Task<bool> UpdatePhotoPathAsync(int userId, string photo);
-
-        Task<User> FindAsync(string userName, string password);
-
-        Task<UserDto> UpdateAsync(UserDto user);
         
-        Task<UserDto> GetUserAsync(int id);
+        Task<UserDto> UpdateAsync(UserDto user);
 
         Task<string> GetUsernameAsync(int id);
 

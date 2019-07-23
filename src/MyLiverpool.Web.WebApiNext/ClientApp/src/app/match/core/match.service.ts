@@ -4,7 +4,7 @@ import { Match, MatchType } from "@app/match/model";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { MATCHES_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
-import { MatchFilters } from "../model";
+import { MatchFilters, MatchCalendar } from "../model";
 
 @Injectable()
 export class MatchService extends BaseRestService<Match, MatchFilters> {
@@ -14,8 +14,8 @@ export class MatchService extends BaseRestService<Match, MatchFilters> {
         super(http, MATCHES_ROUTE + "/");
     }
     
-    public getForCalendar(): Observable<Match[]> {
-        return this.http.get<Match[]>(this.actionUrl + "getForCalendar");
+    public getForCalendar(): Observable<MatchCalendar> {
+        return this.http.get<MatchCalendar>(this.actionUrl + "getForCalendar");
     };
 
     public getHeaderMatch(): Observable<Match> {

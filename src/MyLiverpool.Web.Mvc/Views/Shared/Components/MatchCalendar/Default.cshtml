@@ -1,7 +1,7 @@
-﻿@model List<MatchDto>
+﻿@model MyLfc.Application.Matches.GetMatchCalendarQuery.Response
 
 <section class="flex">
-    @if (Model.Count > 1)
+    @if (Model.Next != null)
     {
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0 border-panel border-lgray match-calendar">
             <div class="col-xs-12 col-md-5">
@@ -9,91 +9,90 @@
                 @*<a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
             </div>
             <div class="col-xs-12 col-md-7">
-                <b style="font-size: 1.2em;" class="pull-right timeConvert" data-date="@Model[1].DateTime.ToString("O")" data-dow="true" data-sec="false"></b>
+                <b style="font-size: 1.2em;" class="pull-right timeConvert" data-date="@Model.Next.DateTime.ToString("O")" data-dow="true" data-sec="false"></b>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-5 text-center">
-                <img src="@Model[1].HomeClubLogo" class="center" alt="@Model[1].HomeClubName" title="@Model[1].HomeClubName">
-                <strong style="font-size: 1.2em;" class="">@Model[1].HomeClubName</strong>
+                <img src="@Model.Next.HomeClubLogo" class="center" alt="@Model.Next.HomeClubName" title="@Model.Next.HomeClubName">
+                <strong style="font-size: 1.2em;" class="">@Model.Next.HomeClubName</strong>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-2 padding0 text-center">
-                <strong class="stadium center color-gold">@Model[1].StadiumName</strong>
+                <strong class="stadium center color-gold">@Model.Next.StadiumName</strong>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-5 text-center">
-                <img src="@Model[1].AwayClubLogo" class="center" alt="@Model[1].AwayClubName" title="@Model[1].AwayClubName">
-                <strong style="font-size: 1.2em;" class="text-center">@Model[1].AwayClubName</strong>
+                <img src="@Model.Next.AwayClubLogo" class="center" alt="@Model.Next.AwayClubName" title="@Model.Next.AwayClubName">
+                <strong style="font-size: 1.2em;" class="text-center">@Model.Next.AwayClubName</strong>
             </div>
             <div class="col-xs-12 text-center">
-                @if (Model[1].PreviewId.HasValue)
+                @if (Model.Next.PreviewId.HasValue)
                 {
                     <a class="text-white" 
                        asp-controller="News"
                        asp-action="Detail"
-                       asp-route-id="@Model[1].PreviewId.Value">Превью</a>
+                       asp-route-id="@Model.Next.PreviewId.Value">Превью</a>
                 }
                 <a class="text-white" asp-action="Calendar" asp-controller="Seasons">Календарь</a>
                 <a class="text-white"
                    asp-controller="Matches"
                    asp-action="Detail"
-                   asp-route-id="@Model[1].Id">Обсуждение</a>
+                   asp-route-id="@Model.Next.Id">Обсуждение</a>
             </div>
         </div>
     }
-    @if (Model.Any())
+    @if (Model.Last != null)
     {
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar">
             <div class="col-xs-12 col-sm-12 col-md-5">
                 Последняя игра
-                @*<a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7">
-                <span class="pull-right timeConvert" data-date="@Model[0].DateTime.ToString("O")" data-dow="true" data-sec="false"></span>
+                <span class="pull-right timeConvert" data-date="@Model.Last.DateTime.ToString("O")" data-dow="true" data-sec="false"></span>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
-                <img src="@Model[0].HomeClubLogo" class="center " alt="@Model[0].HomeClubName" title="@Model[0].HomeClubName">
-                <strong style="font-size: 1.2em;">@Model[0].HomeClubName</strong>
+                <img src="@Model.Last.HomeClubLogo" class="center " alt="@Model.Last.HomeClubName" title="@Model.Last.HomeClubName">
+                <strong style="font-size: 1.2em;">@Model.Last.HomeClubName</strong>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-2 flex-vertical-center flex-center-h padding0">
-               <a asp-action="Detail" asp-controller="Matches" asp-route-id="@Model[0].Id" class="score text-center">
-                <strong class="text-center font-size20">
-                    @Model[0].ScoreHome:@Model[0].ScoreAway
-                    @if (Model[0].ScorePenaltyHome.HasValue && Model[0].ScorePenaltyHome.Value > 0 ||
-                         Model[0].ScorePenaltyAway.HasValue && Model[0].ScorePenaltyAway.Value > 0)
-                    {
-                        <span class="col-md-12 container-row">(@Model[0].ScorePenaltyHome-@Model[0].ScorePenaltyAway)</span>
-                    }
-                </strong>
+               <a asp-action="Detail" asp-controller="Matches" asp-route-id="@Model.Last.Id" class="score text-center">
+                   <strong class="text-center font-size20">
+                       @Model.Last.ScoreHome:@Model.Last.ScoreAway
+                       @if (Model.Last.ScorePenaltyHome.HasValue && Model.Last.ScorePenaltyHome.Value > 0 ||
+                          Model.Last.ScorePenaltyAway.HasValue && Model.Last.ScorePenaltyAway.Value > 0)
+                       {
+                       <span class="col-md-12 container-row">(@Model.Last.ScorePenaltyHome-@Model.Last.ScorePenaltyAway)</span>
+                       }
+                   </strong>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
-                <img src="@Model[0].AwayClubLogo" class="center" alt="@Model[0].AwayClubName" title="@Model[0].AwayClubName">
-                <strong style="font-size: 1.2em;">@Model[0].AwayClubName</strong>
+                <img src="@Model.Last.AwayClubLogo" class="center" alt="@Model.Last.AwayClubName" title="@Model.Last.AwayClubName">
+                <strong style="font-size: 1.2em;">@Model.Last.AwayClubName</strong>
             </div>
             <div class="col-xs-12 infodate">
                 <br>
-                @if (Model[0].PreviewId.HasValue)
+                @if (Model.Last.PreviewId.HasValue)
                 {
                     <a asp-controller="News"
                        asp-action="Detail"
-                       asp-route-id="@Model[0].PreviewId.Value">Превью</a>
+                       asp-route-id="@Model.Last.PreviewId.Value">Превью</a>
                 }
                 <a asp-controller="Matches"
                    asp-action="Detail"
-                   asp-route-id="@Model[0].Id">Обсуждение</a>
-                @if (!string.IsNullOrWhiteSpace(Model[0].PhotoUrl))
+                   asp-route-id="@Model.Last.Id">Обсуждение</a>
+                @if (!string.IsNullOrWhiteSpace(Model.Last.PhotoUrl))
                 {
                     <a asp-action="Detail"
                        asp-controller="News"
-                       asp-route-id="@Model[0].PhotoUrl">Фото</a>
+                       asp-route-id="@Model.Last.PhotoUrl">Фото</a>
                 }
-                @if (!string.IsNullOrWhiteSpace(Model[0].VideoUrl))
+                @if (!string.IsNullOrWhiteSpace(Model.Last.VideoUrl))
                 {
-                    <a href="@Model[0].VideoUrl" target="_blank">Видео</a>
+                    <a href="@Model.Last.VideoUrl" target="_blank">Видео</a>
                 }
-                @if (Model[0].ReportId.HasValue)
+                @if (Model.Last.ReportId.HasValue)
                 {
                     <a asp-action="Detail"
                        asp-controller="News"
-                       asp-route-id="@Model[0].ReportId.Value">Вердикт</a>
+                       asp-route-id="@Model.Last.ReportId.Value">Вердикт</a>
                 }
             </div>
         </div>

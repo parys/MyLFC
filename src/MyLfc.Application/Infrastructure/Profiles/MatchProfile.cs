@@ -14,6 +14,23 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public MatchProfile()
         {
+            CreateMap<Match, GetMatchDetailQuery.Response>()
+                .ForMember(x => x.ClubName, src => src.MapFrom(x => x.Club.Name))
+                .ForMember(x => x.TypeId, src => src.MapFrom(x => x.MatchType))
+                .ForMember(x => x.TypeName, src => src.MapFrom(x => x.MatchType.GetNameAttribute()))
+                .ForMember(x => x.ScoreAway,
+                    src => src.MapFrom(x => GetScore(x.DateTime, x.Events, !x.IsHome, x.Score)))
+                .ForMember(x => x.ScoreHome,
+                    src => src.MapFrom(x => GetScore(x.DateTime, x.Events, x.IsHome, x.Score)))
+                .ForMember(x => x.ScorePenaltyAway,
+                    src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, !x.IsHome)))
+                .ForMember(x => x.ScorePenaltyHome,
+                    src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)))
+                .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
+                .ForMember(x => x.StadiumCity, src => src.MapFrom(x => x.Stadium.City))
+                .ForMember(x => x.CommentCount, src => src.MapFrom(x => x.Comments.Count));
+
+
             CreateMap<Match, GetMatchListQuery.MatchListDto>()
                 .ForMember(x => x.ClubName, src => src.MapFrom(x => x.Club.Name))
                 .ForMember(x => x.TypeName, 
@@ -34,6 +51,20 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<CreateMatchCommand.Request, Match>()
                 .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));
+
+            CreateMap<Match, GetMatchCalendarQuery.CalendarMatchDto>()
+                .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
+                .ForMember(x => x.StadiumCity, src => src.MapFrom(x => x.Stadium.City))
+                .ForMember(x => x.TypeName,
+                    src => src.MapFrom(x => x.MatchType.GetNameAttribute()))
+                .ForMember(x => x.ScoreAway,
+                    src => src.MapFrom(x => GetScore(x.DateTime, x.Events, !x.IsHome, x.Score)))
+                .ForMember(x => x.ScoreHome,
+                    src => src.MapFrom(x => GetScore(x.DateTime, x.Events, x.IsHome, x.Score)))
+                .ForMember(x => x.ScorePenaltyAway,
+                    src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, !x.IsHome)))
+                .ForMember(x => x.ScorePenaltyHome,
+                    src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)));
 
             CreateMap<UpdateMatchCommand.Request, Match>()
                 .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));

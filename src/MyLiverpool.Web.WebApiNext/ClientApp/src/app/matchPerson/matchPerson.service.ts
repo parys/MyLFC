@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { MatchPerson } from "./matchPerson.model";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { MatchPersonType } from "./matchPersonType.model";
-import { MATCH_PERSONS_ROUTE } from "@app/+constants";
+import { MATCH_PERSONS_ROUTE, MATCHES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class MatchPersonService {
@@ -13,8 +13,8 @@ export class MatchPersonService {
         this.actionUrl = MATCH_PERSONS_ROUTE + "/";
     }
 
-    public getForMatch(matchId: number): Observable<MatchPerson[]> {
-        return this.http.get<MatchPerson[]>(`${this.actionUrl}getForMatch/${matchId}`); //todo move to match endpoint
+    public getMatchPersons(matchId: number): Observable<MatchPerson[]> {
+        return this.http.get<MatchPerson[]>(`${MATCHES_ROUTE}/${matchId}/persons`);
     };
 
     public create(item: MatchPerson): Observable<MatchPerson> {

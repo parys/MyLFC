@@ -48,7 +48,7 @@
         </mat-tab>
         <mat-tab label="События" >
             <ng-template matTabContent>
-                <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
+                <matchEvent-match-panel [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
                 <button mat-raised-button class="full-width" (click)="ngOnInit()">Обновить события матча</button>
             </ng-template>
         </mat-tab>

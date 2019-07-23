@@ -12,11 +12,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new ForumSectionMapperProfile());
             cfg.AddProfile(new ForumSubsectionMapperProfile());
             cfg.AddProfile(new ForumThemeMapperProfile());
-            cfg.AddProfile(new MatchMapperProfile());
-            cfg.AddProfile(new MatchEventMapperProfile());
-            cfg.AddProfile(new MatchPersonMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
-            cfg.AddProfile(new PersonMapperProfile());
             cfg.AddProfile(new PollMapperProfile());
             cfg.AddProfile(new UserMapperProfile());
 

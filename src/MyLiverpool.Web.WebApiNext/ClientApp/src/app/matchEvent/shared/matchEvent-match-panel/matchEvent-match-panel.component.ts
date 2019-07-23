@@ -3,10 +3,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { Observable } from "rxjs";
 import { MatchEventService } from "../../core";
 import { MatchEvent } from "@app/matchEvent/models";
-import { Person } from "@app/person";
 
 @Component({
     selector: "matchEvent-match-panel",
@@ -17,8 +15,7 @@ export class MatchEventMatchPanelComponent implements OnInit {
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     @Input() public seasonId: number;
-    @Input() public events: MatchEvent[];
-    public persons$: Observable<Person[]>;
+    public events: MatchEvent[];
     public isEditEvent: boolean = false;
     public selectedEvent: MatchEvent;
     public selectedIndex: number;
@@ -30,9 +27,8 @@ export class MatchEventMatchPanelComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        //this.matchEventService.getForMatch(this.matchId)
-        //    .subscribe(data => this.events = data,
-        //        e => console.log(e));
+        this.matchEventService.getMatchEvents(this.matchId)
+            .subscribe(data => this.events = data);
     }
 
     public addEvent(): void {
@@ -69,23 +65,19 @@ export class MatchEventMatchPanelComponent implements OnInit {
             if (result) {
                 this.delete(index);
             }
-        }, e => console.log(e));
+        });
     }
 
 
     private delete(index: number): void {
-        let result: boolean;
         this.matchEventService.delete(this.events[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
+            .subscribe(res => {
+                    if (res) {
                         this.events.splice(index, 1);
                         this.snackBar.open("Удалено");
                     } else {
                         this.snackBar.open("Ошибка удаления");
                     }
-                }
-            );
+                });
     }
 }

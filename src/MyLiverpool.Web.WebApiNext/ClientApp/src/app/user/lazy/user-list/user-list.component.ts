@@ -11,7 +11,6 @@ import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { KEYUP, DEBOUNCE_TIME, PAGE, USERS_ROUTE } from "@app/+constants";
-import { ManyResponse } from '@app/+common-models';
 
 
 @Component({
@@ -123,6 +122,6 @@ export class UserListComponent implements OnInit {
     private updateRoleGroups() {
         this.roleGroupService
             .getAll()
-            .subscribe((data: ManyResponse<RoleGroup>) => this.roleGroups = data.results);
+            .subscribe((data: RoleGroup[]) => this.roleGroups = data);
     }
 }

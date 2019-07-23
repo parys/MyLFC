@@ -10,7 +10,7 @@ namespace MyLfc.Application.Tests.Infrastructure
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddMaps(typeof(MaterialProfile), typeof(MatchMapperProfile));
+                mc.AddMaps(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             });
 
             return mappingConfig.CreateMapper();

@@ -45,7 +45,7 @@ export class MatchPersonPanelComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.matchPersonService.getForMatch(this.matchId)
+        this.matchPersonService.getMatchPersons(this.matchId)
             .subscribe(data => this.parsePersons(data));
     }
 

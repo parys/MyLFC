@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
-using MyLiverpool.Business.Dto;
+using MyLfc.Application.Matches;
+using MyLfc.Application.Persons;
 
 namespace MyLfc.Business.ViewModels
 {
     public class MatchPersonPanelVm
     {
-        public IEnumerable<MatchPersonDto> HomeTeam { get; set; }
-        public IEnumerable<MatchPersonDto> HomeBench { get; set; }
-        public MatchPersonDto HomeCoach { get; set; }
-        public IEnumerable<MatchPersonDto> HomeInjury { get; set; }
-        public IEnumerable<MatchPersonDto> HomeBan { get; set; }
-        public IEnumerable<MatchPersonDto> AwayTeam { get; set; }
-        public IEnumerable<MatchPersonDto> AwayBench { get; set; }
-        public MatchPersonDto AwayCoach { get; set; }
-        public IEnumerable<MatchPersonDto> AwayInjury { get; set; }
-        public IEnumerable<MatchPersonDto> AwayBan { get; set; }
-        public MatchPersonDto MainRef { get; set; }
-        public IEnumerable<MatchPersonDto> AssistantRef  { get; set; }
-        public IEnumerable<MatchPersonDto> AdditionalRef  { get; set; }
-        public MatchPersonDto FourthRef { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> HomeTeam { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> HomeBench { get; set; }
+        public GetMatchPersonListQuery.MatchPersonListDto HomeCoach { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> HomeInjury { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> HomeBan { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AwayTeam { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AwayBench { get; set; }
+        public GetMatchPersonListQuery.MatchPersonListDto AwayCoach { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AwayInjury { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AwayBan { get; set; }
+        public GetMatchPersonListQuery.MatchPersonListDto MainRef { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AssistantRef  { get; set; }
+        public IEnumerable<GetMatchPersonListQuery.MatchPersonListDto> AdditionalRef  { get; set; }
+        public GetMatchPersonListQuery.MatchPersonListDto FourthRef { get; set; }
     }
 }

@@ -6,10 +6,11 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MaterialService } from "../../core";
 import { Material } from "../../model";
-import { MaterialCategoryService, MaterialCategory, MaterialType } from "@app/materialCategory";
+import { MaterialCategoryService, MaterialCategory, MaterialType, MaterialCategoryFilter } from "@app/materialCategory";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialGuardDialogComponent } from "./material-guard-dialog";
 import { EDIT_ROUTE, MESSAGE } from "@app/+constants";
+import { PagedList } from '@app/shared';
 
 //todo moved to script till I found solution to include it here(and in page-editor)
 //import "tinymce/plugins/fullscreen/plugin.min.js";
@@ -55,8 +56,10 @@ export class MaterialEditComponent implements OnInit {
         } else {
             this.item = new Material();
         };
-        this.materialCategoryService.getAll(this.type)
-            .subscribe((data : MaterialCategory[]) => this.parseCategories(data));
+        const categoryFilter = new MaterialCategoryFilter();
+        categoryFilter.materialType = this.type;
+        this.materialCategoryService.getAll(categoryFilter)
+            .subscribe((data : PagedList<MaterialCategory>) => this.parseCategories(data.results));
     }
 
     public onSubmit(): void {

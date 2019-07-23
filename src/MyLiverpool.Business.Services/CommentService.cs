@@ -161,7 +161,7 @@ namespace MyLiverpool.Business.Services
         private async Task SendNotificationToEmailAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
             const string newAnswer = "Новый ответ на ваш комментарий";
-            var user = await _userService.GetUserAsync(parentComment.AuthorId);
+            var user = await _mediator.Send(new GetUserDetailQuery.Request {Id = parentComment.AuthorId});
             if (user != null)
             {
                 await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(parentComment, commentId, authorUserName, commentText));

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
+using MyLfc.Application.Matches;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
@@ -9,19 +9,8 @@ namespace MyLiverpool.Web.Mvc.Controllers
     /// Manages matches.
     /// </summary>
     [Route("[controller]")]
-    public class MatchesController : Controller
+    public class MatchesController : BaseController
     {
-        private readonly IMatchService _matchService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="matchService"></param>
-        public MatchesController(IMatchService matchService)
-        {
-            _matchService = matchService;
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -30,12 +19,12 @@ namespace MyLiverpool.Web.Mvc.Controllers
         /// <summary>
         /// Shows detail match page.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail([FromRoute]GetMatchDetailQuery.Request request)
         {
-            var match = await _matchService.GetByIdAsync(id); //todo add caching for match
+            var match = await Mediator.Send(request);
             if (match == null)
             {
                 return RedirectToAction("Index", "Home");

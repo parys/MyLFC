@@ -3,7 +3,6 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using MyLfc.Domain;
@@ -57,18 +56,6 @@ namespace MyLiverpool.Business.Services
                 await _userRepository.UpdateAsync(model);
             }
             return _mapper.Map<UserDto>(model);
-        }
-
-        public async Task<IList<string>> GetRolesAsync(int id)
-        {
-            var result = await _userRepository.GetRolesAsync(id);
-            return result;
-        }
-
-        public async Task<UserDto> GetUserAsync(int id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
-            return _mapper.Map<UserDto>(user);
         }
 
         public async Task<string> GetUsernameAsync(int id)

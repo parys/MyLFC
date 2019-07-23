@@ -66,12 +66,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<MaterialComment>> GetListAsync()
-        {
-            return await _context.MaterialComments.ToListAsync(); //todo for migrator
-            throw new NotImplementedException("Not need to implement");
-        }
-
         public async Task<CommentVote> GetVoteByIdAsync(int commentId, int userId)
         {
             return await _context.CommentVotes.FindAsync(userId, commentId);
@@ -87,32 +81,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             _context.CommentVotes.Update(vote);
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<ICollection<MaterialComment>> GetOrderedByAsync(int? page, int itemPerPage = 15,
-            Expression<Func<MaterialComment, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<MaterialComment, object>> orderBy = null)
-        {
-            IQueryable<MaterialComment> query =
-                _context.MaterialComments
-                    .Include(x => x.Author)
-                    .Include(x => x.CommentVotes);
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (orderBy != null)
-            {
-                query = query.ObjectSort(orderBy, order);
-            }
-
-            if (page.HasValue)
-            {
-                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
-            }
-
-            return await query.ToListAsync();
         }
 
         public async Task<ICollection<MaterialComment>> GetLastAsync(int itemPerPage = 15,

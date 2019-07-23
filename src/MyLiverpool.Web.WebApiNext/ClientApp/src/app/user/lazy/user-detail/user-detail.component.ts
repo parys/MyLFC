@@ -8,7 +8,6 @@ import { User, UserService } from "@app/user";
 import { RolesCheckedService } from "@app/+auth";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { ManyResponse } from '@app/+common-models';
 
 @Component({
     selector: "user-detail",
@@ -119,7 +118,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     private loadRoleGroups(): void {
         this.roleGroupService.getAll()
-            .subscribe((data : ManyResponse<RoleGroup>) => this.roleGroups = data.results);
+            .subscribe((data : RoleGroup[]) => this.roleGroups = data);
     }
 
     private initRoleForm(): void {

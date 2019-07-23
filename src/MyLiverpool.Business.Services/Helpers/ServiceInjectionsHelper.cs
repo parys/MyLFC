@@ -13,9 +13,6 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
             services.AddTransient<IForumThemeService, ForumThemeService>();
-            services.AddTransient<IMatchService, MatchService>();
-            services.AddTransient<IMatchEventService, MatchEventService>();
-            services.AddTransient<IMatchPersonService, MatchPersonService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();

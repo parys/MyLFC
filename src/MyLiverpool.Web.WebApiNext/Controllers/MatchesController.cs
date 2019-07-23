@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Matches;
+using MyLfc.Application.Persons;
 using MyLfc.Common.Web;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -20,65 +19,44 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class MatchesController : BaseController
     {
-        private readonly IMatchService _matchService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="matchService">Injected value.</param>
-        public MatchesController(IMatchService matchService)
-        {
-            _matchService = matchService;
-        }
-
         /// <summary>
         /// Creates new match.
         /// </summary>
-        /// <param name="dto">Filled match model.</param>
+        /// <param name="request">Filled match model.</param>
         /// <returns>Created entity.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]MatchDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]CreateMatchCommand.Request request)
         {
-            if (dto == null || !ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _matchService.CreateAsync(dto);
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Updates match.
         /// </summary>
         /// <param name="id">The identifier of entity.</param>
-        /// <param name="dto">Updated match dto.</param>
+        /// <param name="request">Updated match dto.</param>
         /// <returns>Updated entity.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody]MatchDto dto)
+        public async Task<IActionResult> UpdateAsync([FromRoute]int id, [FromBody]UpdateMatchCommand.Request request)
         {
-            if (!ModelState.IsValid || id != dto.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _matchService.UpdateAsync(dto);
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
-            return Ok(result);
-        }      
-        
+            return Ok(await Mediator.Send(request));
+        }
+
         /// <summary>
         /// Returns match by id.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="request">The identifier.</param>
         /// <returns>Found match entity.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromRoute]GetMatchDetailQuery.Request request)
         {
-            if (id < 1)
-            {
-                id = 1;
-            }
-            var result = await _matchService.GetByIdAsync(id);
+            var result = await Mediator.Send(request);
             return Ok(result);
         }
 
@@ -107,8 +85,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 })).Value);
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));//todo add cache?
-                result.Events = new List<MatchEventDto>(); //not need events on UI for header
+                var result = await Mediator.Send(new GetMatchDetailQuery.Request {Id = int.Parse(helpEntity)});//todo add cache?
                 return Ok(result);
             }
             return Ok(null);
@@ -139,7 +116,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetForCalendarAsync()
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
-                async () => await _matchService.GetForCalendarAsync());
+                async () => await Mediator.Send(new GetMatchCalendarQuery.Request()));
             return Ok(result);
         }
 
@@ -174,11 +151,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>List of types.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute]DeleteMatchCommand.Request request)
         {
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
-            var result = await _matchService.DeleteAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
+        }
+
+        /// <summary>
+        /// Returns match persons by match id.
+        /// </summary>
+        /// <param name="request">The identifier of match.</param>
+        /// <returns>List of match events for match.</returns>
+        [AllowAnonymous, HttpGet("{matchId:int}/persons")]
+        public async Task<IActionResult> GetForMatchAsync([FromRoute]GetMatchPersonListQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
         }
     }
 }

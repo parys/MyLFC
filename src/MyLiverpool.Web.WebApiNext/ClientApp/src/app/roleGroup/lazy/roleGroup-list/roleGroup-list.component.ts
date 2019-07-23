@@ -19,6 +19,6 @@ export class RoleGroupListComponent implements OnInit {
     private update(): void {
         this.service
             .getAllWithRoles()
-            .subscribe(data => this.items = data.results);
+            .subscribe(data => this.items = data);
     }
 }

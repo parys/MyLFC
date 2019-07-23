@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MyLfc.Domain;
@@ -17,8 +16,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<User> FindByEmailAsync(string email);
 
         Task<bool> CheckPasswordAsync(User user, string password);
-
-        Task<IList<string>> GetRolesAsync(int id);
 
         Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword);
 

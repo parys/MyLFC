@@ -2,23 +2,20 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.HelpEntities;
+using MyLfc.Application.Matches;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class MatchPanelViewComponent : ViewComponent
     {
-        private readonly IMatchService _matchService;
         private readonly IMediator _mediator;
         private readonly IDistributedCacheManager _cacheManager;
 
-        public MatchPanelViewComponent(IMatchService matchService, IDistributedCacheManager cache, IMediator mediator)
+        public MatchPanelViewComponent(IDistributedCacheManager cache, IMediator mediator)
         {
-            _matchService = matchService;
             _cacheManager = cache;
             _mediator = mediator;
         }
@@ -30,10 +27,10 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
 
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
+                var result = await _mediator.Send(new GetMatchDetailQuery.Request {Id = int.Parse(helpEntity)});
                 return View(result);
             }
-            return View(null as MatchDto);
+            return View(null as GetMatchDetailQuery.Response);
         }
     }
 }

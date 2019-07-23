@@ -1,18 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Dto;
+using MyLfc.Application.Matches;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class MatchEventPanelViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(IEnumerable<MatchEventDto> events, bool isHome)
+        private readonly IMediator _mediator;
+
+        public MatchEventPanelViewComponent(IMediator mediator)
         {
-            Update(events, isHome);
-            return View(events);
+            _mediator = mediator;
         }
 
-        public void Update(IEnumerable<MatchEventDto> events, bool isHome)
+        public async Task<IViewComponentResult> InvokeAsync(int matchId, bool isHome)
+        {
+            var list = await _mediator.Send(new GetMatchEventListQuery.Request { MatchId = matchId });
+            Update(list.Results, isHome);
+            return View(list.Results);
+        }
+
+        public void Update(IEnumerable<GetMatchEventListQuery.MatchEventListDto> events, bool isHome)
         {
             foreach (var @event in events)
             {

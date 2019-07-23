@@ -4,13 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.HelpEntities;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -20,66 +16,13 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Person> _personRepository;
-        private readonly IMediator _mediator;
 
-        public PersonService(IMapper mapper, IGenericRepository<Person> personRepository, IMediator mediator)
+        public PersonService(IMapper mapper, IGenericRepository<Person> personRepository)
         {
             _mapper = mapper;
             _personRepository = personRepository;
-            _mediator = mediator;
-        }
-
-        public async Task<PersonDto> CreateAsync(PersonDto dto)
-        {
-            var model = _mapper.Map<Person>(dto);
-            var result = await _personRepository.CreateAsync(model);
-            return _mapper.Map<PersonDto>(result);
         }
         
-        public async Task<PersonDto> GetByIdAsync(int id)
-        {
-            var person = await _personRepository.GetFirstByPredicateAsync(x => x.Id == id);
-            return _mapper.Map<PersonDto>(person);
-        }
-
-        public async Task<PersonDto> UpdateAsync(PersonDto dto)
-        {
-            var person = await _personRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
-            if (person == null)
-            {
-                return null;
-            }
-            person.Birthday = dto.Birthday;
-            person.FirstName = dto.FirstName;
-            person.FirstRussianName = dto.FirstRussianName;
-            person.LastName = dto.LastName;
-            person.LastRussianName = dto.LastRussianName;
-            person.Photo = dto.Photo;
-            person.Type = dto.Type;
-            person.Position = dto.Position;
-            person.Country = dto.Country;
-            person.Number = dto.Number;
-            await _personRepository.UpdateAsync(person);
-            return _mapper.Map<PersonDto>(person);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            await _personRepository.DeleteAsync(x => x.Id == id);
-            return true;
-        }
-        
-        public async Task<PersonDto> GetBestPlayerAsync()
-        {
-            var playerHelpEntity = await _mediator.Send(new GetEntityQuery.Request{Type = HelperEntityType.BestPlayer});
-            if (playerHelpEntity != null && int.TryParse(playerHelpEntity.Value, out var playerId))
-            {
-                var player = await _personRepository.GetFirstByPredicateAsync(x => x.Id == playerId);
-                return _mapper.Map<PersonDto>(player);
-            }
-            return null;
-        }
-
         //public async Task SetBestPlayerAsync(int personId)
         //{
             //var entity = new HelpEntity()
@@ -89,31 +32,7 @@ namespace MyLiverpool.Business.Services
             //};
             //await _helperEntityService.UpdateAndSaveAsync(entity);
         //}
-
-        public async Task<IEnumerable<PersonDto>> GetStuffListAsync(PersonType personType)
-        {
-            var stuffList1 = await _personRepository.GetListAsync(filter: x => x.Type == personType);
-            var stuffList = stuffList1.ToList();
-            var tempList = new List<Person>();
-            var coach = stuffList.FirstOrDefault(x => x.Position == "Главный тренер");
-            if (coach != null)
-            {
-                tempList.Add(coach);
-                stuffList.Remove(coach);
-            }
-            var assistants = stuffList.Where(x => x.Position == "Помощник тренера").ToList();
-            if(assistants.Any())
-            {
-                foreach (var assistant in assistants)
-                {
-                    tempList.Add(assistant);
-                    stuffList.Remove(assistant);
-                }
-            }
-            tempList.AddRange(stuffList);
-            return _mapper.Map<IEnumerable<PersonDto>>(tempList);
-        }
-
+        
         public async Task<SquadListDto> GetSquadListAsync(PersonType type)
         {
             Expression<Func<Person, bool>> filter = x => true;
@@ -146,35 +65,6 @@ namespace MyLiverpool.Business.Services
                 Midfielders = midfielders.OrderBy(x => x.Number),
                 Strikers = strikers.OrderBy(x => x.Number)
             };
-        }
-
-        public async Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed)
-        {
-            typed = typed?.ToLowerInvariant();
-            Expression<Func<Person, bool>> filter = x => true;
-            if (!string.IsNullOrWhiteSpace(typed))
-            {
-                filter = filter.And(x => x.FirstName.ToLower().Contains(typed) ||
-                                         x.FirstRussianName.ToLower().Contains(typed) ||
-                                         x.LastName.ToLower().Contains(typed) ||
-                                         x.LastRussianName.ToLower().Contains(typed));
-            }
-            var persons = await _personRepository.GetListAsync(1, filter: filter);
-            return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.RussianName));
-        }
-
-        public async Task<IEnumerable<PersonDto>> GetBirthdaysAsync()
-        {
-            Expression<Func<Person, bool>> filter = x => x.Birthday.HasValue &&
-                                                       x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
-                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
-                                                       x.Type != PersonType.Rival &&
-                                                       x.Type != PersonType.CompetitorCoach &&
-                                                       x.Type != PersonType.Referee;
-            var list = await _personRepository
-                .GetQueryableList(asNoTracking: true, filter: filter)
-                .ToListAsync();
-            return _mapper.Map<IEnumerable<PersonDto>>(list);
         }
     }
 }

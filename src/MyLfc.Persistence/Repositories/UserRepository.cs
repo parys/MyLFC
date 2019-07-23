@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -94,16 +93,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
-        public async Task<IList<string>> GetRolesAsync(int id)
-        {
-            var user = await _userManager.FindByIdAsync(id.ToString());
-            if (user == null)
-            {
-                return new List<string>();
-            }
-            return await _userManager.GetRolesAsync(user);
-        }
-
         public async Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -168,11 +157,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public Task DeleteAsync(User entity)
         {
             throw new NotImplementedException();
-        }
-
-        public async void Update(User entity)
-        {
-            await _userManager.UpdateAsync(entity);
         }
 
         public async Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)

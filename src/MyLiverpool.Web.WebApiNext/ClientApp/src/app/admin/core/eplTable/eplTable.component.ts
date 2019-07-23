@@ -3,7 +3,6 @@ import { Subscription } from "rxjs";
 import { AdminService } from "../admin.service";
 import { HelperType } from "@app/home/helperType.enum";
 import { RolesCheckedService } from "@app/+auth";
-import { SingleResponse } from '../../../+common-models/singleResponse.model';
 
 @Component({
     selector: "epl-table",
@@ -40,14 +39,9 @@ export class EplTableComponent implements OnInit, OnDestroy {
     public updateEplTable(): void {
         this.sub2 = this.service
             .updateEplTable()
-            .subscribe((data: SingleResponse<string>) => {
-                this.eplTable = data.result;
-                console.log(this.eplTable);
-                console.log(data.result);
-                },
-                () => {},
-                () => {
-                    this.cd.markForCheck();
-                });
+            .subscribe((data: string) => {
+                this.eplTable = data;
+                this.cd.markForCheck();
+            });
     }
 }

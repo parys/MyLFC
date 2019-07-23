@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
         {
             var request = new GetMaterialCategoryListQuery.Request
             {
-                Type = type
+                MaterialType = type
             };
             return View(await Mediator.Send(request));
         }

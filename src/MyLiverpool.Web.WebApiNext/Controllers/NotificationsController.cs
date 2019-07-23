@@ -18,7 +18,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("")]
         public async Task<IActionResult> GetListAsync()
         {
-            return Ok(await Mediator.Send(new GetNotificationListQuery.Request()));
+            var result = await Mediator.Send(new GetNotificationListQuery.Request());
+            return Ok(result.Results);
         }
 
         /// <summary>
@@ -39,7 +40,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("unread")]
         public async Task<IActionResult> GetUnreadCount()
         {
-            return Ok(await Mediator.Send(new GetUnreadNotificationCountQuery.Request()));
+            var result = await Mediator.Send(new GetUnreadNotificationCountQuery.Request());
+            return Ok(result.Result);
         }
     }
 }
