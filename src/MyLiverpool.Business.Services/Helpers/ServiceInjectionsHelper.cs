@@ -13,11 +13,8 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
             services.AddTransient<IForumThemeService, ForumThemeService>();
-            services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
-            services.AddTransient<IUserService, UserService>();
         }
     }
 }

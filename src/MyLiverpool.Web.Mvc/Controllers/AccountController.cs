@@ -22,8 +22,6 @@ namespace MyLiverpool.Web.Mvc.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-      //  private readonly IEmailSender _emailSender;
-      //  private readonly IUserService _userService;
         private readonly IAccountService _accountService;
         private readonly ILogger _logger;
 
@@ -32,17 +30,14 @@ namespace MyLiverpool.Web.Mvc.Controllers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        /// <param name="emailSender"></param>
         /// <param name="logger"></param>
         /// <param name="accountService"></param>
-        /// <param name="userService"></param>
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
       //      IEmailSender emailSender,
             ILogger<AccountController> logger,
-            IAccountService accountService,
-            IUserService userService)
+            IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

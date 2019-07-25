@@ -26,6 +26,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<User, GetUserBirthdaysQuery.UserBirthdayDto>();
 
+            CreateMap<UpdateUserCommand.Request, User>();
+
             CreateMap<UserConfig, GetUserConfigQuery.Response>();
 
             CreateMap<UpdateUserConfigCommand.Request, UserConfig>();

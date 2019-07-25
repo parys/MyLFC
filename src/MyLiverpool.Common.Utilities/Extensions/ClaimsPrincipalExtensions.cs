@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Common.Utilities.Extensions
 {
@@ -39,6 +40,15 @@ namespace MyLiverpool.Common.Utilities.Extensions
             }
 
             return 0;
+        }
+
+        public static bool IsSiteTeamMember(this ClaimsPrincipal principal)
+        {
+            return principal.Identity.IsAuthenticated
+                   && (principal.IsInRole(nameof(RolesEnum.AdminStart))
+                       || principal.IsInRole(nameof(RolesEnum.InfoStart))
+                       || principal.IsInRole(nameof(RolesEnum.NewsStart))
+                       || principal.IsInRole(nameof(RolesEnum.UserStart)));
         }
     }
 }

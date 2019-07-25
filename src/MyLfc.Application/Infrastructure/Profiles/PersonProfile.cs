@@ -19,6 +19,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<Person, GetStuffListQuery.StuffPersonDto>();
 
+            CreateMap<Person, GetSquadListQuery.SquadPersonDto>();
+
             CreateMap<CreatePersonCommand.Request, Person>();
 
             CreateMap<UpdatePersonCommand.Request, Person>();

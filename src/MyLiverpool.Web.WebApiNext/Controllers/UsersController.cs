@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Users;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.OnlineCounting;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -19,20 +17,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class UsersController : BaseController
     {
-        private readonly IUserService _userService;
-        private readonly IUploadService _uploadService;//todo should call remove and method move to user service
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="userService"></param>
-        /// <param name="uploadService"></param>
-        public UsersController(IUserService userService, IUploadService uploadService)
-        {
-            _userService = userService;
-            _uploadService = uploadService;
-        }
-        
         /// <summary>
         /// Returns user by id.
         /// </summary>
@@ -64,16 +48,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates user.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified user entity.</param>
+        /// <param name="request"></param>
         /// <returns>Result of editing.</returns>
         [Authorize, HttpPut]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UserDto dto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UpdateUserCommand.Request request)
         {
-            if (id != dto.Id && id != User.GetUserId() || !ModelState.IsValid)
+            if (id != User.GetUserId())
             {
                 return BadRequest();
             }
-            var result = await _userService.UpdateAsync(dto);
+            var result = await Mediator.Send(request);
             CacheManager.Remove(CacheKeysConstants.UserBirthdays);
             return Ok(result);
         }
@@ -184,30 +168,48 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)
             {
-                //  if (HttpContext.Current.Request.Files !=.Count > 0)
+                var request = new UpdateUserAvatarCommand.Request
                 {
-                    var file = Request.Form.Files[0];
-                    var result = await _uploadService.UpdateAvatarAsync(User.GetUserId(), file);
+                    File = Request.Form.Files[0]
+                };
+                var result = await Mediator.Send(request);
 
-                    return Ok(new { path = result});
-                }
+                return Ok(new {path = result});
             }
+
             return BadRequest();
         }
 
         /// <summary>
         /// Resets user's avatar to default.
         /// </summary>
-        /// <param name="userId">The identifier of resetting avatar user.</param>
+        /// <param name="request">The identifier of resetting avatar user.</param>
         /// <returns>New user photo path.</returns>
         [Authorize, HttpPut("avatar/{userId:int}/reset")]
-        public async Task<ActionResult> ResetAvatarAsync(int userId)
+        [Obsolete("Delete after 14 Aug 19")]
+        public async Task<ActionResult> ResetAvatarOldAsync([FromRoute] ResetUserAvatarCommand.Request request)
         {
-            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != userId)
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != request.UserId)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
-            var result = await _userService.ResetAvatarAsync(userId);
+            var result = await Mediator.Send(request);
+            return Ok(new { path = result });
+        }
+
+        /// <summary>
+        /// Resets user's avatar to default.
+        /// </summary>
+        /// <param name="request">The identifier of resetting avatar user.</param>
+        /// <returns>New user photo path.</returns>
+        [Authorize, HttpPut("{userId:int}/resetAvatar")]
+        public async Task<ActionResult> ResetAvatarAsync([FromRoute] ResetUserAvatarCommand.Request request)
+        {
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != request.UserId)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+            var result = await Mediator.Send(request);
             return Ok(new { path = result });
         }
 

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Clubs;
-using MyLiverpool.Business.Contracts;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -12,17 +11,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class ClubsController : BaseController
     {
-        private readonly IUploadService _uploadService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="uploadService"></param>
-        public ClubsController(IUploadService uploadService)
-        {
-            _uploadService = uploadService;
-        }
-
         /// <summary>
         /// Creates new club item.
         /// </summary>
@@ -86,22 +74,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Uploads logo for club with given name.
         /// </summary>
-        /// <param name="clubEnglishName">Club english name.</param>
+        /// <param name="request">Club english name.</param>
         /// <returns>Result of uploading.</returns>
-        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("logo/{clubEnglishName}")]
-        public async Task<IActionResult> ClubLogo(string clubEnglishName)
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("logo/{name}")]
+        public async Task<IActionResult> ClubLogo([FromRoute] UpdateClubLogoCommand.Request request)
         {
-            //if (!Request.Content.IsMimeMultipartContent())
-            //{
-            //    return BadRequest();
-            //}
-
             if (Request.Form.Files?.Count > 0)
             {
-                var file = Request.Form.Files[0];
-                var result = await _uploadService.UpdateLogoAsync(clubEnglishName.ToLower().Replace(" ", ""), file);
+                request.File = Request.Form.Files[0];
+                
+                var result = await Mediator.Send(request);
 
-                return Ok(new { path = result });
+                return Ok(new { path = result.Path });
             }
             return BadRequest();
         }

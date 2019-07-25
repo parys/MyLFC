@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -21,17 +15,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class CommentsController : BaseController
     {
-        private readonly ICommentService _commentService;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="commentService"></param>
         /// <param name="signalRHubAggregator"></param>
-        public CommentsController(ICommentService commentService, ISignalRHubAggregator signalRHubAggregator)
+        public CommentsController(ISignalRHubAggregator signalRHubAggregator)
         {
-            _commentService = commentService;
             _signalRHubAggregator = signalRHubAggregator;
         }
         
@@ -54,8 +45,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetLastList()
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
-                async () => await _commentService.GetLastListAsync());
-            return Ok(result);
+                async () => await Mediator.Send(new GetLastCommentListQuery.Request()));
+            return Ok(result.Results);
         }
 
         /// <summary>
@@ -112,30 +103,27 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Creates new material comment.
         /// </summary>
-        /// <param name="dto">New comment model.</param>
+        /// <param name="request">New comment model.</param>
         /// <returns>Result of creation.</returns>
         [Authorize, HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody] CommentDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateCommentCommand.Request request)
         {
-            dto.IsVerified = IsSiteTeamMember();
-            dto.AuthorId = User.GetUserId();
-            var result = await _commentService.AddAsync(dto);
+            var result = await Mediator.Send(request);
 
             CacheManager.Remove(CacheKeysConstants.MaterialsLatest,
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
-            result.AuthorUserName = User.Identity.Name;
 
-            var oldMessage = result.Message.Substring(0);
-            SanitizeComment(result);
+           // var oldMessage = result.Message.Substring(0);
+            //SanitizeComment(result);
 
-            if (!string.IsNullOrWhiteSpace(result.Message))
-            {
-                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
-            }
+            //if (!string.IsNullOrWhiteSpace(result.Message))
+            //{
+            //    _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
+            //}
 
-            result.Message = oldMessage;
+         //   result.Message = oldMessage;
 
-            return Ok(result);
+            return Ok(result.Id);
         }
 
         /// <summary>
@@ -158,66 +146,36 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates comment.
         /// </summary>
         /// <param name="id">The identifier of comment.</param>
-        /// <param name="dto">Comment.</param>
+        /// <param name="request">Comment.</param>
         /// <returns>Result of update.</returns>
         [Authorize, HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] CommentDto dto)
+        public async Task<IActionResult> UpdateAsync([FromRoute]int id, [FromBody] UpdateCommentCommand.Request request)
         {
-            if (id != dto.Id || !ModelState.IsValid)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
 
-            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != dto.AuthorId)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden);
-            }
-            dto.IsVerified = IsSiteTeamMember();
-
-            var result = await _commentService.UpdateAsync(dto);
+            var result = await Mediator.Send(request);
             CacheManager.Remove(CacheKeysConstants.LastComments);
 
-            return Ok(result);
-        }       
-        
+            return Ok(result.Id);
+        }
+
         /// <summary>
         /// Updates comment vote.
         /// </summary>
-        /// <param name="dto">Comment vote.</param>
+        /// <param name="request">Comment vote.</param>
         /// <returns>Result of update.</returns>
         [Authorize, HttpPut("vote")]
-        public async Task<IActionResult> UpdateVoteAsync([FromBody] CommentVoteDto dto)
+        public async Task<IActionResult> UpdateVoteAsync([FromBody] UpdateCommentVoteCommand.Request request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            dto.UserId = User.GetUserId();
-            var result = await _commentService.UpdateVoteAsync(dto);
-
-            return Ok(result);
-        }
-
-        private bool IsSiteTeamMember()
-        {
-            return User.Identity.IsAuthenticated
-                                 &&(User.IsInRole(nameof(RolesEnum.AdminStart))
-                                 || User.IsInRole(nameof(RolesEnum.BlogStart))
-                                 || User.IsInRole(nameof(RolesEnum.InfoStart))
-                                 || User.IsInRole(nameof(RolesEnum.NewsStart))
-                                 || User.IsInRole(nameof(RolesEnum.UserStart)));
-        }
-
-        //todo duplicate in commentService 
-        private void SanitizeComment(CommentDto comment)
-        {
-            comment.Message = Regex.Replace(Regex.Replace(comment.Message, "&.*?;", string.Empty), "<.*?>", string.Empty);
-            if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
-            {
-                comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
-                                  "...";
-            }
+            return Ok(await Mediator.Send(request));
         }
     }
 }

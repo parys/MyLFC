@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Persons;
 using MyLfc.Common.Web;
-using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -17,20 +16,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class PersonsController : BaseController
     {
-        private readonly IPersonService _personService;
-        private readonly IUploadService _uploadService;
-
-        /// <summary>
-        /// Controller.
-        /// </summary>
-        /// <param name="personService"></param>
-        /// <param name="uploadService"></param>
-        public PersonsController(IPersonService personService, IUploadService uploadService)
-        {
-            _personService = personService;
-            _uploadService = uploadService;
-        }
-
         /// <summary>
         /// Creates new person item.
         /// </summary>
@@ -78,14 +63,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Persons list.</returns>
         [AllowAnonymous, HttpGet("squad")]
-        public async Task<IActionResult> GetSquadListAsync([FromQuery]string type)
+        public async Task<IActionResult> GetSquadListAsync([FromQuery]GetSquadListQuery.Request request)
         {
-            if (!Enum.TryParse(type, out PersonType squadType))
-            {
-                squadType = PersonType.First;
-            }
-            var result = await _personService.GetSquadListAsync(squadType);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -187,14 +167,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Result of uploading new photo.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("photo/{name}")]
-        public async Task<ActionResult> UploadPhotoAsync(string name)
+        public async Task<ActionResult> UploadPhotoAsync([FromRoute] UpdatePersonPhotoCommand.Request request)
         {
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)
             {
-                    var file = Request.Form.Files[0];
-                    var result = await _uploadService.UpdatePersonPhotoAsync(name, file);
+                request.File = Request.Form.Files[0];
+                var result = await Mediator.Send(request);
 
-                    return Ok(new { path = result });
+                    return Ok(new { path = result.Path });
             }
             return BadRequest();
         }

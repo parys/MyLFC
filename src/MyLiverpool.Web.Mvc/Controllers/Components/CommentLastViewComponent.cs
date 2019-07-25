@@ -1,26 +1,27 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Comments;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class CommentLastViewComponent : ViewComponent
     {
         private readonly IDistributedCacheManager _cacheManager;
-        private readonly ICommentService _commentService;
+        private readonly IMediator _mediator;
 
-        public CommentLastViewComponent(IDistributedCacheManager cache, ICommentService commentService)
+        public CommentLastViewComponent(IDistributedCacheManager cache, IMediator mediator)
         {
             _cacheManager = cache;
-            _commentService = commentService;
+            _mediator = mediator;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments, async () => 
-                await _commentService.GetLastListAsync());
+                await _mediator.Send(new GetLastCommentListQuery.Request()));
             return View(result);
         }
     }

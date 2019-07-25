@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace MyLiverpool.Business.Services
+namespace MyLiverpool.Common.Utilities
 {
     public static class FileHelper
     {

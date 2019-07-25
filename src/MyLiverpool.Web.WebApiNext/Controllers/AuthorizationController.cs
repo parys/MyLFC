@@ -10,8 +10,8 @@ using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MyLfc.Application.Users;
 using MyLfc.Domain;
-using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -24,13 +24,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Controller for authorization actions.
     /// </summary>
     [AllowAnonymous]
-    public class AuthorizationController : Controller
+    public class AuthorizationController : BaseController
     {
         private readonly OpenIddictApplicationManager<OpenIddictApplication<int>> _applicationManager;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly IUserService _userService;
 
         /// <summary>
         /// Constructor.
@@ -38,25 +37,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="applicationManager"></param>
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
-        /// <param name="userService"></param>
         /// <param name="identityOptions"></param>
         public AuthorizationController(
             OpenIddictApplicationManager<OpenIddictApplication<int>> applicationManager,
             SignInManager<User> signInManager,
-            UserManager<User> userManager, IUserService userService,
+            UserManager<User> userManager,
             IOptions<IdentityOptions> identityOptions)
         {
             _applicationManager = applicationManager;
             _signInManager = signInManager;
             _userManager = userManager;
-            _userService = userService;
             _identityOptions = identityOptions;
         }
 
         /// <summary>
         /// Authorizes user by password grant type.
         /// </summary>
-        /// <returns>Result of authentification.</returns>
+        /// <returns>Result of authentication.</returns>
         [HttpPost("~/connect/token")]
         public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
         {
@@ -266,15 +263,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
             //  ticket.Properties.IsPersistent = false;
 
-            await UpdateIpAddressForUser(user.Id);
+            await UpdateIpAddressForUser();
 
             return ticket;
         }
 
-        private async Task UpdateIpAddressForUser(int userId)
+        private async Task UpdateIpAddressForUser()
         {
             var ip = HttpContext.Connection.RemoteIpAddress.ToString();
-            await _userService.UpdateUserIpAddress(ip, userId);
+            await Mediator.Send(new UpdateUserIpAddressCommand.Request {Ip = ip});
         }
     }
 }

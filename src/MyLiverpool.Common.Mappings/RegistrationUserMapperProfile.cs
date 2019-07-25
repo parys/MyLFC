@@ -1,38 +1,18 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
 
 namespace MyLiverpool.Common.Mappings
 {
-    public class UserMapperProfile : Profile
+    public class RegistrationUserMapperProfile : Profile
     {
-        public UserMapperProfile()
+        public RegistrationUserMapperProfile()
         {
             RegisterUserMapping();
         }
         
         private void RegisterUserMapping()
         {
-            CreateMap<User, UserDto>()
-                .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
-
-                .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.BlogsCount, src => src.MapFrom(x => x.BlogsCount))
-                .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
-                .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
-                .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))
-                .ForMember(dest => dest.Gender, src => src.MapFrom(x => x.Gender))
-                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.LockoutEnd, src => src.MapFrom(x => x.LockoutEnd.HasValue ? x.LockoutEnd.Value.DateTime : new DateTime?()))
-                .ForMember(dest => dest.NewsCount, src => src.MapFrom(x => x.NewsCount))
-                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
-                .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
-                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
-                .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
-
             CreateMap<RegisterUserDto, User>()
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
