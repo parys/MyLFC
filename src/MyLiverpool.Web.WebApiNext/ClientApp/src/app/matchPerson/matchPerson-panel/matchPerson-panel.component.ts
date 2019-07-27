@@ -97,7 +97,7 @@ export class MatchPersonPanelComponent implements OnInit {
 
 
     private delete(person: MatchPerson): void {
-        this.matchPersonService.delete(this.matchId, person.personId)
+        this.matchPersonService.delete(this.matchId, person.id)
             .subscribe((result: boolean) => {
                 if (result) {
                     this.matchPersons.splice(this.matchPersons.indexOf(person), 1);

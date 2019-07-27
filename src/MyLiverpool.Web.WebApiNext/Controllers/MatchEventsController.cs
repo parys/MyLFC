@@ -47,7 +47,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(request);
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
-            return Ok(result);
+            return Ok(result.Id);
         }
 
 

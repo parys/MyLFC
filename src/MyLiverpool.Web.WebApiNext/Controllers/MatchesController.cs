@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Matches;
-using MyLfc.Application.Persons;
 using MyLfc.Common.Web;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -85,7 +84,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 })).Value);
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await Mediator.Send(new GetMatchDetailQuery.Request {Id = int.Parse(helpEntity)});//todo add cache?
+                var result = await Mediator.Send(new GetMatchHeaderQuery.Request
+                {
+                    Id = int.Parse(helpEntity)
+                });//todo add cache?
                 return Ok(result);
             }
             return Ok(null);
@@ -165,7 +167,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("{matchId:int}/persons")]
         public async Task<IActionResult> GetForMatchAsync([FromRoute]GetMatchPersonListQuery.Request request)
         {
-            return Ok(await Mediator.Send(request));
+            return Ok((await Mediator.Send(request)).Results);
+        }
+
+
+        /// <summary>
+        /// Returns match events by match id.
+        /// </summary>
+        /// <param name="request">The identifier of match.</param>
+        /// <returns>List of match events for match.</returns>
+        [AllowAnonymous, HttpGet("{matchId:int}/events")]
+        public async Task<IActionResult> GetForMatchAsync([FromRoute] GetMatchEventListQuery.Request request)
+        {
+            return Ok((await Mediator.Send(request)).Results);
         }
     }
 }

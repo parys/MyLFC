@@ -11,7 +11,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Application.Matches
 {
-    public class GetMatchDetailQuery
+    public class GetMatchHeaderQuery
     {
         public class Request : IRequest<Response>
         {
@@ -66,6 +66,10 @@ namespace MyLfc.Application.Matches
                     throw new NotFoundException(nameof(Match), request.Id);
                 }
 
+                response.CommentCount = await _context.MaterialComments
+                        .CountAsync(x => x.MatchId == request.Id, cancellationToken);
+                
+
                 return response;
             }
 
@@ -85,10 +89,6 @@ namespace MyLfc.Application.Matches
         public class Response
         {
             public int Id { get; set; }
-
-            public int ClubId { get; set; }
-
-            public string ClubName { get; set; }
 
             public bool IsHome { get; set; }
             
@@ -137,6 +137,8 @@ namespace MyLfc.Application.Matches
             public int? PreviewId { get; set; }
 
             public int? ReportId { get; set; }
+
+            public int CommentCount { get; set; }
         }
     }
 }

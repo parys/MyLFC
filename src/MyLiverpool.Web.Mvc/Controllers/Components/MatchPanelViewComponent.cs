@@ -27,10 +27,10 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
 
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await _mediator.Send(new GetMatchDetailQuery.Request {Id = int.Parse(helpEntity)});
+                var result = await _mediator.Send(new GetMatchHeaderQuery.Request {Id = int.Parse(helpEntity)});
                 return View(result);
             }
-            return View(null as GetMatchDetailQuery.Response);
+            return View(null as GetMatchHeaderQuery.Response);
         }
     }
 }

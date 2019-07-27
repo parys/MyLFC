@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -43,15 +44,33 @@ namespace MyLfc.Application.MatchPersons
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                var person = _context.Persons
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Id == request.PersonId, cancellationToken);
+                
                 var matchPerson = await _context.MatchPersons
+                    .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.MatchId == request.MatchId
                                               && x.PersonId == request.PersonId, cancellationToken);
 
-                matchPerson = _mapper.Map(request, matchPerson);
+                if (matchPerson == null)
+                {
+                    matchPerson = _mapper.Map(request, matchPerson);
+                    matchPerson.Created = DateTime.UtcNow;
+                    _context.MatchPersons.Add(matchPerson);
+                }
+                else
+                {
+                    matchPerson = _mapper.Map(request, matchPerson);
+                    _context.MatchPersons.Update(matchPerson);
+                }
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {MatchId = matchPerson.MatchId, PersonId = matchPerson.PersonId};
+
+                return new Response {MatchId = matchPerson.MatchId,
+                    PersonId = matchPerson.PersonId,
+                    Number = (await person).Number};
             }
         }
 
@@ -60,6 +79,8 @@ namespace MyLfc.Application.MatchPersons
             public int MatchId { get; set; }
 
             public int PersonId { get; set; }
+
+            public byte? Number { get; set; }
         }
     }
 }

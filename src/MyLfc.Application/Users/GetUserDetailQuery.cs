@@ -5,9 +5,11 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
+using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Users
 {
@@ -27,10 +29,13 @@ namespace MyLfc.Application.Users
 
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, IMapper mapper)
+            private readonly RequestContext _requestContext;
+
+            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
             {
                 _context = context;
                 _mapper = mapper;
+                _requestContext = requestContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -45,7 +50,7 @@ namespace MyLfc.Application.Users
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                if (!request.IsModerator)
+                if (!_requestContext.User.IsInRole(nameof(RolesEnum.AdminStart)) && _requestContext.UserId != user.Id)
                 {
                     user.Ip = string.Empty;
                     user.Email = string.Empty;

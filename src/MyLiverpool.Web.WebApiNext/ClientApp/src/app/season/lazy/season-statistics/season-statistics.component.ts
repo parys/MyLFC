@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatSelect, MatSelectChange } from "@angular/material/select";
 import { SeasonService } from "../../core";
-import { PersonStatistics, Season } from "../../model";
+import { PersonStatistics, Season, SeasonStatistics } from "../../model";
 
 @Component({
     selector: "<season-statistics>",
@@ -18,7 +18,7 @@ export class SeasonStatisticsComponent implements OnInit {
 
     }
 
-    public ngOnInit(): void {//todo add updating url
+    public ngOnInit(): void {
         this.seasonSelect.selectionChange.subscribe((data: MatSelectChange) => {
             this.update(data.value, false);
         });
@@ -31,10 +31,10 @@ export class SeasonStatisticsComponent implements OnInit {
 
     private update(id: number, selectUpdate: boolean): void {
         this.seasonService.getStatistics(id)
-            .subscribe(data => {
-                this.statistics = data;
+            .subscribe((data : SeasonStatistics) => {
+                this.statistics = data.persons;
                     if (selectUpdate) {
-                        this.seasonSelect.value = data;
+                        this.seasonSelect.value = data.id;
                     }
                 });
     }

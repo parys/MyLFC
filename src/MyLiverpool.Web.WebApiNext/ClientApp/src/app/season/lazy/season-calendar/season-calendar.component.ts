@@ -48,7 +48,6 @@ export class SeasonCalendarComponent implements OnInit {
                     if (selectUpdate) {
                         this.seasonSelect.value = data.id;
                     }
-                    console.log(this.seasonSelect);
                 },
                 () => {},
                 () => {

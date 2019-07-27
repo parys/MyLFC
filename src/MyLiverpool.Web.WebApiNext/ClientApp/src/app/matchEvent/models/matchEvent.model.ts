@@ -2,7 +2,7 @@
     public id: number;
     public minute: string;
     public personId: number;
-    public personName: string;
+    public russianName: string;
     public matchId: number;
     public type: number;
     public typeName: string;

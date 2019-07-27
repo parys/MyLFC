@@ -59,7 +59,8 @@ namespace MyLfc.Application.Seasons
                 }).ToListAsync(cancellationToken);
                 return new Response
                 {
-                    Results = results
+                    Id = request.SeasonId,
+                    Persons = results
                 };
             }
 
@@ -88,7 +89,9 @@ namespace MyLfc.Application.Seasons
         [Serializable]
         public class Response
         {
-            public List<PersonStatisticDto> Results { get; set; }
+            public int Id { get; set; }
+
+            public List<PersonStatisticDto> Persons { get; set; }
         }
 
         public class PersonStatisticDto

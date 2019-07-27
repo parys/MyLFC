@@ -26,7 +26,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     @Input() public matchId: number;
     @Input() public parent: Comment;
     @Input() public type: number;
-    @ViewChild("replyInput", { static: true })private elementRef: EditorComponent;
+    @ViewChild("replyInput", { static: false })private elementRef: EditorComponent;
 
     public commentForm: FormGroup;          
     private oldCopy: Comment;
@@ -93,7 +93,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         let comment = this.getNewComment();
         this.materialCommentService.createOrUpdate(comment.id, comment)
             .subscribe((data: Comment) => {
-                    this.item.children.push(data);
+                 //   this.item.children.push(data);
                     this.cancelAdding();
                 });
     }

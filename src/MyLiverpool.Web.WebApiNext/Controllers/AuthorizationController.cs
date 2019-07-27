@@ -263,15 +263,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
             //  ticket.Properties.IsPersistent = false;
 
-            await UpdateIpAddressForUser();
+            await UpdateIpAddressForUser(user.Id);
 
             return ticket;
         }
 
-        private async Task UpdateIpAddressForUser()
+        private async Task UpdateIpAddressForUser(int userId)
         {
             var ip = HttpContext.Connection.RemoteIpAddress.ToString();
-            await Mediator.Send(new UpdateUserIpAddressCommand.Request {Ip = ip});
+            await Mediator.Send(new UpdateUserIpAddressCommand.Request {Ip = ip, UserId = userId});
         }
     }
 }

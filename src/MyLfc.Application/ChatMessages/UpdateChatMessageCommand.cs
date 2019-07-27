@@ -54,7 +54,7 @@ namespace MyLfc.Application.ChatMessages
                 }
 
                 if (!_requestContext.User.IsInRole(nameof(RolesEnum.UserStart))
-                    || chatMessage.AuthorId != _requestContext.UserId.Value)
+                    && chatMessage.AuthorId != _requestContext.UserId.Value)
                 {
                     throw new UnauthorizedAccessException("User cannot change message");
                 }

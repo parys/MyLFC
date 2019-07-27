@@ -55,7 +55,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 personType = personType == PersonType.First ? PersonType.Stuff : PersonType.StuffAcademy;
             }
 
-            return Ok(await Mediator.Send(new GetStuffListQuery.Request {Type = personType}));
+            return Ok((await Mediator.Send(new GetStuffListQuery.Request {Type = personType})).Results);
         }
 
         /// <summary>

@@ -2,3 +2,4 @@
 export * from "./seasonFilters.model";
 export * from "./personStatistics.model";
 export * from "./statistics.model";
+export * from './season-statistics.model';

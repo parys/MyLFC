@@ -56,22 +56,28 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
         const matchPerson: MatchPerson = this.parseForm();
         if (this.isEdit) {
             this.matchPersonService.update(matchPerson)
-                .subscribe(data => this.emitNewPerson(data),
-                () => { },
-                () => this.checkExit());
+                .subscribe(data => {
+                        matchPerson.number = data.number;
+                    this.emitNewPerson(matchPerson);
+                    },
+                    () => {},
+                    () => this.checkExit());
         } else {
             this.matchPersonService.create(matchPerson)
-                .subscribe(data => this.emitNewPerson(data),
-                    () => { },
+                .subscribe(data => {
+                        matchPerson.number = data.number;
+                    this.emitNewPerson(matchPerson);
+                    },
+                    () => {},
                     () => this.checkExit());
         }
         this.editMatchPersonForm.get("personId").patchValue("");
-        this.editMatchPersonForm.get("personName").patchValue("");
+        this.editMatchPersonForm.get("russianName").patchValue("");
     }
 
     public setPerson(person: Person): void {
         this.editMatchPersonForm.get("personId").patchValue(person.id);
-        this.editMatchPersonForm.get("personName").patchValue(person.russianName);
+        this.editMatchPersonForm.get("russianName").patchValue(person.russianName);
         this.focus();
     } 
 
@@ -103,13 +109,13 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
 
     private initForm(): void {
         this.editMatchPersonForm = this.formBuilder.group({
-            personName: [this.selectedMatchPerson ? this.selectedMatchPerson.personName : "", Validators.required],
+            russianName: [this.selectedMatchPerson ? this.selectedMatchPerson.russianName : "", Validators.required],
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : "", Validators.required],
             personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required]
         });
         this.isEdit = this.selectedMatchPerson !== undefined;
 
-        this.persons$ = this.editMatchPersonForm.controls["personName"].valueChanges.pipe(
+        this.persons$ = this.editMatchPersonForm.controls["russianName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => {

@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
@@ -15,6 +14,8 @@ namespace MyLfc.Application.Users
         public class Request : IRequest<Response>
         {
             public string Ip { get; set; }
+
+            public int UserId { get; set; }
         }
 
 
@@ -22,22 +23,19 @@ namespace MyLfc.Application.Users
         {
             private readonly LiverpoolContext _context;
 
-            private readonly RequestContext _requestContext;
-
-            public Handler(LiverpoolContext context, RequestContext requestContext)
+            public Handler(LiverpoolContext context)
             {
                 _context = context;
-                _requestContext = requestContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users
-                    .FirstOrDefaultAsync(x => x.Id == _requestContext.UserId, cancellationToken);
+                    .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), _requestContext.UserId);
+                    throw new NotFoundException(nameof(User), request.UserId);
                 }
 
                 if (!string.IsNullOrWhiteSpace(request.Ip))

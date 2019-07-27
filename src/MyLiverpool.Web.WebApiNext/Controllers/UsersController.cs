@@ -34,13 +34,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var user = await Mediator.Send(request);
-            //todo add selfCheck or something like this
-            if (User == null || !User.Identity.IsAuthenticated ||
-                (!User.IsInRole(nameof(RolesEnum.AdminStart)) && User.GetUserId() != user.Id))
-            {
-                user.Email = null;
-                user.Ip = null;
-            }
+          
             return Ok(user);
         }
 

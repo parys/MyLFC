@@ -36,7 +36,6 @@ namespace MyLfc.Application.Matches
             {
                 var persons = await _context.MatchPersons.AsNoTracking()
                     .Where(x => x.MatchId == request.MatchId)
-                    .Include(x => x.Person)
                     .OrderBy(x => x.Created)
                     .ProjectTo<MatchPersonListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);

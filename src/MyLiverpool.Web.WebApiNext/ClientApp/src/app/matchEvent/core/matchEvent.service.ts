@@ -16,12 +16,12 @@ export class MatchEventService {
         return this.http.get<MatchEvent[]>(`${MATCHES_ROUTE}/${matchId}/events`);
     };
 
-    public create(item: MatchEvent): Observable<MatchEvent> {
-        return this.http.post<MatchEvent>(this.actionUrl, JSON.stringify(item));
+    public create(item: MatchEvent): Observable<number> {
+        return this.http.post<number>(this.actionUrl, JSON.stringify(item));
     };
 
-    public update(id: number, itemToUpdate: MatchEvent): Observable<MatchEvent> {
-        return this.http.put<MatchEvent>(this.actionUrl + id, JSON.stringify(itemToUpdate));
+    public update(id: number, itemToUpdate: MatchEvent): Observable<number> {
+        return this.http.put<number>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public getTypes(): Observable<MatchEventType[]> {

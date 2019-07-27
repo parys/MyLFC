@@ -66,7 +66,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateSeasonCommand.Request request)
         {
-            return Ok(await Mediator.Send(request));
+            return Ok((await Mediator.Send(request)).Id);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await Mediator.Send(request));
+            return Ok((await Mediator.Send(request)).Id);
         }
 
         /// <summary>

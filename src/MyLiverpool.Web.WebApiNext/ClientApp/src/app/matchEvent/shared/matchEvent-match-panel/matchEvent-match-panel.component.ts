@@ -42,7 +42,6 @@ export class MatchEventMatchPanelComponent implements OnInit {
     }
 
     public updateEvent(event: MatchEvent) {
-        console.log(event);
         if (this.selectedIndex) {
             this.events[this.selectedIndex] = event;
         } else {

@@ -40,10 +40,13 @@ export class MatchEventEditPanelComponent implements OnInit {
         const matchEvent: MatchEvent = this.parseForm();
         if (this.id > 0) {
             this.matchEventService.update(this.id, matchEvent)
-                .subscribe(data => this.emitNewEvent(data));
+                .subscribe(data => this.emitNewEvent(matchEvent));
         } else {
             this.matchEventService.create(matchEvent)
-                .subscribe(data => this.emitNewEvent(data));
+                .subscribe((data: number) => {
+                    matchEvent.id = data;
+                    this.emitNewEvent(matchEvent);
+                });
         }
     }
     
@@ -52,7 +55,7 @@ export class MatchEventEditPanelComponent implements OnInit {
     }
 
     private emitNewEvent(event: MatchEvent): void {
-        event.personName = this.editMatchEventForm.get("personName").value;
+        event.russianName = this.editMatchEventForm.get("russianName").value;
         this.matchEvent.emit(event);
     }
     
@@ -71,7 +74,7 @@ export class MatchEventEditPanelComponent implements OnInit {
 
     private initForm(): void {
         this.editMatchEventForm = this.formBuilder.group({
-            personName: [this.selectedEvent ? this.selectedEvent.personName : "", Validators.required],
+            russianName: [this.selectedEvent ? this.selectedEvent.russianName : "", Validators.required],
             personId: [this.selectedEvent ? this.selectedEvent.personId : "", Validators.required],
             type: [this.selectedEvent ? this.selectedEvent.type : "", Validators.required],
             minute: [this.selectedEvent ? this.selectedEvent.minute : "", Validators.required],
@@ -79,7 +82,7 @@ export class MatchEventEditPanelComponent implements OnInit {
         });
         this.id = this.selectedEvent ? this.selectedEvent.id : 0;
 
-        this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges.pipe(
+        this.persons$ = this.editMatchEventForm.controls["russianName"].valueChanges.pipe(
                 debounceTime(DEBOUNCE_TIME),
                 distinctUntilChanged(),
                 switchMap((value: string) => {

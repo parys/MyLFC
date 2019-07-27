@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Season, PersonStatistics, SeasonFilters } from "../model";
+import { Season, SeasonStatistics, SeasonFilters } from "../model";
 import { SEASONS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 import { PagedList } from '@app/shared';
@@ -26,8 +26,8 @@ export class SeasonService extends BaseRestService<Season, SeasonFilters> {
         return this.http.get<Season>(`${this.actionUrl}${seasonId}/calendar`);
     }
 
-    public getStatistics(seasonId: number): Observable<PersonStatistics[]> {
-        return this.http.get<PersonStatistics[]>(`${this.actionUrl}${seasonId}/statistics`);
+    public getStatistics(seasonId: number): Observable<SeasonStatistics> {
+        return this.http.get<SeasonStatistics>(`${this.actionUrl}${seasonId}/statistics`);
     }
 
     public setAsCurrent(id: number): Observable<boolean> {
