@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -9,6 +10,7 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Comments
 {
@@ -46,6 +48,7 @@ namespace MyLfc.Application.Comments
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var comment = await _context.MaterialComments
+                    .Include(x => x.Author)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 if (comment == null)
@@ -58,13 +61,45 @@ namespace MyLfc.Application.Comments
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = comment.Id};
+                return new Response {};
             }
         }
 
+        //todo temporary
         public class Response
         {
             public int Id { get; set; }
+
+            public DateTimeOffset AdditionTime { get; set; }
+            public DateTimeOffset LastModified { get; set; }
+
+            public string AuthorUserName { get; set; }
+
+            public int AuthorId { get; set; }
+
+            public string Photo { get; set; }
+
+            public string Message { get; set; }
+
+            public string Answer { get; set; }
+
+            public int? MaterialId { get; set; }
+
+            public int? MatchId { get; set; }
+
+            public bool IsVerified { get; set; }
+
+            public bool CanPositiveVote { get; set; }
+
+            public bool CanNegativeVote { get; set; }
+
+            public int PositiveCount { get; set; }
+
+            public int NegativeCount { get; set; }
+
+            public CommentType Type { get; set; }
+
+            public string TypeName { get; set; }
         }
     }
 }

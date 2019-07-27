@@ -82,11 +82,13 @@ namespace MyLfc.Application.Comments
                     await SendNotificationsAsync(comment.ParentId.Value, comment.Id,
                         _requestContext.User.Identity.Name, comment.Message);
                 }
+                //todo mediatr
+                var addedComment = await _context.MaterialComments.AsNoTracking()
+                    .Include(x => x.Author)
+                    .FirstOrDefaultAsync(x => x.Id == comment.Id, cancellationToken);
+                var response = _mapper.Map<Response>(addedComment);
 
-
-                //    _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
-
-                return new Response {Id = comment.Id};
+                return response;
             }
 
             private async Task SendNotificationsAsync(int parentCommentId, int commentId, string authorUserName, string commentText)
@@ -143,10 +145,41 @@ namespace MyLfc.Application.Comments
 
         }
 
-
+        //todo temporary
         public class Response
         {
             public int Id { get; set; }
+
+            public DateTimeOffset AdditionTime { get; set; }
+            public DateTimeOffset LastModified { get; set; }
+
+            public string AuthorUserName { get; set; }
+
+            public int AuthorId { get; set; }
+
+            public string Photo { get; set; }
+
+            public string Message { get; set; }
+
+            public string Answer { get; set; }
+
+            public int? MaterialId { get; set; }
+
+            public int? MatchId { get; set; }
+
+            public bool IsVerified { get; set; }
+
+            public bool CanPositiveVote { get; set; }
+
+            public bool CanNegativeVote { get; set; }
+
+            public int PositiveCount { get; set; }
+
+            public int NegativeCount { get; set; }
+
+            public CommentType Type { get; set; }
+
+            public string TypeName { get; set; }
         }
     }
 }

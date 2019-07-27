@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
+using MyLiverpool.Business.Services.Helpers;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -113,17 +115,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CacheManager.Remove(CacheKeysConstants.MaterialsLatest,
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
 
-           // var oldMessage = result.Message.Substring(0);
-            //SanitizeComment(result);
+            var oldMessage = result.Message.Substring(0);
+            result.Message = result.Message.SanitizeComment();
 
-            //if (!string.IsNullOrWhiteSpace(result.Message))
-            //{
-            //    _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
-            //}
+            if (!string.IsNullOrWhiteSpace(result.Message))
+            {
+                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
+            }
 
-         //   result.Message = oldMessage;
+            result.Message = oldMessage;
 
-            return Ok(result.Id);
+            return Ok(result);
         }
 
         /// <summary>
@@ -132,7 +134,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">The identifier of removing comment.</param>
         /// <returns>Result of removing.</returns>
         [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(DeleteCommentCommand.Request request)
+        public async Task<IActionResult> Delete([FromRoute]DeleteCommentCommand.Request request)
         {
             var result = await Mediator.Send(request);
 
@@ -159,7 +161,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(request);
             CacheManager.Remove(CacheKeysConstants.LastComments);
 
-            return Ok(result.Id);
+            return Ok(result);
         }
 
         /// <summary>

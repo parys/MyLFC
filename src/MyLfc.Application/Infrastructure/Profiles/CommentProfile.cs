@@ -45,6 +45,33 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<CreateCommentCommand.Request, MaterialComment>();
 
             CreateMap<UpdateCommentCommand.Request, MaterialComment>();
+
+            //todo TEMPORARY
+            CreateMap<MaterialComment, CreateCommentCommand.Response>()
+                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
+                .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
+                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()));
+
+
+            //todo TEMPORARY
+            CreateMap<MaterialComment, UpdateCommentCommand.Response>()
+                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
+                .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
+                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()));
+
+
         }
 
         private static bool CanComment(IEnumerable<CommentVote> votes, int? currentUserId, bool positive)

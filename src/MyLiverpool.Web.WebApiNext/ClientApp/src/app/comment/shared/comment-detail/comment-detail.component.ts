@@ -93,7 +93,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         let comment = this.getNewComment();
         this.materialCommentService.createOrUpdate(comment.id, comment)
             .subscribe((data: Comment) => {
-                 //   this.item.children.push(data);
+                    this.item.children.push(data);
                     this.cancelAdding();
                 });
     }
