@@ -19,7 +19,7 @@ namespace MyLfc.Application.Tests.Users.GetUserDetailQuery
 
         public HandlerTests(UserQueryTestFixture fixture)
         {
-            _handler = new Handler(fixture.Context, fixture.Mapper);
+            _handler = new Handler(fixture.Context, fixture.Mapper, fixture.AdminRequestContext);
         }
 
         [Theory]

@@ -7,8 +7,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     public interface IUserRepository : ICrudRepository<User>
     {
-        Task<string> GetUsernameAsync(int id);
-        
         Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId);
 
         Task<User> FindByNameAsync(string username);
@@ -28,8 +26,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<string> GeneratePasswordResetTokenAsync(int userId);
 
         Task<IdentityResult> CreateAsync(User user, string password);
-
-        Task<User> GetByIdFromManagerAsync(int userId);
 
         Task<User> GetByIdForUpdateAsync(int userId);
     }

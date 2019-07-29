@@ -13,7 +13,7 @@ using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Services
 {
-    public class AuthMessageSender : IEmailSender, ISmsSender
+    public class AuthMessageSender : IEmailSender
     {
         private readonly IOptions<EmailSettings> _settings;
         private readonly ILogger<AuthMessageSender> _logger;
@@ -42,16 +42,17 @@ namespace MyLiverpool.Business.Services
             emailMessage.Body = new TextPart("html") { Text = message };
             try
             {
-                var client = new SmtpClient();
+                using (var client = new SmtpClient())
+                {
+                    //TODO fix and test on test env
+                    client.ServerCertificateValidationCallback = (s, c, ch, e) => true;
 
-                //TODO fix and test on test env
-                client.ServerCertificateValidationCallback = (s, c, ch, e) => true;
+                    await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
+                    await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
-                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
-                await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
-
-                await client.SendAsync(emailMessage);
-                await client.DisconnectAsync(true);
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
             }
             catch (Exception ex) //todo add another try to send email
             {
@@ -81,11 +82,6 @@ namespace MyLiverpool.Business.Services
         public async Task SendEmailAsync(string subject, string message)
         {
             await SendEmailAsync(_settings.Value.EmailForWishCreationNotification, subject, message);
-        }
-
-        public Task SendSmsAsync(string number, string message)
-        {
-            return Task.FromResult(0);
         }
     }
 }

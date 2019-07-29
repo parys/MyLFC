@@ -59,12 +59,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }).FirstOrDefaultAsync();
             return user;
         }
-
-        public async Task<string> GetUsernameAsync(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            return user.UserName;
-        }
         
         public async Task UpdateAsync(User user)
         {
@@ -167,11 +161,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 query = query.Where(filter);
             }
             return await query.CountAsync();
-        }
-        
-        public async Task<User> GetByIdFromManagerAsync(int userId)
-        {
-            return await _userManager.FindByIdAsync(userId.ToString());
         }
     }
 }

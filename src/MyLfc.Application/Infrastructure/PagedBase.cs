@@ -1,5 +1,8 @@
-﻿namespace MyLfc.Application.Infrastructure
+﻿using System;
+
+namespace MyLfc.Application.Infrastructure
 {
+    [Serializable]
     public abstract class PagedBase
     {
         /// <summary>

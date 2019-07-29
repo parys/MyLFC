@@ -48,7 +48,7 @@
                     <span role="button" (click)="showDeleteModal(homeCoach)" class="material-icons" style="font-size: 100%;">clear</span>
                 </span>
             </i>
-            <div class="full-width" [textContent]="homeCoach?.personName"></div>
+            <div class="full-width" [textContent]="homeCoach?.russianName"></div>
             <i class="full-width top10">
                 Состав:
                 <span *ngIf="roles.isInformer && homeTeam.length < 11" role="button" 
@@ -109,7 +109,7 @@
                     <span role="button" (click)="showDeleteModal(awayCoach)" class="material-icons" style="font-size: 100%;">clear</span>
                 </span>
             </i>
-            <div class="full-width" [textContent]="awayCoach?.personName"></div>
+            <div class="full-width" [textContent]="awayCoach?.russianName"></div>
             <i class="full-width top10">
                 Состав:
                 <span *ngIf="roles.isInformer && awayTeam.length < 11" role="button" 

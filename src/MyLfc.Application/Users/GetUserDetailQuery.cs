@@ -50,7 +50,9 @@ namespace MyLfc.Application.Users
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                if (!_requestContext.User.IsInRole(nameof(RolesEnum.AdminStart)) && _requestContext.UserId != user.Id)
+                if (_requestContext.User == null ||
+                    !_requestContext.User.IsInRole(nameof(RolesEnum.AdminStart))
+                     && _requestContext.UserId != user.Id)
                 {
                     user.Ip = string.Empty;
                     user.Email = string.Empty;
