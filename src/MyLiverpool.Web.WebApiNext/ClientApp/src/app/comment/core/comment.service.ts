@@ -32,6 +32,6 @@ export class CommentService extends BaseRestService<Comment, CommentFilter> {
     };
 
     public vote(vote: CommentVote): Observable<boolean> {
-        return this.http.put<boolean>(this.actionUrl + "vote/", JSON.stringify(vote));
+        return this.http.put<boolean>(this.actionUrl +"vote/", JSON.stringify(vote));
     };
 }

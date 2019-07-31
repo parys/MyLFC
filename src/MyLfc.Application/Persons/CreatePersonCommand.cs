@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -13,7 +14,6 @@ namespace MyLfc.Application.Persons
     {
         public class Request : UpsertPersonCommand.Request, IRequest<Response>
         {
-            public MaterialType MaterialType { get; set; }
         }
 
 
@@ -21,7 +21,6 @@ namespace MyLfc.Application.Persons
         {
             public Validator()
             {
-                RuleFor(v => v.MaterialType).IsInEnum().NotEqual(MaterialType.Both);
             }
         }
 
@@ -40,19 +39,41 @@ namespace MyLfc.Application.Persons
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity = _mapper.Map<MaterialCategory>(request);
+                var entity = _mapper.Map<Person>(request);
 
-                _context.MaterialCategories.Add(entity);
+                _context.Persons.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response {Id = entity.Id};
             }
         }
 
-
+        //todo temporary
         public class Response
         {
             public int Id { get; set; }
+
+            public string FirstName { get; set; }
+
+            public string FirstRussianName { get; set; }
+
+            public string LastName { get; set; }
+
+            public string LastRussianName { get; set; }
+
+            public PersonType Type { get; set; }
+
+            public string TypeName { get; set; }
+
+            public string Position { get; set; }
+
+            public byte? Number { get; set; }
+
+            public string Country { get; set; }
+
+            public DateTimeOffset? Birthday { get; set; }
+
+            public string Photo { get; set; }
         }
     }
 }

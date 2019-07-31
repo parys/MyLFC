@@ -23,6 +23,9 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<CreatePersonCommand.Request, Person>();
 
+            //todo temporary
+            CreateMap<Person, CreatePersonCommand.Response>();
+
             CreateMap<UpdatePersonCommand.Request, Person>();
         }
     }

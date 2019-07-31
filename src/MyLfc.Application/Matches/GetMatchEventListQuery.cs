@@ -36,7 +36,7 @@ namespace MyLfc.Application.Matches
             {
                 var events = await _context.MatchEvents.AsNoTracking()
                     .Where(x => x.MatchId == request.MatchId)
-                    .OrderByDescending(x => x.Minute)
+                    .OrderBy(x => x.Minute)
                     .ProjectTo<MatchEventListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

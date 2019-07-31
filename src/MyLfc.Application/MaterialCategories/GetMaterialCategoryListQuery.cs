@@ -38,6 +38,9 @@ namespace MyLfc.Application.MaterialCategories
                 request.PageSize = 100; // right now need all, but maybe changed in future
                 var materialCategories = _context.MaterialCategories.AsNoTracking()
                     .Where(x => x.MaterialType == request.MaterialType);
+                request.SortDirection = "desc";
+                request.SortOn = nameof(MaterialCategory.Name);
+
                 
                 return await materialCategories.GetPagedAsync<Response, MaterialCategory, MaterialCategoryListDto>(request, _mapper);
             }
