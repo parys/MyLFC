@@ -32,8 +32,7 @@ namespace MyLfc.Application.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var users = await _context.Users.Where(x => x.Birthday.HasValue &&
-                                                      x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
+                var users = await _context.Users.Where(x => x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
                                                       x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date)
                     .OrderByDescending(x => x.LastModified)

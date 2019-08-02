@@ -12,6 +12,7 @@ import { User, UserService } from "@app/user";
 export class UserEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public userEditForm: FormGroup;
+    private userId: number;
 
     constructor(private service: UserService,
         private formBuilder: FormBuilder,
@@ -35,7 +36,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
                 new Date(user.birthday.setHours(
                     user.birthday.getHours() + (-1) * user.birthday.getTimezoneOffset() / 60));
         }
-        this.service.createOrUpdate(user.id, user)
+        this.service.createOrUpdate(this.userId, user)
             .subscribe((data: User) => {
                 if (data) {
                     this.snackBar.open("Профиль обновлен");
@@ -50,6 +51,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
             item.birthday = new Date(item.birthday);
         }
         this.userEditForm.patchValue(item);
+        this.userId = item.id;
     }
 
     private initUserEditForm(): void {

@@ -44,8 +44,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier.</param>
         /// <param name="request"></param>
         /// <returns>Result of editing.</returns>
-        [Authorize, HttpPut]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UpdateUserCommand.Request request)
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync([FromRoute]int id, [FromBody]UpdateUserCommand.Request request)
         {
             if (id != User.GetUserId())
             {
@@ -117,7 +117,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
                 async () => await Mediator.Send(new GetUserBirthdaysQuery.Request()));
-            return Ok(result);
+            return Ok(result.Results);
         }
 
         /// <summary>

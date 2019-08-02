@@ -43,7 +43,7 @@ namespace MyLfc.Application.Comments
                 else
                 {
                     var comment = await _context.MaterialComments.AsNoTracking()
-                        .FirstOrDefaultAsync(x => x.AuthorId == request.CommentId, cancellationToken);
+                        .FirstOrDefaultAsync(x => x.Id == request.CommentId, cancellationToken);
                     if (comment.AuthorId == _requestContext.UserId)
                     {
                         throw new UnauthorizedAccessException("User can't vote for himself agent.");
