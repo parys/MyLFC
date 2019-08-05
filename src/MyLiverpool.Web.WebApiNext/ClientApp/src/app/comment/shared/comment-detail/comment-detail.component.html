@@ -35,10 +35,8 @@
         </div>
         <div *ngIf="!isEditMode">
             <div class="flex top5">
-                <!--<div class="" (deferLoad)="item.show=true">
-                    <img *ngIf="item.show" class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />-->
                 <div class="width15p">
-                    <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
+                    <img class="avatar-medium" [src]="item.photo" loading="lazy" [alt]="item.authorUserName" />
                 </div>
                 <div class="width85p">
                     <p class="padding5" [innerHTML]="item.message | safe: 'html'"></p>

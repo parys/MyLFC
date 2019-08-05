@@ -3,7 +3,7 @@
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', 0, 'edit']"><i class="material-icons color-red" style="font-size: 100%;">add</i></a></h4>
     <div class="injury-item" *ngFor="let injury of items">
         <div class="full-width">
-            <img [src]="injury.personPhoto" [alt]="injury.personName"/>
+            <img [src]="injury.personPhoto" loading="lazy" [alt]="injury.personName"/>
             <b [textContent]="injury.personName"></b>
             <a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', injury.id, 'edit']"><span class="material-icons color-red" style="font-size: 100%;">edit</span></a>
         </div>

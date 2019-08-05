@@ -21,7 +21,7 @@
                 </div>
                 <div class="mat-preview-list full-width">
                     <span>
-                        <img class="img-thumbnail" [alt]="item.title" [src]="item.photoPreview" />
+                        <img class="img-thumbnail" [alt]="item.title" loading="lazy" [src]="item.photoPreview" />
                     </span>
                     <span class="flex-v-c preview-text">
                         <i class="padding5" [innerHTML]="item.brief"></i>
