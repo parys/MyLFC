@@ -82,15 +82,14 @@ export class ClubListComponent implements OnInit {
         filters.name = this.nameInput.nativeElement.value;
         filters.currentPage = this.paginator.pageIndex + 1;
         filters.pageSize = this.paginator.pageSize || 10;
-        filters.sortOn = this.sort.active;
-        filters.sortDirection = this.sort.direction;
-
+        filters.sortOn = this.sort.active || 'name';
+        filters.sortDirection = this.sort.direction || 'asc';
         return this.clubService
             .getAll(filters);
     }
 
     public updateUrl(): void {
-        let newUrl = `${CLUBS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
+        const newUrl = `${CLUBS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
 
