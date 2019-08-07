@@ -15,7 +15,7 @@
                                 <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                        <img mat-card-image [src]="person.photo" loading="lazy" [alt]="person.russianName">
                         <mat-card-content>
                             <p *ngIf="person.country"><span [textContent]="person.country"></span></p>&nbsp;
                             <p><span [textContent]="person.birthday | date"></span></p>
@@ -36,7 +36,7 @@
                                 <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                        <img mat-card-image [src]="person.photo" loading="lazy" [alt]="person.russianName">
                         <mat-card-content>
                             <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                             <p><span [textContent]="person.birthday | date"></span></p>
@@ -57,7 +57,7 @@
                                 <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                        <img mat-card-image [src]="person.photo" loading="lazy" [alt]="person.russianName">
                         <mat-card-content>
                             <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                             <p><span [textContent]="person.birthday | date"></span></p>
@@ -78,7 +78,7 @@
                                 <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                        <img mat-card-image [src]="person.photo" loading="lazy" [alt]="person.russianName">
                         <mat-card-content>
                             <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                             <p><span [textContent]="person.birthday | date"></span></p>

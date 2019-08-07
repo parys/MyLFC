@@ -48,6 +48,8 @@ namespace MyLfc.Persistence
         public DbSet<Poll> Polls { get; set; }
         public DbSet<PollAnswer> PollAnswers { get; set; }
         public DbSet<PollAnswerUser> PollAnswerUsers { get; set; }
+        public DbSet<FaqItem> FaqItems { get; set; }
+        public DbSet<FaqCategory> FaqCategories { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -71,12 +73,12 @@ namespace MyLfc.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
+
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
            
-            modelBuilder.Entity<Material>().HasOne(x => x.Author).WithMany(x => x.Materials).HasForeignKey(x => x.AuthorId);
-            
-            modelBuilder.Entity<Material>().HasOne(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
+             
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId).IsRequired(false);
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Match).WithMany(x => x.Comments).HasForeignKey(x => x.MatchId).IsRequired(false);
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Poll).WithMany(x => x.Comments).HasForeignKey(x => x.PollId).IsRequired(false);
@@ -174,15 +176,12 @@ namespace MyLfc.Persistence
                 .OnDelete(DeleteBehavior.Cascade);
             //end research
 
-            modelBuilder.Entity<Material>().HasQueryFilter(x => !x.Deleted);
-
             modelBuilder.Entity<MaterialComment>().HasQueryFilter(x => !x.Deleted);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-            modelBuilder.Entity<Material>().ToTable("Materials");
             modelBuilder.Entity<MaterialCategory>().ToTable("MaterialCategories");
             modelBuilder.Entity<MaterialComment>().ToTable("MaterialComments");
             modelBuilder.Entity<Wish>().ToTable("Wishes");
