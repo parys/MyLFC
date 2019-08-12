@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.FaqCategories
 {
@@ -7,7 +6,11 @@ namespace MyLfc.Application.FaqCategories
     {
         public abstract class Request
         {
- 
+            public string Name { get; set; }
+
+            public bool ForSiteTeam { get; set; }
+
+            public byte Order { get; set; }
         }
 
 
@@ -15,7 +18,7 @@ namespace MyLfc.Application.FaqCategories
         {
             protected Validator()
             {
-     
+                RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
             }
         }
     }

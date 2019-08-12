@@ -1,5 +1,5 @@
-﻿import { Routes } from "@angular/router";
-import { homeRoutes } from "./home/home.routes";
+﻿import { Routes } from '@angular/router';
+import { homeRoutes } from './home/home.routes';
 import {
     ADMIN_ROUTE,
     WISHES_ROUTE,
@@ -9,6 +9,7 @@ import {
     BLOG_CATEGORIES_ROUTE,
     COMMENTS_ROUTE,
     CLUBS_ROUTE,
+    FAQ_CATEGORIES_ROUTE,
     IMAGES_ROUTE,
     INJURIES_ROUTE,
     MATCHES_ROUTE,
@@ -25,120 +26,121 @@ import {
     POLLS_ROUTE,
     TITLE_RU,
     WAL_ROUTE
-} from "@app/+constants";
+} from '@app/+constants';
 import { MaterialHomeComponent } from './material';
 
 export const routes: Routes = [
     ...homeRoutes,
     {
-        path: "editPage",
-        loadChildren: "./staticPage/staticPage.module#StaticPageModule"
+        path: 'editPage',
+        loadChildren: () => import('./staticPage/staticPage.module').then(m => m.StaticPageModule)
     },
     {
         path: ACCOUNT_ROUTE,
-        loadChildren: "./account/lazy/account.module#AccountModule"
+        loadChildren: () => import('./account/lazy/account.module').then(m => m.AccountModule)
     },
     {
         path: ADMIN_ROUTE,
-        loadChildren: "./admin/lazy/admin.module#AdminModule"
+        loadChildren: () => import('./admin/lazy/admin.module').then(m => m.AdminModule)
     },
     {
         path: BLOGS_ROUTE,
-        loadChildren: "./material/lazy/material.module#MaterialModule"
+        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: BLOG_CATEGORIES_ROUTE,
-        loadChildren: "./materialCategory/lazy/materialCategory.module#MaterialCategoryModule"
+        loadChildren: () => import('./materialCategory/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
     },
     {
         path: COMMENTS_ROUTE,
-        loadChildren: "./comment/lazy/comment.module#CommentModule"
+        loadChildren: () => import('./comment/lazy/comment.module').then(m => m.CommentModule)
     },
     {
         path: CLUBS_ROUTE,
-        loadChildren: "./club/lazy/club.module#ClubModule"
+        loadChildren: () => import('./club/lazy/club.module').then(m => m.ClubModule)
+    },
+    {
+        path: FAQ_CATEGORIES_ROUTE,
+        loadChildren: () => import('./faq-categories/lazy/faq-category.module').then(m => m.FaqCategoryModule),
     },
     {
         path: IMAGES_ROUTE,
-        loadChildren: "./image/lazy/image.module#ImageModule"
+        loadChildren: () => import('./image/lazy/image.module').then(m => m.ImageModule)
     },
     {
         path: INJURIES_ROUTE,
-        loadChildren: "./injury/lazy/injury.module#InjuryModule"
+        loadChildren: () => import('./injury/lazy/injury.module').then(m => m.InjuryModule)
     },
     {
         path: MATERIALS_ROUTE,
-        loadChildren: "./material/lazy/material.module#MaterialModule"
+        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: MATCHES_ROUTE,
-        loadChildren: "./match/lazy/match.module#MatchModule"
+        loadChildren: () => import('./match/lazy/match.module').then(m => m.MatchModule)
     },
     {
         path: NEWS_ROUTE,
-        loadChildren: "./material/lazy/material.module#MaterialModule"
+        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: NEWS_CATEGORIES_ROUTE,
-        loadChildren: "./materialCategory/lazy/materialCategory.module#MaterialCategoryModule"
+        loadChildren: () => import('./materialCategory/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
     },
     {
         path: NOTIFICATIONS_ROUTE,
-        loadChildren: "./notification/lazy/notification.module#NotificationModule"
+        loadChildren: () => import('./notification/lazy/notification.module').then(m => m.NotificationModule)
     },
     {
         path: PERSONS_ROUTE,
-        loadChildren: "./person/lazy/person.module#PersonModule"
+        loadChildren: () => import('./person/lazy/person.module').then(m => m.PersonModule)
     },
     {
         path: PMS_ROUTE,
-        loadChildren: "./pm/lazy/pm.module#PmModule"
+        loadChildren: () => import('./pm/lazy/pm.module').then(m => m.PmModule)
     },
     {
         path: POLLS_ROUTE,
-        loadChildren: "./poll/lazy/poll.module#PollModule"
+        loadChildren: () => import('./poll/lazy/poll.module').then(m => m.PollModule)
     },
     {
         path: ROLE_GROUPS_ROUTE,
-        loadChildren: "./roleGroup/lazy/roleGroup.module#RoleGroupModule"
+        loadChildren: () => import('./roleGroup/lazy/roleGroup.module').then(m => m.RoleGroupModule)
     },
     {
         path: SEASONS_ROUTE,
-        loadChildren: "./season/lazy/season.module#SeasonModule"
+        loadChildren: () => import('./season/lazy/season.module').then(m => m.SeasonModule)
     },
     {
         path: STADIUMS_ROUTE,
-        loadChildren: "./stadium/lazy/stadium.module#StadiumModule"
+        loadChildren: () => import('./stadium/lazy/stadium.module').then(m => m.StadiumModule)
     },
     {
         path: TRANSFERS_ROUTE,
-        loadChildren: "./transfer/lazy/transfer.module#TransferModule"
+        loadChildren: () => import('./transfer/lazy/transfer.module').then(m => m.TransferModule)
     },
     {
         path: USERS_ROUTE,
-        loadChildren: "./user/lazy/user.module#UserModule"
+        loadChildren: () => import('./user/lazy/user.module').then(m => m.UserModule)
     },
     {
         path: WAL_ROUTE,
-     //   loadChildren: () => import("./wal/lazy/wal.module").then(m => m.WalModule)
-        loadChildren: "./wal/lazy/wal.module#WalModule"
+        loadChildren: () => import('./wal/lazy/wal.module').then(m => m.WalModule)
     },
     {
         path: WISHES_ROUTE,
-     //   loadChildren: () => import("./wish/lazy/wish.module").then(m => m.WishModule)
-        loadChildren: "./wish/lazy/wish.module#WishModule"
+        loadChildren: () => import('./wish/lazy/wish.module').then(m => m.WishModule)
     },
     {
-        path: "",
+        path: '',
         component: MaterialHomeComponent,
 
         data: {
             title: TITLE_RU,
-            keywords: "ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение",
-            description: "Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.",
- 
+            keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение',
+            description: 'Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.',
         },
-        runGuardsAndResolvers: "always"
+        runGuardsAndResolvers: 'always'
     },
     { path: '**', redirectTo: '/' }
 ];

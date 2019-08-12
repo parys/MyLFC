@@ -12,9 +12,9 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<FaqCategory, GetFaqCategoryDetailQuery.Response>();
 
-            CreateMap<CreateFaqCategoryCommand, FaqCategory>();
+            CreateMap<CreateFaqCategoryCommand.Request, FaqCategory>();
 
-            CreateMap<UpdateFaqCategoryCommand, FaqCategory>();
+            CreateMap<UpdateFaqCategoryCommand.Request, FaqCategory>();
         }
     }
 }

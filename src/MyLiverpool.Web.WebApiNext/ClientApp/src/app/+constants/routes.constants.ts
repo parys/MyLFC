@@ -7,6 +7,7 @@ export const CLUBS_ROUTE: string = "clubs";
 export const COMMENTS_ROUTE: string = "comments";
 export const EDIT_ROUTE: string = "edit";
 export const FORUM_MESSAGES_ROUTE: string = "forumMessages";
+export const FAQ_CATEGORIES_ROUTE: string = "faq-categories";
 export const FORUM_SECTIONS_ROUTE: string = "forumSections";
 export const FORUM_SUBSECTIONS_ROUTE: string = "forumSubsections";
 export const FORUM_THEMES_ROUTE: string = "forumThemes";

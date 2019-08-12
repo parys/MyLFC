@@ -52,6 +52,7 @@
     <Content Include="ClientApp\src\manifest.json" />
     <Content Include="ClientApp\src\index.html" />
     <Content Include="ClientApp\src\tsconfig.cli.json" />
+    <Folder Include="ClientApp\.vscode\" />
     <Folder Include="Connected Services\" />
     <Folder Include="wwwroot\assets\icons\" />
     <Folder Include="wwwroot\src\" />

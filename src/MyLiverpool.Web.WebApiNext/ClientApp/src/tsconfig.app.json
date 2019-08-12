@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "es2015",
+    "module": "esnext",
     "outDir": "../out-tsc/app"
   },
   "exclude": [

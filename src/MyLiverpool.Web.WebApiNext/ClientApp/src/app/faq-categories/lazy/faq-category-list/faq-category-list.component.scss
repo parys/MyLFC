@@ -1,0 +1,28 @@
+﻿td.mat-cell {
+    text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+
+
+.mini-avatar {
+    height: 20px;
+    width: 20px;
+}
+
+.table-container {
+    overflow: auto;
+    width: 100%;
+}
+
+.user-table {
+    width: 700px;
+}
+
+@media (min-width: 1200px) {
+    .user-table {
+        width: 100%;
+    }
+}

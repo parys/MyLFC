@@ -9,11 +9,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Persistence;
-using MyLiverpool.Data.Common;
 
-namespace MyLfc.Application.FaqCategories
+namespace MyLfc.Application.FaqItems
 {
-    public class GetFaqCategoriesListQuery
+    public class GetFaqItemsListQuery
     {
         public class Request : IRequest<Response>
         {
@@ -37,16 +36,11 @@ namespace MyLfc.Application.FaqCategories
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var faqCategories = _context.FaqCategories.AsNoTracking();
-
-                if (_requestContext.User == null || !_requestContext.User.IsInRole(nameof(RolesEnum.InfoStart)))
-                {
-                    faqCategories = faqCategories.Where(x => !x.ForSiteTeam);
-                }
-
+                var faqCategories = _context.FaqItems.AsNoTracking();
+                
                 var result = await faqCategories
                     .OrderBy(x => x.Order)
-                    .ProjectTo<FaqCategoryListDto>(_mapper.ConfigurationProvider)
+                    .ProjectTo<FaqItemListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
                 return new Response {Results = result};
             }
@@ -56,20 +50,16 @@ namespace MyLfc.Application.FaqCategories
         [Serializable]
         public class Response
         {
-            public List<FaqCategoryListDto> Results { get; set; }
+            public List<FaqItemListDto> Results { get; set; }
         }
 
 
         [Serializable]
-        public class FaqCategoryListDto
+        public class FaqItemListDto
         {
             public int Id { get; set; }
 
             public string Name { get; set; }
-
-            public byte Order { get; set; }
-
-            public bool ForSiteTeam { get; set; }
         }
     }
 }
