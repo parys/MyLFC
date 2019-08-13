@@ -6,7 +6,7 @@ import { RolesCheckedService } from '@app/+auth';
 import { DeleteDialogComponent } from '@app/shared';
 
 import { FaqCategoryService } from '../faq-category.service';
-import { FaqCategory } from '../../model/faq-category.model';
+import { FaqCategory } from '../../../domain/models/faq-category.model';
 
 
 @Component({

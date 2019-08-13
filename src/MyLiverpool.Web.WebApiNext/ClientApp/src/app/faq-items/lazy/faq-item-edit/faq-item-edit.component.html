@@ -1,0 +1,20 @@
+﻿<form class="form-horizontal full-width" role="form" [formGroup]="faqItemEditForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Вопрос" formControlName="question">
+    </mat-form-field>   
+     <mat-form-field class="full-width">
+        <bbeditor [type]="2" [value]="item.answer" [height]="350" formControlName="answer"></bbeditor>
+    </mat-form-field>
+    <div class="full-width text-center">
+         <mat-slide-toggle formControlName="forSiteTeam"
+                                 color="warn">
+            Доступно только команде сайта
+        </mat-slide-toggle>
+    </div>
+    <mat-form-field class="full-width top10">
+        <input matInput placeholder="Порядок" formControlName="order">
+    </mat-form-field>
+    <div class="full-width">
+        <button mat-raised-button color="warn" class="full-width" type="submit">Сохранить</button>
+    </div>
+</form>

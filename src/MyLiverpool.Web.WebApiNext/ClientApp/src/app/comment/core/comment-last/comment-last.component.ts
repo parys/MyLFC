@@ -1,16 +1,19 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { CommentService } from "../comment.service";
-import { Comment } from "@app/+common-models";
-import { SignalRService } from "@app/+signalr";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const COMMENT_LAST_KEY = makeStateKey<Comment[]>("comments-last");
+import { Subscription } from 'rxjs';
+
+import { Comment } from '@domain/models';
+import { SignalRService } from '@app/+signalr';
+
+import { CommentService } from '../comment.service';
+
+const COMMENT_LAST_KEY = makeStateKey<Comment[]>('comments-last');
 
 @Component({
-    selector: "<comment-last>",
-    templateUrl: "./comment-last.component.html",
-    styleUrls: ["./comment-last.component.scss"],
+    selector: '<comment-last>',
+    templateUrl: './comment-last.component.html',
+    styleUrls: ['./comment-last.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentLastComponent implements OnInit, OnDestroy {
@@ -35,7 +38,7 @@ export class CommentLastComponent implements OnInit, OnDestroy {
                         this.items = data;
                         this.transferState.set(COMMENT_LAST_KEY, data);
                     },
-                    () => {},
+                    null,
                     () => this.cd.markForCheck());
         }
 

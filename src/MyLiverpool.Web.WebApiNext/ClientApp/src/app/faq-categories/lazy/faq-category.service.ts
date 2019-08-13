@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@app/+httpWrapper';
 
-import { FaqCategory } from '../model';
+import { FaqCategory } from '../../domain/models';
 
 @Injectable()
 export class FaqCategoryService {

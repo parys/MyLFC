@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
 import { FaqCategoryService } from '../faq-category.service';
-import { FaqCategory } from '../../model/faq-category.model';
+import { FaqCategory } from '../../../domain/models/faq-category.model';
 
 @Component({
     selector: 'faq-category-edit',

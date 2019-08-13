@@ -64,6 +64,10 @@ export const routes: Routes = [
         loadChildren: () => import('./faq-categories/lazy/faq-category.module').then(m => m.FaqCategoryModule),
     },
     {
+        path: FAQ_CATEGORIES_ROUTE,
+        loadChildren: () => import('./faq-items/lazy/faq-item.module').then(m => m.FaqItemModule),
+    },
+    {
         path: IMAGES_ROUTE,
         loadChildren: () => import('./image/lazy/image.module').then(m => m.ImageModule)
     },
@@ -137,7 +141,9 @@ export const routes: Routes = [
 
         data: {
             title: TITLE_RU,
+            // tslint:disable-next-line:max-line-length
             keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение',
+            // tslint:disable-next-line:max-line-length
             description: 'Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.',
         },
         runGuardsAndResolvers: 'always'

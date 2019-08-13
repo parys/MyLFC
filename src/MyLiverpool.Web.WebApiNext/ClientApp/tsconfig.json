@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowUnreachableCode": false,
     "alwaysStrict": false,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "declaration": false,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
@@ -20,15 +20,16 @@
     "noImplicitUseStrict": true,
     "outDir": "./dist/out-tsc",
     "paths": {
-      "@app/*": [ "app/*" ]
+      "@environments/*": [
+          "./environments/*"
+      ],
+      "@app/*": [ "./app/*" ],
+      "@domain/*": [ "./app/domain/*" ],
+      "@faq-categories/*": [ "./app/faq-categories/*" ],
+      "@faq-items/*": [ "./app/faq-items/*" ],
     },
     "removeComments": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true, // Workaround for https://github.com/angular/angular/issues/17863. Remove this if you upgrade to a fixed version of Angular.
     "sourceMap": true,
-    "strictNullChecks": false,
-    // "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "es2015"
   },
   "typeRoots": [

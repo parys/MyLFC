@@ -7,6 +7,7 @@ export const COMMENTS_RU = 'Комментарии';
 export const CREATION_RU = 'Создание';
 export const FAQ_RU = 'F.A.Q. ЧАВО';
 export const FAQ_CATEGORIES_RU = 'Категории F.A.Q.';
+export const FAQ_ITEMS_RU = 'Ответы F.A.Q.';
 export const EDITING_RU = 'Редактирование';
 export const INJURIES_RU = 'Травмы';
 export const MATCHES_RU = 'Матчи';

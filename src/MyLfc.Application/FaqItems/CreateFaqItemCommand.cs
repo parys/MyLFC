@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -38,6 +39,7 @@ namespace MyLfc.Application.FaqItems
             {
                 var entity = _mapper.Map<FaqItem>(request);
 
+                entity.LastUpdated = DateTimeOffset.UtcNow;
                 _context.FaqItems.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -49,6 +50,7 @@ namespace MyLfc.Application.FaqItems
                 }
 
                 faqItem = _mapper.Map(request, faqItem);
+                faqItem.LastUpdated = DateTimeOffset.UtcNow;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

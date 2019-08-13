@@ -1,15 +1,17 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { UserService } from "../user.service";
-import { User } from "../../model";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const USER_BIRTHDAY_KEY = makeStateKey<User[]>("user-bday");
+import { Subscription } from 'rxjs';
+
+import { UserService } from '../user.service';
+import { User } from '../../model';
+
+const USER_BIRTHDAY_KEY = makeStateKey<User[]>('user-bday');
 
 @Component({
-    selector: "user-birthday",
-    templateUrl: "./user-birthday.component.html",
-    styleUrls: ["./user-birthday.component.scss"],
+    selector: 'user-birthday',
+    templateUrl: './user-birthday.component.html',
+    styleUrls: ['./user-birthday.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserBirthdayComponent implements OnInit, OnDestroy {

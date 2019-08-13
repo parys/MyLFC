@@ -28,13 +28,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates faq item.
         /// </summary>
         /// <returns>Result of update.</returns>
-        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpGet("{faqItemId:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{faqItemId:int}")]
         public async Task<IActionResult> Update([FromRoute]int faqItemId, [FromBody]UpdateFaqItemCommand.Request request)
         {
-            if (faqItemId != request.Id)
-            {
-                return BadRequest("id in URL and model should be same");
-            }
+            request.Id = faqItemId;
             var result = await Mediator.Send(request);
             return Ok(result.Id);
         }

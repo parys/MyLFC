@@ -1,20 +1,22 @@
-import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ChatMessage } from "@app/+common-models";
-import { ChatMessageService } from "../chatMessage.service";
-import { DeleteDialogComponent, PagedList } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { SignalRService } from "@app/+signalr";
-import { EditorComponent } from "@app/editor";
-import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from "@app/+constants";
+import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { ChatMessage } from '@domain/models';
+import { DeleteDialogComponent, PagedList } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { SignalRService } from '@app/+signalr';
+import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@app/+constants';
+
+import { ChatMessageService } from '../chatMessage.service';
+import { EditorComponent } from '@app/editor';
 import { ChatFilters } from '../model';
 
 @Component({
-    selector: "chat-window",
-    templateUrl: "./chat-window.component.html",
-    styleUrls: ["./chat-window.component.scss"],
+    selector: 'chat-window',
+    templateUrl: './chat-window.component.html',
+    styleUrls: ['./chat-window.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatWindowComponent implements OnInit, AfterContentChecked {
@@ -22,9 +24,9 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
 
-    @ViewChild("chatInput", { static: false })private elementRef: EditorComponent;
+    @ViewChild('chatInput', { static: false })private elementRef: EditorComponent;
     @Input() public type: number;
-    @Input() public height: number = 200;
+    @Input() public height = 200;
 
     constructor(private service: ChatMessageService,
         private formBuilder: FormBuilder,
@@ -43,7 +45,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
                 this.putToChat(data, false);
             }
         });
-        //this.roles.rolesChanged.subscribe(() =>
+        // this.roles.rolesChanged.subscribe(() =>
         //    this.cd.markForCheck());
     }
 
@@ -61,7 +63,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
             .subscribe((data: PagedList<ChatMessage>) => {
                     this.items = data.results.concat(this.items);
                 },
-                () => {},
+                null,
                 () => this.cd.markForCheck());
     }
 
@@ -92,12 +94,12 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     public addReply(index: number): void {
         const message: string = this.messageForm.get(MESSAGE).value;
         const userName: string = this.items[index].userName;
-        const newMessage: string = `<i>${userName}</i>, ${message}`;
+        const newMessage = `<i>${userName}</i>, ${message}`;
         this.messageForm.get(MESSAGE).patchValue(newMessage);
         this.elementRef.setFocus();
         this.cd.markForCheck();
     }
-    
+
     public edit(index: number): void {
         this.selectedEditIndex = index;
         this.messageForm.get(MESSAGE).patchValue(this.items[index].message);
@@ -105,12 +107,12 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
 
     public cancelEdit(): void {
         this.selectedEditIndex = null;
-        this.messageForm.get(MESSAGE).patchValue("");
+        this.messageForm.get(MESSAGE).patchValue('');
         this.cd.markForCheck();
     }
 
     public trackByFn(index: number, item: ChatMessage) {
-        if (!item) return null;
+        if (!item) { return null; }
         return item.id;
     }
 
@@ -118,11 +120,11 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
         this.service.delete(this.items[index].id).subscribe(data => {
                 if (data) {
                     this.items.slice(index, 1);
-                    this.snackBar.open("Коммент удален");
+                    this.snackBar.open('Коммент удален');
                 }
             },
             () => {
-                this.snackBar.open("Коммент НЕ удален");
+                this.snackBar.open('Коммент НЕ удален');
             },
             () => {
                 this.cd.markForCheck();
@@ -139,16 +141,16 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
             this.items.unshift(message);
         }
         if (clearAfter) {
-            this.messageForm.get(MESSAGE).patchValue("");
+            this.messageForm.get(MESSAGE).patchValue('');
         }
         this.cd.markForCheck();
     }
 
-    private initForm(message: string = ""): void {
+    private initForm(message: string = ''): void {
         this.messageForm = this.formBuilder.group({
             message: [message,
                 Validators.compose([Validators.required,
-                    Validators.maxLength(MAX_CHAT_MESSAGE_LENGTH)])], //todo add visual warning
+                    Validators.maxLength(MAX_CHAT_MESSAGE_LENGTH)])], // todo add visual warning
             typeId: [this.type, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {
