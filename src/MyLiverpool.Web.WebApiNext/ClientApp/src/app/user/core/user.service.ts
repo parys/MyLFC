@@ -7,7 +7,7 @@ import { UsersOnline } from '@domain/models';
 import { USERS_ROUTE } from '@app/+constants';
 import { BaseRestService } from '@app/+infrastructure';
 
-import { UserFilters, User, UserConfig } from '../model';
+import { UserFilters, User, UserConfig } from '@domain/models';
 
 @Injectable()
 export class UserService extends BaseRestService<User, UserFilters> {

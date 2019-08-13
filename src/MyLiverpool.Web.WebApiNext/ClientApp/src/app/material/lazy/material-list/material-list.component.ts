@@ -1,22 +1,21 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Location } from "@angular/common";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Subscription } from "rxjs";
-import { MaterialService } from "../../core/material.service";
-import { MaterialActivateDialogComponent } from "../../core/material-activate-dialog";
-import { Material, MaterialFilters } from "../../model";
-import { DeleteDialogComponent, PagedList } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { MaterialType } from "@app/materialCategory";
-import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { MaterialService } from '../../core/material.service';
+import { MaterialActivateDialogComponent } from '../../core/material-activate-dialog';
+import { Material, MaterialFilters, MaterialType } from '@domain/models';
+import { DeleteDialogComponent, PagedList } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { CustomTitleMetaService as CustomTitleService } from '@app/shared';
+import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from '@app/+constants';
 
 @Component({
-    selector: "material-list",
-    templateUrl: "./material-list.component.html",
-    styleUrls: ["./material-list.component.scss"],
+    selector: 'material-list',
+    templateUrl: './material-list.component.html',
+    styleUrls: ['./material-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MaterialListComponent implements OnInit, OnDestroy {
@@ -26,8 +25,8 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     private navigationSubscription: Subscription;
     private userId: number = null;
     public items: Material[];
-    public page: number = 1;
-    public itemsPerPage: number = 15;
+    public page = 1;
+    public itemsPerPage = 15;
     public totalItems: number;
     public categoryId: number;
 
@@ -37,7 +36,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         private location: Location,
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService,
-        
+
         private snackBar: MatSnackBar,
         private titleService: CustomTitleService,
         private dialog: MatDialog) {
@@ -68,10 +67,10 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        if (this.router.url.startsWith("/news")) {
+        if (this.router.url.startsWith('/news')) {
             this.titleService.setTitle(NEWSS_RU);
             this.type = MaterialType.News;
-        } else if (this.router.url.startsWith("/blogs")){
+        } else if (this.router.url.startsWith('/blogs')) {
             this.titleService.setTitle(BLOGS_RU);
             this.type = MaterialType.Blogs;
         } else {
@@ -81,19 +80,19 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) this.sub.unsubscribe();
-        if(this.sub2) this.sub2.unsubscribe();
-        if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
+        if (this.sub) { this.sub.unsubscribe(); }
+        if (this.sub2) { this.sub2.unsubscribe(); }
+        if (this.navigationSubscription) { this.navigationSubscription.unsubscribe(); }
     }
 
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
         this.updateUrl();
-    };
+    }
 
     private updateUrl(): void {
-        let newUrl: string = `${MaterialType[this.type].toLowerCase()}?${PAGE}=${this.page}`;
+        let newUrl = `${MaterialType[this.type].toLowerCase()}?${PAGE}=${this.page}`;
         if (this.categoryId) {
             newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         }
@@ -107,12 +106,12 @@ export class MaterialListComponent implements OnInit, OnDestroy {
             .subscribe(res => {
                     if (res) {
                         news.pending = false;
-                        this.snackBar.open("Материал активирован");
+                        this.snackBar.open('Материал активирован');
                     } else {
-                        this.snackBar.open("Материал НЕ активирован");
+                        this.snackBar.open('Материал НЕ активирован');
                     }
                 },
-                () => {},
+                null,
                 () => this.cd.markForCheck());
     }
 
@@ -122,10 +121,10 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                 if (res) {
                     this.items.splice(index, 1);
                 } else {
-                    this.snackBar.open("Ошибка удаления");
+                    this.snackBar.open('Ошибка удаления');
                 }
             },
-            () => { },
+            null,
             () => this.cd.markForCheck());
     }
 
@@ -145,15 +144,15 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         this.sub = this.materialService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
-                () => {},
+                null,
                 () => this.cd.markForCheck());
     }
 
     private parseQueryParamsAndUpdate(): void {
         this.sub2 = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams[PAGE] || 1;
-                this.categoryId = qParams["categoryId"] || null;
-                this.userId = qParams["userId"] || null;
+                this.categoryId = qParams['categoryId'] || null;
+                this.userId = qParams['userId'] || null;
             });
         this.update();
     }

@@ -1,1 +1,1 @@
-﻿export * from "./material-edit.module";
+﻿export * from './material-edit.module';

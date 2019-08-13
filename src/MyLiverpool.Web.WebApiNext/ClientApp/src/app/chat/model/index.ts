@@ -1,1 +1,0 @@
-﻿export * from './chat-filters.model';

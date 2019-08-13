@@ -1,18 +1,19 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { InjuryService } from "../injury.service";
-import { Injury } from "@app/injury/model";
-import { RolesCheckedService } from "@app/+auth";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const INJURY_CURRENT_KEY = makeStateKey<Injury[]>("injury-current");
+import { Subscription } from 'rxjs';
+
+import { InjuryService } from '../injury.service';
+import { Injury } from '@domain/models';
+import { RolesCheckedService } from '@app/+auth';
+
+const INJURY_CURRENT_KEY = makeStateKey<Injury[]>('injury-current');
 
 @Component({
-    selector: "injury-current-list",
-    templateUrl: "./injury-current-list.component.html",
-    styleUrls: ["./injury-current-list.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    
+    selector: 'injury-current-list',
+    templateUrl: './injury-current-list.component.html',
+    styleUrls: ['./injury-current-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InjuryCurrentListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -34,7 +35,7 @@ export class InjuryCurrentListComponent implements OnInit, OnDestroy {
                     this.items = data;
                     this.transferState.set(INJURY_CURRENT_KEY, data);
                 },
-                () => {},
+                null,
                 () => {
                     this.cd.markForCheck();
                 });

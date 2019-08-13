@@ -1,19 +1,21 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { Subscription, merge, of, Observable } from "rxjs";
-import { startWith, switchMap, map, catchError } from "rxjs/operators";
-import { Match, MatchFilters } from "@app/match/model";
-import { MatchService } from "@app/match/core";
-import { PagedList, DeleteDialogComponent } from "@app/shared";
-import { PAGE, MATCHES_ROUTE } from "@app/+constants/";
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+
+import { Subscription, merge, of, Observable } from 'rxjs';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+
+import { Match, MatchFilters } from '@domain/models';
+import { MatchService } from '@app/match/core';
+import { PagedList, DeleteDialogComponent } from '@app/shared';
+import { PAGE, MATCHES_ROUTE } from '@app/+constants/';
 
 @Component({
-    selector: "match-list",
-    templateUrl: "./match-list.component.html",
-    styleUrls: ["./match-list.component.scss"]
+    selector: 'match-list',
+    templateUrl: './match-list.component.html',
+    styleUrls: ['./match-list.component.scss']
 })
 export class MatchListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -31,7 +33,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-                this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
+                this.paginator.pageSize = +qParams['itemsPerPage'] || 15;
             });
 
         merge(this.paginator.page)
@@ -67,7 +69,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
 
     public update(): Observable<PagedList<Match>> {
         const filters = new MatchFilters();
-       //todo add input to filter? filters.seasonId = this.categoryId;
+       // todo add input to filter? filters.seasonId = this.categoryId;
         filters.pageSize = this.paginator.pageSize;
         filters.currentPage = this.paginator.pageIndex + 1;
 
@@ -78,7 +80,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     public updateUrl(): void {
         const newUrl = `${MATCHES_ROUTE}?${PAGE}=${this.paginator.pageIndex}`;
         this.location.replaceState(newUrl);
-    };
+    }
 
     public showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);

@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';   
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MaterialCategory, MaterialType, MaterialCategoryFilter } from '../../model';
+import { MaterialCategory, MaterialType, MaterialCategoryFilter } from '@domain/models';
 import { MaterialCategoryService } from '../../core';
 import { RolesCheckedService } from '@app/+auth';
 import { CustomTitleMetaService as CustomTitleService, PagedList } from '@app/shared';

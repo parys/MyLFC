@@ -1,3 +1,2 @@
-﻿export * from "./matchPerson.service";
-export * from "./matchPerson.module";
-export * from "./matchPerson.model";
+﻿export * from './matchPerson.service';
+export * from './matchPerson.module';

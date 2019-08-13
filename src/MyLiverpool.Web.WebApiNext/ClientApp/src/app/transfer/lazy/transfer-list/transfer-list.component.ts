@@ -1,26 +1,28 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { Subscription, merge, of, Observable } from "rxjs";
-import { startWith, switchMap, map, catchError } from "rxjs/operators";
-import { TransferService } from "@app/transfer/core";
-import { Transfer, TransferFilters } from "@app/transfer/model";
-import { PagedList, DeleteDialogComponent } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 
+import { Subscription, merge, of, Observable } from 'rxjs';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+
+import { TransferService } from '@app/transfer/core';
+import { Transfer, TransferFilters } from '@domain/models';
+import { PagedList, DeleteDialogComponent } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { TRANSFERS_ROUTE, PAGE } from '@app/+constants';
+
 @Component({
-    selector: "transfer-list",
-    templateUrl: "./transfer-list.component.html"
+    selector: 'transfer-list',
+    templateUrl: './transfer-list.component.html'
 })
 export class TransferListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Transfer[];
-    displayedColumns = ["personName", "clubName", "startDate", "onLoan", "amount"];
+    displayedColumns = ['personName', 'clubName', 'startDate', 'onLoan', 'amount'];
 
     @ViewChild(MatSort, { static: true })sort: MatSort;
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
@@ -36,7 +38,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-            this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
+            this.paginator.pageSize = +qParams['itemsPerPage'] || 15;
         });
 
         merge(this.sort.sortChange,
@@ -79,9 +81,9 @@ export class TransferListComponent implements OnInit, OnDestroy {
     }
 
     public updateUrl(): void {
-        let newUrl = `${TRANSFERS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
+        const newUrl = `${TRANSFERS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
-    };
+    }
 
     public showDeleteModal(id: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
@@ -96,9 +98,9 @@ export class TransferListComponent implements OnInit, OnDestroy {
         this.service.delete(id)
             .subscribe(res => {
                 if (res) {
-                    this.snackBar.open('Удалено');
+                    this.snackBar.open('РЈРґР°Р»РµРЅ');
                     } else {
-                        this.snackBar.open('Ошибка удаления');
+                        this.snackBar.open('РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ');
                     }
                 });
     }

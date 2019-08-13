@@ -6,8 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MaterialService } from '../../core';
-import { Material } from '../../model';
-import { MaterialCategoryService, MaterialCategory, MaterialType, MaterialCategoryFilter } from '@app/materialCategory';
+import { Material, MaterialCategory, MaterialType, MaterialCategoryFilter } from '@domain/models';
+import { MaterialCategoryService } from '@app/materialCategory';
 import { RolesCheckedService } from '@app/+auth';
 import { MaterialGuardDialogComponent } from './material-guard-dialog';
 import { EDIT_ROUTE, MESSAGE } from '@app/+constants';

@@ -1,20 +1,22 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { merge, of, Observable } from "rxjs";
-import { startWith, switchMap, map, catchError } from "rxjs/operators";
-import { Wish, WishFilter } from "../../model";
-import { WishService } from "../wish.service";
-import { PagedList, DeleteDialogComponent } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { PAGE, WISHES_ROUTE } from "@app/+constants";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+
+import { merge, of, Observable } from 'rxjs';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+
+import { Wish, WishFilter } from '@domain/models';
+import { WishService } from '../wish.service';
+import { PagedList, DeleteDialogComponent } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { PAGE, WISHES_ROUTE } from '@app/+constants';
 
 @Component({
-    selector: "wish-list",
-    templateUrl: "./wish-list.component.html",
-    styleUrls: ["./wish-list.component.scss"]
+    selector: 'wish-list',
+    templateUrl: './wish-list.component.html',
+    styleUrls: ['./wish-list.component.scss']
 })
 export class WishListComponent implements OnInit {
     public items: Wish[];
@@ -31,8 +33,8 @@ export class WishListComponent implements OnInit {
     public ngOnInit(): void {
         this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-            this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
-            this.stateId = +qParams["stateId"];
+            this.paginator.pageSize = +qParams['itemsPerPage'] || 15;
+            this.stateId = +qParams['stateId'];
 
         });
 
@@ -59,9 +61,9 @@ export class WishListComponent implements OnInit {
     }
 
     public updateUrl(): void {
-        const newUrl: string = `${WISHES_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
+        const newUrl = `${WISHES_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
-    };
+    }
 
     public update(): Observable<PagedList<Wish>> {
         const filters = new WishFilter();
@@ -75,17 +77,17 @@ export class WishListComponent implements OnInit {
     public getTypeClass(i: number): string {
         switch (i) {
             case 1:
-                return "panel-danger";
+                return 'panel-danger';
             case 2:
-                return "panel-success";
+                return 'panel-success';
             case 3:
-                return "panel-info";
+                return 'panel-info';
             case 4:
-                return "panel-primary";
+                return 'panel-primary';
             default:
-                return "";
+                return '';
         }
-    };
+    }
 
     public showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);

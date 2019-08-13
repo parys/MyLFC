@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Material } from '../../model';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Material } from '@domain/models';
 import { RolesCheckedService } from '@app/+auth';
-import { MaterialActivateDialogComponent } from "../material-activate-dialog";
-import { DeleteDialogComponent } from "@app/shared";
+import { MaterialActivateDialogComponent } from '../material-activate-dialog';
+import { DeleteDialogComponent } from '@app/shared';
 import { MaterialService } from '../material.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { MaterialService } from '../material.service';
     templateUrl: './material-item.component.html',
     styleUrls: ['./material-item.component.scss']
 })
-export class MaterialItemComponent implements OnInit {
+export class MaterialItemComponent {
     @Input()
     public item: Material;
 
@@ -23,9 +24,6 @@ export class MaterialItemComponent implements OnInit {
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar) {}
 
-    public ngOnInit(): void {
-    }
-
     public showActivateModal(): void {
         const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
@@ -34,7 +32,7 @@ export class MaterialItemComponent implements OnInit {
             }
         });
     }
-    
+
     public showDeleteModal(): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
@@ -54,7 +52,7 @@ export class MaterialItemComponent implements OnInit {
                         this.snackBar.open('Материал НЕ активирован');
                     }
                 },
-                () => { },
+                null,
                 () => this.cd.markForCheck());
     }
 
@@ -67,7 +65,7 @@ export class MaterialItemComponent implements OnInit {
                         this.snackBar.open('Ошибка удаления');
                     }
                 },
-                () => { },
+                null,
                 () => this.cd.markForCheck());
     }
 

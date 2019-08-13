@@ -1,12 +1,12 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+
 import { Subject } from 'rxjs';
-import { StorageService } from '@app/+storage';
-import { ChatMessage, Comment, UsersOnline } from '@domain/models';
-import { Pm } from '@app/pm/model';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+
+import { StorageService } from '@app/+storage';
+import { ChatMessage, Comment, UsersOnline, Pm, Notification } from '@domain/models';
 // import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
-import { Notification } from '@app/notification/model';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {

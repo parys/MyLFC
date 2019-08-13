@@ -1,2 +1,2 @@
-﻿export * from "./matchEvent.service";
-export * from "./matchEvent-core.module";
+﻿export * from './matchEvent.service';
+export * from './matchEvent-core.module';

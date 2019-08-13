@@ -1,21 +1,23 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { MaterialService } from "../material.service";
-import { Material } from "../../model";
-import { PagedList } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { TITLE_RU } from "@app/+constants";
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const MAT_LATEST_KEY = makeStateKey<PagedList<Material>>("mat-latest");
-const MAT_PINNED_KEY = makeStateKey<PagedList<Material>>("mat-pinned");
+import { Subscription } from 'rxjs';
+
+import { MaterialService } from '../material.service';
+import { Material } from '@domain/models';
+import { PagedList } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { CustomTitleMetaService as CustomTitleService } from '@app/shared';
+import { TITLE_RU } from '@app/+constants';
+
+const MAT_LATEST_KEY = makeStateKey<PagedList<Material>>('mat-latest');
+const MAT_PINNED_KEY = makeStateKey<PagedList<Material>>('mat-pinned');
 
 @Component({
-    selector: "material-home",
-    templateUrl: "./material-home.component.html",
-    styleUrls: ["./material-home.component.scss"],
+    selector: 'material-home',
+    templateUrl: './material-home.component.html',
+    styleUrls: ['./material-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MaterialHomeComponent implements OnInit, OnDestroy {
@@ -45,9 +47,9 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if (this.$latest) this.$latest.unsubscribe();
-        if (this.$pinned) this.$pinned.unsubscribe();
-        if (this.navigationSubscription) this.navigationSubscription.unsubscribe();
+        if (this.$latest) { this.$latest.unsubscribe(); }
+        if (this.$pinned) { this.$pinned.unsubscribe(); }
+        if (this.navigationSubscription) { this.navigationSubscription.unsubscribe(); }
     }
 
     private update(): void {
@@ -64,11 +66,11 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     }
 
     private updateLatest(): void {
-        //todo const savedData = this.transferState.get(MAT_LATEST_KEY, null);
-        //if (savedData) {
+        // todo const savedData = this.transferState.get(MAT_LATEST_KEY, null);
+        // if (savedData) {
         //    this.parseLatest(savedData);
         //    this.transferState.remove(MAT_LATEST_KEY);
-        //} else {
+        // } else {
             this.$latest = this.materialService
                 .getLatest()
                 .subscribe(data => {
@@ -76,17 +78,17 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
                         this.transferState.set(MAT_LATEST_KEY, data);
 
                     },
-                    () => { },
+                    null,
                     () => this.cd.markForCheck());
       //  }
     }
 
     private updatePinned(): void {
-        //const savedData = this.transferState.get(MAT_PINNED_KEY, null);
-        //if (savedData) {
+        // const savedData = this.transferState.get(MAT_PINNED_KEY, null);
+        // if (savedData) {
         //    this.parsePinned(savedData);
         //    this.transferState.remove(MAT_PINNED_KEY);
-        //} else {
+        // } else {
             this.$pinned = this.materialService
                 .getTop()
                 .subscribe(data => {
@@ -94,7 +96,7 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
                         this.transferState.set(MAT_PINNED_KEY, data);
 
                     },
-                    () => {},
+                    null,
                     () => this.cd.markForCheck());
        // }
     }

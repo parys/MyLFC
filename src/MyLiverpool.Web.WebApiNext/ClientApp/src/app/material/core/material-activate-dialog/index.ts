@@ -1,1 +1,1 @@
-﻿export * from "./material-activate-dialog.component";
+﻿export * from './material-activate-dialog.component';

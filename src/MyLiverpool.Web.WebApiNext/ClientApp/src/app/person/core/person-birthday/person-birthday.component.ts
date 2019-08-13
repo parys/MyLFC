@@ -1,12 +1,14 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Subscription } from "rxjs";
-import { PersonService } from "../person.service";
-import { Person } from "@app/person/model";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+
+import { PersonService } from '../person.service';
+import { Person } from '@domain/models';
 
 @Component({
-    selector: "person-birthday",
-    templateUrl: "./person-birthday.component.html",
-    styleUrls: ["./person-birthday.component.scss"],
+    selector: 'person-birthday',
+    templateUrl: './person-birthday.component.html',
+    styleUrls: ['./person-birthday.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonBirthdayComponent implements OnInit, OnDestroy {
@@ -21,10 +23,10 @@ export class PersonBirthdayComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.service.getBirthdays()
             .subscribe((data: Person[]) => this.parse(data),
-                () => {},
-            () => {
-                this.cd.markForCheck();
-            });
+                null,
+                () => {
+                    this.cd.markForCheck();
+                });
     }
 
     public ngOnDestroy(): void {

@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Subscription } from "rxjs";
-import { User, UserService } from "@app/user";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import { UserService } from '@app/user';
+import { User } from '@domain/models';
 
 @Component({
-    selector: "user-edit",
-    templateUrl: "./user-edit.component.html"
+    selector: 'user-edit',
+    templateUrl: './user-edit.component.html'
 })
 
 export class UserEditComponent implements OnInit, OnDestroy {
@@ -39,9 +40,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
         this.service.createOrUpdate(this.userId, user)
             .subscribe((data: User) => {
                 if (data) {
-                    this.snackBar.open("Профиль обновлен");
+                    this.snackBar.open('Профиль обновлен');
                 } else {
-                    this.snackBar.open("Профиль не обновлен");
+                    this.snackBar.open('Профиль не обновлен');
                 }
             });
     }
@@ -57,7 +58,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private initUserEditForm(): void {
         this.userEditForm = this.formBuilder.group({
             birthday: [null],
-            fullName: [""],
+            fullName: [''],
             gender: [null, Validators.required]
         });
     }

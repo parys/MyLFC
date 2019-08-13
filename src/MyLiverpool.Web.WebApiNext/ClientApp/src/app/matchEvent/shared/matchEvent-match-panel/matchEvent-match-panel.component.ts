@@ -1,22 +1,23 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { DeleteDialogComponent } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { MatchEventService } from "../../core";
-import { MatchEvent } from "@app/matchEvent/models";
+import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { DeleteDialogComponent } from '@app/shared';
+import { RolesCheckedService } from '@app/+auth';
+import { MatchEventService } from '../../core';
+import { MatchEvent } from '@domain/models';
 
 @Component({
-    selector: "matchEvent-match-panel",
-    templateUrl: "./matchEvent-match-panel.component.html",
-    styleUrls: ["./matchEvent-match-panel.component.scss"]
+    selector: 'matchEvent-match-panel',
+    templateUrl: './matchEvent-match-panel.component.html',
+    styleUrls: ['./matchEvent-match-panel.component.scss']
 })
 export class MatchEventMatchPanelComponent implements OnInit {
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     @Input() public seasonId: number;
     public events: MatchEvent[];
-    public isEditEvent: boolean = false;
+    public isEditEvent = false;
     public selectedEvent: MatchEvent;
     public selectedIndex: number;
 
@@ -73,9 +74,9 @@ export class MatchEventMatchPanelComponent implements OnInit {
             .subscribe(res => {
                     if (res) {
                         this.events.splice(index, 1);
-                        this.snackBar.open("Удалено");
+                        this.snackBar.open('Удалено');
                     } else {
-                        this.snackBar.open("Ошибка удаления");
+                        this.snackBar.open('Ошибка удаления');
                     }
                 });
     }

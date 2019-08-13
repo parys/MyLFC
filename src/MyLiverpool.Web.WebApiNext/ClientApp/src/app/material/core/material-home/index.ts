@@ -1,1 +1,1 @@
-﻿export * from "./material-home.component";
+﻿export * from './material-home.component';

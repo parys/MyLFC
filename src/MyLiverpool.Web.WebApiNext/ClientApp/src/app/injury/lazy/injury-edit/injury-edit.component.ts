@@ -1,17 +1,17 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription, Observable, of } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { InjuryService } from "@app/injury/core";
-import { Injury } from "@app/injury/model";
-import { PersonService, Person, PersonFilters } from "@app/person";
-import { INJURIES_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
-import { PagedList } from "@app/shared";
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { InjuryService } from '@app/injury/core';
+import { Injury, Person, PersonFilters } from '@domain/models';
+import { PersonService } from '@app/person';
+import { INJURIES_ROUTE, DEBOUNCE_TIME } from '@app/+constants';
+import { PagedList } from '@app/shared';
 
 @Component({
-    selector: "injury-edit",
-    templateUrl: "./injury-edit.component.html"
+    selector: 'injury-edit',
+    templateUrl: './injury-edit.component.html'
 })
 
 export class InjuryEditComponent implements OnInit, OnDestroy {
@@ -28,14 +28,14 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         private router: Router,
         private formBuilder: FormBuilder) {
     }
-    
+
     public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.params.subscribe(params => {
-            this.id = +params["id"];
+            this.id = +params['id'];
             if (this.id > 0) {
                 this.sub2 = this.injuryService.getSingle(this.id)
-                    .subscribe((data : Injury) => this.parse(data));
+                    .subscribe((data: Injury) => this.parse(data));
             }
         });
     }
@@ -52,12 +52,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     }
 
     public selectPerson(id: number) {
-        this.editInjuryForm.get("personId").patchValue(id);
-    }
-
-
-    private getRandomNumber(): number {
-        return Math.random();
+        this.editInjuryForm.get('personId').patchValue(id);
     }
 
     private parse(data: Injury): void {
@@ -79,15 +74,15 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editInjuryForm = this.formBuilder.group({
-            personId: ["", Validators.required],
-            personName: ["", Validators.required],
+            personId: ['', Validators.required],
+            personName: ['', Validators.required],
             startTime: [null, Validators.required],
             endTime: [null],
-            description: ["", Validators.required],
+            description: ['', Validators.required],
             id: [0, Validators.required]
         });
 
-        this.persons$ = this.editInjuryForm.controls["personName"].valueChanges.pipe(
+        this.persons$ = this.editInjuryForm.controls['personName'].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => {

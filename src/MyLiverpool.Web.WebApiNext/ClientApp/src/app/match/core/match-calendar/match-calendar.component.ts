@@ -1,16 +1,18 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { MatchService } from "../match.service";
-import { Match, MatchCalendar } from "@app/match/model";
-import { RolesCheckedService } from "@app/+auth";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const MATCH_CALENDAR_KEY = makeStateKey<Match[]>("match-calendar");
+import { Subscription } from 'rxjs';
+
+import { MatchService } from '../match.service';
+import { Match, MatchCalendar } from '@domain/models';
+import { RolesCheckedService } from '@app/+auth';
+
+const MATCH_CALENDAR_KEY = makeStateKey<Match[]>('match-calendar');
 
 @Component({
-    selector: "match-calendar",
-    templateUrl: "./match-calendar.component.html",
-    styleUrls: ["./match-calendar.component.scss"],
+    selector: 'match-calendar',
+    templateUrl: './match-calendar.component.html',
+    styleUrls: ['./match-calendar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {

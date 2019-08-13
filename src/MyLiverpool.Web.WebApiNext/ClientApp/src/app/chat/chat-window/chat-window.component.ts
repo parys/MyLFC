@@ -11,7 +11,7 @@ import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@app/+constants';
 
 import { ChatMessageService } from '../chatMessage.service';
 import { EditorComponent } from '@app/editor';
-import { ChatFilters } from '../model';
+import { ChatFilters } from '@domain/models';
 
 @Component({
     selector: 'chat-window',

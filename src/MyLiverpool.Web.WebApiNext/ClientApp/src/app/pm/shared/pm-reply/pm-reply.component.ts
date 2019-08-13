@@ -1,22 +1,23 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Pm } from "../../model";
-import { PmService } from "../../core/pm.service";
-import { EditorComponent } from "@app/editor";
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Pm } from '@domain/models';
+import { PmService } from '../../core/pm.service';
+import { EditorComponent } from '@app/editor';
 
 @Component({
-    selector: "pm-reply",
-    templateUrl: "./pm-reply.component.html"
+    selector: 'pm-reply',
+    templateUrl: './pm-reply.component.html'
 })
 export class PmReplyComponent implements OnInit, AfterViewInit {
     public pmReplyForm: FormGroup;
-    public id: number = 0;
+    public id = 0;
     @Input() public userName: string;
     @Input() public userId: number;
     @Input() public title: string;
     @Output() public close = new EventEmitter();
-    @ViewChild("mpInput", { static: false })private elementRef: EditorComponent;
+    @ViewChild('mpInput', { static: false })private elementRef: EditorComponent;
 
     constructor(private service: PmService,
         private snackBar: MatSnackBar,
@@ -33,7 +34,7 @@ export class PmReplyComponent implements OnInit, AfterViewInit {
                 ])
             ],
             message: [
-                "", Validators.compose([
+                '', Validators.compose([
                     Validators.required,
                     Validators.maxLength(2500)
                 ])
@@ -51,7 +52,7 @@ export class PmReplyComponent implements OnInit, AfterViewInit {
         this.service.create(model).subscribe(data => {
                 if (data) {
                     this.closeWindow();
-                    this.snackBar.open("Сообщение отправлено");
+                    this.snackBar.open('Сообщение отправлено');
                 }
             });
     }
@@ -66,11 +67,11 @@ export class PmReplyComponent implements OnInit, AfterViewInit {
 
     private getTitle(): string {
         if (!this.title) {
-            return "";
+            return '';
         }
         const match = this.title.match(/\[.*]/);
         if (match) {
-            let newValue = parseInt(match[0].substring(1, match[0].length - 1));
+            let newValue = parseInt(match[0].substring(1, match[0].length - 1), 10);
             return this.title.replace(/\[.*]/, `[${++newValue}]`);
         } else {
             return `Re[1]: ${this.title}`;

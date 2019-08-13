@@ -1,6 +1,6 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
-import { TransferState, makeStateKey } from "@angular/platform-browser";
+import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,8 +13,7 @@ import { NEWS_RU, BLOG_RU } from '@app/+constants/ru.constants';
 import { StorageService } from '@app/+storage';
 
 import { MaterialService, MaterialActivateDialogComponent } from '../../core';
-import { Material } from '../../model';
-import { MaterialType } from '@app/materialCategory';
+import { Material, MaterialType } from '@domain/models';
 
 
 const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
@@ -110,7 +109,7 @@ export class MaterialDetailComponent implements OnDestroy {
                             this.parse(data);
                             this.transferState.set(MAT_DETAIL_KEY, data);
                         },
-                        () => { },
+                        null,
                         () => {
                             this.cd.markForCheck();
                         });

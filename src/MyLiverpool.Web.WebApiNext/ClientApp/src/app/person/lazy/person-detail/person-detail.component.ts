@@ -1,15 +1,15 @@
-﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleMetaService } from "@app/shared";
-import { PersonService } from "../../core/person.service";
-import { Person } from "../../model";
+﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { RolesCheckedService } from '@app/+auth';
+import { CustomTitleMetaService } from '@app/shared';
+import { PersonService } from '../../core/person.service';
+import { Person } from '@domain/models';
 
 @Component({
-    selector: "person-detail",
-    templateUrl: "./person-detail.component.html",
-//    styleUrls: ["./person-detail.component.scss"]
+    selector: 'person-detail',
+    templateUrl: './person-detail.component.html',
+    //    styleUrls: ["./person-detail.component.scss"]
 })
 export class PersonDetailComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
@@ -24,21 +24,21 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
         this.sub2 = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {
-                this.init();
+        //        this.init();
             }
         });
     }
 
     public ngOnInit(): void {
-        this.init();
+   //     this.init();
     }
 
     public ngOnDestroy(): void {
-        if (this.sub2) this.sub2.unsubscribe();
+        if (this.sub2) { this.sub2.unsubscribe(); }
     }
 
-    private init(): void {
+//     private init(): void {
 
-    }
+// }
 
 }

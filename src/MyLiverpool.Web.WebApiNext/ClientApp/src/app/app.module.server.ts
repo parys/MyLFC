@@ -1,10 +1,10 @@
 ﻿import { NgModule } from '@angular/core';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
-import { AppModuleShared } from './app.module';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import { AppComponent } from './app.component';
-// import { ɵAnimationEngine } from '@angular/animations/browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from './app.component';
+import { AppModuleShared } from './app.module';
+// import { ɵAnimationEngine } from '@angular/animations/browser';
 
 // declarations
 // export function instantiateServerRendererFactory(

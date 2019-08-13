@@ -7,7 +7,7 @@ import { ChatMessage } from '@domain/models';
 import { CHAT_MESSAGES_ROUTE } from '@app/+constants';
 import { BaseRestService } from '../+infrastructure/base-rest.service';
 
-import { ChatFilters } from './model/chat-filters.model';
+import { ChatFilters } from '../domain/models/chat-filters.model';
 
 @Injectable()
 export class ChatMessageService extends BaseRestService<ChatMessage, ChatFilters> {
