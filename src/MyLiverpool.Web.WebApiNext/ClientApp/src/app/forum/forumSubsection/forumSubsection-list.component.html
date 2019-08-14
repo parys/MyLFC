@@ -1,4 +1,4 @@
-﻿<table style="width: 100%; border: 0; background-color: #FFFFFF;" class="gTable" *ngIf="item">
+﻿<!-- <table style="width: 100%; border: 0; background-color: #FFFFFF;" class="gTable" *ngIf="item">
     <tbody>
     <tr>
         <td class="gTableTop" colspan="7">
@@ -23,7 +23,7 @@
             <a>Обновления</a>
         </td>
     </tr>
-    <!--<tr><td class="threadsType" colspan="7">Важные темы</td></tr>-->
+    <!--<tr><td class="threadsType" colspan="7">Важные темы</td></tr>->
 
     <tr><td class="threadsType" colspan="7">Темы форума</td></tr>
     <tr *ngFor="let theme of item.themes.list">
@@ -35,10 +35,10 @@
         </td>
         <td class="threadNametd">
             <a class="threadLink" [routerLink]="['./themes', theme.id]" [textContent]="theme.name"></a>
-            <a class="modBut" *ngIf="roles.isAdminAssisstant" [routerLink]="['./themes', theme.id, 'edit']" title="Изменить/переместить тему">
+            <a class="modBut" *ngIf="roles.isAdminAssistant" [routerLink]="['./themes', theme.id, 'edit']" title="Изменить/переместить тему">
                 <span class="glyphicon glyphicon-pencil" align="absmiddle"></span>
             </a>
-            <a class="modBut" *ngIf="roles.isAdminAssisstant" title="Удалить тему" ng-click="vm.removeSection($index)">
+            <a class="modBut" *ngIf="roles.isAdminAssistant" title="Удалить тему" ng-click="vm.removeSection($index)">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </td>
@@ -58,7 +58,7 @@
             </a>
             <br>Сообщение от: <span class="lastPostGuest">
                 <a class="lastPostUserLink" onclick="window.open('/index/8-0-icebergstollikcs', 'up27', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">icebergstollikcs</a>
-            </span-->
+            </span->
         </td>
     </tr>
 
@@ -66,8 +66,8 @@
     <tr>
         <td class="threadsDetails" colspan="7">В этом форуме тем: <b [textContent]="totalItems"></b>. На странице показано тем: <b [textContent]="items.length"></b>.</td>
     </tr>
-    <!--->tr><td class="forumOnlineBar" colspan="7">Форум просматривают: <a class="groupAdmin" href="javascript://" rel="nofollow" onclick="window.open('/index/8-10147','up10147','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">parys</a></td></tr-->
+    <!--tr><td class="forumOnlineBar" colspan="7">Форум просматривают: <a class="groupAdmin" href="javascript://" rel="nofollow" onclick="window.open('/index/8-10147','up10147','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">parys</a></td></tr->
     </tbody>
 </table>
 
-<a [routerLink]="['./themes', 0, 'edit']">Добавить тему</a>
+<a [routerLink]="['./themes', 0, 'edit']">Добавить тему</a> -->

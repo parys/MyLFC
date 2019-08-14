@@ -53,6 +53,8 @@
     <Content Include="ClientApp\src\index.html" />
     <Content Include="ClientApp\src\tsconfig.cli.json" />
     <Folder Include="ClientApp\.vscode\" />
+    <Folder Include="ClientApp\src\app\faq-items\faq-item-list\" />
+    <Folder Include="ClientApp\src\app\faq-items\lazy\faq-item-edit\" />
     <Folder Include="Connected Services\" />
     <Folder Include="wwwroot\assets\icons\" />
     <Folder Include="wwwroot\src\" />

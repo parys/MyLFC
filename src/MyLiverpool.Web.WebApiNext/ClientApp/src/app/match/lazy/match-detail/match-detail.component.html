@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <mat-tab-group mat-stretch-tabs color="warn" [selectedIndex]="item.scoreHome != null > 0 ? 1 : null">
+    <mat-tab-group mat-stretch-tabs color="warn" [selectedIndex]="item.scoreHome != null ? 0 : 1">
         <mat-tab label="Состав" isActive="item.scoreHome == null">
             <ng-template matTabContent>
                 <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>

@@ -3,9 +3,9 @@
 </div>
 
 <ol>
-    <li *ngFor="let item of items; let i =index; trackBy: trackByFn">
+    <li *ngFor="let item of items; let i = index; trackBy: trackByFn">
         <div *ngIf="!item.forSiteTeam || (item.forSiteTeam && !roles.isSiteMember)">
-            {{item.name}} -{{item.order}}
+            {{item.answer}} -{{item.order}}
             <a [routerLink]="[item.id, 'edit']" *ngIf="roles.isInformer">
                 <i class="material-icons">edit</i>
             </a>

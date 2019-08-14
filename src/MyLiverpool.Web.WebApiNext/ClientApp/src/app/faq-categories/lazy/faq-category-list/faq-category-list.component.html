@@ -12,6 +12,12 @@
             <a role="button" (click)="showDeleteModal(i)" *ngIf="roles.isInformer">
                 <i class="material-icons">clear</i>
             </a>
+            
+            <a [routerLink]="['/faq-items', 0, 'edit']" 
+            [queryParams]="{categoryId: item.id}"
+             *ngIf="roles.isInformer">
+                <i class="material-icons">edit</i>
+            </a>
         </div>
     </li>
 </ol>

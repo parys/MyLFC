@@ -1,7 +1,7 @@
-﻿<mat-sidenav-container class="example-container" (backdropClick)="sidenav.close('backdrop')">
+﻿<mat-sidenav-container class="example-container" (backdropClick)="sidenav.close()">
     <mat-sidenav #sidenav mode="over"
                  class="sidenav"
-                 (keydown.escape)="sidenav.close('escape')"
+                 (keydown.escape)="sidenav.close()"
                  [fixedInViewport]="true"
                  [fixedTopGap]="0"
                  [fixedBottomGap]="0">

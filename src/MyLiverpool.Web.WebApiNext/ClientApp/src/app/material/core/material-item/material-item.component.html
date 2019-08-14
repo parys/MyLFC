@@ -1,5 +1,5 @@
 ﻿<div *ngIf="item && (!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId))"
-     class="mat-item" style="height: 100%;">
+    class="mat-item" style="height: 100%;">
     <div class="material" [class.material-pending]="item.pending" style="height: 100%;">
         <div class="header" style="flex-grow: 5">
             <a [routerLink]="['/', item.typeName, item.id]">
@@ -23,8 +23,9 @@
                 <ul class="list-inline small small-offset padding5">
                     <li class="">Категория:</li>
                     <li class="">
-                        <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
-                                        }" [textContent]="item.categoryName"></a>
+                        <a [routerLink]="['/', item.typeName]"
+                            [queryParams]="{categoryId: item.categoryId}"
+                            [textContent]="item.categoryName"></a>
                     </li>
                     <li class="">|</li>
                     <!--<li0 class="">Добавлено:</li0>-->
@@ -38,7 +39,8 @@
                     <li class="">Автор:</li>
                     <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
                     <!--<li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]" fragment="comments">Комментарии: {{item.commentsCount}}</a></li>-->
-                    <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]" fragment="comments">💬 {{item.commentsCount}}</a></li>
+                    <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]"
+                            fragment="comments">💬 {{item.commentsCount}}</a></li>
                 </ul>
             </div>
         </div>

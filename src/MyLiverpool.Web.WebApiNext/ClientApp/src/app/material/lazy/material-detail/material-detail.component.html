@@ -3,13 +3,13 @@
         <h3 class="full-width flex-space-between">
             <span class="beauty-font" [textContent]="item.title"></span>
             <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)">
+                <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal()">
                     <i class="material-icons">done</i>
                 </a>
                 <a [routerLink]="['./edit']">
                     <i class="material-icons">edit</i>
                 </a>
-                <a role="button" (click)="showDeleteModal(i)">
+                <a role="button" (click)="showDeleteModal()">
                     <i class="material-icons">clear</i>
                 </a>
             </span>

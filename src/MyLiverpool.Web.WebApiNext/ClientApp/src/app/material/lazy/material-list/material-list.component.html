@@ -32,8 +32,9 @@
                     <ul class="list-inline small small-offset padding5">
                         <li class="">Категория:</li>
                         <li class="">
-                            <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
-                                        }" [textContent]="item.categoryName"></a>
+                            <a [routerLink]="['/', item.typeName]"
+                                [queryParams]="{page: page, categoryId: item.categoryId}"
+                                [textContent]="item.categoryName"></a>
                         </li>
                         <!--todo!!, userId: userId-->
                         <li class="">|</li>
@@ -45,20 +46,16 @@
                         <li class="">|</li>
                         <li class="">Автор:</li>
                         <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
-                        <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]" fragment="comments">Комментарии: {{item.commentsCount}}</a></li>
+                        <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]"
+                                fragment="comments">Комментарии: {{item.commentsCount}}</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <div class="pagination">
-        <pagination-controls (pageChange)="pageChanged($event)"
-                             directionLinks="true"
-                             autoHide="true"
-                             previousLabel="Назад"
-                             nextLabel="Вперед"
-                             screenReaderPaginationLabel="Постраничный вид"
-                             screenReaderPageLabel="Страница"
-                             screenReaderCurrentLabel="Вы на странице"></pagination-controls>
+        <pagination-controls (pageChange)="pageChanged($event)" directionLinks="true" autoHide="true"
+            previousLabel="Назад" nextLabel="Вперед" screenReaderPaginationLabel="Постраничный вид"
+            screenReaderPageLabel="Страница" screenReaderCurrentLabel="Вы на странице"></pagination-controls>
     </div>
 </div>

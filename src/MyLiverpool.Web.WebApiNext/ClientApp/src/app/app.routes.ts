@@ -10,6 +10,7 @@ import {
     COMMENTS_ROUTE,
     CLUBS_ROUTE,
     FAQ_CATEGORIES_ROUTE,
+    FAQ_ITEMS_ROUTE,
     IMAGES_ROUTE,
     INJURIES_ROUTE,
     MATCHES_ROUTE,
@@ -64,8 +65,8 @@ export const routes: Routes = [
         loadChildren: () => import('./faq-categories/lazy/faq-category.module').then(m => m.FaqCategoryModule),
     },
     {
-        path: FAQ_CATEGORIES_ROUTE,
-        loadChildren: () => import('./faq-items/lazy/faq-item.module').then(m => m.FaqItemModule),
+        path: FAQ_ITEMS_ROUTE,
+        loadChildren: () => import('./faq-items/faq-item.module').then(m => m.FaqItemModule),
     },
     {
         path: IMAGES_ROUTE,
