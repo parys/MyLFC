@@ -19,7 +19,8 @@ export class FaqItemEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public faqItemEditForm: FormGroup;
     private faqItemId: number;
-    public faqCategories: FaqCategory[];
+    public item: FaqItem = new FaqItem();
+    public categories: FaqCategory[];
 
     constructor(private categoryService: FaqCategoryService,
         private service: FaqItemService,
@@ -37,7 +38,7 @@ export class FaqItemEditComponent implements OnInit, OnDestroy {
             }
         });
         this.categoryService.getAll()
-        .subscribe((data: FaqCategory[]) => this.faqCategories = data);
+        .subscribe((data: FaqCategory[]) => this.categories = data);
 
     }
 
@@ -59,8 +60,10 @@ export class FaqItemEditComponent implements OnInit, OnDestroy {
     }
 
     private parse(item: FaqItem): void {
-        this.faqItemEditForm.patchValue(item);
+        item = item || new FaqItem();
+        this.faqItemEditForm.patchValue(item || {});
         this.faqItemId = item.id;
+        this.item = item;
     }
 
     private initFaqItemEditForm(): void {
@@ -68,7 +71,8 @@ export class FaqItemEditComponent implements OnInit, OnDestroy {
             question: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
             answer: ['', Validators.compose([Validators.required, Validators.maxLength(400)])],
             order: [255],
-            forSiteTeam: [false, Validators.required]
+            forSiteTeam: [false, Validators.required],
+            faqCategoryId: ['', Validators.required]
         });
     }
 }

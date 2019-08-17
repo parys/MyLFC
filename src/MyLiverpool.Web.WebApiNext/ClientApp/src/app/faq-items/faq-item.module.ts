@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule, BreadcrumbService } from '@app/shared';
 import { FAQ_CATEGORIES_ROUTE, FAQ_CATEGORIES_RU } from '@app/+constants';
@@ -18,6 +19,7 @@ import { FaqCategoryService } from '@app/faq-categories/lazy/faq-category.servic
         SharedModule,
         RouterModule.forChild(faqItemRoutes),
         MatInputModule,
+        MatSelectModule,
         MatSlideToggleModule,
         EditorModule
     ],

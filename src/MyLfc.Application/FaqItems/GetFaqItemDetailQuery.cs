@@ -52,11 +52,15 @@ namespace MyLfc.Application.FaqItems
         {
             public int Id { get; set; }
 
-            public string Name { get; set; }
+            public string Question { get; set; }
+
+            public string Answer { get; set; }
 
             public bool ForSiteTeam { get; set; }
 
             public byte Order { get; set; }
+
+            public int FaqCategoryId { get; set; }
         }
     }
 }

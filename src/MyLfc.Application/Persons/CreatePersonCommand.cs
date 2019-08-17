@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
 using MediatR;
 using MyLfc.Domain;
 using MyLfc.Persistence;
@@ -44,7 +43,7 @@ namespace MyLfc.Application.Persons
                 _context.Persons.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = entity.Id};
+                return _mapper.Map<Response>(entity);
             }
         }
 
@@ -53,11 +52,9 @@ namespace MyLfc.Application.Persons
         {
             public int Id { get; set; }
 
-            public string FirstName { get; set; }
+            public string RussianName => FirstRussianName + " " + LastRussianName;
 
             public string FirstRussianName { get; set; }
-
-            public string LastName { get; set; }
 
             public string LastRussianName { get; set; }
 

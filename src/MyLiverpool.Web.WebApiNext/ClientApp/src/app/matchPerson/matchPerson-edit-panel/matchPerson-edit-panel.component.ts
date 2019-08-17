@@ -113,7 +113,8 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
         this.editMatchPersonForm = this.formBuilder.group({
             russianName: [this.selectedMatchPerson ? this.selectedMatchPerson.russianName : '', Validators.required],
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : '', Validators.required],
-            personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required]
+            personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required],
+            useType: [true]
         });
         this.isEdit = this.selectedMatchPerson !== undefined;
 
@@ -123,7 +124,9 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
             switchMap((value: string) => {
                 const filter = new PersonFilters();
                 filter.name = value;
-           // todo fix during rewrite to Mediatr     filter.type = this.personTypeId;
+                if (this.editMatchPersonForm.get('useType').value) {
+                filter.type = this.personTypeId;
+            }
                 return this.personService.getAll(filter);
             }),
             switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {

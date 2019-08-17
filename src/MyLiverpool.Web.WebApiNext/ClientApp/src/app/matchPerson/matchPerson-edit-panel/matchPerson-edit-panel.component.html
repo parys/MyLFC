@@ -13,7 +13,10 @@
         <mat-select placeholder="Тип" formControlName="personType">
             <mat-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field>       
+     <div class="full-width">
+        <mat-checkbox color="warn" formControlName="useType">Фильтр по типу</mat-checkbox>
+    </div>
     <div class="full-width text-center">
         <button mat-raised-button color="warn" type="submit" class="full-width" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
     </div>
