@@ -9,6 +9,7 @@ export class CustomDatePipe implements PipeTransform {
         withoutTime: boolean = false,
         withoutYear: boolean = false): string {
 
+        if (!value) { return ''; }
         value = value.toString();
         const datePipe = new DatePipe('ru-RU');
         let dateString = '';
