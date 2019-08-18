@@ -1,5 +1,7 @@
 ﻿export * from './chat-message.model';
 export * from './comment.model';
+export * from './commentFilter.model';
+export * from './commentVote.model';
 export * from './faq-category.model';
 export * from './faq-item.model';
 export * from './user-online.model';

@@ -1,5 +1,5 @@
-//declare var require: NodeRequire;
-//declare var module: NodeModule;
+declare var require: any; // NodeRequire
+declare var module: any; // NodeModule
 declare var addAd: any;
 declare var loadYa: any;
 declare var ssn: any;

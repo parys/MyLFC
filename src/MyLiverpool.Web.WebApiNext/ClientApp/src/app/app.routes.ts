@@ -28,17 +28,17 @@ import {
     TITLE_RU,
     WAL_ROUTE
 } from '@app/+constants';
-import { MaterialHomeComponent } from './material';
+import { MaterialHomeComponent } from './materials';
 
 export const routes: Routes = [
     ...homeRoutes,
     {
         path: 'editPage',
-        loadChildren: () => import('./staticPage/staticPage.module').then(m => m.StaticPageModule)
+        loadChildren: () => import('./static-pages/staticPage.module').then(m => m.StaticPageModule)
     },
     {
         path: ACCOUNT_ROUTE,
-        loadChildren: () => import('./account/lazy/account.module').then(m => m.AccountModule)
+        loadChildren: () => import('./accounts/lazy/account.module').then(m => m.AccountModule)
     },
     {
         path: ADMIN_ROUTE,
@@ -46,19 +46,19 @@ export const routes: Routes = [
     },
     {
         path: BLOGS_ROUTE,
-        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
+        loadChildren: () => import('./materials/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: BLOG_CATEGORIES_ROUTE,
-        loadChildren: () => import('./materialCategory/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
+        loadChildren: () => import('./material-categories/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
     },
     {
         path: COMMENTS_ROUTE,
-        loadChildren: () => import('./comment/lazy/comment.module').then(m => m.CommentModule)
+        loadChildren: () => import('./comments/lazy/comment.module').then(m => m.CommentModule)
     },
     {
         path: CLUBS_ROUTE,
-        loadChildren: () => import('./club/lazy/club.module').then(m => m.ClubModule)
+        loadChildren: () => import('./clubs/lazy/club.module').then(m => m.ClubModule)
     },
     {
         path: FAQ_CATEGORIES_ROUTE,
@@ -70,63 +70,63 @@ export const routes: Routes = [
     },
     {
         path: IMAGES_ROUTE,
-        loadChildren: () => import('./image/lazy/image.module').then(m => m.ImageModule)
+        loadChildren: () => import('./images/lazy/image.module').then(m => m.ImageModule)
     },
     {
         path: INJURIES_ROUTE,
-        loadChildren: () => import('./injury/lazy/injury.module').then(m => m.InjuryModule)
+        loadChildren: () => import('./injuries/lazy/injury.module').then(m => m.InjuryModule)
     },
     {
         path: MATERIALS_ROUTE,
-        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
+        loadChildren: () => import('./materials/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: MATCHES_ROUTE,
-        loadChildren: () => import('./match/lazy/match.module').then(m => m.MatchModule)
+        loadChildren: () => import('./matches/lazy/match.module').then(m => m.MatchModule)
     },
     {
         path: NEWS_ROUTE,
-        loadChildren: () => import('./material/lazy/material.module').then(m => m.MaterialModule)
+        loadChildren: () => import('./materials/lazy/material.module').then(m => m.MaterialModule)
     },
     {
         path: NEWS_CATEGORIES_ROUTE,
-        loadChildren: () => import('./materialCategory/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
+        loadChildren: () => import('./material-categories/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
     },
     {
         path: NOTIFICATIONS_ROUTE,
-        loadChildren: () => import('./notification/lazy/notification.module').then(m => m.NotificationModule)
+        loadChildren: () => import('./notifications/lazy/notification.module').then(m => m.NotificationModule)
     },
     {
         path: PERSONS_ROUTE,
-        loadChildren: () => import('./person/lazy/person.module').then(m => m.PersonModule)
+        loadChildren: () => import('./persons/lazy/person.module').then(m => m.PersonModule)
     },
     {
         path: PMS_ROUTE,
-        loadChildren: () => import('./pm/lazy/pm.module').then(m => m.PmModule)
+        loadChildren: () => import('./pms/lazy/pm.module').then(m => m.PmModule)
     },
     {
         path: POLLS_ROUTE,
-        loadChildren: () => import('./poll/lazy/poll.module').then(m => m.PollModule)
+        loadChildren: () => import('./polls/lazy/poll.module').then(m => m.PollModule)
     },
     {
         path: ROLE_GROUPS_ROUTE,
-        loadChildren: () => import('./roleGroup/lazy/roleGroup.module').then(m => m.RoleGroupModule)
+        loadChildren: () => import('./role-groups/lazy/roleGroup.module').then(m => m.RoleGroupModule)
     },
     {
         path: SEASONS_ROUTE,
-        loadChildren: () => import('./season/lazy/season.module').then(m => m.SeasonModule)
+        loadChildren: () => import('./seasons/lazy/season.module').then(m => m.SeasonModule)
     },
     {
         path: STADIUMS_ROUTE,
-        loadChildren: () => import('./stadium/lazy/stadium.module').then(m => m.StadiumModule)
+        loadChildren: () => import('./stadiums/lazy/stadium.module').then(m => m.StadiumModule)
     },
     {
         path: TRANSFERS_ROUTE,
-        loadChildren: () => import('./transfer/lazy/transfer.module').then(m => m.TransferModule)
+        loadChildren: () => import('./transfers/lazy/transfer.module').then(m => m.TransferModule)
     },
     {
         path: USERS_ROUTE,
-        loadChildren: () => import('./user/lazy/user.module').then(m => m.UserModule)
+        loadChildren: () => import('./users/lazy/user.module').then(m => m.UserModule)
     },
     {
         path: WAL_ROUTE,
@@ -134,7 +134,7 @@ export const routes: Routes = [
     },
     {
         path: WISHES_ROUTE,
-        loadChildren: () => import('./wish/lazy/wish.module').then(m => m.WishModule)
+        loadChildren: () => import('./wishes/lazy/wish.module').then(m => m.WishModule)
     },
     {
         path: '',
