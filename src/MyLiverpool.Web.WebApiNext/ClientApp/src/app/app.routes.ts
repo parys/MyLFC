@@ -26,7 +26,8 @@ import {
     USERS_ROUTE,
     POLLS_ROUTE,
     TITLE_RU,
-    WAL_ROUTE
+    WAL_ROUTE,
+    FAQ_ROUTE
 } from '@app/+constants';
 import { MaterialHomeComponent } from './materials';
 
@@ -59,6 +60,10 @@ export const routes: Routes = [
     {
         path: CLUBS_ROUTE,
         loadChildren: () => import('./clubs/lazy/club.module').then(m => m.ClubModule)
+    },
+    {
+        path: FAQ_ROUTE,
+        loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule),
     },
     {
         path: FAQ_CATEGORIES_ROUTE,

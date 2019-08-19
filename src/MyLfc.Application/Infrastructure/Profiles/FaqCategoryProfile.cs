@@ -15,6 +15,11 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<CreateFaqCategoryCommand.Request, FaqCategory>();
 
             CreateMap<UpdateFaqCategoryCommand.Request, FaqCategory>();
+
+
+            CreateMap<FaqCategory, GetFaqQuery.FaqCategoryListDto>();
+
+            CreateMap<FaqItem, GetFaqQuery.FaqItemListDto>();
         }
     }
 }

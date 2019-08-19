@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowUnreachableCode": false,
-    "alwaysStrict": false,
     "baseUrl": "./src",
     "declaration": false,
     "downlevelIteration": true,
@@ -15,9 +14,6 @@
     ],
     "module": "esnext",
     "moduleResolution": "node",
-    "noEmit": false,
-    "noImplicitAny": true,
-    "noImplicitUseStrict": true,
     "outDir": "./dist/out-tsc",
     "paths": {
       "@environments/*": [

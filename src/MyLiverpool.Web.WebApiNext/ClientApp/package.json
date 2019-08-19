@@ -10,7 +10,6 @@
     "build:ssr": "npm run build-ssr",
     "ng": "ng",
     "start": "ng serve",
-    "install": "npm install",
     "lint": "ng lint",
     "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats.json",
     "analyze-es5": "webpack-bundle-analyzer dist/aspnetcorespa/stats-es5.json",
@@ -58,7 +57,7 @@
     "tslint": "5.18.0",
     "codelyzer": "5.1.0",
     "tinymce": "4.9.3",
-    "@types/node": "12.7.2",
+    "@types/node": "12.7.1",
     "@types/tinymce": "4.5.22",
     "webpack-bundle-analyzer": "3.4.1",
     "source-map-explorer": "2.0.1"

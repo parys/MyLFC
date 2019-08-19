@@ -1,4 +1,6 @@
-﻿export class FaqCategory {
+﻿import { FaqItem } from './faq-item.model';
+
+export class FaqCategory {
 
     public id: number;
 
@@ -7,4 +9,6 @@
     public forSiteTeam: boolean;
 
     public order: number;
+
+    public items: FaqItem[];
 }

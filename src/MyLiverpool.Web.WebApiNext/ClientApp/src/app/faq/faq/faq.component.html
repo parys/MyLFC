@@ -1,0 +1,25 @@
+﻿<div class="flex-space-around flex-v-c" *ngIf="roles.isInformer">
+    <button mat-raised-button color="warn" type="button" [routerLink]="[0, 'edit']">Добавить</button>
+</div>
+
+ <mat-accordion> <!--*ngIf="!category.forSiteTeam || (category.forSiteTeam && !roles.isSiteMember)"> -->
+    <!-- <ng-template>1 -->
+    <mat-expansion-panel   *ngFor="let category of items; let i = index; trackBy: trackByFn">
+        
+            <mat-expansion-panel-header *ngIf="!category.forSiteTeam || (category.forSiteTeam && !roles.isSiteMember)">
+                <mat-panel-title>
+                    {{category.name}}1
+                </mat-panel-title>
+                <mat-panel-description *ngIf="roles.isInformer">
+                        <a [routerLink]="['/faq-categories', category.id, 'edit']">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a role="button" (click)="showDeleteCategoryModal(i)">
+                                <i class="material-icons">clear</i>
+                            </a>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+          11
+    </mat-expansion-panel>  
+<!-- </ng-template> -->
+</mat-accordion>
