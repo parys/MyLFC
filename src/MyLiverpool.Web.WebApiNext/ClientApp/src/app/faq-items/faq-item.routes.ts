@@ -7,7 +7,7 @@ import { FaqItemListComponent } from './faq-item-list';
 import { FaqItemEditComponent } from './faq-item-edit';
 
 export const faqItemRoutes: Routes = [
-    { path: '', component: FaqItemListComponent, data: { title: FAQ_ITEMS_RU } },
+    // { path: '', component: FaqItemListComponent, data: { title: FAQ_ITEMS_RU } },
     {
         path: ':id',
         children: [
@@ -18,5 +18,6 @@ export const faqItemRoutes: Routes = [
                 canActivate: [RoleGuard]
             }
         ]
-    }
+    },
+    { path: '**', redirectTo: '/faq' }
 ];

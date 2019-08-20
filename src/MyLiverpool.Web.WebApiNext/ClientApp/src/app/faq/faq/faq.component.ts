@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { RolesCheckedService } from '@app/+auth';
 import { DeleteDialogComponent } from '@app/shared';
-import { FaqCategory } from '@domain/models';
+import { FaqCategory, FaqItem } from '@domain/models';
 
 import { FaqService } from '../faq.service';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
@@ -39,9 +39,12 @@ export class FaqComponent implements OnInit {
     }
 
     public trackByFn(index: number, item: FaqCategory) {
-        console.log(1);
         if (!item) { return null; }
-        console.log(2);
+        return item.id;
+    }
+
+    public trackByItemFn(index: number, item: FaqItem) {
+        if (!item) { return null; }
         return item.id;
     }
 
@@ -49,12 +52,12 @@ export class FaqComponent implements OnInit {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.delete(index);
+                this.deleteCategory(index);
             }
         });
     }
 
-    private delete(index: number): void {
+    private deleteCategory(index: number): void {
         this.categoryService.delete(this.items[index].id)
             .subscribe(result => {
                 if (result) {

@@ -6,8 +6,10 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Persistence;
+using MyLiverpool.Common.Utilities.Extensions;
 
 namespace MyLfc.Application.FaqCategories
 {
@@ -24,18 +26,26 @@ namespace MyLfc.Application.FaqCategories
 
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, IMapper mapper)
+            private readonly RequestContext _requestContext;
+
+            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
             {
                 _context = context;
                 _mapper = mapper;
+                _requestContext = requestContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                var query = _context.FaqCategories
+                    .AsNoTracking();
+                if (_requestContext.User == null || !_requestContext.User.IsSiteTeamMember())
+                {
+                    query = query.Where(x => !x.ForSiteTeam);
+                }
                 return new Response
                 {
-                    Results = await _context.FaqCategories
-                        .AsNoTracking()
+                    Results = await query
                         .Include(x => x.Items)
                         .OrderBy(x => x.Order)
                         .ProjectTo<FaqCategoryListDto>(_mapper.ConfigurationProvider)
