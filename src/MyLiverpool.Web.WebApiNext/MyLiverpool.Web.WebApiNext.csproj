@@ -10,6 +10,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
