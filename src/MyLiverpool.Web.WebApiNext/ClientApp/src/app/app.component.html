@@ -1,54 +1,33 @@
-﻿<mat-sidenav-container class="example-container" (backdropClick)="sidenav.close()">
-    <mat-sidenav #sidenav mode="over"
-                 class="sidenav"
-                 (keydown.escape)="sidenav.close()"
-                 [fixedInViewport]="true"
-                 [fixedTopGap]="0"
-                 [fixedBottomGap]="0">
-        <navbar-menu class="flex-v-c flex-space-around nav-menu beauty-font"></navbar-menu>
+﻿<http-loader></http-loader>
+<navbar (toggle)="sidenav.open()"></navbar>
+<div class="breadcrumb-row">
+    <breadcrumb></breadcrumb>
+    <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
+</div>
+<mat-sidenav-container (backdropClick)="sidenav.close()">
+    <mat-sidenav #sidenav mode="over" class="sidenav" (keydown.escape)="sidenav.close()" [fixedInViewport]="true"
+        [fixedTopGap]="0" [fixedBottomGap]="0">
+        <navbar-menu class="nav-menu beauty-font"></navbar-menu>
         <button type="button" mat-button (click)="sidenav.close()" class="full-width text-white">
             <mat-icon>close</mat-icon>
         </button>
     </mat-sidenav>
-<mat-sidenav-content>
-    <div class="full-width">
-        <http-loader></http-loader>
-        <navbar (toggle)="sidenav.open()"></navbar>
-        <div class="full-width main">
-            <div class="bg-gray flex-space-between breadcrumb-row">
-                <breadcrumb></breadcrumb>
-                <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
-            </div>
-            <div class="flex content-container"
-                 (swiperight)="swiperight($event)"
-                 (swipeleft)="swipeleft($event)"
-                 >
-                <br/>
-                <div class="padding0 left-container"
-                     [style.order]="orderState[0]"
-                     [@slideInOut]="animationState[0]">
-                    <sidebar-left class="full-width"></sidebar-left>
-                </div>
-                <div class="padding0-10 main-container"
-                     [style.order]="orderState[1]"
-                     [@slideInOut]="animationState[1]">
-                    <router-outlet></router-outlet>
-                    <ad [blockName]="'R-A-255349-3'"></ad>
-                </div>
-                <div class="container-row right-container"
-                     [style.order]="orderState[2]"
-                     [@slideInOut]="animationState[2]">
-                    <sidebar-right class="full-width"></sidebar-right>
-                </div>
-            </div>
-                </div>
-                <hr />
-                <footer class="flex-space-around flex-v-c full-width">
-                    <a [routerLink]="['/about']">О нас</a>
-                    <a [routerLink]="['/copyright']">О перепечатке информации</a>
-                    <p>&copy; 2019 - MyLFC.ru</p>
-                    <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
-                </footer>
-            </div>
-</mat-sidenav-content>
+    <mat-sidenav-content class="main" (swiperight)="swiperight($event)" (swipeleft)="swipeleft($event)">
+        <div class="left-container" [style.order]="orderState[0]" [@slideInOut]="animationState[0]">
+            <sidebar-left class="full-width"></sidebar-left>
+        </div>
+        <div class="main-container" [style.order]="orderState[1]" [@slideInOut]="animationState[1]">
+            <router-outlet></router-outlet>
+            <ad [blockName]="'R-A-255349-3'"></ad>
+        </div>
+        <div class="right-container" [style.order]="orderState[2]" [@slideInOut]="animationState[2]">
+            <sidebar-right class="full-width"></sidebar-right>
+        </div>
+        <footer>
+            <a [routerLink]="['/about']">О нас</a>
+            <a [routerLink]="['/copyright']">О перепечатке информации</a>
+            <p>&copy; 2019 - MyLFC.ru</p>
+            <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
+        </footer>
+    </mat-sidenav-content>
 </mat-sidenav-container>

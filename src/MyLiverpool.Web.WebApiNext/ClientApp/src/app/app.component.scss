@@ -1,10 +1,19 @@
-﻿.breadcrumb-row {
-    overflow: hidden;
+﻿footer {
+    border-top: 1px solid maroon;
+    order: 4;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-flow: row;
+    flex-wrap: wrap;
+    margin-top: 5px;
     width: 100%;
 }
-
-.content-container {
-    
+.breadcrumb-row {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
     width: 100%;
 }
 
@@ -22,12 +31,19 @@
 
 .main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;   
+    justify-content: center;
+    flex-flow: row wrap;
 }
+
 
 .nav-menu {
     flex-direction: column;
     font-size: large;   
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 navbar-menu ::ng-deep div {
@@ -40,8 +56,8 @@ navbar-menu ::ng-deep div {
 
 .main-container {
     flex-direction: column;
-    //  display: flex;
-    padding: 0 10px;
+    display: flex;
+    padding: 0 8px;
     width: 100%;
 }
 @media (min-width: 768px){
