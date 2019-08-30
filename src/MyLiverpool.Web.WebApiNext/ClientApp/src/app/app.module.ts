@@ -12,21 +12,20 @@ import localeRU from '@angular/common/locales/ru';
 
 import { BreadcrumbService } from '@app/shared/breadcrumb';
 import { AppComponent } from './app.component';
-import { routes } from './app.routes';
 // import { ForumModule } from "./forum";
 import { ChatModule } from './chat';
 import * as home from './home';
 import { InjuryCoreModule } from '@injuries/core';
-import { MatchCoreModule } from '@matches/core';
+import { LayoutModule } from '@layout/layout.module';
 import { MaterialCoreModule } from '@materials/core';
-import { PersonCoreModule } from '@app/persons';
 import { SharedModule, CustomTitleMetaService } from './shared';
 import * as admin from './admin';
 import { AccountCoreModule } from '@accounts/core';
 import { TransferCoreModule } from '@transfers/core';
 import { CommentCoreModule } from '@comments/core';
-import { NotificationCoreModule } from '@notifications/core';
-import { UserCoreModule } from './users';
+import { AppRoutingModule } from './app-routing.module';
+import { AppMaterialModule } from './app-material.module';
+import { PipesModule } from './base/pipes';
 
 registerLocaleData(localeRU);
 // import { PollCoreModule } from "./poll";
@@ -67,19 +66,13 @@ export class MyHammerConfig extends HammerGestureConfig {
         InjuryCoreModule,
         ChatModule,
         CommentCoreModule,
-        MatchCoreModule,
+        LayoutModule,
         TransferCoreModule,
         MaterialCoreModule,
-        NotificationCoreModule,
      //   PollCoreModule,
-        PersonCoreModule,
-        RouterModule.forRoot(routes, {
-            onSameUrlNavigation: 'reload',
-            initialNavigation: 'enabled',
-            anchorScrolling: 'enabled',
-            scrollPositionRestoration: 'enabled'
-        }),
-        UserCoreModule
+        AppRoutingModule,
+        AppMaterialModule,
+        PipesModule
     ],
     declarations: [
         home.NavbarComponent,

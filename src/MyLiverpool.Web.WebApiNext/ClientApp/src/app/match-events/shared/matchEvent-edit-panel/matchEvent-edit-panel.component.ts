@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { MatchEventService } from '../../core';
 import { MatchEvent, MatchEventType, PersonFilters, Person } from '@domain/models';
-import { PersonService } from '@persons/core';
+import { PersonService } from '@persons/person.service'; // todo
 import { DEBOUNCE_TIME } from '@app/+constants';
 import { PagedList } from '@app/shared';
 
@@ -27,8 +27,8 @@ export class MatchEventEditPanelComponent implements OnInit {
     public types: MatchEventType[];
 
     constructor(private matchEventService: MatchEventService,
-        private personService: PersonService,
-        private formBuilder: FormBuilder) {
+                private personService: PersonService,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

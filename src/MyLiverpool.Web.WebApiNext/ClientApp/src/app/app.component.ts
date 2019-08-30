@@ -30,10 +30,10 @@ import { SLIDE_OUT_LEFT, SLIDE_OUT_RIGHT, SLIDE_IN_RIGHT, SLIDE_IN_LEFT } from '
 })
 export class AppComponent implements OnInit {
     constructor(private router: Router,
-        private authService: AuthService,
-        private activatedRoute: ActivatedRoute,
-        private titleService: CustomTitleService,
-        @Inject(PLATFORM_ID) private platformId: Object
+                private authService: AuthService,
+                private activatedRoute: ActivatedRoute,
+                private titleService: CustomTitleService,
+                @Inject(PLATFORM_ID) private platformId: object
     ) {
     }
     public currentPageIndex = 1;

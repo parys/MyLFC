@@ -1,18 +1,22 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { InjuryEditComponent } from "./injury-edit";
-import { InjuryListComponent } from "./injury-list";
-import { injuryRoutes } from "./injury.routes";
-import { SharedModule } from "@app/shared";
-import { InjuryCoreModule } from "../core";
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
-import { MatNativeDateModule } from "@angular/material/core";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatInputModule } from "@angular/material/input";
-import { MatSortModule } from "@angular/material/sort";
-import { MatTableModule } from "@angular/material/table";
-import { BreadcrumbService } from "@app/shared/breadcrumb";
-import { INJURIES_ROUTE, INJURIES_RU } from "@app/+constants";
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+
+import { InjuryEditComponent } from './injury-edit';
+import { InjuryListComponent } from './injury-list';
+import { injuryRoutes } from './injury.routes';
+
+import { SharedModule } from '@app/shared';
+import { InjuryCoreModule } from '../core';
+
+import { BreadcrumbService } from '@app/shared/breadcrumb';
+import { INJURIES_ROUTE, INJURIES_RU } from '@app/+constants';
+
 @NgModule({
     imports: [
         SharedModule,

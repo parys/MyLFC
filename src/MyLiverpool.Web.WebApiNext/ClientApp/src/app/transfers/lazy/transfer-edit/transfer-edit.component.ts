@@ -6,7 +6,7 @@ import { Subscription, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { TransferService } from '@transfers/core';
-import { PersonService } from '@persons/core';
+import { PersonService } from '@persons/person.service';
 import { Transfer, Person, PersonFilters, Club, ClubFilters, Season, SeasonFilters } from '@domain/models';
 import { ClubService } from '@clubs/core';
 import { SeasonService } from '@seasons/core';
@@ -28,12 +28,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     public seasons$: Observable<Season[]>;
 
     constructor(private transferService: TransferService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private formBuilder: FormBuilder,
-        private personService: PersonService,
-        private clubService: ClubService,
-        private seasonService: SeasonService) {
+                private route: ActivatedRoute,
+                private router: Router,
+                private formBuilder: FormBuilder,
+                private personService: PersonService,
+                private clubService: ClubService,
+                private seasonService: SeasonService) {
     }
 
     public ngOnInit(): void {

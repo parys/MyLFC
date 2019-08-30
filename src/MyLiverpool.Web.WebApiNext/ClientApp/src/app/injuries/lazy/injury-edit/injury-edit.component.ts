@@ -7,7 +7,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { InjuryService } from '@injuries/core';
 import { Injury, Person, PersonFilters } from '@domain/models';
-import { PersonService } from '@persons/core';
+import { PersonService } from '@persons/person.service'; // todo
 import { INJURIES_ROUTE, DEBOUNCE_TIME } from '@app/+constants';
 import { PagedList } from '@app/shared';
 
@@ -25,10 +25,10 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     public persons$: Observable<Person[]>;
 
     constructor(private injuryService: InjuryService,
-        private personService: PersonService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private formBuilder: FormBuilder) {
+                private personService: PersonService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

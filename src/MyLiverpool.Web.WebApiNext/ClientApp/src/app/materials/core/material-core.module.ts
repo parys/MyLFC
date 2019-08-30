@@ -4,15 +4,17 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@app/shared';
 import { MaterialActivateDialogComponent } from './material-activate-dialog';
 import { MaterialService } from './material.service';
-import { MatchCoreModule } from '@matches/core';
 import { MaterialHomeComponent } from './material-home';
 import { MaterialItemComponent } from './material-item';
+import { LayoutModule } from '@layout/layout.module';
+import { PipesModule } from '@app/base/pipes';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule,
-        MatchCoreModule
+        LayoutModule,
+        PipesModule
     ],
     declarations: [
         MaterialHomeComponent,

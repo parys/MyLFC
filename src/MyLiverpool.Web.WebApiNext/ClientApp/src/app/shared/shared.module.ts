@@ -19,7 +19,6 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoaderComponent, LoaderService } from './loader';
 import { BearerInterceptor } from './interceptors';
-import { CustomDatePipe, SafePipe } from './pipes';
 import { BreadcrumbComponent } from './breadcrumb';
 // import { DeferLoadDirective } from "./lazy";
 import { AdComponent } from './ad';
@@ -29,6 +28,7 @@ import { SignalRModule } from '@app/+signalr';
 import { StorageModule, StorageService } from '@app/+storage';
 import { AuthModule } from '@app/+auth';
 import { StaticPageComponent } from './static-page';
+import { PipesModule } from '@base/pipes';
 // import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
 @NgModule({
@@ -40,6 +40,7 @@ import { StaticPageComponent } from './static-page';
         SignalRModule,
         StorageModule,
         AuthModule, // todo temporary?
+        PipesModule, // todo ?
 
         MatBadgeModule,
         MatButtonModule,
@@ -57,8 +58,6 @@ import { StaticPageComponent } from './static-page';
     declarations: [
         DeleteDialogComponent,
         LoaderComponent,
-        CustomDatePipe,
-        SafePipe,
         BreadcrumbComponent,
      //   DeferLoadDirective,
         AdComponent,
@@ -71,8 +70,6 @@ import { StaticPageComponent } from './static-page';
 
         DeleteDialogComponent,
         LoaderComponent,
-        CustomDatePipe,
-        SafePipe,
         BreadcrumbComponent,
         AdComponent,
         StaticPageComponent,

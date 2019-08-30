@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { PmService } from '../../core';
+import { PmService } from '@pms/pm.service';
 import { RolesCheckedService } from '@app/+auth';
 import { Pm } from '@domain/models';
 
@@ -21,8 +21,8 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     public selectedUserName: string;
 
     constructor(private pmService: PmService,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute) { }
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {

@@ -6,12 +6,14 @@ import { FAQ_ROUTE, FAQ_RU } from '@app/+constants';
 import { faqItemRoutes } from './faq.routes';
 import { FaqComponent } from './faq';
 import { FaqService } from './faq.service';
-import { FaqCategoryService } from '@app/faq-categories/lazy/faq-category.service';
+import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
+import { PipesModule } from '@base/pipes';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forChild(faqItemRoutes)
+        RouterModule.forChild(faqItemRoutes),
+        PipesModule
     ],
     declarations: [
         FaqComponent,

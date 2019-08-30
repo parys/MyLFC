@@ -12,6 +12,7 @@ import { BreadcrumbService } from '@app/shared/breadcrumb';
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from '@app/+constants';
 import { CanLoadEditMaterial } from './canLoadEdit.guard';
 import { MaterialListComponent } from './material-list';
+import { PipesModule } from '@base/pipes';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { MaterialListComponent } from './material-list';
         RouterModule.forChild(materialRoutes),
         CommentSharedModule,
         MaterialCoreModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        PipesModule
     ],
     declarations: [
         MaterialDetailComponent,

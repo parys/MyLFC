@@ -4,7 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Pm } from '@domain/models';
-import { PmService } from '../../core';
+import { PmService } from '@pms/pm.service';
 import { EDIT_ROUTE, PMS_ROUTE } from '@app/+constants';
 
 @Component({
@@ -18,7 +18,7 @@ export class PmListComponent implements OnInit, OnDestroy {
     public sent: Pm[];
 
     constructor(private pmService: PmService,
-        private router: Router) {
+                private router: Router) {
         this.sub$ = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.init();

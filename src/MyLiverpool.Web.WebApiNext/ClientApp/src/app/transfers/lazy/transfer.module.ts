@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { TransferEditComponent } from './transfer-edit';
 import { TransferListComponent } from './transfer-list';
 import { SharedModule } from '@app/shared';
-import { PersonCoreModule } from '@persons/core';
+import { PersonService } from '@persons/person.service'; // todo
 import { TransferCoreModule } from '../core';
 import { ClubCoreModule } from '@clubs/core';
 import { SeasonCoreModule } from '@seasons/core';
@@ -24,7 +24,6 @@ import { transferRoutes } from './transfer.routes';
     imports: [
         SharedModule,
         RouterModule.forChild(transferRoutes),
-        PersonCoreModule,
         ClubCoreModule,
         SeasonCoreModule,
         TransferCoreModule,
@@ -40,6 +39,9 @@ import { transferRoutes } from './transfer.routes';
         TransferEditComponent,
         TransferListComponent,
         TransferCurrentListComponent
+    ],
+    providers: [
+        PersonService
     ]
 })
 export class TransferModule {

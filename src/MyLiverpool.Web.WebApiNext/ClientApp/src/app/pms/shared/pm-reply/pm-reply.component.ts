@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Pm } from '@domain/models';
-import { PmService } from '../../core/pm.service';
+import { PmService } from '../../pm.service';
 import { EditorComponent } from '@app/editor';
 
 @Component({
@@ -20,9 +20,9 @@ export class PmReplyComponent implements OnInit, AfterViewInit {
     @ViewChild('mpInput', { static: false })private elementRef: EditorComponent;
 
     constructor(private service: PmService,
-        private snackBar: MatSnackBar,
-        private cd: ChangeDetectorRef,
-        private formBuilder: FormBuilder) {
+                private snackBar: MatSnackBar,
+                private cd: ChangeDetectorRef,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

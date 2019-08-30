@@ -1,13 +1,14 @@
-﻿import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { SharedModule } from "@app/shared";
-import { MiniChatComponent } from "./miniChat";
-import { MaxiChatComponent } from "./maxiChat";
-import { ChatWindowComponent } from "./chat-window";
-import { chatRoutes } from "./chat.routes";
-import { UserCoreModule } from "@app/users";
-import { EditorModule } from "@app/editor";
-import { ChatMessageService } from "./chatMessage.service";
+﻿import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@app/shared';
+import { MiniChatComponent } from './miniChat';
+import { MaxiChatComponent } from './maxiChat';
+import { ChatWindowComponent } from './chat-window';
+import { chatRoutes } from './chat.routes';
+import { EditorModule } from '@app/editor';
+import { ChatMessageService } from './chatMessage.service';
+import { PipesModule } from '@base/pipes';
+import { LayoutModule } from '@layout/layout.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ChatMessageService } from "./chatMessage.service";
         SharedModule,
         RouterModule.forChild(chatRoutes),
         EditorModule,
-        UserCoreModule
+        PipesModule,
+        LayoutModule // todo needed for users-online
     ],
     declarations: [
         MiniChatComponent,

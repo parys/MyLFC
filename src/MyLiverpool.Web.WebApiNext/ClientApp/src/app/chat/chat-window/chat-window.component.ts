@@ -28,12 +28,12 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     @Input() public height = 200;
 
     constructor(private service: ChatMessageService,
-        private formBuilder: FormBuilder,
-        private cd: ChangeDetectorRef,
-        private snackBar: MatSnackBar,
-        public roles: RolesCheckedService,
-        private dialog: MatDialog,
-        private signalRService: SignalRService) {
+                private formBuilder: FormBuilder,
+                private cd: ChangeDetectorRef,
+                private snackBar: MatSnackBar,
+                public roles: RolesCheckedService,
+                private dialog: MatDialog,
+                private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {

@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Pm, User } from '@domain/models';
-import { PmService } from '../../core';
+import { PmService } from '@pms/pm.service';
 
 @Component({
     selector: 'pm-edit',
@@ -20,8 +20,8 @@ export class PmEditComponent implements OnInit, OnDestroy {
     public users$: Observable<User[]>;
 
     constructor(private service: PmService,
-        private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar
+                private formBuilder: FormBuilder,
+                private snackBar: MatSnackBar
     ) {
     }
 
@@ -62,7 +62,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
         this.sub = this.service.create(model).subscribe(data => {
             this.editPmForm.patchValue({ message: '' });
-                this.snackBar.open('Сообщение отправлено');
+            this.snackBar.open('Сообщение отправлено');
             });
     }
 }

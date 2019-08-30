@@ -6,13 +6,15 @@ import { CommentCoreModule } from "../core";
 import { CommentDetailComponent } from "./comment-detail";
 import { CommentSectionComponent } from "./comment-section";
 import { EditorModule } from "@app/editor";
+import { PipesModule } from '@app/base/pipes';
 
 @NgModule({
     imports: [
         SharedModule,
         EditorModule,
         RouterModule,
-        CommentCoreModule
+        CommentCoreModule,
+        PipesModule
     ],
     declarations: [
         CommentDetailComponent,

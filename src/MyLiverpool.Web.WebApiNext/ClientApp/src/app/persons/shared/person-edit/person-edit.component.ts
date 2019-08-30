@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PersonService } from '@persons/core';
+import { PersonService } from '@persons/person.service';
 import { Person, PersonType } from '@domain/models';
 import { PERSONS_ROUTE } from '@app/+constants';
 
@@ -22,10 +22,10 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
     @ViewChild('pInput', { static: true })private elementRef: ElementRef;
 
     constructor(private service: PersonService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private snackBar: MatSnackBar,
-        private formBuilder: FormBuilder) {
+                private route: ActivatedRoute,
+                private router: Router,
+                private snackBar: MatSnackBar,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

@@ -8,7 +8,7 @@ import { MatchPerson, Person, PersonFilters, MatchPersonType } from '@domain/mod
 import { DEBOUNCE_TIME } from '@app/+constants';
 import { PagedList } from '@app/shared';
 
-import { PersonService } from '@persons/core';
+import { PersonService } from '@persons/person.service'; // todo
 import { MatchPersonService } from '../matchPerson.service';
 
 @Component({
@@ -29,13 +29,13 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
     @Output() public exit = new EventEmitter();
     public editMatchPersonForm: FormGroup;
     public persons$: Observable<Person[]>;
-    @ViewChild('mpInput', { static: true })private elementRef: ElementRef;
+    @ViewChild('mpInput', { static: true }) private elementRef: ElementRef;
 
     public types: MatchPersonType[];
 
     constructor(private matchPersonService: MatchPersonService,
-        private personService: PersonService,
-        private formBuilder: FormBuilder) {
+                private personService: PersonService,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
@@ -49,27 +49,27 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
         this.focus();
     }
 
-  public enumSelector(definition: any) {
-    return Object.keys(definition)
-      .map(key => (new MatchPersonType(+key, definition[key])));
-  }
+    public enumSelector(definition: any) {
+        return Object.keys(definition)
+            .map(key => (new MatchPersonType(+key, definition[key])));
+    }
 
     public onSubmit(): void {
         const matchPerson: MatchPerson = this.parseForm();
         if (this.isEdit) {
             this.matchPersonService.update(matchPerson)
                 .subscribe(data => {
-                        matchPerson.number = data.number;
+                    matchPerson.number = data.number;
                     this.emitNewPerson(matchPerson);
-                    },
+                },
                     null,
                     () => this.checkExit());
         } else {
             this.matchPersonService.create(matchPerson)
                 .subscribe(data => {
-                        matchPerson.number = data.number;
+                    matchPerson.number = data.number;
                     this.emitNewPerson(matchPerson);
-                    },
+                },
                     null,
                     () => this.checkExit());
         }
@@ -125,8 +125,8 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
                 const filter = new PersonFilters();
                 filter.name = value;
                 if (this.editMatchPersonForm.get('useType').value) {
-                filter.type = this.personTypeId;
-            }
+                    filter.type = this.personTypeId;
+                }
                 return this.personService.getAll(filter);
             }),
             switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
