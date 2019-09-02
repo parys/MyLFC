@@ -1,1 +1,1 @@
-﻿export * from "./transfer-current-list.component";
+﻿export * from './transfer-current-list.component';

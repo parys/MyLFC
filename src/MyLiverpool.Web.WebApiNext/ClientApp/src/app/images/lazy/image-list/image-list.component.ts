@@ -1,9 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+
 import { Subscription } from 'rxjs';
+
 import { Image } from '@domain/models';
-import { ImageService } from '../../core';
+
+import { ImageService } from '@images/core';
 
 @Component({
     selector: 'image-list',
@@ -23,10 +26,10 @@ export class ImageListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.queryParams.subscribe(params => {
-            if (params['path']) {
-                this.path = params['path'];
+            if (params.path) {
+                this.path = params.path;
             }
-        this.updateFolder(this.path);
+            this.updateFolder(this.path);
         });
     }
 

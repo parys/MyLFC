@@ -27,7 +27,7 @@ export class SeasonCalendarComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.id = +this.route.snapshot.params['id'] || 0;
+        this.id = +this.route.snapshot.params.id || 0;
 
 
         this.seasonSelect.selectionChange.subscribe((data: MatSelectChange) => {

@@ -1,1 +1,1 @@
-﻿export * from "./club-edit.component";
+﻿export * from './club-edit.component';

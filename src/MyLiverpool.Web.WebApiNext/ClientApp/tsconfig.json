@@ -52,6 +52,7 @@
       "@users/*": [ "./app/users/*" ],
       "@wal/*": [ "./app/wal/*" ],
       "@wishes/*": [ "./app/wishes/*" ],
+      "@widgets/*": [ "./app/widgets/*" ],
     },
     "removeComments": true,
     "sourceMap": true,

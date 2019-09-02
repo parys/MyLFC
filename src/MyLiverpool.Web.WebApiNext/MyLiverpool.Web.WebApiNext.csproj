@@ -61,6 +61,7 @@
     <Folder Include="ClientApp\src\app\persons\pages\squad\" />
     <Folder Include="ClientApp\src\app\persons\pages\stuff-list\" />
     <Folder Include="ClientApp\src\app\pms\core\" />
+    <Folder Include="ClientApp\src\app\widgets\http\" />
     <Folder Include="ClientApp\src\app\wishes\pages\wish-edit\" />
     <Folder Include="ClientApp\src\app\wishes\pages\wish-list\" />
     <Folder Include="Connected Services\" />

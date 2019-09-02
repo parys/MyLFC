@@ -1,1 +1,1 @@
-﻿export * from "./page-editor.component";
+﻿export * from './page-editor.component';
