@@ -3,14 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ChatMessage, ChatFilters } from '@domain/models';
-import { DeleteDialogComponent, PagedList } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { SignalRService } from '@app/+signalr';
-import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@app/+constants';
+import { ChatMessage, ChatFilters, PagedList } from '@domain/models';
+import { DeleteDialogComponent } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
+import { SignalRService } from '@base/signalr';
+import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@constants/index';
 
-import { ChatMessageService } from '../chatMessage.service';
-import { EditorComponent } from '@app/editor';
+import { ChatMessageService } from '@chat/chat-message.service';
+import { EditorComponent } from '@editor/index';
 
 @Component({
     selector: 'chat-window',

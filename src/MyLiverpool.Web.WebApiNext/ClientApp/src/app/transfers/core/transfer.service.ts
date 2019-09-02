@@ -2,10 +2,10 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { Transfer, TransferFilters } from '@domain/models';
-import { TRANSFERS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { TRANSFERS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class TransferService extends BaseRestService<Transfer, TransferFilters> {

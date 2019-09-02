@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { LoaderComponent, LoaderService } from './loader';
 import { BearerInterceptor } from './interceptors';
 import { BreadcrumbComponent } from './breadcrumb';
@@ -24,9 +25,9 @@ import { BreadcrumbComponent } from './breadcrumb';
 import { AdComponent } from './ad';
 
 import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
-import { SignalRModule } from '@app/+signalr';
-import { StorageModule, StorageService } from '@app/+storage';
-import { AuthModule } from '@app/+auth';
+import { SignalRModule } from '@base/signalr';
+import { StorageModule, StorageService } from '@base/storage';
+import { AuthModule } from '@base/auth/auth.module';
 import { StaticPageComponent } from './static-page';
 import { PipesModule } from '@base/pipes';
 // import { DeferLoadDirective } from "./lazy/defer-load.directive";

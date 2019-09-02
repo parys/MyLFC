@@ -1,10 +1,12 @@
 ﻿import { Routes } from '@angular/router';
-import { PersonListComponent } from './pages/person-list';
-import { StuffListComponent } from './pages/stuff-list';
-import { SquadComponent } from './pages/squad';
-import { PersonEditComponent } from './shared/person-edit';
 
-import { RolesEnum, RoleGuard } from '@app/+auth';
+import { RolesEnum, RoleGuard } from '@base/auth';
+
+import { PersonListComponent } from '@persons/pages/person-list';
+import { StuffListComponent } from '@persons/pages/stuff-list';
+import { SquadComponent } from '@persons/pages/squad';
+import { PersonEditComponent } from '@persons/shared/person-edit';
+
 
 export const personRoutes: Routes = [
     {

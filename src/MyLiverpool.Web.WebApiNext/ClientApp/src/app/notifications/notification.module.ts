@@ -2,9 +2,9 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@app/shared';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { NOTIFICATIONS_ROUTE } from '@app/+constants';
+import { SharedModule } from '@shared/index';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { NOTIFICATIONS_ROUTE } from '@constants/routes.constants';
 
 import { notificationRoutes } from './notification.routes';
 import { NotificationListComponent } from './pages/notification-list';

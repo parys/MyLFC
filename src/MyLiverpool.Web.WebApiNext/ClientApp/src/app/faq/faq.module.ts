@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule, BreadcrumbService } from '@app/shared';
-import { FAQ_ROUTE, FAQ_RU } from '@app/+constants';
-import { faqItemRoutes } from './faq.routes';
-import { FaqComponent } from './faq';
-import { FaqService } from './faq.service';
+import { SharedModule, BreadcrumbService } from '@shared/index';
+import { FAQ_ROUTE } from '@constants/routes.constants';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 import { PipesModule } from '@base/pipes';
+import { FAQ_RU } from '@constants/ru.constants';
+
+import { faqItemRoutes } from '@faq/faq.routes';
+import { FaqComponent } from '@faq/faq';
+import { FaqService } from '@faq/faq.service';
 
 @NgModule({
     imports: [

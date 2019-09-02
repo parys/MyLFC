@@ -1,19 +1,19 @@
-﻿import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { SharedModule } from "@app/shared";
-import { CommentService } from "../core/comment.service";
-import { CommentCoreModule } from "../core";
-import { CommentDetailComponent } from "./comment-detail";
-import { CommentSectionComponent } from "./comment-section";
-import { EditorModule } from "@app/editor";
-import { PipesModule } from '@app/base/pipes';
+﻿import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { SharedModule } from '@shared/index';
+import { EditorModule } from '@editor/index';
+import { PipesModule } from '@base/pipes';
+
+import { CommentService } from '@comments/comment.service';
+import { CommentDetailComponent } from '@comments/shared/comment-detail';
+import { CommentSectionComponent } from '@comments/shared/comment-section';
 
 @NgModule({
     imports: [
         SharedModule,
         EditorModule,
         RouterModule,
-        CommentCoreModule,
         PipesModule
     ],
     declarations: [

@@ -1,5 +1,5 @@
-﻿import { ForumTheme }  from "../forumTheme";
-import { PagedList } from "@app/shared";
+﻿import { ForumTheme } from '@forum/forumTheme';
+import { PagedList } from '@domain/models';
 
 export class ForumSubsection {
     id: number;

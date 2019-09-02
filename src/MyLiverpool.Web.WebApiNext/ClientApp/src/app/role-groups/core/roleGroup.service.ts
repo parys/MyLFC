@@ -1,8 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RoleGroup } from '@domain/models';
-import { HttpWrapper } from '@app/+httpWrapper';
-import { ROLE_GROUPS_ROUTE } from '@app/+constants';
+import { HttpWrapper } from '@base/httpWrapper';
+import { ROLE_GROUPS_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class RoleGroupService {

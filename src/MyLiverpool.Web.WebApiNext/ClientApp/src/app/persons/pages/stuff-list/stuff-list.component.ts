@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { PersonService } from '@persons/person.service';
 import { Person, PersonTypeEnum } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 
 @Component({
     selector: 'stuff-list',

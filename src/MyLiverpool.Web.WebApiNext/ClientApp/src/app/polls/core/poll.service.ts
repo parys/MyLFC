@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpWrapper } from '@app/+httpWrapper';
+
+import { HttpWrapper } from '@base/httpWrapper';
 import { Poll, PollFilters } from '@domain/models';
-import { POLLS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { POLLS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class PollService extends BaseRestService<Poll, PollFilters> {

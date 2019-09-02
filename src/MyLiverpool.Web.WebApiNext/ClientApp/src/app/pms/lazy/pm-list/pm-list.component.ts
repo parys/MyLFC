@@ -4,8 +4,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Pm } from '@domain/models';
+import { EDIT_ROUTE, PMS_ROUTE } from '@constants/index';
+
 import { PmService } from '@pms/pm.service';
-import { EDIT_ROUTE, PMS_ROUTE } from '@app/+constants';
 
 @Component({
     selector: 'pm-list',

@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { MaterialCategoryService } from '../../core';
 import { MaterialType } from '@domain/models';
-import { CustomTitleMetaService } from '@app/shared';
+import { CustomTitleMetaService } from '@shared/index';
+
+import { MaterialCategoryService } from '@material-categories/core';
 
 @Component({
     selector: 'materialCategory-edit',
@@ -20,11 +21,11 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
     private type: MaterialType;
 
     constructor(private service: MaterialCategoryService,
-        private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-        private router: Router,
-        private titleService: CustomTitleMetaService,
-        private route: ActivatedRoute) {
+                private formBuilder: FormBuilder,
+                private snackBar: MatSnackBar,
+                private router: Router,
+                private titleService: CustomTitleMetaService,
+                private route: ActivatedRoute) {
         if (this.router.url.startsWith('/newsCategories')) {
             this.titleService.setTitle('Категории новостей');
             this.type = MaterialType.News;

@@ -6,11 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription } from 'rxjs';
 
-import { UserService } from '@users/user.service';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
 import { RoleGroupService } from '@role-groups/index';
-import { CustomTitleMetaService as CustomTitleService } from '@app/shared';
+import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+
+import { UserService } from '@users/user.service';
 
 @Component({
     selector: 'user-detail',

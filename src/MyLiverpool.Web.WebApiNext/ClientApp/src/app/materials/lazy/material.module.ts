@@ -3,16 +3,17 @@ import { RouterModule } from '@angular/router';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { SharedModule } from '@app/shared';
-import { materialRoutes } from './material.routes';
-import { MaterialCoreModule } from '../core/material-core.module';
-import { MaterialDetailComponent } from './material-detail';
+import { SharedModule } from '@shared/index';
 import { CommentSharedModule } from '@comments/shared';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from '@app/+constants';
-import { CanLoadEditMaterial } from './canLoadEdit.guard';
-import { MaterialListComponent } from './material-list';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from '@constants/index';
 import { PipesModule } from '@base/pipes';
+
+import { CanLoadEditMaterial } from '@materials/lazy/canLoadEdit.guard';
+import { MaterialListComponent } from '@materials/lazy/material-list';
+import { materialRoutes } from '@materials/lazy/material.routes';
+import { MaterialCoreModule } from '@materials/core/material-core.module';
+import { MaterialDetailComponent } from '@materials/lazy/material-detail';
 
 @NgModule({
     imports: [

@@ -7,21 +7,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-import { InjuryEditComponent } from './injury-edit';
-import { InjuryListComponent } from './injury-list';
-import { injuryRoutes } from './injury.routes';
+import { InjuryEditComponent } from '@injuries/lazy/injury-edit';
+import { InjuryListComponent } from '@injuries/lazy/injury-list';
+import { injuryRoutes } from '@injuries/lazy/injury.routes';
 
-import { SharedModule } from '@app/shared';
-import { InjuryCoreModule } from '../core';
+import { SharedModule } from '@shared/index';
 
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { INJURIES_ROUTE, INJURIES_RU } from '@app/+constants';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { INJURIES_ROUTE } from '@constants/routes.constants';
+import { InjuryService } from '@injuries/injury.service';
+import { INJURIES_RU } from '@constants/ru.constants';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(injuryRoutes),
-        InjuryCoreModule,
         MatNativeDateModule,
         MatDatepickerModule,
         MatTableModule,
@@ -32,6 +32,9 @@ import { INJURIES_ROUTE, INJURIES_RU } from '@app/+constants';
     declarations: [
         InjuryEditComponent,
         InjuryListComponent
+    ],
+    providers: [
+        InjuryService
     ]
 })
 export class InjuryModule {

@@ -8,10 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 import { merge, of, fromEvent, Observable, Subscription } from 'rxjs';
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { Injury, InjuryFilters } from '@domain/models';
-import { InjuryService } from '@injuries/core';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP, PAGE } from '@app/+constants';
+import { Injury, InjuryFilters, PagedList } from '@domain/models';
+import { InjuryService } from '@injuries/injury.service';
+import { DeleteDialogComponent } from '@shared/index';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
+import { PAGE, KEYUP } from '@constants/help.constants';
+import { INJURIES_ROUTE } from '@constants/routes.constants';
 
 @Component({
     selector: 'injury-list',
@@ -28,9 +30,9 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     @ViewChild('nameInput', { static: true })nameInput: ElementRef;
 
     constructor(private injuryService: InjuryService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private dialog: MatDialog) {
+                private route: ActivatedRoute,
+                private location: Location,
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

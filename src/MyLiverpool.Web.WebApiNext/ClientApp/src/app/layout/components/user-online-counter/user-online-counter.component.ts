@@ -4,7 +4,7 @@ import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { IUserOnline, UsersOnline } from '@domain/models';
-import { SignalRService } from '@app/+signalr';
+import { SignalRService } from '@base/signalr';
 
 import { LayoutService } from '@layout/layout.service';
 

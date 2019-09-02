@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { EDIT_ROUTE, EDITING_RU } from '@app/+constants';
+import { EDIT_ROUTE } from '@constants/routes.constants';
+import { EDITING_RU } from '@constants/ru.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +20,6 @@ export class BreadcrumbService {
     /**
      * Specify a friendly name for the corresponding route.
      *
-     * @param route
-     * @param name
      */
     addFriendlyNameForRoute(route: string, name: string): void {
         this.routesFriendlyNames.set(route, name);
@@ -29,8 +28,6 @@ export class BreadcrumbService {
     /**
      * Specify a friendly name for the corresponding route matching a regular expression.
      *
-     * @param route
-     * @param name
      */
     addFriendlyNameForRouteRegex(routeRegex: string, name: string): void {
         this.routesFriendlyNamesRegex.set(routeRegex, name);
@@ -55,8 +52,6 @@ export class BreadcrumbService {
     /**
      * Show the friendly name for a given route (url). If no match is found the url (without the leading '/') is shown.
      *
-     * @param route
-     * @returns {*}
      */
     getFriendlyNameForRoute(route: string): string {
         route = route.toString();

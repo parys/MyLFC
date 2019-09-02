@@ -1,5 +1,5 @@
-﻿import { PagedQueryBase } from '@app/+infrastructure';
-import { MaterialType } from './material-type.enum';
+﻿import { PagedQueryBase } from '@base/infrastructure';
+import { MaterialType } from '@domain/models';
 
 export class MaterialCategoryFilter extends PagedQueryBase {
     public materialType: MaterialType;

@@ -7,10 +7,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Subscription, merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
-import { Match, MatchFilters } from '@domain/models';
+import { Match, MatchFilters, PagedList } from '@domain/models';
+import { DeleteDialogComponent } from '@shared/index';
+import {  MATCHES_ROUTE } from '@constants/routes.constants';
+
 import { MatchService } from '@matches/match.service';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { PAGE, MATCHES_ROUTE } from '@app/+constants/';
+import { PAGE } from '@constants/help.constants';
 
 @Component({
     selector: 'match-list',

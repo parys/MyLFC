@@ -2,8 +2,8 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
-import { HELPERS_ROUTE } from '@app/+constants';
+import { HttpWrapper } from '@base/httpWrapper';
+import { HELPERS_ROUTE } from '@constants/routes.constants';
 import { StaticPage } from '@domain/models';
 
 @Injectable()

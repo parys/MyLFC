@@ -57,3 +57,4 @@ export * from './wish.model';
 export * from './wish-filter.model';
 export * from './wish-state.model';
 export * from './wish-type.model';
+export * from './pagedList.model';

@@ -3,26 +3,20 @@ import {
     BrowserModule,
     HammerGestureConfig,
     HAMMER_GESTURE_CONFIG, } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 
-// import { PrebootModule } from "preboot";
-
-import { BreadcrumbService } from '@app/shared/breadcrumb';
+import { BreadcrumbService } from '@shared/breadcrumb';
 import { AppComponent } from './app.component';
 // import { ForumModule } from "./forum";
 import { ChatModule } from './chat';
 import * as home from './home';
-import { InjuryCoreModule } from '@injuries/core';
 import { LayoutModule } from '@layout/layout.module';
 import { MaterialCoreModule } from '@materials/core';
 import { SharedModule, CustomTitleMetaService } from './shared';
-import * as admin from './admin';
 import { AccountCoreModule } from '@accounts/core';
 import { TransferCoreModule } from '@transfers/core';
-import { CommentCoreModule } from '@comments/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { PipesModule } from './base/pipes';
@@ -58,14 +52,11 @@ export class MyHammerConfig extends HammerGestureConfig {
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc' }),
-        //    PrebootModule.withConfig({ appRoot: "app" }),
         SharedModule,
         HttpClientModule,
         AccountCoreModule,
         //  ForumModule,
-        InjuryCoreModule,
         ChatModule,
-        CommentCoreModule,
         LayoutModule,
         TransferCoreModule,
         MaterialCoreModule,
@@ -80,14 +71,11 @@ export class MyHammerConfig extends HammerGestureConfig {
         home.SidebarLeftComponent,
         home.SidebarRightComponent,
         AppComponent,
-        admin.CupTableComponent,
-        admin.EplTableComponent
     ],
     exports: [
         home.NavbarMenuComponent
     ],
     providers: [
-        admin.AdminService,
         BreadcrumbService,
         CustomTitleMetaService,
         { provide: LOCALE_ID, useValue: 'ru-RU' },

@@ -1,11 +1,11 @@
 ﻿import { Routes } from '@angular/router';
-import { RoleGuard } from '@app/+auth';
-import { UserDetailComponent } from './pages/user-detail';
+import { RoleGuard } from '@base/auth';
+import { UserDetailComponent } from '@users/pages/user-detail';
 import { UserListComponent } from './pages/user-list';
 import { UserConfigComponent } from './pages/user-config';
 import { UserEditComponent } from './pages/user-edit';
-import { USERS_RU, EDITING_RU, USER_RU } from '../+constants/ru.constants';
-import { EDIT_ROUTE } from '../+constants/routes.constants';
+import { USERS_RU, EDITING_RU, USER_RU } from '@constants/ru.constants';
+import { EDIT_ROUTE } from '@constants/routes.constants';
 
 export const userRoutes: Routes = [
     { path: '', component: UserListComponent, data: { title: USERS_RU } },

@@ -1,8 +1,8 @@
 ﻿import { Routes } from '@angular/router';
 import { MaterialEditComponent } from './material-edit.component';
-import { RoleGuard, RolesEnum } from '@app/+auth';
+import { RoleGuard, RolesEnum } from '@base/auth';
 import { MaterialLeaveGuard } from './leave-guard/leave-guard.service';
-import { EDITING_RU } from '@app/+constants';
+import { EDITING_RU } from '@constants/index';
 
 export const materialEditRoutes: Routes = [
     {

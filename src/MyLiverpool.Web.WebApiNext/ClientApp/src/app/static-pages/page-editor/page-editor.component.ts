@@ -30,10 +30,10 @@ export class PageEditorComponent implements OnInit, OnDestroy {
 
 
     constructor(private service: StaticPageService,
-        private cd: ChangeDetectorRef,
-        private route: ActivatedRoute,
-        private snackBar: MatSnackBar,
-        private formBuilder: FormBuilder) {
+                private cd: ChangeDetectorRef,
+                private route: ActivatedRoute,
+                private snackBar: MatSnackBar,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

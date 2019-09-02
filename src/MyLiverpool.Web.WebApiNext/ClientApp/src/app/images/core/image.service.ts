@@ -3,8 +3,8 @@
 import { Observable } from 'rxjs';
 
 import { Image } from '@domain/models';
-import { HttpWrapper } from '@app/+httpWrapper';
-import { IMAGES_ROUTE } from '@app/+constants';
+import { HttpWrapper } from '@base/httpWrapper';
+import { IMAGES_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class ImageService {
@@ -20,8 +20,8 @@ export class ImageService {
 
     public uploadImage(files: File[]): Observable<string[]> {
         const formData: FormData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('uploadFile', files[i], files[i].name);
+        for (const file of files) {
+            formData.append('uploadFile', file, file.name);
         }
         return this.http.post<string[]>(`${this.actionUrl}`, formData, true);
     }

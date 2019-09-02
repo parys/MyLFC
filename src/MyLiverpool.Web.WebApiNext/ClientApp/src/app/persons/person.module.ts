@@ -9,11 +9,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { PersonListComponent, SquadComponent, StuffListComponent, PersonDetailComponent } from '@persons/pages';
 
 import { personRoutes } from './person.routes';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared/index';
 import { PersonService } from './person.service';
 import { PersonEditModule } from './shared';
 import { BreadcrumbService } from '../shared/breadcrumb';
-import { PERSONS_ROUTE, STUFF_ROUTE, SQUAD_ROUTE } from '@app/+constants';
+import { PERSONS_ROUTE, STUFF_ROUTE, SQUAD_ROUTE } from '@constants/routes.constants';
 import { PipesModule } from '@base/pipes';
 
 

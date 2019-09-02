@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { TransferService } from '@transfers/core';
 import { Transfer } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 
 @Component({
     selector: 'transfer-current-list',
@@ -19,7 +19,7 @@ export class TransferCurrentListComponent implements OnInit, OnDestroy {
     public totalOut = 0;
 
     constructor(private service: TransferService,
-        public roles: RolesCheckedService) {
+                public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

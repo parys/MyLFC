@@ -16,7 +16,7 @@
     "banalyze-es5": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats-es5.json",
     "analyze-es2015": "webpack-bundle-analyzer dist/aspnetcorespa/stats-es2015.json",
     "banalyze-es2015": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats-es2015.json",
-    "source-map": "npm run build -- --sourceMap=true --outputHashing=none && sol4[p';433333rce-map-explorer dist/aspnetcorespa/main.js dist/aspnetcorespa/main.js.map"
+    "source-map": "npm run build -- --sourceMap=true --outputHashing=none && source-map-explorer dist/aspnetcorespa/main.js dist/aspnetcorespa/main.js.map"
   },
   "dependencies": {
     "@angular/animations": "8.2.4",

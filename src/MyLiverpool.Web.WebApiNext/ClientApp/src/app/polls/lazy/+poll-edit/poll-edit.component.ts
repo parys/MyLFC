@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Poll, PollAnswer } from '@domain/models';
 import { PollService } from '../../core';
@@ -21,9 +20,9 @@ export class PollEditComponent implements OnInit, OnDestroy {
     public item: Poll = new Poll();
 
     constructor(private service: PollService,
-        private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-        private route: ActivatedRoute
+                private formBuilder: FormBuilder,
+                private snackBar: MatSnackBar,
+                private route: ActivatedRoute
     ) {
     }
 

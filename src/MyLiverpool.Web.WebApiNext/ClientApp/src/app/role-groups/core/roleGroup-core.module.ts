@@ -1,6 +1,8 @@
-﻿import { NgModule } from "@angular/core";
-import { SharedModule } from "@app/shared";
-import { RoleGroupService } from "./roleGroup.service";
+﻿import { NgModule } from '@angular/core';
+
+import { SharedModule } from '@shared/index';
+
+import { RoleGroupService } from '@role-groups/core/roleGroup.service';
 
 @NgModule({
     imports: [

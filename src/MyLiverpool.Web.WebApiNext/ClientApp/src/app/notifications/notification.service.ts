@@ -2,9 +2,9 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { Notification } from '@domain/models';
-import { NOTIFICATIONS_ROUTE } from '@app/+constants';
+import { NOTIFICATIONS_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class NotificationService {

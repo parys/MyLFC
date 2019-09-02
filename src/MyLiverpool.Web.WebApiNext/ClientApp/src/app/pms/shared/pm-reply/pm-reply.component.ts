@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Pm } from '@domain/models';
-import { PmService } from '../../pm.service';
-import { EditorComponent } from '@app/editor';
+import { PmService } from '@pms/pm.service';
+import { EditorComponent } from '@editor/index';
 
 @Component({
     selector: 'pm-reply',

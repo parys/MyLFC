@@ -1,35 +1,36 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ForumMessage } from "./forumMessage.model";
-import { ForumMessageService } from "./forumMessage.service";
-import { RolesCheckedService } from "@app/+auth";
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { RolesCheckedService } from '@base/auth';
+
+import { ForumMessageService, ForumMessage } from '@forum/forumMessage';
 
 @Component({
-    selector: "forumMessage-addition",
-    templateUrl: "forumMessage-addition.component.html",
-    styleUrls: ["forumMessage-addition.component.scss"]
+    selector: 'forumMessage-addition',
+    templateUrl: 'forumMessage-addition.component.html',
+    styleUrls: ['forumMessage-addition.component.scss']
 })
 export class ForumMessageAdditionComponent implements OnInit {
-                    
-    commentForm: FormGroup;                  
+
+    commentForm: FormGroup;
     @Input() themeId: number;
-    @Output() newMessage = new EventEmitter<ForumMessage>();                   
+    @Output() newMessage = new EventEmitter<ForumMessage>();
 
     constructor(private service: ForumMessageService,
-        public roles: RolesCheckedService,
-        private formBuilder: FormBuilder) {
+                public roles: RolesCheckedService,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
         this.commentForm = this.formBuilder.group({
-            message: ["", Validators.compose([Validators.required,
+            message: ['', Validators.compose([Validators.required,
             Validators.minLength(3)])]
         });
     }
 
     public onSubmit(): void {
-        let comment = new ForumMessage();
-        comment.message = this.commentForm.controls["message"].value;
+        const comment = new ForumMessage();
+        comment.message = this.commentForm.controls['message'].value;
         comment.themeId = this.themeId;
         this.service.create(comment)
             .subscribe(data => {

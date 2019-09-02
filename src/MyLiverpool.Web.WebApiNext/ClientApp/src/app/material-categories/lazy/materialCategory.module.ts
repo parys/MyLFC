@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@app/shared';
-import { materialCategoryRoutes } from './materialCategory.routes';
-import { MaterialCategoryListComponent } from './materialCategory-list';
-import { MaterialCategoryEditComponent } from './materialCategory-edit';
-import { MaterialCategoryCoreModule } from '../core';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { BLOG_CATEGORIES_ROUTE, NEWS_CATEGORIES_ROUTE } from '@app/+constants';
 import { MatInputModule } from '@angular/material/input';
+
+import { SharedModule } from '@shared/index';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { BLOG_CATEGORIES_ROUTE, NEWS_CATEGORIES_ROUTE } from '@constants/index';
+
+import { materialCategoryRoutes } from '@material-categories/lazy/materialCategory.routes';
+import { MaterialCategoryListComponent } from '@material-categories/lazy/materialCategory-list';
+import { MaterialCategoryEditComponent } from '@material-categories/lazy/materialCategory-edit';
+import { MaterialCategoryCoreModule } from '@material-categories/core';
 
 @NgModule({
     imports: [

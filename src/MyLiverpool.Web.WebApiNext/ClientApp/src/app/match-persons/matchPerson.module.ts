@@ -3,11 +3,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { SharedModule } from '@app/shared';
-import { MatchPersonEditPanelComponent } from './matchPerson-edit-panel';
-import { MatchPersonService } from './matchPerson.service';
-import { MatchPersonPanelComponent } from './matchPerson-panel';
+import { SharedModule } from '@shared/index';
 import { PersonEditModule } from '@persons/shared';
+
+import { MatchPersonEditPanelComponent } from '@match-persons/matchPerson-edit-panel';
+import { MatchPersonService } from '@match-persons/matchPerson.service';
+import { MatchPersonPanelComponent } from '@match-persons/matchPerson-panel';
 
 @NgModule({
     imports: [

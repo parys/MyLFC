@@ -9,9 +9,9 @@ import { merge, of, Observable, fromEvent } from 'rxjs';
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { ClubService } from '@clubs/core';
-import { Club, ClubFilters } from '@domain/models';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { CLUBS_ROUTE, DEBOUNCE_TIME, KEYUP, PAGE } from '@app/+constants';
+import { PagedList, Club, ClubFilters } from '@domain/models';
+import { DeleteDialogComponent } from '@shared/index';
+import { CLUBS_ROUTE, DEBOUNCE_TIME, KEYUP, PAGE } from '@constants/index';
 
 @Component({
     selector: 'club-list',
@@ -27,9 +27,9 @@ export class ClubListComponent implements OnInit {
     @ViewChild('nameInput', { static: true })nameInput: ElementRef;
 
     constructor(private clubService: ClubService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private dialog: MatDialog) {
+                private route: ActivatedRoute,
+                private location: Location,
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

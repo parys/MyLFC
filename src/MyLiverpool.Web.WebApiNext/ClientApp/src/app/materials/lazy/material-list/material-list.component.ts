@@ -3,14 +3,17 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+
 import { Subscription } from 'rxjs';
-import { MaterialService } from '../../core/material.service';
-import { MaterialActivateDialogComponent } from '../../core/material-activate-dialog';
-import { Material, MaterialFilters, MaterialType } from '@domain/models';
-import { DeleteDialogComponent, PagedList } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { CustomTitleMetaService as CustomTitleService } from '@app/shared';
-import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from '@app/+constants';
+
+import { Material, MaterialFilters, MaterialType, PagedList } from '@domain/models';
+import { RolesCheckedService } from '@base/auth';
+import { CustomTitleMetaService as CustomTitleService, DeleteDialogComponent } from '@shared/index';
+import { TITLE_RU, NEWSS_RU, BLOGS_RU } from '@constants/ru.constants';
+
+import { MaterialService } from '@materials/core/material.service';
+import { MaterialActivateDialogComponent } from '@materials/core/material-activate-dialog';
+import { PAGE } from '@constants/help.constants';
 
 @Component({
     selector: 'material-list',
@@ -31,15 +34,15 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     public categoryId: number;
 
     constructor(private router: Router,
-        private materialService: MaterialService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private cd: ChangeDetectorRef,
-        public roles: RolesCheckedService,
+                private materialService: MaterialService,
+                private route: ActivatedRoute,
+                private location: Location,
+                private cd: ChangeDetectorRef,
+                public roles: RolesCheckedService,
 
-        private snackBar: MatSnackBar,
-        private titleService: CustomTitleService,
-        private dialog: MatDialog) {
+                private snackBar: MatSnackBar,
+                private titleService: CustomTitleService,
+                private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {

@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RolesCheckedService } from '@app/+auth';
-import { CustomTitleMetaService } from '@app/shared';
+import { RolesCheckedService } from '@base/auth';
+import { CustomTitleMetaService } from '@shared/index';
 import { PersonService } from '@persons/person.service';
 import { Person } from '@domain/models';
 

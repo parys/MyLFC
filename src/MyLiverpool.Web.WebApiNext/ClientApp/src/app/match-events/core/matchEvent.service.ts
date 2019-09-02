@@ -3,8 +3,8 @@
 import { Observable } from 'rxjs';
 
 import { MatchEvent, MatchEventType } from '@domain/models';
-import { HttpWrapper } from '@app/+httpWrapper';
-import { MATCH_EVENTS_ROUTE, MATCHES_ROUTE } from '@app/+constants';
+import { HttpWrapper } from '@base/httpWrapper';
+import { MATCH_EVENTS_ROUTE, MATCHES_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class MatchEventService {

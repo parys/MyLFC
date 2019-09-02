@@ -8,12 +8,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { merge, of, Observable, Subscription } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
-import { Comment, CommentFilter } from '@domain/models';
-import { COMMENTS_ROUTE, PAGE, USER_ID } from '@app/+constants';
-import { DeleteDialogComponent, PagedList } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
+import { Comment, CommentFilter, PagedList } from '@domain/models';
+import { COMMENTS_ROUTE, PAGE, USER_ID } from '@constants/index';
+import { DeleteDialogComponent,  } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
 
-import { CommentService } from '@comments/core';
+import { CommentService } from '@comments/comment.service';
 
 @Component({
     selector: 'comment-list',
@@ -30,10 +30,10 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
     @ViewChild('onlyUnverified', { static: true })onlyUnverified: MatCheckbox;
 
     constructor(private materialCommentService: CommentService,
-        private route: ActivatedRoute,
-        private location: Location,
-        public roles: RolesCheckedService,
-        private dialog: MatDialog) {
+                private route: ActivatedRoute,
+                private location: Location,
+                public roles: RolesCheckedService,
+                private dialog: MatDialog) {
     }
 
     public ngAfterViewInit(): void {

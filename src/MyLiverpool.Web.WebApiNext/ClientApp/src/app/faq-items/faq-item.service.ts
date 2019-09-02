@@ -2,7 +2,7 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { FaqItem } from '@domain/models';
 
 @Injectable()

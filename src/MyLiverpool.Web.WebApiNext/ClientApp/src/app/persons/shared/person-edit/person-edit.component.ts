@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PersonService } from '@persons/person.service';
 import { Person, PersonType } from '@domain/models';
-import { PERSONS_ROUTE } from '@app/+constants';
+import { PERSONS_ROUTE } from '@constants/routes.constants';
 
 @Component({
     selector: 'person-edit',

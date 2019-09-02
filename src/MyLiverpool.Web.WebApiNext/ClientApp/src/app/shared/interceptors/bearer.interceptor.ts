@@ -9,11 +9,13 @@ import {
     HttpHeaders,
     HttpClient
 } from '@angular/common/http';
+
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError, flatMap } from 'rxjs/operators';
-import { StorageService } from '@app/+storage';
-import { IRefreshGrantModel, IAuthTokenModel } from '@app/+auth';
-import { LoaderService } from '../loader';
+
+import { StorageService } from '@base/storage';
+import { IRefreshGrantModel, IAuthTokenModel } from '@base/auth';
+import { LoaderService } from '@shared/loader';
 
 @Injectable()
 export class BearerInterceptor implements HttpInterceptor {

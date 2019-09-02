@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { RolesCheckedService } from '@app/+auth';
-import { DeleteDialogComponent } from '@app/shared';
+import { RolesCheckedService } from '@base/auth';
+import { DeleteDialogComponent } from '@shared/index';
 import { FaqCategory, FaqItem } from '@domain/models';
 
-import { FaqService } from '../faq.service';
+import { FaqService } from '@faq/faq.service';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 
 
@@ -21,10 +21,10 @@ export class FaqComponent implements OnInit {
 
 
     constructor(private service: FaqService,
-        private categoryService: FaqCategoryService,
-        private dialog: MatDialog,
-        private snackBar: MatSnackBar,
-        public roles: RolesCheckedService) {
+                private categoryService: FaqCategoryService,
+                private dialog: MatDialog,
+                private snackBar: MatSnackBar,
+                public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

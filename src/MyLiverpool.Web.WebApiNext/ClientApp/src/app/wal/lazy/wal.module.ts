@@ -1,9 +1,11 @@
-﻿import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { walRoutes } from "./wal.routes";
-import { SharedModule, BreadcrumbService } from "@app/shared";
-import { WAL_ROUTE, WAL_RU } from "@app/+constants";
-import { WalMainComponent } from "./wal-main";
+﻿import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { SharedModule, BreadcrumbService } from '@shared/index';
+import { WAL_ROUTE, WAL_RU } from '@constants/index';
+
+import { WalMainComponent } from '@wal/lazy/wal-main';
+import { walRoutes } from '@wal/lazy/wal.routes';
 
 @NgModule({
     imports: [

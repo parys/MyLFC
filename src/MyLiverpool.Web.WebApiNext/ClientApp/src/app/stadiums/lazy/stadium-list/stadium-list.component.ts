@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,10 +8,10 @@ import { MatSort } from '@angular/material/sort';
 import { Subscription, merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
-import { Stadium, StadiumFilters } from '@domain/models';
-import { StadiumService } from '../../core';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { PAGE, STADIUMS_ROUTE } from '@app/+constants';
+import { Stadium, StadiumFilters, PagedList } from '@domain/models';
+import { StadiumService } from '@stadiums/core';
+import { DeleteDialogComponent } from '@shared/index';
+import { PAGE, STADIUMS_ROUTE } from '@constants/index';
 
 @Component({
     selector: 'stadium-list',
@@ -29,15 +29,15 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     paginator: MatPaginator;
 
     constructor(private service: StadiumService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private dialog: MatDialog) {
+                private route: ActivatedRoute,
+                private location: Location,
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-                this.paginator.pageSize = +qParams['itemsPerPage'] || 15;
+                this.paginator.pageSize = +qParams.itemsPerPage || 15;
 
             });
 

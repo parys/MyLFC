@@ -5,12 +5,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
-import { InjuryService } from '@injuries/core';
-import { Injury, Person, PersonFilters } from '@domain/models';
+import { InjuryService } from '@injuries/injury.service';
+import { Injury, Person, PersonFilters, PagedList } from '@domain/models';
 import { PersonService } from '@persons/person.service'; // todo
-import { INJURIES_ROUTE, DEBOUNCE_TIME } from '@app/+constants';
-import { PagedList } from '@app/shared';
-
+import { INJURIES_ROUTE, DEBOUNCE_TIME } from '@constants/index';
 @Component({
     selector: 'injury-edit',
     templateUrl: './injury-edit.component.html'
@@ -49,8 +47,8 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const injury: Injury = this.parseForm();
-            this.injuryService.createOrUpdate(this.id, injury)
-                .subscribe((data: Injury) => this.router.navigate([INJURIES_ROUTE]));
+        this.injuryService.createOrUpdate(this.id, injury)
+            .subscribe((data: Injury) => this.router.navigate([INJURIES_ROUTE]));
     }
 
     public selectPerson(id: number) {

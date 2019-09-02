@@ -2,10 +2,10 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { Person, SquadList, PersonType, PersonFilters } from '@domain/models';
-import { PERSONS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { PERSONS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class PersonService extends BaseRestService<Person, PersonFilters> {

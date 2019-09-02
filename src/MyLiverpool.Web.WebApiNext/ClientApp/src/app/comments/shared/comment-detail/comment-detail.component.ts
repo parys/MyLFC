@@ -6,11 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { Comment, CommentVote } from '@domain/models';
-import { DeleteDialogComponent } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
+import { DeleteDialogComponent } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
 
-import { CommentService } from '../../core/comment.service';
-import { EditorComponent } from '@app/editor';
+import { CommentService } from '@comments/comment.service';
+import { EditorComponent } from '@editor/index';
 
 @Component({
     selector: 'comment-detail',
@@ -36,11 +36,11 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     public isAddingMode = false;
 
     constructor(private materialCommentService: CommentService,
-        private location: Location,
-        public roles: RolesCheckedService,
-        private dialog: MatDialog,
-        private cd: ChangeDetectorRef,
-        private formBuilder: FormBuilder) {
+                private location: Location,
+                public roles: RolesCheckedService,
+                private dialog: MatDialog,
+                private cd: ChangeDetectorRef,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

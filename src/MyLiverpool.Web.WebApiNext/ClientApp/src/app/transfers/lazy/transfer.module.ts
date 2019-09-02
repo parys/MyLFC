@@ -10,15 +10,16 @@ import { MatTableModule } from '@angular/material/table';
 
 import { TransferEditComponent } from './transfer-edit';
 import { TransferListComponent } from './transfer-list';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared/index';
 import { PersonService } from '@persons/person.service'; // todo
 import { TransferCoreModule } from '../core';
 import { ClubCoreModule } from '@clubs/core';
 import { SeasonCoreModule } from '@seasons/core';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { TRANSFERS_ROUTE, TRANSFERS_RU } from '@app/+constants';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 import { TransferCurrentListComponent } from './transfer-current-list';
 import { transferRoutes } from './transfer.routes';
+import { TRANSFERS_RU } from '@constants/ru.constants';
 
 @NgModule({
     imports: [

@@ -1,7 +1,11 @@
 ﻿import { NgModule } from '@angular/core';
-import { MatBadgeModule, MatIconModule, MatCardModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 import {
     MatchCalendarComponent,
     MatchCalendarEntryComponent,
@@ -11,13 +15,17 @@ import {
     BestPlayerComponent,
     UserBirthdayComponent,
     UserOnlineCounterComponent,
-    PmCounterComponent
-} from './components/';
-import { LayoutService } from './layout.service';
-import { } from './components';
-import { PipesModule } from '@app/base/pipes';
+    PmCounterComponent,
+    CommentLastComponent,
+    InjuryCurrentListComponent,
+    CupTableComponent,
+    EplTableComponent
+} from '@layout/components/';
+import { LayoutService } from '@layout/layout.service';
+import { PipesModule } from '@base/pipes';
 
 const matModules = [
+    MatButtonModule,
     MatBadgeModule,
     MatCardModule,
     MatIconModule,
@@ -33,7 +41,11 @@ const layoutComponents = [
     PersonBirthdayComponent,
     UserBirthdayComponent,
     UserOnlineCounterComponent,
-    PmCounterComponent
+    PmCounterComponent,
+    CommentLastComponent,
+    InjuryCurrentListComponent,
+    CupTableComponent,
+    EplTableComponent
 ];
 
 @NgModule({

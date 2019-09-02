@@ -11,12 +11,12 @@
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Comment } from '@domain/models';
-import { CommentService } from '../../core/comment.service';
-import { PagedList } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { SignalRService } from '@app/+signalr/signalr.common.service';
-import { CommentFilter } from '../../../domain/models/commentFilter.model';
+
+import { Comment, CommentFilter, PagedList } from '@domain/models';
+import { RolesCheckedService } from '@base/auth';
+import { SignalRService } from '@base/signalr';
+
+import { CommentService } from '@comments/comment.service';
 
 @Component({
     selector: 'comment-section',
@@ -38,14 +38,14 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
     @Input() public canCommentary = false;
 
     constructor(private commentService: CommentService,
-        private cd: ChangeDetectorRef,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute,
-        private renderer: Renderer2,
-        public element: ElementRef,
-        private router: Router,
-        private formBuilder: FormBuilder,
-        private signalRService: SignalRService) {
+                private cd: ChangeDetectorRef,
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute,
+                private renderer: Renderer2,
+                public element: ElementRef,
+                private router: Router,
+                private formBuilder: FormBuilder,
+                private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {

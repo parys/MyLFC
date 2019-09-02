@@ -4,10 +4,10 @@ import { Location } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 
-import { ForumSubsectionService } from './forumSubsection.service';
-import { ForumSubsection } from './forumSubsection.model';
-import { ForumTheme } from '../forumTheme';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
+
+import { ForumSubsectionService, ForumSubsection } from '@forum/forumSubsection';
+import { ForumTheme } from '@forum/forumTheme';
 
 @Component({
     selector: 'forumSubsection-list',
@@ -23,8 +23,8 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     totalItems: number;
 
     constructor(private service: ForumSubsectionService,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute, private location: Location) {
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute, private location: Location) {
     }
 
     public ngOnInit(): void {

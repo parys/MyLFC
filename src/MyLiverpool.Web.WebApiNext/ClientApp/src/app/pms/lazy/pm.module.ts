@@ -4,17 +4,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { SharedModule } from '@app/shared';
-import { pmRoutes } from './pm.routes';
-import { PmListComponent } from './pm-list';
-import { PmDetailComponent } from './pm-detail';
-import { PmEditComponent } from './pm-edit';
-import { EditorModule } from '@app/editor';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { PMS_ROUTE } from '@app/+constants';
-import { PmSharedModule } from '../shared';
+import { SharedModule } from '@shared/index';
+import { EditorModule } from '@editor/index';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { PMS_ROUTE } from '@constants/index';
+import { PmSharedModule } from '@pms/shared';
 import { PipesModule } from '@base/pipes';
+
 import { PmService } from '@pms/pm.service';
+import { pmRoutes } from '@pms/lazy/pm.routes';
+import { PmListComponent } from '@pms/lazy/pm-list';
+import { PmDetailComponent } from '@pms/lazy/pm-detail';
+import { PmEditComponent } from '@pms/lazy/pm-edit';
 
 @NgModule({
     imports: [

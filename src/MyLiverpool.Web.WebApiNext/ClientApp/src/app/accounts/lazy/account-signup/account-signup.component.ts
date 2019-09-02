@@ -1,42 +1,42 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { IRegisterModel, AuthService } from "@app/+auth";
-import { AccountService } from "../account.service";
-import { AccountValidators } from "../account.validators";
+﻿import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IRegisterModel, AuthService } from '@base/auth';
+import { AccountService } from '@accounts/lazy/account.service';
+import { AccountValidators } from '@accounts/lazy/account.validators';
 
 @Component({
-    selector: "account-signup",
-    templateUrl: "./account-signup.component.html"
+    selector: 'account-signup',
+    templateUrl: './account-signup.component.html'
 })
 
 export class AccountSignupComponent implements OnInit {
     public registerForm: FormGroup;
-    public result: boolean = false;
-    public isHuman: boolean = false;
-    public isAgreeWithRules: boolean = false;
+    public result = false;
+    public isHuman = false;
+    public isAgreeWithRules = false;
 
     constructor(private accountService: AccountService,
-        private authService: AuthService,
-        private formBuilder: FormBuilder) {
+                private authService: AuthService,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
         this.registerForm = this.formBuilder.group({
-            userName: ["", Validators.compose([
+            userName: ['', Validators.compose([
                 Validators.required,
                 Validators.minLength(3)
             ]), new AccountValidators(this.accountService).isUserNameUnique],
-            email: ["", Validators.compose([
+            email: ['', Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
                 Validators.email
             ]),
                 new AccountValidators(this.accountService).isEmailUnique],
-            password: ["", Validators.compose([
+            password: ['', Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            confirmPassword: ["", Validators.compose([
+            confirmPassword: ['', Validators.compose([
                 Validators.required, Validators.minLength(6)])]
-        }, { validator: AccountValidators.matchingPasswords("password", "confirmPassword") });                      
+        }, { validator: AccountValidators.matchingPasswords('password', 'confirmPassword') });
     }
 
     public onSubmit(): void {

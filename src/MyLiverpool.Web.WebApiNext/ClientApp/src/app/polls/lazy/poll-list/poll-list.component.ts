@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Poll, PollFilters } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
-import { PollService } from '../../core/poll.service';
-import { PagedList } from '@app/shared';
+import { Poll, PollFilters, PagedList } from '@domain/models';
+import { RolesCheckedService } from '@base/auth';
+import { PollService } from '@polls/core/poll.service';
 
 @Component({
     selector: 'poll-list',
@@ -13,9 +12,7 @@ export class PollListComponent implements OnInit {
     public items: Poll[];
 
     constructor(private service: PollService,
-        public roles: RolesCheckedService,
-        private router: Router,
-        private route: ActivatedRoute) {
+                public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

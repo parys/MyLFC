@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@app/shared';
-import { PmReplyComponent } from './pm-reply';
-import { EditorModule } from '@app/editor';
 import { MatInputModule } from '@angular/material/input';
-import { PmService } from '../pm.service';
+
+import { SharedModule } from '@shared/index';
+import { EditorModule } from '@editor/index';
+
+import { PmService } from '@pms/pm.service';
+import { PmReplyComponent } from '@pms/shared/pm-reply';
 
 @NgModule({
     imports: [

@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MaterialCategory, MaterialType, MaterialCategoryFilter } from '@domain/models';
-import { MaterialCategoryService } from '../../core';
-import { RolesCheckedService } from '@app/+auth';
-import { CustomTitleMetaService as CustomTitleService, PagedList } from '@app/shared';
+import { MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
+import { MaterialCategoryService } from '@material-categories/core';
+import { RolesCheckedService } from '@base/auth';
+import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 
 @Component({
     selector: 'materialCategory-list',
@@ -14,9 +14,9 @@ export class MaterialCategoryListComponent implements OnInit {
     public type: MaterialType;
 
     constructor(private service: MaterialCategoryService,
-        public roles: RolesCheckedService,
-        private router: Router,
-        private titleService: CustomTitleService) {
+                public roles: RolesCheckedService,
+                private router: Router,
+                private titleService: CustomTitleService) {
     }
 
     public ngOnInit(): void {

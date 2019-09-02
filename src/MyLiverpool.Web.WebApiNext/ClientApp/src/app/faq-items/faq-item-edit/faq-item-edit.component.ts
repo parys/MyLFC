@@ -23,10 +23,10 @@ export class FaqItemEditComponent implements OnInit, OnDestroy {
     public categories: FaqCategory[];
 
     constructor(private categoryService: FaqCategoryService,
-        private service: FaqItemService,
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private snackBar: MatSnackBar) { }
+                private service: FaqItemService,
+                private formBuilder: FormBuilder,
+                private route: ActivatedRoute,
+                private snackBar: MatSnackBar) { }
 
     public ngOnInit(): void {
         this.initFaqItemEditForm();

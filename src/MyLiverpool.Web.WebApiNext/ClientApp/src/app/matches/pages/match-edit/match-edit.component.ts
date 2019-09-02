@@ -7,11 +7,11 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { MatchService } from '@matches/match.service';
 import { SeasonService,  } from '@seasons/core';
-import { Match, MatchType, Stadium, StadiumFilters, Club, ClubFilters, Season } from '@domain/models';
+import { Match, MatchType, Stadium, StadiumFilters, Club, ClubFilters, Season, PagedList } from '@domain/models';
 import { StadiumService } from '@stadiums/core';
 import { ClubService } from '@clubs/core';
-import { DEBOUNCE_TIME, MATCHES_ROUTE } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { MATCHES_ROUTE } from '@constants/routes.constants';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
 
 @Component({
     selector: 'match-edit',

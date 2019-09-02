@@ -1,6 +1,6 @@
 ﻿import { Routes } from '@angular/router';
 
-import { FAQ_RU } from '@app/+constants';
+import { FAQ_RU } from '@constants/index';
 
 import { FaqComponent } from './faq';
 

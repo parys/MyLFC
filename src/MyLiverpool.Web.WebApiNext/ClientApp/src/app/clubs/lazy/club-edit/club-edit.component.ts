@@ -4,10 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ClubService } from '@clubs/core';
-import { Club, Stadium , StadiumFilters} from '@domain/models';
+import { Club, Stadium , StadiumFilters, PagedList} from '@domain/models';
 import { StadiumService } from '@stadiums/core';
-import { CLUBS_ROUTE, DEBOUNCE_TIME } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { CLUBS_ROUTE, DEBOUNCE_TIME } from '@constants/index';
 
 @Component({
     selector: 'club-edit',
@@ -24,10 +23,10 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     public stadiums$: Observable<Stadium[]>;
 
     constructor(private clubService: ClubService,
-        private stadiumService: StadiumService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private formBuilder: FormBuilder) {
+                private stadiumService: StadiumService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

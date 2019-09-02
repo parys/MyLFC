@@ -4,14 +4,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared/index';
 import { ImageCoreModule } from '@images/core';
 import { MaterialCategoryCoreModule } from '@material-categories/core';
-import { MaterialCoreModule } from '../../core/material-core.module';
-import { MaterialEditComponent } from './material-edit.component';
-import { materialEditRoutes } from './material-edit.routes';
-import { EditorModule } from '@app/editor';
-import { MaterialGuardDialogComponent } from './material-guard-dialog';
+import { MaterialCoreModule } from '@materials/core/material-core.module';
+import { MaterialEditComponent } from '@materials/lazy/+material-edit/material-edit.component';
+import { materialEditRoutes } from '@materials/lazy/+material-edit/material-edit.routes';
+import { EditorModule } from '@editor/index';
+import { MaterialGuardDialogComponent } from '@materials/lazy/+material-edit/material-guard-dialog';
 import { MaterialLeaveGuard } from './leave-guard/leave-guard.service';
 
 @NgModule({

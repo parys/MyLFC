@@ -5,8 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Season } from '@domain/models';
-import { SeasonService } from '../../core';
-import { SEASONS_ROUTE } from '@app/+constants';
+import { SeasonService } from '@seasons/core';
+import { SEASONS_ROUTE } from '@constants/index';
 
 @Component({
     selector: 'season-edit',
@@ -18,9 +18,9 @@ export class SeasonEditComponent implements OnInit, OnDestroy {
     public id: number;
 
     constructor(private service: SeasonService,
-        private formBuilder: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute) {
+                private formBuilder: FormBuilder,
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {

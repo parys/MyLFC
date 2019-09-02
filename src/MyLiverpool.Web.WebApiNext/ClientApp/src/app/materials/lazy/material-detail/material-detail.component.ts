@@ -7,13 +7,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription } from 'rxjs';
 
-import { DeleteDialogComponent, CustomTitleMetaService as CustomTitleService } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { NEWS_RU, BLOG_RU } from '@app/+constants/ru.constants';
-import { StorageService } from '@app/+storage';
-
-import { MaterialService, MaterialActivateDialogComponent } from '../../core';
+import { DeleteDialogComponent, CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
+import { NEWS_RU, BLOG_RU } from '@constants/ru.constants';
+import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';
+
+import { MaterialService, MaterialActivateDialogComponent } from '@materials/core';
 
 
 const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
@@ -32,16 +32,16 @@ export class MaterialDetailComponent implements OnDestroy {
     public type: MaterialType;
 
     constructor(private transferState: TransferState,
-        private service: MaterialService,
-        @Inject(PLATFORM_ID) private platformId: Object,
-        private route: ActivatedRoute,
-        private cd: ChangeDetectorRef,
-        private storage: StorageService,
-        public roles: RolesCheckedService,
-        private router: Router,
-        private titleService: CustomTitleService,
-        private snackBar: MatSnackBar,
-        private dialog: MatDialog) {
+                private service: MaterialService,
+                @Inject(PLATFORM_ID) private platformId: object,
+                private route: ActivatedRoute,
+                private cd: ChangeDetectorRef,
+                private storage: StorageService,
+                public roles: RolesCheckedService,
+                private router: Router,
+                private titleService: CustomTitleService,
+                private snackBar: MatSnackBar,
+                private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.init();

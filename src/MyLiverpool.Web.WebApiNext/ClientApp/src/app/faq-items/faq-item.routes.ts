@@ -1,9 +1,8 @@
 ﻿import { Routes } from '@angular/router';
 
-import { RoleGuard } from '@app/+auth';
-import { EDITING_RU, FAQ_ITEMS_RU, EDIT_ROUTE } from '@app/+constants';
+import { RoleGuard } from '@base/auth';
+import { EDITING_RU, EDIT_ROUTE } from '@constants/index';
 
-import { FaqItemListComponent } from './faq-item-list';
 import { FaqItemEditComponent } from './faq-item-edit';
 
 export const faqItemRoutes: Routes = [

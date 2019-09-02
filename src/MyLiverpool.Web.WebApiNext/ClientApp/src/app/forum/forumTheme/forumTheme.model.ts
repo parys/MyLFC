@@ -1,5 +1,5 @@
-﻿import { ForumMessage } from "../forumMessage";
-import { PagedList } from "@app/shared";
+﻿import { ForumMessage } from '@forum/forumMessage';
+import { PagedList } from '@domain/models';
 
 export class ForumTheme {
     id: number;

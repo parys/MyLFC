@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { StadiumService } from './stadium.service';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared/index';
 
 @NgModule({
     imports: [

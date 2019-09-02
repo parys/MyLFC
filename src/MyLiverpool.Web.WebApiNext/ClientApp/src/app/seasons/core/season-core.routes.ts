@@ -1,9 +1,9 @@
-﻿import { Routes } from "@angular/router";
-import { SEASONS_ROUTE } from "@app/+constants";
+﻿import { Routes } from '@angular/router';
+import { SEASONS_ROUTE } from '@constants/index';
 
 export const seasonCoreRoutes: Routes = [
     {
         path: SEASONS_ROUTE,
-        loadChildren: "../lazy/season.module#SeasonModule"
+        loadChildren: () => import('../lazy/season.module').then(m => m.SeasonModule)
     }
 ];

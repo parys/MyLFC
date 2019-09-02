@@ -26,11 +26,12 @@ import {
     TRANSFERS_ROUTE,
     USERS_ROUTE,
     POLLS_ROUTE,
-    TITLE_RU,
     WAL_ROUTE,
     FAQ_ROUTE
-} from '@app/+constants';
-import { MaterialHomeComponent } from './materials';
+} from '@constants/routes.constants';
+
+import { MaterialHomeComponent } from '@materials/index';
+import { TITLE_RU } from '@constants/ru.constants';
 
 
 const routes: Routes = [
@@ -45,7 +46,7 @@ const routes: Routes = [
     },
     {
         path: ADMIN_ROUTE,
-        loadChildren: () => import('./admin/lazy/admin.module').then(m => m.AdminModule)
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     },
     {
         path: BLOGS_ROUTE,
@@ -141,7 +142,7 @@ const routes: Routes = [
     },
     {
         path: WISHES_ROUTE,
-        loadChildren: () => import('./wishes/lazy/wish.module').then(m => m.WishModule)
+        loadChildren: () => import('./wishes/wish.module').then(m => m.WishModule)
     },
     {
         path: '',

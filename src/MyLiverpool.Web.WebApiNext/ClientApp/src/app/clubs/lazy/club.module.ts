@@ -5,14 +5,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-import { SharedModule } from '@app/shared';
-import { clubRoutes } from './club.routes';
-import { ClubEditComponent } from './club-edit';
-import { ClubListComponent } from './club-list';
-import { ClubCoreModule } from '../core';
+import { SharedModule } from '@shared/index';
 import { StadiumCoreModule } from '@stadiums/core';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { CLUBS_ROUTE, CLUBS_RU } from '@app/+constants';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { CLUBS_ROUTE } from '@constants/routes.constants';
+import { CLUBS_RU } from '@constants/ru.constants';
+
+import { clubRoutes } from '@clubs/lazy/club.routes';
+import { ClubEditComponent } from '@clubs/lazy/club-edit';
+import { ClubListComponent } from '@clubs/lazy/club-list';
+import { ClubCoreModule } from '@clubs/core';
 
 @NgModule({
     imports: [

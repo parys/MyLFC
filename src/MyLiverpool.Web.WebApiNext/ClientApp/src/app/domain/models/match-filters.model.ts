@@ -1,4 +1,4 @@
-﻿import { PagedQueryBase } from '@app/+infrastructure';
+﻿import { PagedQueryBase } from '@base/infrastructure';
 
 export class MatchFilters extends PagedQueryBase {
     seasonId?: number;

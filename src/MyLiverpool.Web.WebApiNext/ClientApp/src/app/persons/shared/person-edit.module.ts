@@ -5,9 +5,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 
-import { SharedModule } from '@app/shared';
-import { PersonEditComponent } from './person-edit';
-import { PersonService } from '../person.service';
+import { SharedModule } from '@shared/index';
+
+import { PersonEditComponent } from '@persons/shared/person-edit';
+import { PersonService } from '@persons/person.service';
 
 
 @NgModule({

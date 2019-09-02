@@ -5,13 +5,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { MaterialService } from '../../core';
-import { Material, MaterialCategory, MaterialType, MaterialCategoryFilter } from '@domain/models';
+import { MaterialService } from '@materials/core';
+import { Material, MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
 import { MaterialCategoryService } from '@material-categories/core';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 import { MaterialGuardDialogComponent } from './material-guard-dialog';
-import { EDIT_ROUTE, MESSAGE } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { EDIT_ROUTE, MESSAGE } from '@constants/index';
 
 // todo moved to script till I found solution to include it here(and in page-editor)
 // import "tinymce/plugins/fullscreen/plugin.min.js";
@@ -34,14 +33,14 @@ export class MaterialEditComponent implements OnInit {
     public additional = 'additional';
 
     constructor(private service: MaterialService,
-        private materialCategoryService: MaterialCategoryService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private snackBar: MatSnackBar,
-        private location: Location,
-        public roles: RolesCheckedService,
-        private formBuilder: FormBuilder,
-        private dialog: MatDialog) {
+                private materialCategoryService: MaterialCategoryService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private snackBar: MatSnackBar,
+                private location: Location,
+                public roles: RolesCheckedService,
+                private formBuilder: FormBuilder,
+                private dialog: MatDialog) {
         if (this.router.url.startsWith('/news')) {
             this.type = MaterialType.News;
         } else if (this.router.url.startsWith('/blogs')) {
@@ -51,8 +50,8 @@ export class MaterialEditComponent implements OnInit {
 
     public ngOnInit(): void {
         this.initForm();
-        if (+this.route.snapshot.params['id']) {
-            this.service.getSingle(+this.route.snapshot.params['id'])
+        if (+this.route.snapshot.params.id) {
+            this.service.getSingle(+this.route.snapshot.params.id)
                 .subscribe(data => this.parse(data));
         } else {
             this.item = new Material();
@@ -65,7 +64,6 @@ export class MaterialEditComponent implements OnInit {
 
     public onSubmit(): void {
         const newsItem: Material = this.parseForm();
-        this.editForm.markAsPristine();
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
                 .subscribe(data => {

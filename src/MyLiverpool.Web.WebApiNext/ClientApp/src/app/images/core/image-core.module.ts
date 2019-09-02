@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@shared/index';
 import { ImageService } from './image.service';
 import { ImageAdditionComponent } from './image-addition';
 import { ImageCropAdditionComponent } from './image-crop-addition';

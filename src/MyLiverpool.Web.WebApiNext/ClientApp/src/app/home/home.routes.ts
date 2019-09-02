@@ -1,8 +1,8 @@
 ﻿import { Routes } from '@angular/router';
 
-import { StaticPageComponent } from '@app/shared/static-page';
+import { StaticPageComponent } from '@shared/static-page';
 import { HelperType } from '@domain/models';
-import { RoleGuard, RolesEnum } from '@app/+auth';
+import { RoleGuard, RolesEnum } from '@base/auth';
 
 export const homeRoutes: Routes = [
     {

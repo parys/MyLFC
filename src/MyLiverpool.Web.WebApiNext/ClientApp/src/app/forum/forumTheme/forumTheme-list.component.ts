@@ -3,12 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+
 import { Subscription } from 'rxjs';
-import { ForumThemeService } from './forumTheme.service';
-import { ForumMessage, ForumMessageService } from '@app/forum/forumMessage';
-import { ForumTheme } from './forumTheme.model';
-import { DeleteDialogComponent } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
+
+import { DeleteDialogComponent } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
+
+import { ForumThemeService, ForumTheme } from '@forum/forumTheme';
+import { ForumMessage, ForumMessageService } from '@forum/forumMessage';
 
 @Component({
     selector: 'forumTheme-list',
@@ -26,12 +28,12 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     public selectedCommentIndex: number = null;
 
     constructor(private service: ForumThemeService,
-        private messageService: ForumMessageService,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute,
-        private formBuilder: FormBuilder,
-        private location: Location,
-        private dialog: MatDialog) {
+                private messageService: ForumMessageService,
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute,
+                private formBuilder: FormBuilder,
+                private location: Location,
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

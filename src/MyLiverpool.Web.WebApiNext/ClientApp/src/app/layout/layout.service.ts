@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
-import { NOTIFICATIONS_ROUTE, MATCHES_ROUTE, PERSONS_ROUTE, USERS_ROUTE, PMS_ROUTE } from '@app/+constants';
-import { Match, MatchCalendar, Person, User, UsersOnline } from '@domain/models';
+import { HttpWrapper } from '@base/httpWrapper';
+import { NOTIFICATIONS_ROUTE, MATCHES_ROUTE, PERSONS_ROUTE, USERS_ROUTE, PMS_ROUTE, COMMENTS_ROUTE, INJURIES_ROUTE, HELPERS_ROUTE } from '@constants/routes.constants';
+import { Comment, Match, MatchCalendar, Person, User, UsersOnline, Injury } from '@domain/models';
 
 @Injectable()
 export class LayoutService {
@@ -45,5 +45,22 @@ export class LayoutService {
 
     public getUnreadPmsCount(): Observable<number> {
         return this.http.get<number>(PMS_ROUTE + '/unread/');
+    }
+
+    public getLastComments(): Observable<Comment[]> {
+        return this.http.get<Comment[]>(COMMENTS_ROUTE + '/last');
+    }
+
+    public getCurrentInjuries(): Observable<Injury[]> {
+        return this.http.get<Injury[]>(INJURIES_ROUTE + `/current`);
+    }
+
+    public updateEplTable(): Observable<string> {
+        return this.http.get<string>('admin/updateTable/');
+    }
+
+    // todo duplicates in static page service
+    public getValue(id: number): Observable<string> {
+        return this.http.get(`${HELPERS_ROUTE}/${id}`);
     }
 }

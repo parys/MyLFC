@@ -1,6 +1,6 @@
 ﻿import { Routes } from '@angular/router';
 
-import { WAL_RU } from '@app/+constants';
+import { WAL_RU } from '@constants/ru.constants';
 import { WalMainComponent } from './wal-main/wal-main.component';
 import { HelperType } from '@domain/models';
 

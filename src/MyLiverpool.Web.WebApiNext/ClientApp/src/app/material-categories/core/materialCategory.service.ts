@@ -1,8 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { MaterialCategory, MaterialCategoryFilter } from '@domain/models';
-import { HttpWrapper } from '@app/+httpWrapper';
-import { MATERIAL_CATEGORIES_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { HttpWrapper } from '@base/httpWrapper';
+import { MATERIAL_CATEGORIES_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class MaterialCategoryService extends BaseRestService<MaterialCategory, MaterialCategoryFilter> {

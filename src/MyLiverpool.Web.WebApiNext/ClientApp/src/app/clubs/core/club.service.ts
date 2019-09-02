@@ -2,10 +2,10 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { Club, ClubFilters } from '@domain/models';
-import { CLUBS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { CLUBS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class ClubService extends BaseRestService<Club, ClubFilters> {
@@ -15,9 +15,9 @@ export class ClubService extends BaseRestService<Club, ClubFilters> {
         super(http, CLUBS_ROUTE + '/');
     }
 
-    public uploadLogo(file: File, fileName: string): Observable<Object> {
+    public uploadLogo(file: File, fileName: string): Observable<object> {
         const formData: FormData = new FormData();
         formData.append('uploadFile', file, file.name);
-        return this.http.post<Object>(`${this.actionUrl}logo/${fileName}`, formData, true);
+        return this.http.post<object>(`${this.actionUrl}logo/${fileName}`, formData, true);
     }
 }

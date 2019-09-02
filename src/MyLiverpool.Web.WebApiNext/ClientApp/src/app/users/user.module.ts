@@ -8,18 +8,19 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-import { SharedModule } from '@app/shared';
-import { userRoutes } from './user.routes';
-import { UserEditComponent } from './pages/user-edit';
-import { UserListComponent } from './pages/user-list';
-import { UserService } from '@users/user.service';
-import { UserDetailComponent } from './pages/user-detail';
-import { UserConfigComponent } from './pages/user-config';
+import { SharedModule } from '@shared/index';
 import { RoleGroupCoreModule } from '@role-groups/core';
-import { BreadcrumbService } from '@app/shared/breadcrumb';
-import { USERS_ROUTE, USERS_RU, USER_RU } from '@app/+constants';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { USERS_ROUTE } from '@constants/routes.constants';
 import { PmSharedModule } from '@pms/shared';
 import { PipesModule } from '@base/pipes';
+import { userRoutes } from './user.routes';
+import { UserEditComponent } from '@users/pages/user-edit';
+import { UserListComponent } from '@users/pages/user-list';
+import { UserService } from '@users/user.service';
+import { UserDetailComponent } from '@users/pages/user-detail';
+import { UserConfigComponent } from '@users/pages/user-config';
+import { USERS_RU, USER_RU } from '@constants/ru.constants';
 
 @NgModule({
     imports: [

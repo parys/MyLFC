@@ -1,8 +1,10 @@
 ﻿import { Routes } from '@angular/router';
-import { RoleGuard } from '@app/+auth';
+
+import { RoleGuard } from '@base/auth';
 import { FaqCategoryListComponent } from './faq-category-list';
 import { FaqCategoryEditComponent } from './faq-category-edit';
-import { EDITING_RU, FAQ_CATEGORIES_RU, EDIT_ROUTE } from '@app/+constants';
+import { FAQ_CATEGORIES_RU, EDITING_RU } from '@constants/ru.constants';
+import { EDIT_ROUTE } from '@constants/routes.constants';
 
 export const faqCategoryRoutes: Routes = [
     { path: '', component: FaqCategoryListComponent, data: { title: FAQ_CATEGORIES_RU } },

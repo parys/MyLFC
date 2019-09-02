@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { PollService } from '../../core';
-import { RolesCheckedService } from '@app/+auth';
+import { PollService } from '@polls/core';
+import { RolesCheckedService } from '@base/auth';
 import { PollChart, Poll } from '@domain/models';
 
 @Component({
@@ -35,8 +35,8 @@ export class PollDetailComponent implements OnInit, OnDestroy {
     };
 
     constructor(private pollService: PollService,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute) { }
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {

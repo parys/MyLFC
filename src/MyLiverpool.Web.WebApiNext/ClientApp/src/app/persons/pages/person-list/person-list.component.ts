@@ -10,9 +10,11 @@ import { merge, of, Observable, fromEvent } from 'rxjs';
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { PersonService } from '@persons/person.service';
-import { Person, PersonType, PersonFilters } from '@domain/models';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { KEYUP, DEBOUNCE_TIME, PERSONS_ROUTE, PAGE } from '@app/+constants';
+import { Person, PersonType, PersonFilters, PagedList } from '@domain/models';
+import { DeleteDialogComponent } from '@shared/index';
+import { PERSONS_ROUTE } from '@constants/routes.constants';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
+import { KEYUP, PAGE } from '@constants/help.constants';
 
 @Component({
     selector: 'person-list',

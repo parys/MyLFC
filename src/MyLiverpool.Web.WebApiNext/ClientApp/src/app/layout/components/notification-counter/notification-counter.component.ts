@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Notification } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
-import { SignalRService } from '@app/+signalr';
-import { CustomTitleMetaService } from '@app/shared';
-import { NOTIFICATIONS_ROUTE } from '@app/+constants';
-import { LayoutService } from '../../layout.service';
+import { RolesCheckedService } from '@base/auth';
+import { SignalRService } from '@base/signalr';
+import { CustomTitleMetaService } from '@shared/index';
+import { NOTIFICATIONS_ROUTE } from '@constants/routes.constants';
+import { LayoutService } from '@layout/layout.service';
 
 @Component({
     selector: 'notification-counter',

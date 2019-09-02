@@ -1,4 +1,4 @@
-﻿import { PagedQueryBase } from '@app/+infrastructure';
+﻿import { PagedQueryBase } from '@base/infrastructure';
 
 export class CommentFilter extends PagedQueryBase {
     public onlyUnverified: boolean;

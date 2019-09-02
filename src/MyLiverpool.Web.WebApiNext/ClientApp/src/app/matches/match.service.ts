@@ -2,9 +2,9 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
-import { MATCHES_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { HttpWrapper } from '@base/httpWrapper';
+import { MATCHES_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 import { MatchFilters, Match, MatchType } from '@domain/models';
 
 @Injectable()

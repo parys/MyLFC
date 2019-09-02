@@ -1,7 +1,7 @@
 ﻿import { Routes } from '@angular/router';
-import { MaterialCategoryListComponent } from './materialCategory-list';
-import { MaterialCategoryEditComponent } from './materialCategory-edit';
-import { RoleGuard, RolesEnum } from '@app/+auth';
+import { MaterialCategoryListComponent } from '@material-categories/lazy/materialCategory-list';
+import { MaterialCategoryEditComponent } from '@material-categories/lazy/materialCategory-edit';
+import { RoleGuard, RolesEnum } from '@base/auth';
 
 export const materialCategoryRoutes: Routes = [
     { path: '', component: MaterialCategoryListComponent },

@@ -1,7 +1,10 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+
 import { Subscription } from 'rxjs';
-import { PersonService } from '../../../persons/person.service';
+
 import { Person } from '@domain/models';
+
+import { LayoutService } from '@layout/layout.service';
 
 @Component({
     selector: 'best-player',
@@ -12,8 +15,8 @@ export class BestPlayerComponent implements OnInit, OnDestroy {
     public item: Person;
     private sub: Subscription;
 
-    constructor(private service: PersonService,
-        private cd: ChangeDetectorRef
+    constructor(private service: LayoutService,
+                private cd: ChangeDetectorRef
     ) { }
 
     public ngOnInit(): void {

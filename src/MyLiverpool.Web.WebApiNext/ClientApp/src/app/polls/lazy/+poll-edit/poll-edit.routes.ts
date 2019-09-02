@@ -1,8 +1,8 @@
 ﻿import { Routes } from '@angular/router';
 
 import { PollEditComponent } from './poll-edit.component';
-import { RoleGuard, RolesEnum } from '@app/+auth';
-import { EDITING_RU } from '@app/+constants';
+import { RoleGuard, RolesEnum } from '@base/auth';
+import { EDITING_RU } from '@constants/index';
 
 export const pollEditRoutes: Routes = [
     {

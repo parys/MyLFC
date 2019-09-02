@@ -10,10 +10,11 @@ import { Subscription, merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { TransferService } from '@transfers/core';
-import { Transfer, TransferFilters } from '@domain/models';
-import { PagedList, DeleteDialogComponent } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { TRANSFERS_ROUTE, PAGE } from '@app/+constants';
+import { Transfer, TransferFilters, PagedList } from '@domain/models';
+import { DeleteDialogComponent } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
+import { TRANSFERS_ROUTE } from '@constants/routes.constants';
+import { PAGE } from '@constants/help.constants';
 
 @Component({
     selector: 'transfer-list',
@@ -28,11 +29,11 @@ export class TransferListComponent implements OnInit, OnDestroy {
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
 
     constructor(private service: TransferService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private snackBar: MatSnackBar,
-        private dialog: MatDialog,
-        public roles: RolesCheckedService) {
+                private route: ActivatedRoute,
+                private location: Location,
+                private snackBar: MatSnackBar,
+                private dialog: MatDialog,
+                public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

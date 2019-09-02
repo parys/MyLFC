@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { StadiumService } from '../../core';
 import { Stadium } from '@domain/models';
-import { STADIUMS_ROUTE } from '@app/+constants';
+import { STADIUMS_ROUTE } from '@constants/routes.constants';
+
+import { StadiumService } from '@stadiums/core';
 
 @Component({
     selector: 'stadium-edit',
@@ -20,9 +21,9 @@ export class StadiumEditComponent implements OnInit, OnDestroy {
     public editForm: FormGroup;
 
     constructor(private service: StadiumService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private formBuilder: FormBuilder) {
+                private route: ActivatedRoute,
+                private router: Router,
+                private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {

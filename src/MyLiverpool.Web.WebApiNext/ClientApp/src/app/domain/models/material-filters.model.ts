@@ -1,4 +1,4 @@
-﻿import { PagedQueryBase } from '@app/+infrastructure';
+﻿import { PagedQueryBase } from '@base/infrastructure';
 
 export class MaterialFilters extends PagedQueryBase {
     public categoryId: number;

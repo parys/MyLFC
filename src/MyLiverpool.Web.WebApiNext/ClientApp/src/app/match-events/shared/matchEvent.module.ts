@@ -1,13 +1,14 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { SharedModule } from "@app/shared";
-import { MatchEventEditPanelComponent } from "./matchEvent-edit-panel";
-import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel";
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
-import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatchEventCoreModule } from "../core";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+import { SharedModule } from '@shared/index';
+import { MatchEventEditPanelComponent } from '@match-events/shared/matchEvent-edit-panel';
+import { MatchEventMatchPanelComponent } from '@match-events/shared/matchEvent-match-panel';
+import { MatchEventCoreModule } from '@match-events/core';
 
 @NgModule({
     imports: [

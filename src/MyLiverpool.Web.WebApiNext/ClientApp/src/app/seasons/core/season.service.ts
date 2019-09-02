@@ -2,11 +2,10 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
-import { Season, SeasonStatistics, SeasonFilters } from '@domain/models';
-import { SEASONS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
-import { PagedList } from '@app/shared';
+import { HttpWrapper } from '@base/httpWrapper';
+import { Season, SeasonStatistics, SeasonFilters, PagedList } from '@domain/models';
+import { SEASONS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 @Injectable()
 export class SeasonService extends BaseRestService<Season, SeasonFilters> {

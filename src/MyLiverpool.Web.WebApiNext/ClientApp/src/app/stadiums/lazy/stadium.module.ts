@@ -1,15 +1,17 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { StadiumListComponent } from "./stadium-list";
-import { StadiumEditComponent } from "./stadium-edit";
-import { stadiumRoutes } from "./stadium.routes";
-import { SharedModule } from "@app/shared";
-import { StadiumCoreModule } from "../core";
-import { BreadcrumbService } from "@app/shared/breadcrumb";
-import { STADIUMS_ROUTE, STADIUMS_RU } from "@app/+constants";
-import { MatInputModule } from "@angular/material/input";
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from "@angular/material/table";
+import { MatTableModule } from '@angular/material/table';
+
+import { StadiumListComponent } from '@stadiums/lazy/stadium-list';
+import { StadiumEditComponent } from '@stadiums/lazy/stadium-edit';
+import { stadiumRoutes } from '@stadiums/lazy/stadium.routes';
+import { SharedModule } from '@shared/index';
+import { StadiumCoreModule } from '@stadiums/core';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { STADIUMS_ROUTE } from '@constants/routes.constants';
+import { STADIUMS_RU } from '@constants/ru.constants';
 
 @NgModule({
     imports: [

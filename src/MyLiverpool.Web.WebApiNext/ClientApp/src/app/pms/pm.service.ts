@@ -2,9 +2,9 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
+import { HttpWrapper } from '@base/httpWrapper';
 import { Pm, User } from '@domain/models';
-import { PMS_ROUTE } from '@app/+constants';
+import { PMS_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class PmService {

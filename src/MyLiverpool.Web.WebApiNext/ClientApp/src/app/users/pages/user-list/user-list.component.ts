@@ -9,11 +9,12 @@ import { merge, of, Observable, fromEvent } from 'rxjs';
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { UserService } from '@users/user.service';
-import { User, UserFilters, RoleGroup } from '@domain/models';
+import { User, UserFilters, RoleGroup, PagedList } from '@domain/models';
 import { RoleGroupService } from '@role-groups/core';
-import { PagedList } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { KEYUP, DEBOUNCE_TIME, PAGE, USERS_ROUTE } from '@app/+constants';
+import { RolesCheckedService } from '@base/auth';
+import { KEYUP, PAGE } from '@constants/help.constants';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
+import { USERS_ROUTE } from '@constants/routes.constants';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class UserListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.paginator.pageIndex = +this.route.snapshot.queryParams['page'] - 1 || 0;
+        this.paginator.pageIndex = +this.route.snapshot.queryParams[PAGE] - 1 || 0;
         this.paginator.pageSize = +this.route.snapshot.queryParams['itemsPerPage'] || 15;
         this.userInput.nativeElement.value = this.route.snapshot.queryParams['userName'] || '';
         this.ipInput.nativeElement.value = this.route.snapshot.queryParams['ip'] || '';

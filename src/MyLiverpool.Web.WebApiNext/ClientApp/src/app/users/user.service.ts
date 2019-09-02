@@ -2,9 +2,9 @@
 
 import { Observable } from 'rxjs';
 
-import { HttpWrapper } from '@app/+httpWrapper';
-import { USERS_ROUTE } from '@app/+constants';
-import { BaseRestService } from '@app/+infrastructure';
+import { HttpWrapper } from '@base/httpWrapper';
+import { USERS_ROUTE } from '@constants/routes.constants';
+import { BaseRestService } from '@base/infrastructure';
 
 import { UserFilters, User, UserConfig } from '@domain/models';
 

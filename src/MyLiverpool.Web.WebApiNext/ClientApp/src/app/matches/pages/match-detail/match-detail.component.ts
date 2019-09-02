@@ -5,10 +5,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { MatchService } from '@matches/match.service';
 import { Match } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
-import { CustomTitleMetaService } from '@app/shared';
+import { RolesCheckedService } from '@base/auth';
+import { CustomTitleMetaService } from '@shared/index';
+
+import { MatchService } from '@matches/match.service';
 
 @Component({
     selector: 'match-detail',

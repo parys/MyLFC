@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { SignalRService } from '@app/+signalr';
-import { CustomTitleMetaService as CustomTitleService } from '@app/shared';
-import { PMS_ROUTE } from '@app/+constants';
+import { SignalRService } from '@base/signalr';
+import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { PMS_ROUTE } from '@constants/routes.constants';
 import { Pm } from '@domain/models';
 import { LayoutService } from '@layout/layout.service';
 

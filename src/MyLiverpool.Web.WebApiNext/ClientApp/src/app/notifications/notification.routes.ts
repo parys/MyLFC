@@ -1,6 +1,6 @@
 ﻿import { Routes } from '@angular/router';
-import { RoleGuard } from '@app/+auth';
-import { NotificationListComponent } from './pages/notification-list';
+import { RoleGuard } from '@base/auth';
+import { NotificationListComponent } from '@notifications/pages/notification-list';
 
 export const notificationRoutes: Routes = [
     {

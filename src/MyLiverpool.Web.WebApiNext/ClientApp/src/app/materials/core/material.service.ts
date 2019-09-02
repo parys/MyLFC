@@ -2,10 +2,9 @@
 
 import { Observable } from 'rxjs';
 
-import { MaterialType, MaterialFilters, Material } from '@domain/models';
-import { PagedList } from '@app/shared';
-import { HttpWrapper } from '@app/+httpWrapper';
-import { MATERIALS_ROUTE } from '@app/+constants';
+import { MaterialType, MaterialFilters, Material, PagedList } from '@domain/models';
+import { HttpWrapper } from '@base/httpWrapper';
+import { MATERIALS_ROUTE } from '@constants/routes.constants';
 
 @Injectable()
 export class MaterialService {

@@ -7,11 +7,11 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { TransferService } from '@transfers/core';
 import { PersonService } from '@persons/person.service';
-import { Transfer, Person, PersonFilters, Club, ClubFilters, Season, SeasonFilters } from '@domain/models';
+import { Transfer, Person, PersonFilters, Club, ClubFilters, Season, SeasonFilters, PagedList } from '@domain/models';
 import { ClubService } from '@clubs/core';
 import { SeasonService } from '@seasons/core';
-import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { TRANSFERS_ROUTE } from '@constants/routes.constants';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
 
 @Component({
     selector: 'transfer-edit',

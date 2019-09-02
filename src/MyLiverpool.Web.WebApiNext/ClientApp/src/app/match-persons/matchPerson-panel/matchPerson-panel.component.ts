@@ -2,10 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { DeleteDialogComponent } from '@app/shared';
-import { RolesCheckedService } from '@app/+auth';
-import { MatchPersonService } from '../matchPerson.service';
+import { DeleteDialogComponent } from '@shared/index';
+import { RolesCheckedService } from '@base/auth';
 import { MatchPerson } from '@domain/models';
+
+import { MatchPersonService } from '@match-persons/matchPerson.service';
 
 @Component({
     selector: 'matchPerson-panel',
@@ -40,9 +41,9 @@ export class MatchPersonPanelComponent implements OnInit {
     public personTypeId: number;
 
     constructor(private matchPersonService: MatchPersonService,
-        public roles: RolesCheckedService,
-        private snackBar: MatSnackBar,
-        private dialog: MatDialog) {
+                public roles: RolesCheckedService,
+                private snackBar: MatSnackBar,
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

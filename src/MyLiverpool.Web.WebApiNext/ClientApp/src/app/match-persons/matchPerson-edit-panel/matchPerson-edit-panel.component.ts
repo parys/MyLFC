@@ -4,9 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
-import { MatchPerson, Person, PersonFilters, MatchPersonType } from '@domain/models';
-import { DEBOUNCE_TIME } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { MatchPerson, Person, PersonFilters, MatchPersonType, PagedList } from '@domain/models';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
 
 import { PersonService } from '@persons/person.service'; // todo
 import { MatchPersonService } from '../matchPerson.service';

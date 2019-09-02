@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Material } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 import { MaterialActivateDialogComponent } from '../material-activate-dialog';
-import { DeleteDialogComponent } from '@app/shared';
+import { DeleteDialogComponent } from '@shared/index';
 import { MaterialService } from '../material.service';
 
 @Component({

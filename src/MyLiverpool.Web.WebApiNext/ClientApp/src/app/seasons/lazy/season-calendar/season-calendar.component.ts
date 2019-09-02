@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRe
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 
-import { Season } from '@domain/models';
-import { SeasonService } from '../../core';
-import { RolesCheckedService } from '@app/+auth';
-import { PagedList } from '@app/shared';
+import { Season, PagedList } from '@domain/models';
+import { RolesCheckedService } from '@base/auth';
+
+import { SeasonService } from '@seasons/core';
 
 @Component({
     selector: 'season-calendar',
@@ -18,18 +18,17 @@ export class SeasonCalendarComponent implements OnInit {
     private id = 0;
     public seasons: Season[];
 
-    @ViewChild('seasonSelect', { static: true })seasonSelect: MatSelect;
+    @ViewChild('seasonSelect', { static: true }) seasonSelect: MatSelect;
 
     constructor(private service: SeasonService,
-        public roles: RolesCheckedService,
-        private cd: ChangeDetectorRef,
-        private route: ActivatedRoute) {
+                public roles: RolesCheckedService,
+                private cd: ChangeDetectorRef,
+                private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
-        if (+this.route.snapshot.params['id']) {
-            this.id = +this.route.snapshot.params['id'];
-        }
+        this.id = +this.route.snapshot.params['id'] || 0;
+
 
         this.seasonSelect.selectionChange.subscribe((data: MatSelectChange) => {
             this.id = data.value;
@@ -45,11 +44,11 @@ export class SeasonCalendarComponent implements OnInit {
     private update(selectUpdate: boolean): void {
         this.service.getSingleCalendarWithMatches(this.id)
             .subscribe((data: Season) => {
-                    this.selected = data;
-                    if (selectUpdate) {
-                        this.seasonSelect.value = data.id;
-                    }
-                },
+                this.selected = data;
+                if (selectUpdate) {
+                    this.seasonSelect.value = data.id;
+                }
+            },
                 null,
                 () => {
                     this.cd.markForCheck();

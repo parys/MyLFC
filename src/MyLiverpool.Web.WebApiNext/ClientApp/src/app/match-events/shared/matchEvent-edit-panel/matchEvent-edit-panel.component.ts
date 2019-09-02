@@ -4,11 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
-import { MatchEventService } from '../../core';
-import { MatchEvent, MatchEventType, PersonFilters, Person } from '@domain/models';
+import { MatchEventService } from '@match-events/core';
+import { MatchEvent, MatchEventType, PersonFilters, Person, PagedList } from '@domain/models';
 import { PersonService } from '@persons/person.service'; // todo
-import { DEBOUNCE_TIME } from '@app/+constants';
-import { PagedList } from '@app/shared';
+import { DEBOUNCE_TIME } from '@constants/index';
 
 @Component({
     selector: 'matchEvent-edit-panel',

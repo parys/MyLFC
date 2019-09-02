@@ -1,6 +1,7 @@
 ﻿import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+
 import { Match } from '@domain/models';
-import { RolesCheckedService } from '@app/+auth';
+import { RolesCheckedService } from '@base/auth';
 
 @Component({
     selector: 'match-calendar-entry',
