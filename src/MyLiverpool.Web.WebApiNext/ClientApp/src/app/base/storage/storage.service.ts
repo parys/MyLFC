@@ -77,12 +77,6 @@ export class StorageService {
         return false;
     }
 
-    private setExpiredDate(seconds: number): string {
-        const date = new Date();
-        date.setSeconds(date.getSeconds() + seconds);
-        return date.toUTCString();
-    }
-
     private set(key: string, value: string): void {
         if (!this.localStorage) { return; }
         localStorage[key] = value;

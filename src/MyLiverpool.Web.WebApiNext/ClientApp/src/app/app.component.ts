@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     animationState = ['', '', ''];
     orderState = [0, 1, 2];
     private resizeDisable = true;
+    public showAd = true;
 
     @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
@@ -98,6 +99,11 @@ export class AppComponent implements OnInit {
         this.animationState[this.currentPageIndex] = SLIDE_IN_RIGHT;
     }
 
+    public onAdClose(element: any): void {
+        this.showAd = false;
+        element.srcElement.parentElement.remove();
+    }
+
     private initTitleSubscriber() {
         this.router.events.pipe(
             filter((event: any) => event instanceof NavigationEnd),
@@ -114,12 +120,12 @@ export class AppComponent implements OnInit {
                 }
                 return null;
             })).subscribe((data: any) => {
-                if (data['title']) {
-                    this.titleService.setTitle(data['title']);
+                if (data.title) {
+                    this.titleService.setTitle(data.title);
                 }
-                this.titleService.updateKeywordsMetaTag(data['keywords'] || '');
-                this.titleService.updateDescriptionMetaTag(data['description'] || '');
-                this.titleService.updateTypeMetaTag(data['ogType'] || 'website');
+                this.titleService.updateKeywordsMetaTag(data.keywords || '');
+                this.titleService.updateDescriptionMetaTag(data.description || '');
+                this.titleService.updateTypeMetaTag(data.ogType || 'website');
                 this.titleService.updateOgImageMetaTag('https://mylfc.ru/content/logo34.png');
             });
     }

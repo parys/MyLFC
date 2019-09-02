@@ -26,7 +26,7 @@ export class CustomTitleMetaService {
 
     public updateDescriptionMetaTag(content: string) {
         this.meta.updateTag({ name: 'description', content });
-        this.meta.updateTag({ property: 'og:description', content });
+        this.meta.updateTag({ name: 'og:description', content });
     }
 
     public updateKeywordsMetaTag(content: string) {
@@ -34,11 +34,11 @@ export class CustomTitleMetaService {
     }
 
     public updateTypeMetaTag(content: string) {
-        this.meta.updateTag({ property: 'og:type', content });
+        this.meta.updateTag({ name: 'og:type', content });
     }
 
     public updateOgImageMetaTag(content: string) {
-        this.meta.updateTag({ property: 'og:image', content });
+        this.meta.updateTag({ name: 'og:image', content });
     }
 
     private updateTitle(): void {
@@ -47,6 +47,6 @@ export class CustomTitleMetaService {
         } else {
             this.titleService.setTitle(this.title);
         }
-        this.meta.updateTag({ property: 'og:title', content: this.title });
+        this.meta.updateTag({ name: 'og:title', content: this.title });
     }
 }
