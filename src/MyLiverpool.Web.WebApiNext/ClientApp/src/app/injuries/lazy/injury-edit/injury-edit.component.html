@@ -1,12 +1,6 @@
 ﻿<form class="form-horizontal full-width" role="form" [formGroup]="editInjuryForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
-        <mat-autocomplete #person="matAutocomplete">
-            <mat-option *ngFor="let person of persons$ | async" [value]="person.russianName" (click)="selectPerson(person.id)">
-                <span>{{ person.russianName }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+    <select-person-form-field formControlName="personId" [personName]="editInjuryForm.controls['personName'].value">
+    </select-person-form-field>
 
     <mat-form-field class="full-width">
         <input matInput [matDatepicker]="datePicker1" placeholder="Дата травмы" formControlName="startTime">
@@ -14,17 +8,18 @@
         <mat-datepicker #datePicker1 startView="month" touchUi="true"></mat-datepicker>
     </mat-form-field>
 
-        <mat-form-field class="full-width">
-            <input matInput [matDatepicker]="datePicker2" placeholder="Дата возвращения" formControlName="endTime">
-            <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
-            <mat-datepicker #datePicker2 startView="month" touchUi="true"></mat-datepicker>
-        </mat-form-field>
-    
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="datePicker2" placeholder="Дата возвращения" formControlName="endTime">
+        <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker2 startView="month" touchUi="true"></mat-datepicker>
+    </mat-form-field>
+
     <mat-form-field class="full-width">
         <input matInput placeholder="Описание травмы(краткое)" formControlName="description">
     </mat-form-field>
 
     <div class="full-width text-center">
-        <button mat-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="full-width">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid"
+            class="full-width">Сохранить</button>
     </div>
 </form>

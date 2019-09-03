@@ -11,7 +11,6 @@ import { MatTableModule } from '@angular/material/table';
 import { TransferEditComponent } from './transfer-edit';
 import { TransferListComponent } from './transfer-list';
 import { SharedModule } from '@shared/index';
-import { PersonService } from '@persons/person.service'; // todo
 import { TransferCoreModule } from '../core';
 import { ClubCoreModule } from '@clubs/core';
 import { SeasonCoreModule } from '@seasons/core';
@@ -20,6 +19,7 @@ import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 import { TransferCurrentListComponent } from './transfer-current-list';
 import { transferRoutes } from './transfer.routes';
 import { TRANSFERS_RU } from '@constants/ru.constants';
+import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 
 @NgModule({
     imports: [
@@ -34,15 +34,13 @@ import { TRANSFERS_RU } from '@constants/ru.constants';
         MatAutocompleteModule,
         MatSlideToggleModule,
         MatSortModule,
-        MatInputModule
+        MatInputModule,
+        SelectPersonFormFieldModule
     ],
     declarations: [
         TransferEditComponent,
         TransferListComponent,
         TransferCurrentListComponent
-    ],
-    providers: [
-        PersonService
     ]
 })
 export class TransferModule {

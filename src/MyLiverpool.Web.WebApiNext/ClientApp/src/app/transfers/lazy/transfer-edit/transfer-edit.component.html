@@ -1,12 +1,6 @@
 ﻿<form class="form-horizontal full-width" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
-        <mat-autocomplete #person="matAutocomplete">
-            <mat-option *ngFor="let person of persons$ | async" [value]="person.russianName" (click)="selectPerson(person.id)">
-                <span>{{ person.russianName }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+    <select-person-form-field formControlName="personId" [personName]="editTransferForm.controls['personName'].value">
+        </select-person-form-field>
     <mat-form-field class="full-width">
         <input matInput placeholder="Клуб" [matAutocomplete]="club" formControlName="clubName">
         <mat-autocomplete #club="matAutocomplete">
@@ -51,6 +45,6 @@
     </div>
 
     <div class="full-width">
-        <button mat-raised-button type="submit" [disabled]="!editTransferForm.valid" class="full-width">Сохранить</button>
+        <button mat-raised-button type="submit"color="warn" [disabled]="!editTransferForm.valid" class="full-width">Сохранить</button>
     </div>
 </form>

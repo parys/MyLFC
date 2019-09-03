@@ -2,13 +2,11 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Subscription, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { InjuryService } from '@injuries/injury.service';
-import { Injury, Person, PersonFilters, PagedList } from '@domain/models';
-import { PersonService } from '@persons/person.service'; // todo
-import { INJURIES_ROUTE, DEBOUNCE_TIME } from '@constants/index';
+import { Injury } from '@domain/models';
+import { INJURIES_ROUTE } from '@constants/index';
 @Component({
     selector: 'injury-edit',
     templateUrl: './injury-edit.component.html'
@@ -20,10 +18,8 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     private id: number;
     public editInjuryForm: FormGroup;
     public imagePath: string;
-    public persons$: Observable<Person[]>;
 
     constructor(private injuryService: InjuryService,
-                private personService: PersonService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private formBuilder: FormBuilder) {
@@ -32,7 +28,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
+            this.id = +params.id;
             if (this.id > 0) {
                 this.sub2 = this.injuryService.getSingle(this.id)
                     .subscribe((data: Injury) => this.parse(data));
@@ -48,11 +44,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const injury: Injury = this.parseForm();
         this.injuryService.createOrUpdate(this.id, injury)
-            .subscribe((data: Injury) => this.router.navigate([INJURIES_ROUTE]));
-    }
-
-    public selectPerson(id: number) {
-        this.editInjuryForm.get('personId').patchValue(id);
+            .subscribe(() => this.router.navigate([INJURIES_ROUTE]));
     }
 
     private parse(data: Injury): void {
@@ -75,24 +67,12 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     private initForm(): void {
         this.editInjuryForm = this.formBuilder.group({
             personId: ['', Validators.required],
-            personName: ['', Validators.required],
+            personName: [''],
             startTime: [null, Validators.required],
             endTime: [null],
             description: ['', Validators.required],
             id: [0, Validators.required]
         });
-
-        this.persons$ = this.editInjuryForm.controls['personName'].valueChanges.pipe(
-            debounceTime(DEBOUNCE_TIME),
-            distinctUntilChanged(),
-            switchMap((value: string) => {
-                const filter = new PersonFilters();
-                filter.name = value;
-                return this.personService.getAll(filter);
-            }),
-            switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
-                return of(pagingClubs.results);
-            }));
     }
 
     private normalizeDate(date: Date): Date {

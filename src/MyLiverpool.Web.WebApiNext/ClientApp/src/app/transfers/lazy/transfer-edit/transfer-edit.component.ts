@@ -6,8 +6,7 @@ import { Subscription, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { TransferService } from '@transfers/core';
-import { PersonService } from '@persons/person.service';
-import { Transfer, Person, PersonFilters, Club, ClubFilters, Season, SeasonFilters, PagedList } from '@domain/models';
+import { Transfer, Club, ClubFilters, Season, SeasonFilters, PagedList } from '@domain/models';
 import { ClubService } from '@clubs/core';
 import { SeasonService } from '@seasons/core';
 import { TRANSFERS_ROUTE } from '@constants/routes.constants';
@@ -24,21 +23,19 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     private id: number;
     public editTransferForm: FormGroup;
     public clubs$: Observable<Club[]>;
-    public persons$: Observable<Person[]>;
     public seasons$: Observable<Season[]>;
 
     constructor(private transferService: TransferService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private formBuilder: FormBuilder,
-                private personService: PersonService,
                 private clubService: ClubService,
                 private seasonService: SeasonService) {
     }
 
     public ngOnInit(): void {
         this.initForm();
-        const id: number = this.route.snapshot.params['id'];
+        const id: number = this.route.snapshot.params.id;
 
         if (id > 0) {
             this.sub3 = this.transferService.getSingle(id)
@@ -57,10 +54,6 @@ export class TransferEditComponent implements OnInit, OnDestroy {
 
     public selectClub(id: number) {
         this.editTransferForm.get('clubId').patchValue(id);
-    }
-
-    public selectPerson(id: number) {
-        this.editTransferForm.get('personId').patchValue(id);
     }
 
     public onSubmit(): void {
@@ -114,18 +107,6 @@ export class TransferEditComponent implements OnInit, OnDestroy {
             onLoan: [false, Validators.required],
             coming: [true, Validators.required],
         });
-
-        this.persons$ = this.editTransferForm.controls['personName'].valueChanges.pipe(
-            debounceTime(DEBOUNCE_TIME),
-            distinctUntilChanged(),
-            switchMap((value: string) => {
-                const filter = new PersonFilters();
-                filter.name = value;
-                return this.personService.getAll(filter);
-            }),
-            switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
-                return of(pagingClubs.results);
-            }));
 
         this.clubs$ = this.editTransferForm.controls['clubName'].valueChanges
             .pipe(

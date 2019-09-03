@@ -1,0 +1,11 @@
+<mat-form-field class="full-width">
+    <input matInput #selectInput placeholder="Игрок" [matAutocomplete]="person"
+     [value]="personName"
+     [formControl]="selectCtrl">
+    <mat-autocomplete #person="matAutocomplete">
+        <mat-option *ngFor="let person of persons$ | async" [value]="person.russianName"
+            (click)="value = person.id">
+            <span>{{ person.russianName }}</span>
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

@@ -17,6 +17,7 @@ import { BreadcrumbService } from '@shared/breadcrumb';
 import { INJURIES_ROUTE } from '@constants/routes.constants';
 import { InjuryService } from '@injuries/injury.service';
 import { INJURIES_RU } from '@constants/ru.constants';
+import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 
 @NgModule({
     imports: [
@@ -25,9 +26,9 @@ import { INJURIES_RU } from '@constants/ru.constants';
         MatNativeDateModule,
         MatDatepickerModule,
         MatTableModule,
-        MatAutocompleteModule,
         MatSortModule,
-        MatInputModule
+        MatInputModule,
+        SelectPersonFormFieldModule
     ],
     declarations: [
         InjuryEditComponent,
