@@ -1,29 +1,28 @@
 ﻿<hr class="full-width" />
 <div class="text-center">Добавление человека к матчу</div>
 <form class="full-width" role="form" [formGroup]="editMatchPersonForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="russianName" #mpInput>
-        <mat-autocomplete #person="matAutocomplete">
-            <mat-option *ngFor="let person of persons$ | async" [value]="person.russianName" (click)="selectPerson(person.id)">
-                <span>{{ person.russianName }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+    <select-person-form-field formControlName="personId"
+        [personName]="editMatchPersonForm.controls['russianName'].value" [type]="this.editMatchPersonForm.get('useType').value ? personTypeId : null"
+         focus="true">
+    </select-person-form-field>
     <mat-form-field class="full-width">
         <mat-select placeholder="Тип" formControlName="personType">
             <mat-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</mat-option>
         </mat-select>
-    </mat-form-field>       
-     <div class="full-width">
+    </mat-form-field>
+    <div class="full-width">
         <mat-checkbox color="warn" formControlName="useType">Фильтр по типу</mat-checkbox>
     </div>
     <div class="full-width text-center">
-        <button mat-raised-button color="warn" type="submit" class="full-width" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" class="full-width"
+            [disabled]="!editMatchPersonForm.valid">Сохранить</button>
     </div>
 </form>
 <div class="full-width">
-    <button mat-raised-button color="primary" class="full-width" (click)="isCreation = true" *ngIf="!isCreation">Создать человека</button>
-    <button mat-raised-button (click)="isCreation = false" class="full-width"  *ngIf="isCreation">Отменить создание</button>
+    <button mat-raised-button color="primary" class="full-width" (click)="isCreation = true" *ngIf="!isCreation">Создать
+        человека</button>
+    <button mat-raised-button (click)="isCreation = false" class="full-width" *ngIf="isCreation">Отменить
+        создание</button>
     <div class="full-width top20" *ngIf="isCreation">
         <person-edit [isFull]="false" (newPerson)="setPerson($event)"></person-edit>
     </div>

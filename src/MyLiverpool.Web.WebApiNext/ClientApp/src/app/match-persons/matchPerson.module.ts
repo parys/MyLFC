@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -9,14 +8,15 @@ import { PersonEditModule } from '@persons/shared';
 import { MatchPersonEditPanelComponent } from '@match-persons/matchPerson-edit-panel';
 import { MatchPersonService } from '@match-persons/matchPerson.service';
 import { MatchPersonPanelComponent } from '@match-persons/matchPerson-panel';
+import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 
 @NgModule({
     imports: [
         SharedModule,
         PersonEditModule,
-        MatAutocompleteModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        SelectPersonFormFieldModule
     ],
     declarations: [
         MatchPersonEditPanelComponent,

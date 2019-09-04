@@ -1,13 +1,8 @@
-﻿import { Component, OnInit, Input, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+﻿import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MatchPerson, Person, MatchPersonType } from '@domain/models';
 
-import { MatchPerson, Person, PersonFilters, MatchPersonType, PagedList } from '@domain/models';
-import { DEBOUNCE_TIME } from '@constants/app.constants';
-
-import { PersonService } from '@persons/person.service'; // todo
 import { MatchPersonService } from '../matchPerson.service';
 
 @Component({
@@ -15,7 +10,7 @@ import { MatchPersonService } from '../matchPerson.service';
     templateUrl: './matchPerson-edit-panel.component.html'
 })
 
-export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
+export class MatchPersonEditPanelComponent implements OnInit {
     public isEdit = false;
     public isCreation = false;
     @Input() public matchId: number;
@@ -27,13 +22,10 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
     @Output() public matchPerson = new EventEmitter<MatchPerson>();
     @Output() public exit = new EventEmitter();
     public editMatchPersonForm: FormGroup;
-    public persons$: Observable<Person[]>;
-    @ViewChild('mpInput', { static: true }) private elementRef: ElementRef;
 
     public types: MatchPersonType[];
 
     constructor(private matchPersonService: MatchPersonService,
-                private personService: PersonService,
                 private formBuilder: FormBuilder) {
     }
 
@@ -44,9 +36,6 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
             .subscribe(data => this.types = data);
     }
 
-    public ngAfterViewInit(): void {
-        this.focus();
-    }
 
     public enumSelector(definition: any) {
         return Object.keys(definition)
@@ -79,11 +68,6 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
     public setPerson(person: Person): void {
         this.editMatchPersonForm.get('personId').patchValue(person.id);
         this.editMatchPersonForm.get('russianName').patchValue(person.russianName);
-        this.focus();
-    }
-
-    public selectPerson(id: number): void {
-        this.editMatchPersonForm.get('personId').patchValue(id);
     }
 
     private emitNewPerson(matchPerson: MatchPerson): void {
@@ -97,10 +81,6 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
         return item;
     }
 
-    private focus(): void {
-        this.elementRef.nativeElement.focus();
-    }
-
     private checkExit(): void {
         this.currentCount++;
         if (this.currentCount === this.neededCount && this.neededCount !== 0) {
@@ -110,26 +90,11 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
 
     private initForm(): void {
         this.editMatchPersonForm = this.formBuilder.group({
-            russianName: [this.selectedMatchPerson ? this.selectedMatchPerson.russianName : '', Validators.required],
+            russianName: [this.selectedMatchPerson ? this.selectedMatchPerson.russianName : ''],
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : '', Validators.required],
             personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required],
             useType: [true]
         });
         this.isEdit = this.selectedMatchPerson !== undefined;
-
-        this.persons$ = this.editMatchPersonForm.controls['russianName'].valueChanges.pipe(
-            debounceTime(DEBOUNCE_TIME),
-            distinctUntilChanged(),
-            switchMap((value: string) => {
-                const filter = new PersonFilters();
-                filter.name = value;
-                if (this.editMatchPersonForm.get('useType').value) {
-                    filter.type = this.personTypeId;
-                }
-                return this.personService.getAll(filter);
-            }),
-            switchMap((pagingClubs: PagedList<Person>): Observable<Person[]> => {
-                return of(pagingClubs.results);
-            }));
     }
 }

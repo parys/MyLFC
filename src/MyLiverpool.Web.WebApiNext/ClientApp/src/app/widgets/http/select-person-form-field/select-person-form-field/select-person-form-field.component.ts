@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { FormControl, ControlValueAccessor } from '@angular/forms';
 
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
@@ -19,10 +19,14 @@ import { PersonService } from '@persons/person.service';
         ControlValueProvider(SelectPersonFormFieldComponent)
     ],
 })
-export class SelectPersonFormFieldComponent extends AbstractControlComponent<number> implements OnInit, ControlValueAccessor {
+export class SelectPersonFormFieldComponent extends AbstractControlComponent<number>
+    implements OnInit, AfterViewInit, ControlValueAccessor {
 
     @Input() personName: string;
-    @ViewChild('selectInput', { static: true }) selectInput: any;
+    @Input() focus = false;
+    @Input() type = null;
+    @ViewChild('selectInput', { static: true }) selectInput: ElementRef;
+
     public persons$: Observable<Person[]>;
     public selectCtrl = new FormControl();
 
@@ -37,6 +41,7 @@ export class SelectPersonFormFieldComponent extends AbstractControlComponent<num
             switchMap((value: string) => {
                 const filter = new PersonFilters();
                 filter.name = value;
+                filter.type = this.type;
                 return this.personService.getAll(filter);
             }),
             switchMap((pagingPersons: PagedList<Person>): Observable<Person[]> => {
@@ -48,5 +53,12 @@ export class SelectPersonFormFieldComponent extends AbstractControlComponent<num
         this.value = personId;
     }
 
+    public ngAfterViewInit(): void {
+        this.onFocus();
+    }
+
+    private onFocus(): void {
+        this.selectInput.nativeElement.focus();
+    }
 
 }
