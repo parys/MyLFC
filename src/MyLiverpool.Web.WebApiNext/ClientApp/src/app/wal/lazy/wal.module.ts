@@ -6,11 +6,13 @@ import { WAL_ROUTE, WAL_RU } from '@constants/index';
 
 import { WalMainComponent } from '@wal/lazy/wal-main';
 import { walRoutes } from '@wal/lazy/wal.routes';
+import { StaticPagesModule } from '@static-pages/static-pages.module';
 
 @NgModule({
     imports: [
-        SharedModule,
-        RouterModule.forChild(walRoutes)
+        SharedModule, // todo does it need
+        RouterModule.forChild(walRoutes),
+        StaticPagesModule
     ],
     declarations: [
         WalMainComponent

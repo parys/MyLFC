@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { LayoutService } from '@layout/layout.service'; // todo?
+import { StaticPagesService } from '@static-pages/static-pages.service'; 
 import { RolesCheckedService } from '@base/auth';
 
 @Component({
@@ -16,12 +16,12 @@ export class StaticPageComponent implements OnInit, OnDestroy {
     public content: string;
     public typeId: number;
 
-    constructor(private service: LayoutService,
+    constructor(private service: StaticPagesService,
                 public roles: RolesCheckedService,
                 private route: ActivatedRoute,
                 private cd: ChangeDetectorRef) {
 
-        this.typeId = +route.snapshot.data['type'];
+        this.typeId = +route.snapshot.data.type;
     }
 
     public ngOnInit(): void {

@@ -48,6 +48,7 @@
       "@seasons/*": [ "./app/seasons/*" ],
       "@shared/*": [ "./app/shared/*"],
       "@stadiums/*": [ "./app/stadiums/*" ],
+      "@static-pages/*": [ "./app/static-pages/*" ],
       "@static-pages-editor/*": [ "./app/static-pages-editor/*" ],
       "@transfers/*": [ "./app/transfers/*" ],
       "@users/*": [ "./app/users/*" ],

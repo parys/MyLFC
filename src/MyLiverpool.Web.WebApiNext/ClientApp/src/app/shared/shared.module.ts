@@ -28,7 +28,6 @@ import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 import { SignalRModule } from '@base/signalr';
 import { StorageModule, StorageService } from '@base/storage';
 import { AuthModule } from '@base/auth/auth.module';
-import { StaticPageComponent } from './static-page';
 import { PipesModule } from '@base/pipes';
 // import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
@@ -62,7 +61,6 @@ import { PipesModule } from '@base/pipes';
         BreadcrumbComponent,
      //   DeferLoadDirective,
         AdComponent,
-        StaticPageComponent,
     ],
     exports: [
         CommonModule,
@@ -73,7 +71,6 @@ import { PipesModule } from '@base/pipes';
         LoaderComponent,
         BreadcrumbComponent,
         AdComponent,
-        StaticPageComponent,
 
         MatBadgeModule,
         MatButtonModule,

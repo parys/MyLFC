@@ -1,1 +1,1 @@
-﻿export * from "./customTitleMeta.service";
+﻿export * from './customTitleMeta.service';

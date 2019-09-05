@@ -13,7 +13,7 @@ import { ResetPasswordComponent } from './resetPassword';
 import { UnconfirmedEmailComponent } from './unconfirmedEmail';
 import { AccountValidators } from './account.validators';
 import { AccountCoreModule } from '../core';
-import { RecaptchaModule } from '@shared/modules';
+import { RecaptchaModule } from '@widgets/recaptcha';
 import { BreadcrumbService } from '@shared/breadcrumb';
 import { AccountService } from './account.service';
 import { ACCOUNT_ROUTE } from '@constants/index';

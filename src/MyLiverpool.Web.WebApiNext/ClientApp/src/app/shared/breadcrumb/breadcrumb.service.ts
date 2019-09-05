@@ -131,18 +131,6 @@ export class BreadcrumbService {
 
         //  this.addFriendlyNameForRoute("/players", "Игроки");
 
-        this.addFriendlyNameForRoute('/about', 'О нас');
-        this.addFriendlyNameForRoute('/aboutClub', 'О клубе');
-        this.addFriendlyNameForRoute('/chat', 'Чат');
-        this.addFriendlyNameForRoute('/clubHistory', 'История клуба');
-        this.addFriendlyNameForRoute('/cooperation', 'Сотрудничество');
-        this.addFriendlyNameForRoute('/copyright', 'О перепечатке информации');
-        this.addFriendlyNameForRoute('/fantasy', 'Fantasy Лига MyLFC');
-        this.addFriendlyNameForRoute('/instructions', 'Инструкции');
-        this.addFriendlyNameForRoute('/job', 'Работа на сайте');
-        this.addFriendlyNameForRoute('/plans', 'Планы');
-        this.addFriendlyNameForRoute('/rules', 'Правила');
-
         this.addFriendlyNameForRoute('/editPage', 'Редактирование страницы');
         this.hideRouteRegex('^/editPage/[0-9]+$');
 

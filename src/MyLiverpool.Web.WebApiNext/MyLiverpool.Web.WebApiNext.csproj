@@ -62,6 +62,7 @@
     <Folder Include="ClientApp\src\app\persons\pages\squad\" />
     <Folder Include="ClientApp\src\app\persons\pages\stuff-list\" />
     <Folder Include="ClientApp\src\app\pms\core\" />
+    <Folder Include="ClientApp\src\app\static-pages\pages\static-page\" />
     <Folder Include="ClientApp\src\app\widgets\http\select-person-form-field\select-person-form-field\" />
     <Folder Include="ClientApp\src\app\wishes\pages\wish-edit\" />
     <Folder Include="ClientApp\src\app\wishes\pages\wish-list\" />

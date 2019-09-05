@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule, BreadcrumbService } from '@shared/index';
-import { RecaptchaModule } from '@shared/modules';
+import { RecaptchaModule } from '@widgets/recaptcha';
 import { WISHES_ROUTE } from '@constants/routes.constants';
 import { WISHES_RU } from '@constants/ru.constants';
 
