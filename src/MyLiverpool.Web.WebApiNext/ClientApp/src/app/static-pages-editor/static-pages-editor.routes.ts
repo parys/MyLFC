@@ -4,7 +4,7 @@ import { PageEditorComponent } from './page-editor';
 import { RoleGuard, RolesEnum } from '@base/auth';
 import { EDITING_RU } from '@constants/ru.constants';
 
-export const staticPageRoutes: Routes = [
+export const staticPagesEditorRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/' },
     {
         path: ':id',

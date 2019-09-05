@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription } from 'rxjs';
 
-import { StaticPageService } from '../staticPage.service';
+import { StaticPagesEditorService } from '@static-pages-editor/static-pages-editor.service';
 import { HelperType, StaticPage } from '@domain/models';
 
 // import "tinymce/plugins/fullscreen/plugin.min.js";
@@ -29,7 +29,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     public content: string;
 
 
-    constructor(private service: StaticPageService,
+    constructor(private service: StaticPagesEditorService,
                 private cd: ChangeDetectorRef,
                 private route: ActivatedRoute,
                 private snackBar: MatSnackBar,
@@ -39,7 +39,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.params.subscribe(data => {
-                this.id = +data['id'];
+                this.id = +data.id;
                 if (this.id > 0) {
                     this.title = HelperType[this.id];
                     this.sub2 = this.service.getValue(this.id).subscribe((pageData: string) => {
@@ -66,7 +66,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const pageModel = new StaticPage();
-        pageModel.value = this.editPageForm.controls['content'].value;
+        pageModel.value = this.editPageForm.controls.content.value;
         if (pageModel.value === '&nbsp;') { pageModel.value = ''; }
         this.service.updateValue(this.id, pageModel).subscribe(data => {
             if (data) {

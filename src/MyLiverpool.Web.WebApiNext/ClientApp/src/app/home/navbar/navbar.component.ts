@@ -23,7 +23,7 @@ export class NavbarComponent {
     }
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: Object) {
+        @Inject(PLATFORM_ID) private platformId: object) {
         if (isPlatformBrowser(this.platformId)) {
             this.sizeChange('');
         }

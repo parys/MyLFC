@@ -2,25 +2,25 @@
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/index';
-import { staticPageRoutes } from './staticPage.routes';
+import { staticPagesEditorRoutes } from './static-pages-editor.routes';
 import { EditorModule } from '@editor/index';
 import { PageEditorComponent } from './page-editor';
-import { StaticPageService } from './staticPage.service';
+import { StaticPagesEditorService } from './static-pages-editor.service';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forChild(staticPageRoutes),
+        RouterModule.forChild(staticPagesEditorRoutes),
         EditorModule
     ],
     declarations: [
         PageEditorComponent
     ],
     providers: [
-        StaticPageService
+        StaticPagesEditorService
     ]
 })
-export class StaticPageModule {
+export class StaticPagesEditorModule {
     constructor(
 //        private breadcrumbService: BreadcrumbService
     ) {

@@ -7,7 +7,7 @@ import { HELPERS_ROUTE } from '@constants/routes.constants';
 import { StaticPage } from '@domain/models';
 
 @Injectable()
-export class StaticPageService {
+export class StaticPagesEditorService {
     private actionHelperUrl: string = HELPERS_ROUTE + '/';
 
     constructor(private http: HttpWrapper) {
