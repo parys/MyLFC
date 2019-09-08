@@ -16,7 +16,6 @@ import { LayoutModule } from '@layout/layout.module';
 import { MaterialCoreModule } from '@materials/core';
 import { SharedModule, CustomTitleMetaService } from './shared';
 import { AccountCoreModule } from '@accounts/core';
-import { TransferCoreModule } from '@transfers/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { PipesModule } from './base/pipes';
@@ -58,7 +57,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         //  ForumModule,
         ChatModule,
         LayoutModule,
-        TransferCoreModule,
         MaterialCoreModule,
      //   PollCoreModule,
         AppRoutingModule,

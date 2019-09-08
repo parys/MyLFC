@@ -7,9 +7,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { MatchService } from '@matches/match.service';
 import { SeasonService,  } from '@seasons/core';
-import { Match, MatchType, Stadium, StadiumFilters, Club, ClubFilters, Season, PagedList } from '@domain/models';
+import { Match, MatchType, Stadium, StadiumFilters, Season, PagedList } from '@domain/models';
 import { StadiumService } from '@stadiums/core';
-import { ClubService } from '@clubs/core';
 import { MATCHES_ROUTE } from '@constants/routes.constants';
 import { DEBOUNCE_TIME } from '@constants/app.constants';
 
@@ -23,7 +22,6 @@ export class MatchEditComponent implements OnInit {
     public editMatchForm: FormGroup;
     public types: MatchType[];
     public seasons: Season[];
-    public clubs$: Observable<Club[]>;
     public stadiums$: Observable<Stadium[]>;
 
     constructor(private matchService: MatchService,
@@ -31,8 +29,7 @@ export class MatchEditComponent implements OnInit {
                 private stadiumService: StadiumService,
                 private router: Router,
                 private formBuilder: FormBuilder,
-                private seasonService: SeasonService,
-                private clubService: ClubService) {
+                private seasonService: SeasonService) {
     }
 
     public ngOnInit(): void {
@@ -58,10 +55,6 @@ export class MatchEditComponent implements OnInit {
 
     public selectStadium(id: number) {
         this.editMatchForm.get('stadiumId').patchValue(id);
-    }
-
-    public selectClub(id: number) {
-        this.editMatchForm.get('clubId').patchValue(id);
     }
 
     private parse(data: Match): void {
@@ -108,18 +101,5 @@ export class MatchEditComponent implements OnInit {
             switchMap((pagingStadiums: PagedList<Stadium>): Observable<Stadium[]> => {
                 return of(pagingStadiums.results);
             }));
-
-        this.clubs$ = this.editMatchForm.controls.clubName.valueChanges.pipe(
-            debounceTime(DEBOUNCE_TIME),
-            distinctUntilChanged(),
-            switchMap((value: string): Observable<PagedList<Club>> => {
-                const filter = new ClubFilters();
-                filter.name = value;
-                return this.clubService.getAll(filter);
-            }),
-            switchMap((pagingClubs: PagedList<Club>): Observable<Club[]> => {
-                return of(pagingClubs.results);
-            })
-        );
     }
 }

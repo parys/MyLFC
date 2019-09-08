@@ -1,13 +1,6 @@
 ﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editMatchForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Cоперник" [matAutocomplete]="club" formControlName="clubName">
-        <mat-autocomplete #club="matAutocomplete">
-            <mat-option *ngFor="let club of clubs$ | async" [value]="club.name" (click)="selectClub(club.id)">
-                <span>{{ club.name }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-
+    <select-club-form-field formControlName="clubId" [clubName]="editMatchForm.controls['clubName'].value">
+    </select-club-form-field>
     <mat-form-field class="full-width">
         <mat-select placeholder="Категория" formControlName="typeId">
             <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></mat-option>

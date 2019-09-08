@@ -10,13 +10,15 @@ import { notificationRoutes } from './notification.routes';
 import { NotificationListComponent } from './pages/notification-list';
 import { NotificationService } from './notification.service';
 import { PipesModule } from '@base/pipes';
+import { NotificationMaterialModule } from './notification-material.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(notificationRoutes),
         SharedModule,
-        PipesModule
+        PipesModule,
+        NotificationMaterialModule
     ],
     declarations: [
         NotificationListComponent

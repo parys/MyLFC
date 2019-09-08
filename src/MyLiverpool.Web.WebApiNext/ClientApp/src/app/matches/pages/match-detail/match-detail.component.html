@@ -43,12 +43,12 @@
     <mat-tab-group mat-stretch-tabs color="warn" [selectedIndex]="item.scoreHome != null ? 1 : 0">
         <mat-tab label="Состав" isActive="item.scoreHome == null">
             <ng-template matTabContent>
-                <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
+                <match-person-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></match-person-panel>
             </ng-template>
         </mat-tab>
         <mat-tab label="События" >
             <ng-template matTabContent>
-                <matchEvent-match-panel [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
+                <match-event-match-panel [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></match-event-match-panel>
                 <button mat-raised-button class="full-width" (click)="ngOnInit()">Обновить события матча</button>
             </ng-template>
         </mat-tab>

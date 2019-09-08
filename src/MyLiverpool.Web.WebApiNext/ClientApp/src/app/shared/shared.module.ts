@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
@@ -31,6 +30,17 @@ import { AuthModule } from '@base/auth/auth.module';
 import { PipesModule } from '@base/pipes';
 // import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
+const mat = [
+    MatBadgeModule,
+    MatCardModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+];
+
 @NgModule({
     imports: [
         CommonModule,
@@ -41,19 +51,7 @@ import { PipesModule } from '@base/pipes';
         StorageModule,
         AuthModule, // todo temporary?
         PipesModule, // todo ?
-
-        MatBadgeModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDialogModule,
-        MatIconModule,
-        MatMenuModule,
-        MatProgressBarModule,
-        MatSnackBarModule,
-        MatPaginatorModule,
-        MatTooltipModule,
-        MatSidenavModule
-
+            ...mat
     ],
     declarations: [
         DeleteDialogComponent,
@@ -72,17 +70,7 @@ import { PipesModule } from '@base/pipes';
         BreadcrumbComponent,
         AdComponent,
 
-        MatBadgeModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDialogModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatMenuModule,
-        MatPaginatorModule,
-        MatSnackBarModule,
-        MatTooltipModule,
-        MatSidenavModule
+        ...mat
     ],
     providers: [
         LoaderService,

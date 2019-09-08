@@ -10,12 +10,14 @@ import { FAQ_RU } from '@constants/ru.constants';
 import { faqItemRoutes } from '@faq/faq.routes';
 import { FaqComponent } from '@faq/faq';
 import { FaqService } from '@faq/faq.service';
+import { FaqMaterialModule } from '@faq/faq-material.module';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(faqItemRoutes),
-        PipesModule
+        PipesModule,
+        FaqMaterialModule
     ],
     declarations: [
         FaqComponent,

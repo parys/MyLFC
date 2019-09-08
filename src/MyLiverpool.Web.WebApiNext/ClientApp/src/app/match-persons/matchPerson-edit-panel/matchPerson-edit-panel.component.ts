@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { MatchPerson, Person, MatchPersonType } from '@domain/models';
 
-import { MatchPersonService } from '../matchPerson.service';
+import { MatchPersonService } from '../match-person.service';
 
 @Component({
-    selector: 'matchPerson-edit-panel',
+    selector: 'match-person-edit-panel',
     templateUrl: './matchPerson-edit-panel.component.html'
 })
 

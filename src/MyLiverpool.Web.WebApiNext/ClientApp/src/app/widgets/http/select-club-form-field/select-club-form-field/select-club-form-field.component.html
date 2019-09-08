@@ -1,0 +1,11 @@
+<mat-form-field class="full-width">
+    <input matInput #selectClub placeholder="Клуб" [matAutocomplete]="club"
+     [value]="clubName"
+     [formControl]="clubCtrl">
+    <mat-autocomplete #club="matAutocomplete">
+        <mat-option *ngFor="let club of clubs$ | async" [value]="club.name"
+            (click)="value = club.id">
+            <span>{{ club.name }}</span>
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

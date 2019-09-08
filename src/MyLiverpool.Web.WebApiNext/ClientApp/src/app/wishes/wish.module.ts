@@ -11,14 +11,14 @@ import { WISHES_RU } from '@constants/ru.constants';
 import { WishListComponent, WishEditComponent } from '@wishes/pages';
 import { WishService } from '@wishes/wish.service';
 import { wishRoutes } from '@wishes/wish.routes';
+import { WishMaterialModule } from './wish-material.module';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(wishRoutes),
         RecaptchaModule,
-        MatSelectModule,
-        MatInputModule
+        WishMaterialModule
     ],
     declarations: [
         WishEditComponent,

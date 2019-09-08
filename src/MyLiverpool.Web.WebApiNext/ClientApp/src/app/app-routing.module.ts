@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { homeRoutes } from './home/home.routes';
 import {
     ADMIN_ROUTE,
     WISHES_ROUTE,
@@ -100,11 +99,18 @@ const staticPageRoutes: Routes = [
 ];
 
 const routes: Routes = [
-    ...homeRoutes,
-    ...staticPageRoutes,
     {
-        path: 'editPage',
-        loadChildren: () => import('./static-pages-editor/static-pages-editor.module').then(m => m.StaticPagesEditorModule)
+        path: '',
+        component: MaterialHomeComponent,
+
+        data: {
+            title: TITLE_RU,
+            // tslint:disable-next-line:max-line-length
+            keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение',
+            // tslint:disable-next-line:max-line-length
+            description: 'Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.',
+        },
+        runGuardsAndResolvers: 'always'
     },
     {
         path: ACCOUNT_ROUTE,
@@ -128,7 +134,7 @@ const routes: Routes = [
     },
     {
         path: CLUBS_ROUTE,
-        loadChildren: () => import('./clubs/lazy/club.module').then(m => m.ClubModule)
+        loadChildren: () => import('./clubs/club.module').then(m => m.ClubModule)
     },
     {
         path: FAQ_ROUTE,
@@ -196,7 +202,7 @@ const routes: Routes = [
     },
     {
         path: TRANSFERS_ROUTE,
-        loadChildren: () => import('./transfers/lazy/transfer.module').then(m => m.TransferModule)
+        loadChildren: () => import('./transfers/transfer.module').then(m => m.TransferModule)
     },
     {
         path: USERS_ROUTE,
@@ -210,18 +216,10 @@ const routes: Routes = [
         path: WISHES_ROUTE,
         loadChildren: () => import('./wishes/wish.module').then(m => m.WishModule)
     },
+    ...staticPageRoutes,
     {
-        path: '',
-        component: MaterialHomeComponent,
-
-        data: {
-            title: TITLE_RU,
-            // tslint:disable-next-line:max-line-length
-            keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение',
-            // tslint:disable-next-line:max-line-length
-            description: 'Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.',
-        },
-        runGuardsAndResolvers: 'always'
+        path: 'editPage',
+        loadChildren: () => import('./static-pages-editor/static-pages-editor.module').then(m => m.StaticPagesEditorModule)
     },
     { path: '**', redirectTo: '/' }
 ];

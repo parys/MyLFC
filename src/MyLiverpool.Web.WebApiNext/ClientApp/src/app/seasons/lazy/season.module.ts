@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '@shared/index';
+import { BreadcrumbService } from '@shared/breadcrumb';
+import { CALENDAR_RU, SEASONS_ROUTE, STATISTICS_RU } from '@constants/index';
+import { PipesModule } from '@base/pipes';
+
 import { seasonRoutes } from '@seasons/lazy/season.routes';
 import { SeasonCoreModule } from '@seasons/core';
 import { SeasonCalendarComponent } from '@seasons/lazy/season-calendar';
@@ -10,18 +13,15 @@ import { SeasonEditComponent } from '@seasons/lazy/season-edit';
 import { SeasonListComponent } from '@seasons/lazy/season-list';
 import { SeasonStatisticsComponent } from '@seasons/lazy/season-statistics';
 import { SeasonStatisticsItemComponent } from '@seasons/lazy/season-statistics-item';
-import { BreadcrumbService } from '@shared/breadcrumb';
-import { CALENDAR_RU, SEASONS_ROUTE, STATISTICS_RU } from '@constants/index';
-
-import { PipesModule } from '@base/pipes';
+import { SeasonMaterialModule } from './season-material.module';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(seasonRoutes),
         SeasonCoreModule,
-        MatSelectModule,
-        PipesModule
+        PipesModule,
+        SeasonMaterialModule
     ],
     declarations: [
         SeasonCalendarComponent,

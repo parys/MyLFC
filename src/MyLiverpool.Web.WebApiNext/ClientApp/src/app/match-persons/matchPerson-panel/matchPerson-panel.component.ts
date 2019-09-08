@@ -6,10 +6,10 @@ import { DeleteDialogComponent } from '@shared/index';
 import { RolesCheckedService } from '@base/auth';
 import { MatchPerson } from '@domain/models';
 
-import { MatchPersonService } from '@match-persons/matchPerson.service';
+import { MatchPersonService } from '@match-persons/match-person.service';
 
 @Component({
-    selector: 'matchPerson-panel',
+    selector: 'match-person-panel',
     templateUrl: './matchPerson-panel.component.html',
     styleUrls: ['./matchPerson-panel.component.scss']
 })

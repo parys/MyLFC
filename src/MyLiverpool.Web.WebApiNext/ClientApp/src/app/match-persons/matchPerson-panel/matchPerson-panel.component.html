@@ -168,13 +168,13 @@
     <div *ngIf="isEdit">
         <button mat-raised-button (click)="cancelMatchPersonEdit()">Отменить редактирование</button>
         <div class="full-width top20">
-            <matchPerson-edit-panel [matchId]="matchId"
+            <match-person-edit-panel [matchId]="matchId"
                                     [selectedMatchPerson]="selectedMatchPerson"
                                     [currentCount]="currentCount"
                                     [neededCount]="neededCount"
                                     [personTypeId]="personTypeId"
                                     [typeId]="selectedType"
-                                    (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
+                                    (matchPerson)="updateMatchPerson($event)"></match-person-edit-panel>
         </div>
     </div>
 </div>

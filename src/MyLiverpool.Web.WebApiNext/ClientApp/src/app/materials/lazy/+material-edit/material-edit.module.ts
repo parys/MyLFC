@@ -13,6 +13,7 @@ import { materialEditRoutes } from '@materials/lazy/+material-edit/material-edit
 import { EditorModule } from '@editor/index';
 import { MaterialGuardDialogComponent } from '@materials/lazy/+material-edit/material-guard-dialog';
 import { MaterialLeaveGuard } from './leave-guard/leave-guard.service';
+import { MaterialEditMaterialModule } from './material-edit-material.module';
 
 @NgModule({
     imports: [
@@ -22,9 +23,7 @@ import { MaterialLeaveGuard } from './leave-guard/leave-guard.service';
         MaterialCoreModule,
         MaterialCategoryCoreModule,
         ImageCoreModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatInputModule
+        MaterialEditMaterialModule
     ],
     declarations: [
         MaterialEditComponent,

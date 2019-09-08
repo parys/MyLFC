@@ -1,18 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTabsModule } from '@angular/material/tabs';
 
-import { MatchEventModule } from '@match-events/index';
+import { MatchEventsModule } from '@match-events/match-events.module';
 import { MatchPersonModule } from '@match-persons/index';
 import { CommentSharedModule } from '@comments/shared';
 import { SharedModule } from '@shared/index';
-import { ClubCoreModule } from '@clubs/core';
 import { StadiumCoreModule } from '@stadiums/core';
 import { SeasonCoreModule } from '@seasons/index';
 import { BreadcrumbService } from '@shared/breadcrumb';
@@ -25,25 +17,21 @@ import { MatchEditComponent } from '@matches/pages/match-edit';
 import { MatchListComponent } from '@matches/pages/match-list';
 import { MatchDetailComponent } from '@matches/pages/match-detail';
 import { matchRoutes } from '@matches/match.routes';
+import { MatchMaterialModule } from '@matches/match-material.module';
+import { SelectClubFormFieldModule } from '@widgets/http/select-club-form-field';
 
 @NgModule({
     imports: [
         CommentSharedModule,
         SharedModule,
-        MatchEventModule,
+        MatchEventsModule,
         RouterModule.forChild(matchRoutes),
         MatchPersonModule,
-        ClubCoreModule,
         SeasonCoreModule,
         StadiumCoreModule,
-        MatNativeDateModule,
-        MatDatepickerModule,
-        MatAutocompleteModule,
-        MatSelectModule,
-        MatSlideToggleModule,
-        MatInputModule,
-        MatTabsModule,
-        PipesModule
+        PipesModule,
+        MatchMaterialModule,
+        SelectClubFormFieldModule
     ],
     declarations: [
         MatchEditComponent,
