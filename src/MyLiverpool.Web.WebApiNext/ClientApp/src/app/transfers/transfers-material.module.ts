@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
 
 const materialModules = [
     MatIconModule,
@@ -20,6 +21,7 @@ const materialModules = [
     MatSlideToggleModule,
     MatSortModule,
     MatInputModule,
+    MatCardModule
 ];
 
 @NgModule({

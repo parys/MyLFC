@@ -4,7 +4,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { PersonListComponent, SquadComponent, StuffListComponent, PersonDetailComponent } from '@persons/pages';
 
@@ -26,6 +27,8 @@ import { PipesModule } from '@base/pipes';
         MatTableModule,
         MatSelectModule,
         MatSortModule,
+        MatCardModule,
+        MatButtonModule,
         PipesModule
     ],
     declarations: [

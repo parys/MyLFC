@@ -9,7 +9,6 @@ import localeRU from '@angular/common/locales/ru';
 
 import { BreadcrumbService } from '@shared/breadcrumb';
 import { AppComponent } from './app.component';
-// import { ForumModule } from "./forum";
 import { ChatModule } from './chat';
 import * as home from './home';
 import { LayoutModule } from '@layout/layout.module';
@@ -21,7 +20,6 @@ import { AppMaterialModule } from './app-material.module';
 import { PipesModule } from './base/pipes';
 
 registerLocaleData(localeRU);
-// import { PollCoreModule } from "./poll";
 
 declare var Hammer: any;
 
@@ -54,11 +52,9 @@ export class MyHammerConfig extends HammerGestureConfig {
         SharedModule,
         HttpClientModule,
         AccountCoreModule,
-        //  ForumModule,
         ChatModule,
         LayoutModule,
         MaterialCoreModule,
-     //   PollCoreModule,
         AppRoutingModule,
         AppMaterialModule,
         PipesModule

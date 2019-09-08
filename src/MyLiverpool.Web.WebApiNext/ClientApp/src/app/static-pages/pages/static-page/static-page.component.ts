@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { RolesCheckedService } from '@base/auth';
 export class StaticPageComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public content: string;
-    public typeId: number;
+    @Input()public typeId: number;
 
     constructor(private service: StaticPagesService,
                 public roles: RolesCheckedService,

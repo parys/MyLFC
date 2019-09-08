@@ -3,6 +3,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 
 import { SharedModule } from '@shared/index';
@@ -17,7 +18,8 @@ import { PersonService } from '@persons/person.service';
         MatInputModule,
         MatNativeDateModule,
         MatDatepickerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatButtonModule
     ],
     declarations: [
         PersonEditComponent

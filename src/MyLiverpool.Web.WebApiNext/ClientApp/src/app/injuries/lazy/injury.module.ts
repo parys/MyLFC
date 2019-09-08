@@ -6,6 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 import { InjuryEditComponent } from '@injuries/lazy/injury-edit';
 import { InjuryListComponent } from '@injuries/lazy/injury-list';
@@ -28,6 +29,7 @@ import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-fi
         MatTableModule,
         MatSortModule,
         MatInputModule,
+        MatButtonModule,
         SelectPersonFormFieldModule
     ],
     declarations: [

@@ -12,6 +12,7 @@ import { StadiumCoreModule } from '@stadiums/core';
 import { BreadcrumbService } from '@shared/breadcrumb';
 import { STADIUMS_ROUTE } from '@constants/routes.constants';
 import { STADIUMS_RU } from '@constants/ru.constants';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { STADIUMS_RU } from '@constants/ru.constants';
         StadiumCoreModule,
         MatInputModule,
         MatSortModule,
-        MatTableModule
+        MatTableModule,
+        MatButtonModule
     ],
     declarations: [
         StadiumEditComponent,
