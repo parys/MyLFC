@@ -2,7 +2,6 @@
 import { MaterialDetailComponent } from './material-detail';
 import { MaterialListComponent } from './material-list';
 import { EDIT_ROUTE } from '@constants/routes.constants';
-import { CanLoadEditMaterial } from './canLoadEdit.guard';
 
 export const materialRoutes: Routes = [
     {
@@ -21,8 +20,7 @@ export const materialRoutes: Routes = [
             },
             {
                 path: EDIT_ROUTE,
-                loadChildren: () => import('./+material-edit/material-edit.module').then(m => m.MaterialEditModule),
-                canLoad: [CanLoadEditMaterial]
+                loadChildren: () => import('./+material-edit/material-edit.module').then(m => m.MaterialEditModule)
             }
         ]
     }

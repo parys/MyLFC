@@ -9,7 +9,6 @@ import { BreadcrumbService } from '@shared/breadcrumb';
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from '@constants/index';
 import { PipesModule } from '@base/pipes';
 
-import { CanLoadEditMaterial } from '@materials/lazy/canLoadEdit.guard';
 import { MaterialListComponent } from '@materials/lazy/material-list';
 import { materialRoutes } from '@materials/lazy/material.routes';
 import { MaterialCoreModule } from '@materials/core/material-core.module';
@@ -29,7 +28,6 @@ import { MaterialDetailComponent } from '@materials/lazy/material-detail';
         MaterialListComponent
     ],
     providers: [
-        CanLoadEditMaterial
     ]
 })
 export class MaterialModule {

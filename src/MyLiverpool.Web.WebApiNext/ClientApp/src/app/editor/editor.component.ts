@@ -3,8 +3,9 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { Observable, ReplaySubject } from 'rxjs';
 
+import { LazyLoadingModuleService } from './lazy-loading-module.service';
+
 // import { Editor, Settings } from "tinymce";
-import { LazyLoadingLibraryService } from './lazyLoadingLibrary.service';
 
 declare let tinymce: any;
 
@@ -27,41 +28,28 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     @Input() public height = 200;
     public elementId: string = Math.random().toString(36).substring(2);
     private elementLoaded: ReplaySubject<any> = new ReplaySubject<any>();
-    //   public tinymce: EditorManager = new EditorManager();
     private editor: any; // Editor;
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
-    constructor(
-        private lazyService: LazyLoadingLibraryService,
-        private zone: NgZone) {
-       // console.warn("tiny ctor " + this.elementId);
-        // if (!this.isTinyDefined()) {
-        //    console.warn("tiny ctor-2 " + this.elementId);
-        //    console.warn("tiny ctor-3 " + this.elementId);
-        // }
-        // console.warn("tiny ctor-4 " + this.elementId);
+    constructor(private lazy: LazyLoadingModuleService,
+                private zone: NgZone) {
+
     }
 
     public ngAfterViewInit(): void {
-      //  console.warn("ngAfterViewInit start " + this.elementId);
-        this.lazyService.loadJs('./scripts.js').subscribe(_ => {
-       //     console.warn("ngAfterViewInit middle " + this.elementId);
-            this.initTiny();
-        });
-  //      console.warn("ngAfterViewInit end " + this.elementId);
+         this.lazy.load().subscribe(_ => {
+             this.initTiny();
+         });
     }
 
     public setFocus() {
-      //  console.warn("setFocus start " + this.elementId);
         this.isTinyDefinedO().subscribe(_ => {
             if (tinymce.editors && tinymce.editors[this.elementId]) {
-       //         console.warn("setFocus middle " + this.elementId);
                 tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
                 tinymce.editors[this.elementId].selection.collapse(false);
                 tinymce.editors[this.elementId].focus();
             }
         });
-    //    console.warn("setFocus end " + this.elementId);
     }
 
     public get value(): string {
@@ -69,9 +57,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     public set value(value: string) {
-        //     console.warn("value start " + this.elementId);
         this.isTinyDefinedO().subscribe(_ => {
-            //         console.warn("value mid " + this.elementId);
             this.zone.run(() => {
                 if (value !== this._value) {
                     this._value = value;
@@ -84,9 +70,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     public ngOnDestroy(): void {
-    //    console.warn("ngOnDestroy start " + this.elementId);
         if (this.isTinyDefinedO() && this.editor) {
-     //       console.warn("ngOnDestroy middle " + this.elementId);
             tinymce.remove(this.editor);
         }
     }
@@ -140,7 +124,6 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     private initTiny(): void {
-    //    console.warn("initTiny start " + this.elementId);
         const settings1 // : Settings
             = {
                 autoresize_overflow_padding: 0,
@@ -191,7 +174,6 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     private isTinyDefinedO(): Observable<any> {
- //       console.info("isTinyDefinedO " + this.elementId);
         return this.elementLoaded.asObservable();
     }
 }
