@@ -22,7 +22,7 @@ import { CommentService } from '@comments/comment.service';
     selector: 'comment-section',
     templateUrl: './comment-section.component.html',
     styleUrls: ['./comment-section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChecked {
     private prevHeight = 0;
@@ -38,14 +38,14 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
     @Input() public canCommentary = false;
 
     constructor(private commentService: CommentService,
-                private cd: ChangeDetectorRef,
-                public roles: RolesCheckedService,
-                private route: ActivatedRoute,
-                private renderer: Renderer2,
-                public element: ElementRef,
-                private router: Router,
-                private formBuilder: FormBuilder,
-                private signalRService: SignalRService) {
+        private cd: ChangeDetectorRef,
+        public roles: RolesCheckedService,
+        private route: ActivatedRoute,
+        private renderer: Renderer2,
+        public element: ElementRef,
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {
@@ -53,52 +53,54 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
             message: ['', Validators.compose([
                 Validators.required, Validators.minLength(3)])]
         });
+        this.type = this.type ? this.type : 3;
+
+        // todo adding comment immediately
+        this.signalRService.newComment.subscribe((data: any) => {
+            console.log('1');
+            if (data.matchId === this.matchId || data.materialId === this.materialId) {
+                const index = this.items.findIndex(x => x.id === data.id);
+                if (index !== -1) {
+                    this.items[index] = data;
+                } else {
+                    if (data.parentId == null) {
+                        this.items.push(data);
+                    } else {
+                        this.putComment(data, this.items);
+                    }
+                }
+                this.cd.markForCheck();
+            } else {
+                console.log('SKIPPED');
+            }
+        });
+
+        this.signalRService.lastCommentsSubject.subscribe((data: Comment) => console.warn('ALARM'));
         this.commentAddForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         }
         );
-        this.type = this.type ? this.type : 3;
+    }
 
-        // todo adding comment immediately
-        /*   this.signalRService.lastCommentsSubject.subscribe((data: Comment) => {
-               if (data.matchId == this.matchId || data.materialId == this.materialId) {
-                   const index = this.items.findIndex(x => x.id === data.id);
-                   if (index !== -1) {
-                       this.items[index] = data;
-                   } else {
-                       if (data.parentId == null) {
-                           this.items.push(data);
-                       } else {
-                           const parentIndex = this.items.findIndex(x => x.id === data.parentId);
-                           if (parentIndex !== -1) {
-                               const childIndex = this.items[parentIndex].children.findIndex(x => x.id === data.id);
-                               if (childIndex !== -1) {
-                                   this.items[parentIndex].children[childIndex] = data;
-                               } else {
-                                   this.items[parentIndex].children.push(data);
-                               }
-                           } else {
-                               for (var i = 0; i < this.items.length; i++) {
-                                   for (var j = 0; j < this.items[i].children.length; j++) {
-                                       const parentIndex = this.items[i].children.findIndex(x => x.id === data.parentId);
-                                       if (parentIndex !== -1) {
-                                           const childIndex = this.items[parentIndex].children.findIndex(x => x.id === data.id);
-                                           if (childIndex !== -1) {
-                                               this.items[parentIndex].children[childIndex] = data;
-                                           } else {
-                                               this.items[parentIndex].children.push(data);
-                                           }
-                                       }
-                                   }
-                               }
-                           }
-                       }
-                   }
-                   this.cd.markForCheck();
-               } else {
-                   console.log("SKIPPED");
-               }
-           });*/
+    private putComment(data: Comment, items: Comment[]): boolean {
+        const parentIndex = items.findIndex(x => x.id === data.parentId);
+        if (parentIndex !== -1) {
+            const childIndex = items[parentIndex].children.findIndex(x => x.id === data.id);
+            if (childIndex !== -1) {
+                items[parentIndex].children[childIndex] = data;
+            } else {
+                items[parentIndex].children.push(data);
+            }
+            return true;
+        } else {
+            // tslint:disable-next-line:prefer-for-of
+            for (let i = 0; i < items.length; i++) {
+                if (this.putComment(data, items[i].children)) {
+                    break;
+                }
+            }
+        }
+        return false;
     }
 
     // todo research
@@ -184,7 +186,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
             this.commentService
                 .getAllByMatch(filters)
                 .subscribe(data => this.parsePageable(data),
-                null,
+                    null,
                     () => {
                         this.cd.markForCheck();
                     });

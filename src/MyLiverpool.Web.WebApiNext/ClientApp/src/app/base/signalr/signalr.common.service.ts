@@ -19,6 +19,7 @@ export class SignalRService {
     public newPm: Subject<Pm> = new Subject<Pm>();
     public newNotify: Subject<Notification> = new Subject<Notification>();
     public readNotify: Subject<number> = new Subject<number>();
+    public newComment: Subject<Comment> = new Subject<Comment>();
 
     constructor(private storage: StorageService,
                 @Inject(PLATFORM_ID) private platformId: object,
@@ -60,6 +61,10 @@ export class SignalRService {
         });
         this.hubConnection.on('updateComment', (data: Comment) => {
             this.lastCommentsSubject.next(data);
+        });
+        this.hubConnection.on('newComment', (data: Comment) => {
+            console.log(data);
+            this.newComment.next(data);
         });
         if (token) {
             this.hubConnection.on('readPm',

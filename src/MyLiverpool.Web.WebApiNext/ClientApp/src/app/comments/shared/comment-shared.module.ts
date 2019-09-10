@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { SharedModule } from '@shared/index';
 import { EditorModule } from '@editor/index';
@@ -16,7 +17,8 @@ import { CommentSectionComponent } from '@comments/shared/comment-section';
         EditorModule,
         RouterModule,
         PipesModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonModule
     ],
     declarations: [
         CommentDetailComponent,

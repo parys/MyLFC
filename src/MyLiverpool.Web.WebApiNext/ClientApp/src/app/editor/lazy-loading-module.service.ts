@@ -24,7 +24,6 @@ export class LazyLoadingModuleService {
                 this.loaded.next(true);
                 this.loaded.complete();
             });
-        console.log('w2');
         return this.loaded.asObservable();
     }
 

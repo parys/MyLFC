@@ -15,6 +15,7 @@ import { UserDetailComponent } from '@users/pages/user-detail';
 import { UserConfigComponent } from '@users/pages/user-config';
 import { USERS_RU, USER_RU } from '@constants/ru.constants';
 import { UserMaterialModule } from './user-material.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { UserMaterialModule } from './user-material.module';
         RoleGroupCoreModule,
         PmSharedModule,
         PipesModule,
-        UserMaterialModule
+        UserMaterialModule,
+        MatButtonModule
     ],
     declarations: [
         UserDetailComponent,

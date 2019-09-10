@@ -1,9 +1,10 @@
-﻿import { Component, forwardRef, Input, NgZone, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, forwardRef, Input, NgZone, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { LazyLoadingModuleService } from './lazy-loading-module.service';
+import { AbstractControlComponent, ControlValueProvider } from '@domain/base';
 
 // import { Editor, Settings } from "tinymce";
 
@@ -12,18 +13,17 @@ declare let tinymce: any;
 @Component({
     selector: 'bbeditor',
     providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => EditorComponent),
-            multi: true
-        }],
+        ControlValueProvider(EditorComponent)
+    ],
     styleUrls: ['./editor.component.scss'],
     template: `<textarea id="{{elementId}}"></textarea>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy  {
+export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
     @Input('value') public _value = '';
+    @Output() public change = new EventEmitter();
+    @Output() public ready = new EventEmitter();
     @Input() public type = 1;
     @Input() public height = 200;
     public elementId: string = Math.random().toString(36).substring(2);
@@ -32,14 +32,15 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(private lazy: LazyLoadingModuleService,
-                private zone: NgZone) {
-
+        private zone: NgZone,
+        private cdRef: ChangeDetectorRef) {
+      //  super(cd);
     }
 
     public ngAfterViewInit(): void {
-         this.lazy.load().subscribe(_ => {
-             this.initTiny();
-         });
+        this.lazy.load().subscribe(_ => {
+            this.initTiny();
+        });
     }
 
     public setFocus() {
@@ -52,20 +53,21 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
         });
     }
 
-    public get value(): string {
-        return this._value;
-    }
+    // public get value(): string {
+    //     return this._value;
+    // }
 
     public set value(value: string) {
         this.isTinyDefinedO().subscribe(_ => {
             this.zone.run(() => {
                 if (value !== this._value) {
                     this._value = value;
-                    this.onChangeCallback(value);
-                    this.onTouchedCallback();
-            //        this.change.emit(value);
+                    this.onChange(value);
+                    this.onTouched();
+                    this.change.emit(value);
                 }
             });
+      //      this.notifyValueChange();
         });
     }
 
@@ -82,19 +84,20 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
             if (tinymce.editors && tinymce.editors[this.elementId]) {
                 tinymce.editors[this.elementId].setContent((value) ? value : '');
             }
+            this.cdRef.detectChanges();
         });
     }
 
     public registerOnChange(fn: (_: any) => void): void {
-        this.onChangeCallback = fn;
+        this.onChange = fn;
     }
 
     public registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
+        this.onTouched = fn;
     }
 
-    private onTouchedCallback = () => { };
-    private onChangeCallback = (x: any) => { };
+    private onTouched = () => { };
+    private onChange = (value: string) => { };
 
     private getPlugins(): string {
         const common = `autolink image paste customEmoticons`;
@@ -126,49 +129,50 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     private initTiny(): void {
         const settings1 // : Settings
             = {
-                autoresize_overflow_padding: 0,
-                selector: `#${this.elementId}`,
-                convert_urls: true,
-                schema: 'html5',
-                fontsize_formats: '8pt 10pt 11pt 12pt 14pt 16pt',
-                forced_root_block: '',
-                min_height: this.height,
-                browser_spellcheck: true,
-                gecko_spellcheck: true,
-                remove_trailing_brs: true,
-                menubar: false,
-                language: 'ru',
-                // inline: true,
-                plugins: [
-                    this.getPlugins()
-                ],
-                allow_script_urls: true,
-                relative_urls: true,
-                document_base_url: '/',
-                toolbar: this.getToolbar(),
-                visualblocks_default_state: true,
-                external_plugins: {
-                    customEmoticons: '/plugins/customEmoticons/plugin.js'
-                },
-                skin_url: '/src/lightgray',
-                setup: (editor: any) => { // Editor) => {
-                    this.editor = editor;
-                    editor.on('init', () => this.zone.run(() => editor.setContent(this._value)));
-                    editor.on('setcontent',
-                        ({ content, format }: any) => format === 'html' && content &&
-                        this.zone.run(() => this.onChangeCallback(content)));
-                    editor.on('change keyup undo redo', () => {
-                        this.onChangeCallback(editor.getContent());
-                        this.value = editor.getContent();
-                    });
-                    editor.on('blur', () => this.zone.run(() => this.onTouchedCallback()));
-                }
-            };
-   //     console.warn("initTiny mid " + this.elementId);
+            autoresize_overflow_padding: 0,
+            selector: `#${this.elementId}`,
+            convert_urls: true,
+            schema: 'html5',
+            fontsize_formats: '8pt 10pt 11pt 12pt 14pt 16pt',
+            forced_root_block: '',
+            min_height: this.height,
+            browser_spellcheck: true,
+            gecko_spellcheck: true,
+            remove_trailing_brs: true,
+            menubar: false,
+            language: 'ru',
+            // inline: true,
+            plugins: [
+                this.getPlugins()
+            ],
+            allow_script_urls: true,
+            relative_urls: true,
+            document_base_url: '/',
+            toolbar: this.getToolbar(),
+            visualblocks_default_state: true,
+            external_plugins: {
+                customEmoticons: '/plugins/customEmoticons/plugin.js'
+            },
+            skin_url: '/src/lightgray',
+            setup: (editor: any) => { // Editor) => {
+                this.editor = editor;
+                editor.on('init', () => this.zone.run(() => editor.setContent(this._value || '')));
+                editor.on('setcontent',
+                    ({ content, format }: any) => format === 'html' && content &&
+                        this.zone.run(() => this.onChange(content)));
+                editor.on('change keyup undo redo', () => {
+                    this.onChange(editor.getContent());
+                    this.value = editor.getContent();
+      //              this.cdRef.detectChanges();
+                });
+                editor.on('blur', () => this.zone.run(() => this.onTouched()));
+            }
+        };
+        //     console.warn("initTiny mid " + this.elementId);
         this.zone.runOutsideAngular(() => {
             tinymce.init(settings1);
         });
-  //      console.warn("initTiny end " + this.elementId);
+        //      console.warn("initTiny end " + this.elementId);
         this.elementLoaded.next('');
         this.elementLoaded.complete();
     }

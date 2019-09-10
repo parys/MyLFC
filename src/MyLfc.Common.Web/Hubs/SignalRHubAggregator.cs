@@ -102,5 +102,7 @@ namespace MyLfc.Common.Web.Hubs
         public const string NotifyReadEndpoint = "ReadNotify";
 
         public const string AddComment = "addComment";
+
+        public const string NewComment = "newComment";
     }
 }

@@ -114,6 +114,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CacheManager.Remove(CacheKeysConstants.MaterialsLatest,
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
 
+            _signalRHubAggregator.Send(HubEndpointConstants.NewComment, result);
+
             var oldMessage = result.Message.Substring(0);
             result.Message = result.Message.SanitizeComment();
 

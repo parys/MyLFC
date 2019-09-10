@@ -11,6 +11,7 @@ import { MaxiChatComponent } from '@chat/maxiChat';
 import { ChatWindowComponent } from '@chat/chat-window';
 import { chatRoutes } from '@chat/chat.routes';
 import { ChatMessageService } from '@chat/chat-message.service';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ChatMessageService } from '@chat/chat-message.service';
         EditorModule,
         PipesModule,
         LayoutModule // todo needed for users-online
+        , MatButtonModule
     ],
     declarations: [
         MiniChatComponent,

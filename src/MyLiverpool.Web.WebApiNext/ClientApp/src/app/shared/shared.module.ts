@@ -15,15 +15,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoaderComponent, LoaderService } from './loader';
 import { BearerInterceptor } from './interceptors';
 import { BreadcrumbComponent } from './breadcrumb';
-// import { DeferLoadDirective } from "./lazy";
 import { AdComponent } from './ad';
 
 import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
-import { SignalRModule } from '@base/signalr';
 import { StorageModule, StorageService } from '@base/storage';
 import { AuthModule } from '@base/auth/auth.module';
 import { PipesModule } from '@base/pipes';
-// import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
 const mat = [
     MatDialogModule,
@@ -40,7 +37,6 @@ const mat = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        SignalRModule,
         StorageModule,
         AuthModule, // todo temporary?
         PipesModule, // todo ?
@@ -50,7 +46,6 @@ const mat = [
         DeleteDialogComponent,
         LoaderComponent,
         BreadcrumbComponent,
-     //   DeferLoadDirective,
         AdComponent,
     ],
     exports: [
