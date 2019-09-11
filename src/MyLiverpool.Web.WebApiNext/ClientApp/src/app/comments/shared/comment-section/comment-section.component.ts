@@ -22,7 +22,7 @@ import { CommentService } from '@comments/comment.service';
     selector: 'comment-section',
     templateUrl: './comment-section.component.html',
     styleUrls: ['./comment-section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChecked {
     private prevHeight = 0;
@@ -55,51 +55,63 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         });
         this.type = this.type ? this.type : 3;
 
-        // todo adding comment immediately
-        this.signalRService.newComment.subscribe((data: any) => {
+        this.signalRService.newComment.subscribe((data: Comment) => {
             console.log('1');
+            data.children = data.children || [];
             if (data.matchId === this.matchId || data.materialId === this.materialId) {
+                console.log('2');
                 const index = this.items.findIndex(x => x.id === data.id);
                 if (index !== -1) {
+                    console.log('3');
                     this.items[index] = data;
                 } else {
+                    console.log('4');
                     if (data.parentId == null) {
+                        console.log('5');
                         this.items.push(data);
                     } else {
+                        console.log('6');
                         this.putComment(data, this.items);
                     }
                 }
-                this.cd.markForCheck();
             } else {
                 console.log('SKIPPED');
             }
-        });
+            this.totalItems += 1;
+        },
+        null,
+        () => this.cd.markForCheck());
 
-        this.signalRService.lastCommentsSubject.subscribe((data: Comment) => console.warn('ALARM'));
         this.commentAddForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
-        }
-        );
+        });
     }
 
     private putComment(data: Comment, items: Comment[]): boolean {
+        data.children = data.children || [];
         const parentIndex = items.findIndex(x => x.id === data.parentId);
         if (parentIndex !== -1) {
+            console.log('8');
             const childIndex = items[parentIndex].children.findIndex(x => x.id === data.id);
             if (childIndex !== -1) {
+                console.log('9');
                 items[parentIndex].children[childIndex] = data;
             } else {
+                console.log('91 ADDDED');
                 items[parentIndex].children.push(data);
             }
             return true;
         } else {
+            console.log('10 ');
             // tslint:disable-next-line:prefer-for-of
             for (let i = 0; i < items.length; i++) {
                 if (this.putComment(data, items[i].children)) {
-                    break;
+                    console.log('break');
+                    return true;
                 }
             }
         }
+        console.log('11 ');
         return false;
     }
 
@@ -193,28 +205,31 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         }
     }
 
-    private parsePageable(pageable: PagedList<Comment>): void {
-        this.items = pageable.results;
-        this.page = pageable.currentPage;
-        this.itemsPerPage = pageable.pageSize;
-        this.totalItems = pageable.rowCount;
+
+    public trackByFn(index: number, item: Comment) {
+        if (!item) { return null; }
+        return item.id;
     }
 
     public onSubmit(): void {
-        this.commentAddForm.markAsPending();
         const comment: Comment = this.commentAddForm.value;
         comment.materialId = this.materialId;
         comment.matchId = this.matchId;
         comment.type = this.type ? this.type : 3; // todo
         this.commentService.createOrUpdate(comment.id, comment)
-            .subscribe((data: Comment) => {
-                this.items.push(data);
-                this.totalItems += 1;
+            .subscribe((data: any) => {
                 this.commentAddForm.controls['message'].patchValue('');
             },
                 null,
                 () => {
                     this.cd.markForCheck();
                 });
+    }
+
+    private parsePageable(pageable: PagedList<Comment>): void {
+        this.items = pageable.results;
+        this.page = pageable.currentPage;
+        this.itemsPerPage = pageable.pageSize;
+        this.totalItems = pageable.rowCount;
     }
 }

@@ -90,7 +90,7 @@
             </form>
         </div>
     </div>
-    <div *ngFor="let child of item.children">
+    <div *ngFor="let child of item.children; trackBy: trackByFn">
         <comment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1"
                         [materialId]="materialId"
                         [canCommentary]="canCommentary"

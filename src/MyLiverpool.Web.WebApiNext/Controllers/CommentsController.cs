@@ -126,7 +126,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             result.Message = oldMessage;
 
-            return Ok(result);
+            return Ok(result.Id);
         }
 
         /// <summary>
@@ -160,6 +160,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await Mediator.Send(request);
+            _signalRHubAggregator.Send(HubEndpointConstants.NewComment, result);
+            var oldMessage = result.Message.Substring(0);
+            result.Message = result.Message.SanitizeComment();
+
+            if (!string.IsNullOrWhiteSpace(result.Message))
+            {
+                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
+            }
+
+            result.Message = oldMessage;
+
             CacheManager.Remove(CacheKeysConstants.LastComments);
 
             return Ok(result);

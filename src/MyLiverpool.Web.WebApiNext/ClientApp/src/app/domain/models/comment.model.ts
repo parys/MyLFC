@@ -8,7 +8,7 @@
     public message: string;
     public answer: string;
     public materialId: number;
-    public children: Comment[];
+    public children: Comment[] = [];
     public isVerified: boolean;
     public parentId: number;
     public number: number;

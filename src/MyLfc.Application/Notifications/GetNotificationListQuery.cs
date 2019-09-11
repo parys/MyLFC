@@ -42,6 +42,7 @@ namespace MyLfc.Application.Notifications
 
                 request.SortDirection = "Desc";
                 request.SortOn = nameof(Notification.DateTime);
+                request.PageSize = 20;
 
                 return await transfersQuery.GetPagedAsync<Response, Notification, NotificationListDto>(request, _mapper);
             }

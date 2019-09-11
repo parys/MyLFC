@@ -8,7 +8,7 @@
     </a>
 </div>
 
-<div *ngFor="let comment of items">
+<div *ngFor="let comment of items; trackBy: trackByFn">
     <comment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary" [type]="type" [matchId]="matchId"></comment-detail>
 </div>
 

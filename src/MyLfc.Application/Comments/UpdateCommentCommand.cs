@@ -61,7 +61,7 @@ namespace MyLfc.Application.Comments
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {};
+                return _mapper.Map<Response>(comment);
             }
         }
 

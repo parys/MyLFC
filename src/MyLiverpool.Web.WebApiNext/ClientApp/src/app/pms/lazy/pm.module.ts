@@ -16,6 +16,7 @@ import { pmRoutes } from '@pms/lazy/pm.routes';
 import { PmListComponent } from '@pms/lazy/pm-list';
 import { PmDetailComponent } from '@pms/lazy/pm-detail';
 import { PmEditComponent } from '@pms/lazy/pm-edit';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { PmEditComponent } from '@pms/lazy/pm-edit';
         MatTabsModule,
         MatAutocompleteModule,
         MatInputModule,
-        PipesModule
+        PipesModule,
+        MatButtonModule
     ],
     declarations: [
         PmEditComponent,

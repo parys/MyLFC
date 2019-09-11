@@ -162,6 +162,7 @@ namespace MyLfc.Application.Comments
             public string Message { get; set; }
 
             public string Answer { get; set; }
+            public int? ParentId { get; set; }
 
             public int? MaterialId { get; set; }
 

@@ -7,13 +7,15 @@ import { EditorModule } from '@editor/index';
 
 import { PmService } from '@pms/pm.service';
 import { PmReplyComponent } from '@pms/shared/pm-reply';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule,
         EditorModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule
     ],
     declarations: [
         PmReplyComponent

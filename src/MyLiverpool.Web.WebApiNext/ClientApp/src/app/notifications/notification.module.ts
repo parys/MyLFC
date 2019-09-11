@@ -18,7 +18,7 @@ import { NotificationMaterialModule } from './notification-material.module';
         RouterModule.forChild(notificationRoutes),
         SharedModule,
         PipesModule,
-        NotificationMaterialModule
+        NotificationMaterialModule,
     ],
     declarations: [
         NotificationListComponent

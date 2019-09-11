@@ -95,7 +95,6 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         const comment = this.getNewComment();
         this.materialCommentService.createOrUpdate(comment.id, comment)
             .subscribe((data: Comment) => {
-                    this.item.children.push(data);
                     this.cancelAdding();
                 });
     }
@@ -144,6 +143,12 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         this.isEditMode = false;
         this.cd.markForCheck();
     }
+
+    public trackByFn(index: number, item: Comment) {
+        if (!item) { return null; }
+        return item.id;
+    }
+
 
     private delete(): void {
         this.materialCommentService.delete(this.item.id)
