@@ -6,12 +6,14 @@ import { ImageService } from './image.service';
 import { ImageAdditionComponent } from './image-addition';
 import { ImageCropAdditionComponent } from './image-crop-addition';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
         SharedModule,
         ImageCropperModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule
     ],
     declarations: [
         ImageAdditionComponent,
