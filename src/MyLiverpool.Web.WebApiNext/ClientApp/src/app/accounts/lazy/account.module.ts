@@ -17,6 +17,7 @@ import { RecaptchaModule } from '@widgets/recaptcha';
 import { BreadcrumbService } from '@shared/breadcrumb';
 import { AccountService } from './account.service';
 import { ACCOUNT_ROUTE } from '@constants/index';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { ACCOUNT_ROUTE } from '@constants/index';
         AccountCoreModule,
         RecaptchaModule,
         MatCheckboxModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule
     ],
     declarations: [
         AccountSignupComponent,

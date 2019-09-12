@@ -63,7 +63,7 @@ export class SignalRService {
             this.lastCommentsSubject.next(data);
         });
         this.hubConnection.on('newComment', (data: Comment) => {
-            console.log(data);
+            data.children = data.children || [];
             this.newComment.next(data);
         });
         if (token) {

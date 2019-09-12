@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
 
 const materialModules = [
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonModule
 ];
 
 @NgModule({

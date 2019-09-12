@@ -14,6 +14,7 @@ import { FaqItemEditComponent } from './faq-item-edit';
 import { FaqItemListComponent } from './faq-item-list';
 import { FaqItemService } from './faq-item.service';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
         MatInputModule,
         MatSelectModule,
         MatSlideToggleModule,
-        EditorModule
+        EditorModule,
+        MatButtonModule
     ],
     declarations: [
         FaqItemEditComponent,

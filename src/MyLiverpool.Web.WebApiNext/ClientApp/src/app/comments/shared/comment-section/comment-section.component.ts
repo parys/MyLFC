@@ -17,6 +17,7 @@ import { RolesCheckedService } from '@base/auth';
 import { SignalRService } from '@base/signalr';
 
 import { CommentService } from '@comments/comment.service';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'comment-section',
@@ -24,7 +25,7 @@ import { CommentService } from '@comments/comment.service';
     styleUrls: ['./comment-section.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChecked {
+export class CommentSectionComponent extends ObserverComponent implements OnInit, OnChanges, AfterViewChecked {
     private prevHeight = 0;
     private isScrolled: boolean;
     public items: Comment[] = [];
@@ -38,14 +39,15 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
     @Input() public canCommentary = false;
 
     constructor(private commentService: CommentService,
-        private cd: ChangeDetectorRef,
-        public roles: RolesCheckedService,
-        private route: ActivatedRoute,
-        private renderer: Renderer2,
-        public element: ElementRef,
-        private router: Router,
-        private formBuilder: FormBuilder,
-        private signalRService: SignalRService) {
+                private cd: ChangeDetectorRef,
+                public roles: RolesCheckedService,
+                private route: ActivatedRoute,
+                private renderer: Renderer2,
+                public element: ElementRef,
+                private router: Router,
+                private formBuilder: FormBuilder,
+                private signalRService: SignalRService) {
+        super();
     }
 
     public ngOnInit(): void {
@@ -55,64 +57,26 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         });
         this.type = this.type ? this.type : 3;
 
-        this.signalRService.newComment.subscribe((data: Comment) => {
-            console.log('1');
-            data.children = data.children || [];
+        const sub$ = this.signalRService.newComment.subscribe((data: Comment) => {
             if (data.matchId === this.matchId || data.materialId === this.materialId) {
-                console.log('2');
-                const index = this.items.findIndex(x => x.id === data.id);
-                if (index !== -1) {
-                    console.log('3');
-                    this.items[index] = data;
-                } else {
-                    console.log('4');
-                    if (data.parentId == null) {
-                        console.log('5');
-                        this.items.push(data);
+                if (data.parentId == null) {
+                    const index = this.items.findIndex(x => x.id === data.id);
+                    if (index !== -1) {
+                        this.items[index] = data;
                     } else {
-                        console.log('6');
-                        this.putComment(data, this.items);
+                        this.items.push(data);
+                        this.totalItems += 1;
                     }
+                    this.cd.markForCheck();
                 }
-            } else {
-                console.log('SKIPPED');
             }
-            this.totalItems += 1;
-        },
-        null,
-        () => this.cd.markForCheck());
+        });
+        this.subscriptions.push(sub$);
 
-        this.commentAddForm.valueChanges.subscribe(() => {
+        const sub2$ = this.commentAddForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
-    }
-
-    private putComment(data: Comment, items: Comment[]): boolean {
-        data.children = data.children || [];
-        const parentIndex = items.findIndex(x => x.id === data.parentId);
-        if (parentIndex !== -1) {
-            console.log('8');
-            const childIndex = items[parentIndex].children.findIndex(x => x.id === data.id);
-            if (childIndex !== -1) {
-                console.log('9');
-                items[parentIndex].children[childIndex] = data;
-            } else {
-                console.log('91 ADDDED');
-                items[parentIndex].children.push(data);
-            }
-            return true;
-        } else {
-            console.log('10 ');
-            // tslint:disable-next-line:prefer-for-of
-            for (let i = 0; i < items.length; i++) {
-                if (this.putComment(data, items[i].children)) {
-                    console.log('break');
-                    return true;
-                }
-            }
-        }
-        console.log('11 ');
-        return false;
+        this.subscriptions.push(sub2$);
     }
 
     // todo research
@@ -187,21 +151,23 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         filters.materialId = this.materialId;
         filters.matchId = this.matchId;
         if (this.materialId) {
-            this.commentService
+            const sub$ = this.commentService
                 .getAllByMaterial(filters)
                 .subscribe(data => this.parsePageable(data),
                     null,
                     () => {
                         this.cd.markForCheck();
                     });
+            this.subscriptions.push(sub$);
         } else if (this.matchId) {
-            this.commentService
+            const sub$ = this.commentService
                 .getAllByMatch(filters)
                 .subscribe(data => this.parsePageable(data),
                     null,
                     () => {
                         this.cd.markForCheck();
                     });
+            this.subscriptions.push(sub$);
         }
     }
 
@@ -216,7 +182,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         comment.materialId = this.materialId;
         comment.matchId = this.matchId;
         comment.type = this.type ? this.type : 3; // todo
-        this.commentService.createOrUpdate(comment.id, comment)
+        const sub$ = this.commentService.createOrUpdate(comment.id, comment)
             .subscribe((data: any) => {
                 this.commentAddForm.controls['message'].patchValue('');
             },
@@ -224,6 +190,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
                 () => {
                     this.cd.markForCheck();
                 });
+        this.subscriptions.push(sub$);
     }
 
     private parsePageable(pageable: PagedList<Comment>): void {

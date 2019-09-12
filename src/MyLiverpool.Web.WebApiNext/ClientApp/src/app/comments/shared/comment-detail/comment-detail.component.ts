@@ -1,9 +1,6 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-
-import { Subscription } from 'rxjs';
 
 import { Comment, CommentVote } from '@domain/models';
 import { DeleteDialogComponent } from '@shared/index';
@@ -11,6 +8,8 @@ import { RolesCheckedService } from '@base/auth';
 
 import { CommentService } from '@comments/comment.service';
 import { EditorComponent } from '@editor/index';
+import { ObserverComponent } from '@domain/base';
+import { SignalRService } from '@base/signalr';
 
 @Component({
     selector: 'comment-detail',
@@ -19,8 +18,7 @@ import { EditorComponent } from '@editor/index';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CommentDetailComponent implements OnInit, OnDestroy {
-    private vote$: Subscription;
+export class CommentDetailComponent extends ObserverComponent implements OnInit {
     @Input() public item: Comment;
     @Input() public deep: number;
     @Input() public canCommentary: boolean;
@@ -28,31 +26,42 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     @Input() public matchId: number;
     @Input() public parent: Comment;
     @Input() public type: number;
-    @ViewChild('replyInput', { static: false })private elementRef: EditorComponent;
+    @ViewChild('replyInput', { static: false }) private elementRef: EditorComponent;
 
     public commentForm: FormGroup;
-    private oldCopy: Comment;
     public isEditMode = false;
     public isAddingMode = false;
 
     constructor(private materialCommentService: CommentService,
-                private location: Location,
                 public roles: RolesCheckedService,
                 private dialog: MatDialog,
                 private cd: ChangeDetectorRef,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private signalRService: SignalRService) {
+        super();
     }
 
     public ngOnInit(): void {
         this.initForm();
-    }
 
-    public ngOnDestroy(): void {
-        if (this.vote$) { this.vote$.unsubscribe(); }
+        const sub$ = this.signalRService.newComment.subscribe((data: Comment) => {
+            if (data.matchId === this.matchId || data.materialId === this.materialId) {
+                if (data.parentId === this.item.id) {
+                    const index = this.item.children.findIndex(x => x.id === data.id);
+                    if (index !== -1) {
+                        this.item.children[index] = data;
+                    } else {
+                        this.item.children.push(data);
+                    }
+                    this.cd.markForCheck();
+                }
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     public verify(): void {
-        this.materialCommentService
+        const sub$ = this.materialCommentService
             .verify(this.item.id)
             .subscribe(data => {
                 if (data) {
@@ -60,6 +69,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
                     this.cd.markForCheck();
                 }
             });
+        this.subscriptions.push(sub$);
     }
 
     public showAddCommentModal(): void {
@@ -78,11 +88,12 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
 
     public showDeleteModal(): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.delete();
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     public cancelAdding(): void {
@@ -93,21 +104,23 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     public addComment(): void {
         this.commentForm.markAsPending();
         const comment = this.getNewComment();
-        this.materialCommentService.createOrUpdate(comment.id, comment)
+        const sub$ = this.materialCommentService.createOrUpdate(comment.id, comment)
             .subscribe((data: Comment) => {
-                    this.cancelAdding();
-                });
+                this.cancelAdding();
+            });
+        this.subscriptions.push(sub$);
     }
 
     public vote(positive: boolean): void {
         const vote: CommentVote = new CommentVote();
         vote.positive = positive;
         vote.commentId = this.item.id;
-        this.vote$ = this.materialCommentService.vote(vote).subscribe(data => {
-                if (data) {
-                    this.updateVotes(positive);
-                }
-            });
+        const sub$ = this.materialCommentService.vote(vote).subscribe(data => {
+            if (data) {
+                this.updateVotes(positive);
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     private updateVotes(positive: boolean): void {
@@ -132,11 +145,12 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     public editComment(): void {
         this.commentForm.markAsPending();
         const comment: Comment = this.getComment();
-        this.materialCommentService.createOrUpdate(this.item.id, comment)
+        const sub$ = this.materialCommentService.createOrUpdate(this.item.id, comment)
             .subscribe((data: Comment) => {
-                    this.item = comment;
-                    this.cancelEdit();
-                });
+                this.item = comment;
+                this.cancelEdit();
+            });
+        this.subscriptions.push(sub$);
     }
 
     public cancelEdit(): void {
@@ -151,7 +165,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
 
 
     private delete(): void {
-        this.materialCommentService.delete(this.item.id)
+        const sub$ = this.materialCommentService.delete(this.item.id)
             .subscribe((res: boolean) => {
                 if (res) {
                     this.item.children.forEach((x: Comment) => {
@@ -170,6 +184,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
                     this.cd.detectChanges();
                 }
             );
+        this.subscriptions.push(sub$);
     }
 
     private initForm(): void {
@@ -179,9 +194,10 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
             message: [message, Validators.required],
             answer: [answer]
         });
-        this.commentForm.valueChanges.subscribe(() => {
+        const sub$ = this.commentForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
+        this.subscriptions.push(sub$);
     }
 
     private getComment(): Comment {

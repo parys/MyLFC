@@ -64,7 +64,7 @@ namespace MyLfc.Application.Notifications
                 _context.Notifications.Add(model);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response(model.Id);
+                return _mapper.Map<Response>(model);
             }
 
             private async Task RemoveOldNotificationsAsync(int userId, CancellationToken cancellationToken)
@@ -83,11 +83,13 @@ namespace MyLfc.Application.Notifications
 
         public class Response
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
             public int Id { get; set; }
+
+            public string TypeName { get; set; }
+
+            public int? EntityId { get; set; }
+
+            public int CommentId { get; set; }
         }
     }
 }

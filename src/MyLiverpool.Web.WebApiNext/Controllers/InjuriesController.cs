@@ -84,7 +84,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.LastInjuries,
                 async () => await Mediator.Send(new GetCurrentInjuryListQuery.Request()));
-            return Ok(result);
+            return Ok(result.Results);
         }
     }
 }

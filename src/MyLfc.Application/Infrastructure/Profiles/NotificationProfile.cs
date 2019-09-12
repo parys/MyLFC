@@ -14,6 +14,9 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<CreateNotificationCommand.Request, Notification>()
                 ;
+
+            CreateMap<Notification, CreateNotificationCommand.Response>()
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()));
         }
     }
 }

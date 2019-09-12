@@ -10,6 +10,7 @@ import { faqCategoryRoutes } from '@faq-categories/lazy/faq-category.routes';
 import { FaqCategoryEditComponent } from '@faq-categories/lazy/faq-category-edit';
 import { FaqCategoryListComponent } from '@faq-categories/lazy/faq-category-list';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
         RouterModule.forChild(faqCategoryRoutes),
         MatInputModule,
         MatSlideToggleModule,
+        MatButtonModule
     ],
     declarations: [
         FaqCategoryEditComponent,
