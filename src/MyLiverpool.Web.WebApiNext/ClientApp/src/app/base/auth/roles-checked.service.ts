@@ -83,6 +83,16 @@ export class RolesCheckedService {
         return (userId === authorId);
     }
 
+    public isAuthedAndNotSelf(authorId: number): boolean {
+        if (this.isLogined) {
+            if (!this.isSelf(authorId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private checkRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;

@@ -16,12 +16,12 @@
             <span>
                 <span>
                     <span class="color-green font-size20" [textContent]="item.positiveCount"></span>
-                    <a class="color-green" role="button" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
+                    <a class="color-green" role="button" (click)="vote(true)" *ngIf="item.canPositiveVote && roles.isAuthedAndNotSelf(item.authorId)">
                         <mat-icon style="font-size: 100%;">thumb_up</mat-icon>
                     </a>
                     /
                     <span class="color-red font-size20" [textContent]="item.negativeCount"></span>
-                    <a class="color-red" role="button" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
+                    <a class="color-red" role="button" (click)="vote(false)" *ngIf="item.canNegativeVote && roles.isAuthedAndNotSelf(item.authorId)">
                         <mat-icon style="font-size: 100%;">thumb_down</mat-icon>
                     </a>
                 </span>
