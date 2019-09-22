@@ -1,7 +1,7 @@
 ﻿<span class="full-width" *ngIf="roles.isInformer">
     <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
 </span>
-<button mat-raised-button (click)="opened = !opened" class="full-width top10 color-back-gold">
+<button mat-raised-button (click)="open()" class="full-width top10 color-back-gold">
     <span *ngIf="!opened"><b>Показать таблицу АПЛ</b></span>
     <span *ngIf="opened"><b>Скрыть таблицу</b></span>
 </button>
