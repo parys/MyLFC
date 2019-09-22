@@ -89,6 +89,7 @@ export class MaterialEditComponent implements OnInit {
                         this.snackBar.open('Материал НЕ создан');
                     });
         }
+        this.editForm.markAsPristine();
     }
 
     public updateImage(path: string): void {
@@ -117,7 +118,7 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public showLeaveModal(): any { // odo Observable<boolean> | boolean {
-        if (this.editForm.dirty) {
+        if (this.editForm.dirty && this.editForm.touched) {
             const dialogRef = this.dialog.open(MaterialGuardDialogComponent);
             return dialogRef.afterClosed();
         }
