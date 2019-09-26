@@ -168,7 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 };
                 var result = await Mediator.Send(request);
 
-                return Ok(new {path = result});
+                return Ok(result);
             }
 
             return BadRequest();
