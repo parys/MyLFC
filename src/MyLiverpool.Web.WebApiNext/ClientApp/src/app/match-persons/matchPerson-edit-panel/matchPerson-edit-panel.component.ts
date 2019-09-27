@@ -61,13 +61,14 @@ export class MatchPersonEditPanelComponent implements OnInit {
                     null,
                     () => this.checkExit());
         }
-        this.editMatchPersonForm.get('personId').patchValue('');
-        this.editMatchPersonForm.get('russianName').patchValue('');
+        this.editMatchPersonForm.controls.personId.patchValue('');
+        this.editMatchPersonForm.controls.personName.patchValue('');
     }
 
     public setPerson(person: Person): void {
         this.editMatchPersonForm.get('personId').patchValue(person.id);
-        this.editMatchPersonForm.get('russianName').patchValue(person.russianName);
+        this.editMatchPersonForm.get('personName').patchValue(person.personName);
+        this.onSubmit();
     }
 
     private emitNewPerson(matchPerson: MatchPerson): void {
@@ -90,7 +91,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
 
     private initForm(): void {
         this.editMatchPersonForm = this.formBuilder.group({
-            russianName: [this.selectedMatchPerson ? this.selectedMatchPerson.russianName : ''],
+            personName: [this.selectedMatchPerson ? this.selectedMatchPerson.personName : ''],
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : '', Validators.required],
             personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required],
             useType: [true]

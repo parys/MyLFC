@@ -3,10 +3,10 @@
 <form class="full-width" role="form" [formGroup]="editMatchEventForm" (ngSubmit)="onSubmit()">
     <mat-slide-toggle formControlName="isOur" color="warn">Наше событие</mat-slide-toggle>
     <mat-form-field class="full-width">
-        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="russianName">
+        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
         <mat-autocomplete #person="matAutocomplete">
-            <mat-option *ngFor="let person of persons$ | async" [value]="person.russianName" (click)="selectPerson(person.id)">
-                <span>{{ person.russianName }}</span>
+            <mat-option *ngFor="let person of persons$ | async" [value]="person.personName" (click)="selectPerson(person.id)">
+                <span>{{ person.personName }}</span>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

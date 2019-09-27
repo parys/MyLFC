@@ -56,7 +56,7 @@ export class MatchEventEditPanelComponent implements OnInit {
     }
 
     private emitNewEvent(event: MatchEvent): void {
-        event.russianName = this.editMatchEventForm.get('russianName').value;
+        event.personName = this.editMatchEventForm.get('personName').value;
         this.matchEvent.emit(event);
     }
 
@@ -75,7 +75,7 @@ export class MatchEventEditPanelComponent implements OnInit {
 
     private initForm(): void {
         this.editMatchEventForm = this.formBuilder.group({
-            russianName: [this.selectedEvent ? this.selectedEvent.russianName : '', Validators.required],
+            personName: [this.selectedEvent ? this.selectedEvent.personName : '', Validators.required],
             personId: [this.selectedEvent ? this.selectedEvent.personId : '', Validators.required],
             type: [this.selectedEvent ? this.selectedEvent.type : '', Validators.required],
             minute: [this.selectedEvent ? this.selectedEvent.minute : '', Validators.required],
@@ -83,7 +83,7 @@ export class MatchEventEditPanelComponent implements OnInit {
         });
         this.id = this.selectedEvent ? this.selectedEvent.id : 0;
 
-        this.persons$ = this.editMatchEventForm.controls['russianName'].valueChanges.pipe(
+        this.persons$ = this.editMatchEventForm.controls['personName'].valueChanges.pipe(
                 debounceTime(DEBOUNCE_TIME),
                 distinctUntilChanged(),
                 switchMap((value: string) => {
