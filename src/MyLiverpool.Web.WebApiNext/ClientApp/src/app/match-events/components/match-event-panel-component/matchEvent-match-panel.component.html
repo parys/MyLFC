@@ -1,4 +1,4 @@
-﻿<div *ngFor="let event of events; let i = index;" class="col-xs-12 container-row">
+﻿<div *ngFor="let event of events; let i = index;" class="full-width container-row">
     <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)" class="inline-flex">
         <span *ngIf="event.type === 1"><img class="width20px" alt="Гол" src="/img/goal.png" [title]="event.typeName">{{event.personName}} - {{event.minute}}' </span>
         <span *ngIf="event.type === 2"><img class="width20px" alt="Гол" src="/img/goal.png" [title]="event.typeName">(П){{event.personName}} - {{event.minute}}' </span>
@@ -17,9 +17,13 @@
     </div>
 </div>
 <div *ngIf="roles.isInformer" class="full-width">
-    <button mat-raised-button color="warn" class="full-width" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
+    <span class="flex-space-between">
+            <button mat-raised-button color="warn" (click)="addEvent(true)" *ngIf="!isEditEvent">Добавить событие</button>
+    <button mat-raised-button color="warn" (click)="addEvent(false)" *ngIf="!isEditEvent">Добавить событие</button>
+</span>
     <button mat-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEditEvent">
-        <match-event-edit-panel [matchId]="matchId" [seasonId]="seasonId" [selectedEvent]="selectedEvent" (matchEvent)="updateEvent($event)"></match-event-edit-panel>
+        <match-event-edit-panel [isOur]="(isHomeEdit && isHome) || (!isHomeEdit && !isHome)" [matchId]="matchId" [seasonId]="seasonId"
+         [selectedEvent]="events[selectedIndex]" (matchEvent)="updateEvent($event)"></match-event-edit-panel>
     </div>
 </div>
