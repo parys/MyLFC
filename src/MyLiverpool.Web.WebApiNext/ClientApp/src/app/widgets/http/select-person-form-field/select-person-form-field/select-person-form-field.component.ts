@@ -49,11 +49,13 @@ export class SelectPersonFormFieldComponent extends AbstractControlComponent<num
             switchMap((pagingPersons: PagedList<Person>): Observable<Person[]> => {
                 return of(pagingPersons.results);
             }));
-        this.selectCtrl.patchValue(this.personName);
+        this.selectCtrl.setValue(this.personName);
     }
 
-    public onSelectionChange(personId: number): void {
-        this.value = personId;
+
+    public onSelectionChange(person: Person): void {
+        this.value = person.id;
+        this.personName = person.personName;
     }
 
     public ngAfterViewInit(): void {
