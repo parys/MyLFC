@@ -231,7 +231,8 @@
         <div class="full-width top20">
             <match-person-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson"
                 [currentCount]="currentCount" [neededCount]="neededCount" [personTypeId]="personTypeId"
-                [typeId]="selectedType" (matchPerson)="updateMatchPerson($event)"></match-person-edit-panel>
+                [typeId]="selectedType" (exit)="onClose()"></match-person-edit-panel>
         </div>
     </div>
 </div>
+{{ matchPersons | json }}

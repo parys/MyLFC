@@ -14,7 +14,7 @@ import { MatchPersonMaterialModule } from '@match-persons/match-person-material.
         SharedModule,
         PersonEditModule,
         SelectPersonFormFieldModule,
-        MatchPersonMaterialModule
+        MatchPersonMaterialModule,
     ],
     declarations: [
         MatchPersonEditPanelComponent,

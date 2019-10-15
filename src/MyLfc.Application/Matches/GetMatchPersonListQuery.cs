@@ -7,6 +7,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
@@ -25,7 +26,7 @@ namespace MyLfc.Application.Matches
             private readonly LiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(LiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -40,17 +41,37 @@ namespace MyLfc.Application.Matches
                     .ProjectTo<MatchPersonListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                return new Response{Results = persons};
+                var isHome = await _context.Matches.AsNoTracking()
+                    .Where(x => x.Id == request.MatchId)
+                    .Select(x => x.IsHome)
+                    .FirstAsync(cancellationToken);
+
+                var dict = new Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>>();
+                foreach (var person in persons)
+                {
+                    var key = person.PersonType.GetMatchPlaceholderType(isHome);
+                    if (dict.ContainsKey(key))
+                    {
+                        dict[key].Add(person);
+                    }
+                    else
+                    {
+                        dict.Add(key, new List<MatchPersonListDto> {person});
+                    }
+                }
+
+                return new Response {Results = dict};
             }
+
         }
 
 
         [Serializable]
         public class Response
         {
-            public List<MatchPersonListDto> Results { get; set; }
+            public Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>> Results =
+                new Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>>();
         }
-
 
         [Serializable]
         public class MatchPersonListDto
@@ -60,7 +81,7 @@ namespace MyLfc.Application.Matches
             public string FirstRussianName { get; set; }
 
             public string LastRussianName { get; set; }
-            
+
             public byte? Number { get; set; }
 
             public MatchPersonType PersonType { get; set; }

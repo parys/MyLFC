@@ -4,30 +4,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DeleteDialogComponent } from '@shared/index';
 import { RolesCheckedService } from '@base/auth';
-import { MatchPerson, MatchPersonsList } from '@domain/models';
+import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { SignalRService } from '@base/signalr';
 import { ObserverComponent } from '@domain/base';
 
 @Component({
-    selector: 'match-person-panel',
-    templateUrl: './matchPerson-panel.component.html',
-    styleUrls: ['./matchPerson-panel.component.scss'],
+    selector: 'match-person-info',
+    templateUrl: './match-person-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatchPersonPanelComponent extends ObserverComponent implements OnInit {
-    @Input() public matchId: number;
+export class MatchPersonInfoComponent extends ObserverComponent implements OnInit {
+    @Input() public person: MatchPerson;
     @Input() public isHome: boolean;
     public isEdit = false;
     public selectedMatchPerson: MatchPerson;
  //   public selectedIndex: number;
     public selectedType: number;
 
-    public persons: Record<number, MatchPerson[]>;
-    public currentCount: number;
-    public neededCount: number;
-    public personTypeId: number;
 
     constructor(private matchPersonService: MatchPersonService,
                 public roles: RolesCheckedService,
