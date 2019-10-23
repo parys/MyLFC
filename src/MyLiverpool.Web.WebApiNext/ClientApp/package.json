@@ -57,7 +57,7 @@
     "tslint": "5.20.0",
     "codelyzer": "5.2.0",
     "tinymce": "4.9.3",
-    "@types/node": "12.11.2",
+    "@types/node": "12.11.5",
     "@types/tinymce": "4.5.22",
     "webpack-bundle-analyzer": "3.6.0",
     "source-map-explorer": "2.1.0"
