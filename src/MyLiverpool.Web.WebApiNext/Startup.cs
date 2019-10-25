@@ -249,9 +249,9 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
                 }
             });
-            //  if (!Env.IsDevelopment())
+            if (!Env.IsDevelopment())
             {
-                app.UseSpaStaticFiles(new StaticFileOptions());
+                app.UseSpaStaticFiles();
             }
 
             app.UseAuthentication();
@@ -301,7 +301,7 @@ namespace MyLiverpool.Web.WebApiNext
 
                     if (env.IsDevelopment())
                     {
-                    //    spa.UseAngularCliServer(npmScript: "start");
+                        // spa.UseAngularCliServer(npmScript: "start");
                         //   OR
                         // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     }
