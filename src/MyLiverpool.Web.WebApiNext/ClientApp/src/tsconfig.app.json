@@ -3,5 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "../out-tsc/app"
-  }
+  },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
+  ]
 }
