@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { DeleteDialogComponent } from '@shared/index';
 import { RolesCheckedService } from '@base/auth';
-import { MatchPerson, MatchPersonsList } from '@domain/models';
+import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { SignalRService } from '@base/signalr';
@@ -31,16 +27,14 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
 
     constructor(private matchPersonService: MatchPersonService,
                 public roles: RolesCheckedService,
-                private snackBar: MatSnackBar,
                 private signalR: SignalRService,
-                private cd: ChangeDetectorRef,
-                private dialog: MatDialog) {
+                private cd: ChangeDetectorRef) {
         super();
     }
 
     public ngOnInit(): void {
         const sub$ = this.matchPersonService.getMatchPersons(this.matchId)
-            .subscribe(data => this.persons = data);
+            .subscribe(data => this.persons = data, null, () => this.cd.markForCheck());
         this.subscriptions.push(sub$);
 
         const sub2$ = this.signalR.matchPerson.subscribe((mp: MatchPerson) => {
@@ -65,7 +59,8 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
     }
 
     public updateMatchPerson(person: MatchPerson) {
-        const selectedIndex = this.findWithAttr(this.persons[person.type], 'id', person.id);
+        console.warn(person);
+        const selectedIndex = this.findWithAttr(this.persons[person.type], 'personId', person.id);
         console.log('index value= ' + selectedIndex);
 
         if (selectedIndex === -1) {
@@ -74,6 +69,7 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
             this.persons[person.type][selectedIndex] = person;
 
         }
+        console.warn(this.persons);
         this.cd.markForCheck();
     }
 
@@ -81,35 +77,10 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
         this.cancelMatchPersonEdit();
     }
 
-    public selectMatchPerson(person: MatchPerson): void {
+    public onSelectPerson(person: MatchPerson): void {
         this.selectedMatchPerson = person;
      //   this.selectedIndex = this.matchPersons.indexOf(person);
         this.isEdit = true;
-    }
-
-    public showDeleteModal(person: MatchPerson): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        const sub$ = dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(person);
-            }
-        });
-        this.subscriptions.push(sub$);
-    }
-
-
-    private delete(person: MatchPerson): void {
-        const sub$ = this.matchPersonService.delete(this.matchId, person.id)
-            .subscribe((result: boolean) => {
-                if (result) {
-                    this.matchPersons.splice(this.matchPersons.indexOf(person), 1);
-                    this.parsePersons(this.matchPersons);
-                    this.snackBar.open('Удалено');
-                } else {
-                    this.snackBar.open('Ошибка удаления');
-                }
-            });
-        this.subscriptions.push(sub$);
     }
 
     private findWithAttr(array: any, attr: string | number, value: any) {

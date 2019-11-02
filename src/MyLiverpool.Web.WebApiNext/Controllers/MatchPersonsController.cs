@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Matches;
 using MyLfc.Application.MatchPersons;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Common.Utilities.Extensions;

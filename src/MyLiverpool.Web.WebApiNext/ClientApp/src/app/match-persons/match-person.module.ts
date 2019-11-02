@@ -8,6 +8,7 @@ import { MatchPersonEditPanelComponent } from '@match-persons/matchPerson-edit-p
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { MatchPersonPanelComponent } from '@match-persons/matchPerson-panel';
 import { MatchPersonMaterialModule } from '@match-persons/match-person-material.module';
+import { MatchPersonInfoComponent } from '@match-persons/components/match-person-info';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { MatchPersonMaterialModule } from '@match-persons/match-person-material.
     ],
     declarations: [
         MatchPersonEditPanelComponent,
-        MatchPersonPanelComponent
+        MatchPersonPanelComponent,
+        MatchPersonInfoComponent
     ],
     exports: [
         MatchPersonEditPanelComponent,

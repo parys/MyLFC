@@ -18,6 +18,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     @Input() public currentCount: number;
     @Input() public neededCount: number;
     @Input() public personTypeId: number;
+    @Input() public isHome: boolean;
     @Output() public exit = new EventEmitter();
     public editMatchPersonForm: FormGroup;
     public name: string;
@@ -78,7 +79,8 @@ export class MatchPersonEditPanelComponent implements OnInit {
         this.editMatchPersonForm = this.formBuilder.group({
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.id : '', Validators.required],
             personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required],
-            useType: [true]
+            useType: [true],
+            isHome: [this.isHome]
         });
         this.name = this.selectedMatchPerson ? this.selectedMatchPerson.personName : '';
     }

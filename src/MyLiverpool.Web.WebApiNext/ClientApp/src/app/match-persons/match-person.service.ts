@@ -3,7 +3,7 @@
 import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
-import { MatchPersonType, MatchPerson, MatchPersonsList } from '@domain/models';
+import { MatchPersonType, MatchPerson } from '@domain/models';
 import { MATCH_PERSONS_ROUTE, MATCHES_ROUTE } from '@constants/routes.constants';
 
 @Injectable()

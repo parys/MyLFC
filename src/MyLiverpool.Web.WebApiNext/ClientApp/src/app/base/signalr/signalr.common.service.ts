@@ -64,7 +64,7 @@ export class SignalRService {
         this.hubConnection.on('updateComment', (data: Comment) => {
             this.lastCommentsSubject.next(data);
         });
-        this.hubConnection.on('addMp', (data: MatchPerson) => {
+        this.hubConnection.on('addMp', (data: any) => {
             console.log(data);
             this.matchPerson.next(data);
         });
