@@ -10,7 +10,7 @@ export const pollRoutes: Routes = [
             { path: "", component: PollDetailComponent, data: { title: "Опрос" } },
             {
                 path: "edit",
-                loadChildren: "./+poll-edit/poll-edit.module#PollEditModule"
+                loadChildren: () => import('./+poll-edit/poll-edit.module').then(m => m.PollEditModule)
             }
         ]
     }
