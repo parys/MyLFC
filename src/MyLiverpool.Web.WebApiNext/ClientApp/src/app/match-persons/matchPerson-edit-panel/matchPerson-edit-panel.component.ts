@@ -22,6 +22,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     @Output() public exit = new EventEmitter();
     public editMatchPersonForm: FormGroup;
     public name: string;
+    public isCreation: boolean;
 
     public types: MatchPersonType[];
 

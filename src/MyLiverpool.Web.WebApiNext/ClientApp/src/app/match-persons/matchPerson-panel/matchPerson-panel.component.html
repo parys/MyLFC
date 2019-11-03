@@ -5,7 +5,7 @@
             <div class="full-width" *ngFor="let person of persons[11]"> 
                 <match-person-info [person]="person" [isHome]="isHome" [isPlayer]="false" [matchId]="matchId" (selected)="onSelectPerson($event)"></match-person-info>
             </div>
-            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7, 0, 1, 11)">
+            <span *ngIf="roles.isInformer && persons[11]?.length == 0" role="button" (click)="addMatchPerson(7, 0, 1, 11)">
                 <mat-icon>add</mat-icon>
             </span>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="full-width text-center">
             Резервный судья:
-            <span *ngIf="roles.isInformer && !fourthRef" role="button" (click)="addMatchPerson(9, 0, 1, 11)">
+            <span *ngIf="roles.isInformer && persons[14]?.length == 0" role="button" (click)="addMatchPerson(9, 0, 1, 14)">
                 <mat-icon>add</mat-icon>
             </span>
             <div class="full-width" *ngFor="let person of persons[14]"> 
@@ -41,8 +41,8 @@
         <div class="width50p container-row">
             <i class="full-width top10">
                 Главный тренер:
-                <span *ngIf="roles.isInformer && !homeCoach" role="button"
-                    (click)="addMatchPerson(isHome ? 5 : 6, 0, 1, isHome ? 6 : 14)">
+                <span *ngIf="roles.isInformer && persons[3]?.length == 0" role="button"
+                    (click)="addMatchPerson(isHome ? 5 : 6, 0, 1, isHome ? 6 : 5)">
                     <mat-icon>add</mat-icon>
                 </span>
                 <div class="full-width" *ngFor="let person of persons[3]"> 
@@ -96,8 +96,8 @@
         <div class="width50p text-right">
             <i class="full-width top10">
                 Главный тренер:
-                <span *ngIf="roles.isInformer && !awayCoach" role="button"
-                    (click)="addMatchPerson(isHome ? 6 : 5, 0,1, isHome ? 14 : 6)">
+                <span *ngIf="roles.isInformer && persons[8]?.length == 0" role="button"
+                    (click)="addMatchPerson(isHome ? 6 : 5, 0,1, isHome ? 5 : 6)">
                     <mat-icon>add</mat-icon>
                 </span>
                 <div class="full-width" *ngFor="let person of persons[8]"> 
@@ -162,4 +162,3 @@
         </div>
     </div>
 </div>
-{{persons | json}}

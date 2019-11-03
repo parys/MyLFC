@@ -17,7 +17,6 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
     @Input() public isHome: boolean;
     public isEdit = false;
     public selectedMatchPerson: MatchPerson;
- //   public selectedIndex: number;
     public selectedType: number;
 
     public persons: Record<number, MatchPerson[]>;
@@ -59,17 +58,7 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
     }
 
     public updateMatchPerson(person: MatchPerson) {
-        console.warn(person);
-        const selectedIndex = this.findWithAttr(this.persons[person.type], 'personId', person.id);
-        console.log('index value= ' + selectedIndex);
-
-        if (selectedIndex === -1) {
-            this.persons[person.type].push(person);
-        } else {
-            this.persons[person.type][selectedIndex] = person;
-
-        }
-        console.warn(this.persons);
+        this.persons[person.type].push(person);
         this.cd.markForCheck();
     }
 
