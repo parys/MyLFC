@@ -38,7 +38,7 @@
                 <match-person-info [person]="person" [isHome]="isHome" [isPlayer]="false" [matchId]="matchId" (selected)="onSelectPerson($event)"></match-person-info>
             </div>
         </div>
-        <div class="width50p container-row">
+        <div class="width50p">
             <i class="full-width top10">
                 Главный тренер:
                 <span *ngIf="roles.isInformer && persons[3]?.length == 0" role="button"
