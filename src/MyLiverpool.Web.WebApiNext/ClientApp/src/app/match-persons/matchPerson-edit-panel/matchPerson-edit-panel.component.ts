@@ -78,7 +78,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
 
     private initForm(): void {
         this.editMatchPersonForm = this.formBuilder.group({
-            personId: [this.selectedMatchPerson ? this.selectedMatchPerson.id : '', Validators.required],
+            personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : '', Validators.required],
             personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required],
             useType: [true],
             isHome: [this.isHome]
