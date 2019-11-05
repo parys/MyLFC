@@ -72,17 +72,13 @@ namespace MyLfc.Application.Matches
         [Serializable]
         public class MatchPersonListDto
         {
-            public int Id { get; set; }
-
-            public string FirstRussianName { get; set; }
-
-            public string LastRussianName { get; set; }
+            public int PersonId { get; set; }
 
             public byte? Number { get; set; }
 
             public MatchPersonType PersonType { get; set; }
 
-            public string PersonName => $"{FirstRussianName} {LastRussianName}";
+            public string PersonName { get; set; }
         }
     }
 }

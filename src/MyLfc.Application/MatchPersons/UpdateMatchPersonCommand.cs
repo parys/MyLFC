@@ -71,7 +71,7 @@ namespace MyLfc.Application.MatchPersons
                 await _context.SaveChangesAsync(cancellationToken);
 
 
-                return new Response {MatchId = matchPerson.MatchId,
+                return new Response {
                     PersonId = matchPerson.PersonId,
                     Number =  person.Number,
                     PersonName = person.RussianName,
@@ -82,8 +82,6 @@ namespace MyLfc.Application.MatchPersons
 
         public class Response
         {
-            public int MatchId { get; set; }
-
             public int PersonId { get; set; }
 
             public byte? Number { get; set; }

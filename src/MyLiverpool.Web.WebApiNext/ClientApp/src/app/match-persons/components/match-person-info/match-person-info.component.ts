@@ -15,7 +15,7 @@ import { ObserverComponent } from '@domain/base';
     templateUrl: './match-person-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatchPersonInfoComponent extends ObserverComponent implements OnInit {
+export class MatchPersonInfoComponent extends ObserverComponent {
     @Input() public person: MatchPerson;
     @Input() public isHome: boolean;
     @Input() public isPlayer: boolean;
@@ -25,20 +25,9 @@ export class MatchPersonInfoComponent extends ObserverComponent implements OnIni
     constructor(private matchPersonService: MatchPersonService,
                 public roles: RolesCheckedService,
                 private snackBar: MatSnackBar,
-                private signalR: SignalRService,
-                private cd: ChangeDetectorRef,
                 private dialog: MatDialog) {
         super();
     }
-
-    public ngOnInit(): void {
-        const sub2$ = this.signalR.matchPerson.subscribe((mp: MatchPerson) => {
-            this.person = mp;
-            this.cd.markForCheck();
-        });
-        this.subscriptions.push(sub2$);
-    }
-
     public onSelectPerson(person: MatchPerson): void {
         this.selected.emit(person);
     }
@@ -55,7 +44,7 @@ export class MatchPersonInfoComponent extends ObserverComponent implements OnIni
 
 
     private delete(person: MatchPerson): void {
-        const sub$ = this.matchPersonService.delete(this.matchId, person.id)
+        const sub$ = this.matchPersonService.delete(this.matchId, person.personId)
             .subscribe((result: boolean) => {
                 if (result) {
                     this.person = null;

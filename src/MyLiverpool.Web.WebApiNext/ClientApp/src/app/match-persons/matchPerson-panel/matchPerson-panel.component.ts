@@ -72,6 +72,11 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
         this.isEdit = true;
     }
 
+    public trackByFn(index: number, item: MatchPerson) {
+        if (!item) { return null; }
+        return item.personId;
+    }
+
     private findWithAttr(array: any, attr: string | number, value: any) {
         for (let i = 0; i < array.length; i += 1) {
             if (array[i][attr] === value) {
