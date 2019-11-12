@@ -4,10 +4,4 @@
     "baseUrl": "./",
     "outDir": "../out-tsc/app"
   }
-,
-  "files": [
-    "main.browser.ts",
-    "polyfills/polyfills.ts",
-    "app/editor/tiny-module/tiny.module.ts"
-  ]
 }
