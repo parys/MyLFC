@@ -176,13 +176,13 @@ namespace MyLiverpool.Web.WebApiNext
             }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
-            services.AddNodeServices(options =>
-            {
-                  options.DebuggingPort = 9229;
-                  options.LaunchWithDebugging = false;
+            //services.AddNodeServices(options =>
+            //{
+            //      options.DebuggingPort = 9229;
+            //      options.LaunchWithDebugging = false;
 
-                  //   options.InvocationTimeoutMilliseconds = 140000;
-            });
+            //      //   options.InvocationTimeoutMilliseconds = 140000;
+            //});
             var dbContext = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             dbContext.Database.Migrate();
             //if (Env.IsDevelopment())
@@ -301,9 +301,9 @@ namespace MyLiverpool.Web.WebApiNext
 
                     if (env.IsDevelopment())
                     {
-                        // spa.UseAngularCliServer(npmScript: "start");
+                       // spa.UseAngularCliServer(npmScript: "start");
                         //   OR
-                        // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                       //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     }
                 });
             }
