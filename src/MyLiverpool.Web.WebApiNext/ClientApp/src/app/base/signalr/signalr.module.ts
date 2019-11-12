@@ -11,7 +11,7 @@ import { EnsureModuleLoadedOnceGuard } from '@domain/base/ensure-module-loaded-o
 })
 export class SignalRModule extends EnsureModuleLoadedOnceGuard {
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<SignalRModule> {
         return {
             ngModule: SignalRModule,
             providers: [

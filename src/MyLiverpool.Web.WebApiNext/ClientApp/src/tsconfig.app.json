@@ -3,10 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "../out-tsc/app"
-  },
+  }
+,
   "files": [
-    "main.ts",
-    "polyfills.ts"
+    "main.browser.ts",
+    "polyfills/polyfills.ts",
+    "app/editor/tiny-module/tiny.module.ts"
   ],
   "include": [
     "**/*.d.ts"

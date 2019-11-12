@@ -26,7 +26,7 @@ export class CommentDetailComponent extends ObserverComponent implements OnInit 
     @Input() public matchId: number;
     @Input() public parent: Comment;
     @Input() public type: number;
-    @ViewChild('replyInput', { static: false }) private elementRef: EditorComponent;
+    @ViewChild('replyInput') private elementRef: EditorComponent;
 
     public commentForm: FormGroup;
     public isEditMode = false;
