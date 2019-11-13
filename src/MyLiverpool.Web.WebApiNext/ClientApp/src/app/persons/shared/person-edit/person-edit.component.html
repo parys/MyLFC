@@ -41,6 +41,7 @@
                        (change)="onUpload($event)"
                        id="update-input" />
             </div>
+            <crop-image-field formControlName="person-image" (cropped)="croppedImage($event)"></crop-image-field>
         </div>
         <mat-form-field class="full-width">
             <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">

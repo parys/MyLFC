@@ -7,8 +7,8 @@
            [id]="controlName" />
     <image-cropper [imageChangedEvent]="imageChangedEvent"
                    [maintainAspectRatio]="true"
-                   [resizeToWidth]="300"
-                   [aspectRatio]="15 / 7"
+                   [resizeToWidth]="150"
+                   [aspectRatio]="1 / 1"
                    format="jpeg"
                    (imageCropped)="imageCropped($event)"></image-cropper>
     <button mat-raised-button color="warn" *ngIf="imageChangedEvent" (click)="crop()" type="button">Обрезать</button>

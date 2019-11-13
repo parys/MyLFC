@@ -44,6 +44,11 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
         this.elementRef.nativeElement.focus();
     }
 
+    public croppedImage(image: string): void {
+        console.log(image);
+        this.editPersonForm.controls.photo.patchValue(image);
+    }
+
     public onUpload(event: any): void {
         const file = event.currentTarget.files[0];
         const fullname = this.editPersonForm.controls['firstName'].value + ' ' + this.editPersonForm.controls['lastName'].value;

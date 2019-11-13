@@ -2,12 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'crop-image-field',
-    templateUrl: './image-crop-addition.component.html',
-    styleUrls: ['./image-crop-addition.component.scss']
+    templateUrl: './crop-image-form-field.component.html',
+    styleUrls: ['./crop-image-form-field.component.scss']
 })
-export class ImageCropFormFieldComponent {
+export class CropImageFormFieldComponent {
     @Input()
-    public controlName = 'crop-image-field';
+    public controlName: string;
     @Output()
     public cropped: EventEmitter<string> = new EventEmitter<string>();
     public imageChangedEvent: any = '';
