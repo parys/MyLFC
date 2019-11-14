@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CropImageFormFieldComponent } from './crop-image-form-field/crop-image-form-field.component';
+
 import { ImageCropperModule } from 'ngx-image-cropper';
 
+import { CropImageFormFieldComponent } from './crop-image-form-field/crop-image-form-field.component';
 
 @NgModule({
     declarations: [CropImageFormFieldComponent],
@@ -13,7 +13,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
+        MatButtonModule,
         ImageCropperModule    ],
     exports: [
         CropImageFormFieldComponent
