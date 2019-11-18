@@ -3,24 +3,21 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './delete-dialog';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+// import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BreadcrumbComponent } from './breadcrumb';
 import { AdComponent } from './ad';
 
-import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 import { PipesModule } from '@base/pipes';
 
 const mat = [
     MatDialogModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatPaginatorModule,
     MatTooltipModule,
 ];
 
@@ -49,9 +46,8 @@ const mat = [
         ...mat
     ],
     providers: [
-        { provide: MatPaginatorIntl, useValue: getRussianPaginatorIntl() },
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
-        { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+   //     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
     ],
     entryComponents: [
         DeleteDialogComponent
