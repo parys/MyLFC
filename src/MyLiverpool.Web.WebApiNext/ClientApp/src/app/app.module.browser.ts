@@ -6,7 +6,7 @@ import { BrowserTransferStateModule, HammerModule, HAMMER_GESTURE_CONFIG } from 
 import { environment } from '@environments/environment';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
-import { GestureConfig } from "../gesture-config";
+import { GestureConfig } from '../gesture-config';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -18,8 +18,9 @@ import { GestureConfig } from "../gesture-config";
         HammerModule
     ],
     providers: [
-        //   { provide: 'BASE_URL', useFactory: getBaseUrl }
-    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+        //   { provide: 'BASE_URL', useFactory: getBaseUrl },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+    ]
 })
 export class AppModule {
 }

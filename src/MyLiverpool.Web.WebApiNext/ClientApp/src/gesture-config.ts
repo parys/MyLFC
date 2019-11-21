@@ -41,7 +41,7 @@ export class GestureConfig extends HammerGestureConfig {
   events = SUPPORTED_CUSTOM_GESTURES;
 
   constructor(
-    @Optional() @Inject(MAT_HAMMER_OPTIONS) private _hammerOptions?: any) {
+    @Optional() @Inject(MAT_HAMMER_OPTIONS) private hammerOptions?: any) {
     super();
   }
 
@@ -66,7 +66,7 @@ export class GestureConfig extends HammerGestureConfig {
       return noopHammerInstance;
     }
 
-    const mc = new hammer(element, this._hammerOptions || undefined);
+    const mc = new hammer(element, this.hammerOptions || undefined);
 
     // Default Hammer Recognizers.
     const pan = new hammer.Pan();
@@ -95,7 +95,7 @@ export class GestureConfig extends HammerGestureConfig {
   }
 
   /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
-  private _createRecognizer(base: Object, options: any, ...inheritances: Object[]) {
+  private _createRecognizer(base: object, options: any, ...inheritances: object[]) {
     const recognizer = new (base.constructor as Type<any>)(options);
     inheritances.push(base);
     inheritances.forEach(item => recognizer.recognizeWith(item));
