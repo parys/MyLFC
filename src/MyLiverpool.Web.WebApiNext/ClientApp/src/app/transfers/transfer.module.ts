@@ -6,7 +6,7 @@ import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-fi
 import { SelectClubFormFieldModule } from '@widgets/http/select-club-form-field';
 import { SelectSeasonFormFieldModule } from '@widgets/http/select-season-form-field';
 import { SharedModule } from '@shared/index';
-import { BreadcrumbService } from '@shared/breadcrumb';
+import { BreadcrumbService } from '@base/breadcrumbs';
 import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 
 import { TransferCurrentListComponent } from '@transfers/pages/transfer-current-list';

@@ -1,3 +1,3 @@
-﻿export interface Array<T> {
-    find(predicate: (search: T) => boolean): T;
-}
+﻿// export interface Array<T> {
+//     find(predicate: (search: T) => boolean): T;
+// }

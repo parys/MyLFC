@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule, BreadcrumbService } from '@shared/index';
+import { BreadcrumbService } from '@base/breadcrumbs';
+import { SharedModule } from '@shared/index';
 import { RecaptchaModule } from '@widgets/recaptcha';
 import { WISHES_ROUTE } from '@constants/routes.constants';
 import { WISHES_RU } from '@constants/ru.constants';

@@ -7,7 +7,7 @@ import { commentRoutes } from '@comments/lazy/comment.routes';
 import { CommentListComponent } from '@comments/lazy/comment-list';
 import { EditorModule } from '@editor/index';
 import { CommentSharedModule } from '@comments/shared';
-import { BreadcrumbService } from '@shared/breadcrumb';
+import { BreadcrumbService } from '@base/breadcrumbs';
 import { COMMENTS_ROUTE, COMMENTS_RU } from '@constants/index';
 import { CommentService } from '@comments/comment.service';
 import { PaginationModule } from '@base/pagination/pagination.module';

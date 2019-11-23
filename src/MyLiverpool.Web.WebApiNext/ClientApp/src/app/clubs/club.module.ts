@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/index';
 import { StadiumCoreModule } from '@stadiums/core';
-import { BreadcrumbService } from '@shared/breadcrumb';
+import { BreadcrumbService } from '@base/breadcrumbs';
 import { CLUBS_ROUTE } from '@constants/routes.constants';
 import { CLUBS_RU } from '@constants/ru.constants';
 

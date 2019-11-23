@@ -14,7 +14,7 @@ import { injuryRoutes } from '@injuries/lazy/injury.routes';
 
 import { SharedModule } from '@shared/index';
 
-import { BreadcrumbService } from '@shared/breadcrumb';
+import { BreadcrumbService } from '@base/breadcrumbs';
 import { INJURIES_ROUTE } from '@constants/routes.constants';
 import { InjuryService } from '@injuries/injury.service';
 import { INJURIES_RU } from '@constants/ru.constants';

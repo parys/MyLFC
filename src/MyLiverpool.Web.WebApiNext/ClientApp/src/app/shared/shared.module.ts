@@ -9,10 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { BreadcrumbComponent } from './breadcrumb';
 import { AdComponent } from './ad';
-
-import { PipesModule } from '@base/pipes';
 
 const mat = [
     MatDialogModule,
@@ -27,12 +24,10 @@ const mat = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        PipesModule, // todo ?
             ...mat
     ],
     declarations: [
         DeleteDialogComponent,
-        BreadcrumbComponent,
         AdComponent,
     ],
     exports: [
@@ -40,7 +35,6 @@ const mat = [
         FormsModule,
         ReactiveFormsModule,
         DeleteDialogComponent,
-        BreadcrumbComponent,
         AdComponent,
 
         ...mat

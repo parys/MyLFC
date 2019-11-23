@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 
-import { BreadcrumbService } from '@shared/breadcrumb';
+import { BreadcrumbService } from '@base/breadcrumbs';
 import { AppComponent } from './app.component';
 import { ChatModule } from './chat';
 import * as home from './home';
@@ -22,6 +22,7 @@ import { SignalRModule } from '@base/signalr';
 import { AuthModule } from '@base/auth';
 import { StorageModule } from '@base/storage';
 import { LoaderModule } from '@base/loader';
+import { BreadcrumbModule } from '@base/breadcrumbs/breadcrumb.module';
 
 registerLocaleData(localeRU);
 
@@ -65,7 +66,8 @@ export class MyHammerConfig extends HammerGestureConfig {
         StorageModule.forRoot(),
         SignalRModule.forRoot(),
         AuthModule.forRoot(),
-        LoaderModule.forRoot()
+        LoaderModule.forRoot(),
+        BreadcrumbModule.forRoot(),
     ],
     declarations: [
         home.NavbarComponent,
