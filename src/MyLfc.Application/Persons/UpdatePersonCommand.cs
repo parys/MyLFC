@@ -55,7 +55,7 @@ namespace MyLfc.Application.Persons
 
                 person = _mapper.Map(request, person);
 
-                var fileName = request.FirstName + request.LastName;
+                var fileName = request.FirstName.Trim() + request.LastName.Trim();
 
                 person.Photo =
                     await FileHelper.SavePersonPhotoAsync(request.Photo, fileName, _appEnvironment.WebRootPath);
