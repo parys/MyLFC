@@ -8,11 +8,11 @@ namespace MyLfc.Persistence
 {
     public class LiverpoolContext : IdentityDbContext<User, Role, int>
     {
-        private static bool _created;
+        private static bool _created = false;
         private static bool _isMigrator;
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool isIsMigrator = false) : base(options)
+        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool isMigrator = false) : base(options)
         {
-            _isMigrator = isIsMigrator;
+           // _isMigrator = isMigrator;
             if (!_created)
             {
                 _created = true;

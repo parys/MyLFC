@@ -5,7 +5,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -17,13 +16,10 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.ResourceAccess.Helpers;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Profiles;
@@ -89,12 +85,11 @@ namespace MyLiverpool.Web.WebApiNext
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddMvc(options => { options.Filters.Add(typeof(RequestDecorator)); })
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllersWithViews(options => { options.Filters.Add(typeof(RequestDecorator)); })
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ContractResolver =
+                        new CamelCasePropertyNamesContractResolver())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddCors(options =>
             {
@@ -138,40 +133,46 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
             services.AddCustomRedisCache(Configuration);
 
-            //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             if (Env.IsDevelopment())
             {
-                services.AddSwaggerGen(options =>
-                {
-                    options.SwaggerDoc("v1", new Info
-                    {
-                        Version = "v1",
-                        Title = "Swagger Sample API",
-                        Description = "API Sample made",
-                        TermsOfService = "None"
-                    });
+                //services.AddSwaggerGen(options =>
+                //{
+                //    options.SwaggerDoc("v1", new OpenApiInfo()
+                //    {
+                //        Version = "v1",
+                //        Title = "Swagger Sample API",
+                //        Description = "API Sample made",
+                //      //  TermsOfService = "None"
+                //    });
 
-                    //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
-                    //s    options.IncludeXmlComments(filePath);
-                    options.OperationFilter<HandleModelbinding>();
+                //    //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
+                //    //s    options.IncludeXmlComments(filePath);
+                //    options.OperationFilter<HandleModelbinding>();
 
-                    options.AddSecurityDefinition("oauth2", new OAuth2Scheme
-                    {
-                        Type = "oauth2",
-                        Flow = "implicit",
-                        AuthorizationUrl = "/connect/authorize",
-                        //   Extensions = { {"123", new object()}},
-                        TokenUrl = "connect/token",
-                        Scopes = new Dictionary<string, string>
-                        {
-                            {"roles", "roles scope"},
-                            {"openid", "openid scope"}
-                        },
-                    });
+                //    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                //    {
+                //        //Type = SecuritySchemeType.OAuth2,
+                //        //Flows = new OpenApiOAuthFlows
+                //        //{
+                //        //    Implicit = new OpenApiOAuthFlow()
+                //        //    {
+                                
+                //        //    }
+                //        //}"implicit",
+                //        //AuthorizationUrl = "/connect/authorize",
+                //        ////   Extensions = { {"123", new object()}},
+                //        //TokenUrl = "connect/token",
+                //        //Scopes = new Dictionary<string, string>
+                //        //{
+                //        //    {"roles", "roles scope"},
+                //        //    {"openid", "openid scope"}
+                //        //},
+                //    });
 
-                    //   options.OperationFilter<AssignSecurityRequirements>();
-                });
+                //    //   options.OperationFilter<AssignSecurityRequirements>();
+                //});
             }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
@@ -182,8 +183,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             //      //   options.InvocationTimeoutMilliseconds = 140000;
             //});
-            var dbContext = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
-            dbContext.Database.Migrate();
+            using (var dbContext =
+                (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
+            {
+                dbContext.Database.Migrate();
+            }
             //if (Env.IsDevelopment())
             //{
             //    new DatabaseInitializer(context).Seed();
@@ -200,9 +204,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        /// <param name="loggerFactory"></param>
-        /// <param name="antiforgery"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //  app.UseMiddleware<ExceptionHandlerMiddleware>();
 
@@ -214,12 +216,12 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
 
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                    //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
-                });
+                //  app.UseSwagger();
+                //  app.UseSwaggerUI(c =>
+                //  {
+                //      c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                //  });
             }
             else
             {
@@ -234,9 +236,6 @@ namespace MyLiverpool.Web.WebApiNext
                     app.UseCustomResponseCompression();
                 }
             }
-
-            app.UseCors("MyPolicy");
-            //   app.UseSignalRAuthentication();
 
             app.UseDefaultFiles();
 
@@ -253,19 +252,20 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseSpaStaticFiles();
             }
 
+            app.UseRouting();
+            app.UseCors("MyPolicy");
+            //   app.UseSignalRAuthentication();
+            
             app.UseAuthentication();
-
-            app.UseSignalR(routes =>
+            app.UseAuthorization();
+            
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<AnonymHub>("/hubs/anonym");
-                routes.MapHub<AuthHub>("/hubs/auth");
-            });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
+                endpoints.MapHub<AnonymHub>("/hubs/anonym");
+                endpoints.MapHub<AuthHub>("/hubs/auth");
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             //    if (!Env.IsDevelopment())

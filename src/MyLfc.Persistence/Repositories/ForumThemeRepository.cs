@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -59,11 +58,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 filter = section => true;
             }
             return await _context.ForumThemes.CountAsync(filter);
-        }
-
-        public async Task<IEnumerable<ForumTheme>> GetListAsync()
-        {
-            return await _context.ForumThemes.ToListAsync();
         }
 
         public async Task<ForumTheme> GetByIdWithMessagesAsync(int id, int page, int itemPerPage = 15)

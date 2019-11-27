@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -62,7 +63,9 @@ namespace MyLiverpool.Web.Mvc
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc().AddJsonOptions(options =>
             {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                
+                //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
             
             services.AddCustomDbContext(Configuration);
