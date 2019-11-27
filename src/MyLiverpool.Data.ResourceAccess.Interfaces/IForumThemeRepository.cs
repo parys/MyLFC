@@ -8,6 +8,5 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     {
         Task<ForumTheme> GetByIdWithMessagesAsync(int id, int page, int itemPerPage = 15);
 
-        Task<IEnumerable<ForumTheme>> GetListAsync();
     }
 }

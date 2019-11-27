@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -95,18 +94,9 @@ namespace MyLfc.Persistence
             }
             return await query.CountAsync();
         }
-        
-        public async Task<IEnumerable<TEntity>> GetListAsync(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
-            Expression<Func<TEntity, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<TEntity, object>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
-        {
-            return await GetQueryableList(page, itemPerPage, asNoTracking, filter, order, orderBy, include).ToListAsync();
-        }
 
         public IQueryable<TEntity> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
-            Expression<Func<TEntity, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<TEntity, object>> orderBy = null,
+            Expression<Func<TEntity, bool>> filter = null, Expression<Func<TEntity, object>> orderBy = null,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();
@@ -120,7 +110,7 @@ namespace MyLfc.Persistence
             }
             if (orderBy != null)
             {
-                query = query.ObjectSort(orderBy, order);
+           //     query = query.ObjectSort(orderBy, order);
             }
             if (page.HasValue)
             {

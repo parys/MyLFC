@@ -11,7 +11,7 @@ namespace MyLfc.Common.Web.Middlewares
     {
         public static IServiceCollection AddCustomIdentitySettings(this IServiceCollection services)
         {
-            services.AddIdentity<User, Role>(options =>
+            services.AddDefaultIdentity<User>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 6;
@@ -26,6 +26,7 @@ namespace MyLfc.Common.Web.Middlewares
                     options.Lockout.AllowedForNewUsers = true;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
                 })
+                .AddRoles<Role>()
                 .AddEntityFrameworkStores<LiverpoolContext>()
                 .AddDefaultTokenProviders();
 

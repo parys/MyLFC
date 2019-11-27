@@ -10,8 +10,6 @@ namespace MyLfc.Persistence.Configurations
         {
             builder.ToTable("Materials");
 
-            builder.HasQueryFilter(x => !x.Deleted);
-
             builder.Property(x => x.Title).HasMaxLength(200);
 
             builder.Property(x => x.Source).HasMaxLength(300);
@@ -29,6 +27,8 @@ namespace MyLfc.Persistence.Configurations
             builder.HasOne(x => x.Category)
                 .WithMany(x => x.Materials)
                 .HasForeignKey(x => x.CategoryId);
+
+            builder.HasQueryFilter(x => !x.Deleted);
 
         }
     }
