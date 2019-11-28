@@ -54,7 +54,7 @@
     "@angular/pwa": "0.803.19",
     "@schematics/angular": "8.3.19",
     "typescript": "3.5.3",
-    "ts-node": "8.5.2",
+    "ts-node": "8.5.3",
     "tslint": "5.20.1",
     "codelyzer": "5.2.0",
     "tinymce": "4.9.3",
