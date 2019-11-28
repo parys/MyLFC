@@ -26,17 +26,6 @@ namespace MyLiverpool.Web.WebApiNext
                 .WriteTo.Console()
                 .CreateLogger();
 
-
-            //var host = WebHost.CreateDefaultBuilder(args)
-            //    //                .UseApplicationInsights()
-            //    .UseConfiguration(config)
-            //    //.CaptureStartupErrors(true)
-            //    .UseContentRoot(Directory.GetCurrentDirectory())
-            //    .UseStartup<Startup>()
-            //    .Build();
-
-
-
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
@@ -49,7 +38,6 @@ namespace MyLiverpool.Web.WebApiNext
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                //    webBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "wwwroot");
                 })
                 .Build();
 
