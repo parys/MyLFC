@@ -13,15 +13,21 @@
         </button>
     </mat-sidenav>
     <mat-sidenav-content class="main" (swiperight)="swiperight($event)" (swipeleft)="swipeleft($event)">
+        <ng-container *ngIf="isDesktop">
         <div class="left-container" [style.order]="orderState[0]" [@slideInOut]="animationState[0]">
-            <sidebar-left class="full-width"></sidebar-left>
+            <app-dynamic-content-outlet [componentName]="'SidebarLeftComponent'">
+                </app-dynamic-content-outlet>
         </div>
+    </ng-container>
         <div class="main-container" [style.order]="orderState[1]" [@slideInOut]="animationState[1]">
             <router-outlet></router-outlet>
         </div>
+        <ng-container *ngIf="isDesktop">
         <div class="right-container" [style.order]="orderState[2]" [@slideInOut]="animationState[2]">
-            <sidebar-right class="full-width"></sidebar-right>
+            <app-dynamic-content-outlet [componentName]="'SidebarRightComponent'">
+                </app-dynamic-content-outlet>
         </div>
+    </ng-container>
         <footer [class.bottom]="showAd">
             <a [routerLink]="['/about']">О нас</a>
             <a [routerLink]="['/copyright']">О перепечатке информации</a>

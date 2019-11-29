@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     orderState = [0, 1, 2];
     private resizeDisable = true;
     public showAd = true;
+    public isDesktop = true;
 
     @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
