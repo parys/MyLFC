@@ -23,10 +23,6 @@ export class LayoutService {
         return this.http.get<MatchCalendar>(MATCHES_ROUTE + '/getForCalendar');
     }
 
-    public getHeaderMatch(): Observable<Match> {
-        return this.http.get<Match>(MATCHES_ROUTE + '/header');
-    }
-
     public getBestPlayer(): Observable<Person> {
         return this.http.get<Person>(PERSONS_ROUTE + '/bestPlayer/');
     }

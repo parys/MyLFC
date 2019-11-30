@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Match } from '@domain/models';
-import { LayoutService } from '@layout/layout.service';
+import { MatchHeaderService } from './match-header.service';
 
 @Component({
     selector: 'match-header',
@@ -12,12 +12,12 @@ import { LayoutService } from '@layout/layout.service';
 export class MatchHeaderComponent implements OnInit {
     public item: Match;
 
-    constructor(private layoutService: LayoutService,
+    constructor(private service: MatchHeaderService,
                 private cd: ChangeDetectorRef) {
     }
 
     public ngOnInit(): void {
-        this.layoutService.getHeaderMatch()
+        this.service.getHeaderMatch()
             .subscribe(data => this.item = data,
                 null,
                 () => {

@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import {
     MatchCalendarComponent,
     MatchCalendarEntryComponent,
-    MatchHeaderComponent,
     NotificationCounterComponent,
     PersonBirthdayComponent,
     BestPlayerComponent,
@@ -25,7 +24,6 @@ const layoutComponents = [
     NotificationCounterComponent,
     MatchCalendarEntryComponent,
     MatchCalendarComponent,
-    MatchHeaderComponent,
     BestPlayerComponent,
     PersonBirthdayComponent,
     UserBirthdayComponent,

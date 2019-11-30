@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { SharedModule } from '@shared/index';
 import { EditorModule } from '@editor/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { PMS_ROUTE } from '@constants/index';
@@ -16,11 +18,12 @@ import { pmRoutes } from '@pms/lazy/pm.routes';
 import { PmListComponent } from '@pms/lazy/pm-list';
 import { PmDetailComponent } from '@pms/lazy/pm-detail';
 import { PmEditComponent } from '@pms/lazy/pm-edit';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(pmRoutes),
         EditorModule,
         PmSharedModule,

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatchEventsModule } from '@match-events/match-events.module';
 import { MatchPersonModule } from '@match-persons/index';
 import { CommentSharedModule } from '@comments/shared';
-import { SharedModule } from '@shared/index';
 import { StadiumCoreModule } from '@stadiums/core';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { MATCHES_RU, MATCH_RU } from '@constants/ru.constants';
@@ -23,8 +24,10 @@ import { PaginationModule } from '@base/pagination/pagination.module';
 
 @NgModule({
     imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         CommentSharedModule,
-        SharedModule,
         MatchEventsModule,
         RouterModule.forChild(matchRoutes),
         MatchPersonModule,

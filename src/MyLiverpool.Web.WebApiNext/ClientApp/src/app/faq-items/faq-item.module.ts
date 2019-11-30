@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
-import { SharedModule } from '@shared/index';
 import { FAQ_CATEGORIES_ROUTE } from '@constants/routes.constants';
 import { FAQ_CATEGORIES_RU } from '@constants/ru.constants';
 import { EditorModule } from '@editor/index';
@@ -15,11 +17,12 @@ import { FaqItemEditComponent } from './faq-item-edit';
 import { FaqItemListComponent } from './faq-item-list';
 import { FaqItemService } from './faq-item.service';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(faqItemRoutes),
         MatInputModule,
         MatSelectModule,

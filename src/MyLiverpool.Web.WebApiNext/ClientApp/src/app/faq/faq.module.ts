@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
-import { SharedModule } from '@shared/index';
 import { FAQ_ROUTE } from '@constants/routes.constants';
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 import { PipesModule } from '@base/pipes';
@@ -15,7 +15,7 @@ import { FaqMaterialModule } from '@faq/faq-material.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(faqItemRoutes),
         PipesModule,
         FaqMaterialModule

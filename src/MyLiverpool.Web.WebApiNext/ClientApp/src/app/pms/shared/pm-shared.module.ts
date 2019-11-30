@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
-import { SharedModule } from '@shared/index';
 import { EditorModule } from '@editor/index';
 
 import { PmService } from '@pms/pm.service';
 import { PmReplyComponent } from '@pms/shared/pm-reply';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
-        SharedModule,
-        RouterModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         EditorModule,
         MatInputModule,
         MatButtonModule

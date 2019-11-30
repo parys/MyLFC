@@ -9,7 +9,6 @@ import localeRU from '@angular/common/locales/ru';
 
 import { AppComponent } from './app.component';
 import * as home from './home';
-import { LayoutModule } from '@layout/layout.module';
 import { MaterialCoreModule } from '@materials/core';
 import { SharedModule, CustomTitleMetaService } from './shared';
 import { AppRoutingModule } from './app-routing.module';
@@ -54,7 +53,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         BrowserModule.withServerTransition({ appId: 'mylfc' }),
         SharedModule,
         HttpClientModule,
-        LayoutModule,
         MaterialCoreModule,
         AppRoutingModule,
         AppMaterialModule,

@@ -1,6 +1,5 @@
 export * from './match-calendar';
 export * from './match-calendar-entry';
-export * from './match-header';
 export * from './notification-counter';
 export * from './best-player';
 export * from './person-birthday';

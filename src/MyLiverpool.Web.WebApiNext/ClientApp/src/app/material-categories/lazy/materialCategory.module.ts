@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { BLOG_CATEGORIES_ROUTE, NEWS_CATEGORIES_ROUTE } from '@constants/index';
 
@@ -13,7 +14,9 @@ import { MaterialCategoryCoreModule } from '@material-categories/core';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(materialCategoryRoutes),
         MaterialCategoryCoreModule,
         MatInputModule

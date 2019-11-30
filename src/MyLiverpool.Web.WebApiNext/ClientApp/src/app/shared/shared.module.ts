@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './delete-dialog';
 // import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,10 +20,8 @@ const mat = [
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         RouterModule,
-            ...mat
+        ...mat
     ],
     declarations: [
         DeleteDialogComponent,
@@ -32,8 +29,6 @@ const mat = [
     ],
     exports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         DeleteDialogComponent,
         AdComponent,
 

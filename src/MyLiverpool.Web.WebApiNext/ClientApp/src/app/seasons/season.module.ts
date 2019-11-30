@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { CALENDAR_RU, SEASONS_ROUTE, STATISTICS_RU } from '@constants/index';
 import { PipesModule } from '@base/pipes';
@@ -17,7 +18,9 @@ import { SeasonService } from '@seasons/season.service';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(seasonRoutes),
         PipesModule,
         SeasonMaterialModule
