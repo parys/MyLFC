@@ -6,15 +6,12 @@ import { DeleteDialogComponent } from './delete-dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-
 import { AdComponent } from './ad';
 
 const mat = [
     MatDialogModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatTooltipModule,
 ];
 
 @NgModule({

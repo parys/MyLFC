@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import {
     MatchCalendarComponent,
@@ -40,7 +41,8 @@ const layoutComponents = [
         CommonModule,
         RouterModule,
         LayoutMaterialModule,
-        PipesModule
+        PipesModule,
+        MatTooltipModule
     ],
     declarations: [
         ...layoutComponents

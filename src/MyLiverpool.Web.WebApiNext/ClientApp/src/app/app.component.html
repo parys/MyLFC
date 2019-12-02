@@ -12,18 +12,18 @@
             <mat-icon>close</mat-icon>
         </button>
     </mat-sidenav>
-    <mat-sidenav-content class="main" (swiperight)="swiperight($event)" (swipeleft)="swipeleft($event)">
+    <mat-sidenav-content class="main">
         <ng-container *ngIf="isDesktop">
-            <div class="left-container" [style.order]="orderState[0]" [@slideInOut]="animationState[0]">
+            <div class="left-container" [style.order]="0">
                 <app-dynamic-content-outlet [componentName]="'SidebarLeftComponent'">
                 </app-dynamic-content-outlet>
             </div>
         </ng-container>
-        <div class="main-container" [style.order]="orderState[1]" [@slideInOut]="animationState[1]">
+        <div class="main-container" [style.order]="1">
             <router-outlet></router-outlet>
         </div>
         <ng-container *ngIf="isDesktop">
-            <div class="right-container" [style.order]="orderState[2]" [@slideInOut]="animationState[2]">
+            <div class="right-container" [style.order]="2">
                 <app-dynamic-content-outlet [componentName]="'SidebarRightComponent'">
                 </app-dynamic-content-outlet>
             </div>

@@ -1,8 +1,5 @@
-import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
-import {
-    BrowserModule,
-    HammerGestureConfig,
-    HAMMER_GESTURE_CONFIG, } from '@angular/platform-browser';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
@@ -23,19 +20,6 @@ import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outl
 
 registerLocaleData(localeRU);
 
-declare var Hammer: any;
-@Injectable()
-export class MyHammerConfig extends HammerGestureConfig {
-    buildHammer(element: HTMLElement) {
-        const mc = new Hammer(element, {
-            touchAction: 'pan-y',
-            cssProps: {
-                userSelect: 'auto',
-            }
-        });
-        return mc;
-    }
-}
 
 // @Injectable()
 // export class UIErrorHandler extends ErrorHandler {
@@ -70,15 +54,10 @@ export class MyHammerConfig extends HammerGestureConfig {
         AppComponent,
     ],
     exports: [
-        home.NavbarMenuComponent
     ],
     providers: [
         CustomTitleMetaService,
         { provide: LOCALE_ID, useValue: 'ru-RU' },
-        {
-            provide: HAMMER_GESTURE_CONFIG,
-            useClass: MyHammerConfig,
-        },
         // {
         //    provide: ErrorHandler,
         //    useClass: UIErrorHandler
