@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Profiles;
 using MyLfc.Common.Web;
@@ -22,7 +23,6 @@ using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.ResourceAccess.Helpers;
-using Newtonsoft.Json.Serialization;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Mappings;
@@ -32,7 +32,7 @@ namespace MyLiverpool.Web.Mvc
 
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -46,7 +46,7 @@ namespace MyLiverpool.Web.Mvc
 
         private IConfigurationRoot Configuration { get; }
 
-        private IHostingEnvironment Env { get; }
+        private IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -61,7 +61,7 @@ namespace MyLiverpool.Web.Mvc
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddMvc().AddJsonOptions(options =>
+            services.AddControllersWithViews().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 
@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.Mvc
                     options.LogoutPath = "/Account/Logout/";
                 });
 
-            services.ApplyCustomOpenIdDict(Env);
+          //  services.ApplyCustomOpenIdDict(Env);
 
             RegisterCoreHelpers(services);
             services.RegisterRepositories();
@@ -97,11 +97,10 @@ namespace MyLiverpool.Web.Mvc
 
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -130,19 +129,19 @@ namespace MyLiverpool.Web.Mvc
                 }
             });
 
-            app.UseAuthentication();
-
-            app.UseMvc(routes =>
+            app.UseRouting();
+            
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)
         {
-            services.AddSingleton<IHostingEnvironment>(Env);
+            services.AddSingleton<IWebHostEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ISignalRHubAggregator, EmptyHubAggregator>();

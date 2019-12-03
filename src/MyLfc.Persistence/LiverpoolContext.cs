@@ -9,10 +9,8 @@ namespace MyLfc.Persistence
     public class LiverpoolContext : IdentityDbContext<User, Role, int>
     {
         private static bool _created = false;
-        private static bool _isMigrator;
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool isMigrator = false) : base(options)
+        public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
         {
-           // _isMigrator = isMigrator;
             if (!_created)
             {
                 _created = true;
@@ -211,12 +209,6 @@ namespace MyLfc.Persistence
         
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
-            if (_isMigrator)
-            {
-                modelBuilder.UseOpenIddict<int>();
-                modelBuilder.UseSqlServer(
-                    "Server=User-pc;Database=MyLiverpool1123Migrator;Trusted_Connection=True;MultipleActiveResultSets=true");
-            }
             base.OnConfiguring(modelBuilder);
         }
     }

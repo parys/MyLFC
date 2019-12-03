@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using MyLiverpool.Data.ResourceAccess;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using MyLfc.Persistence;
-using OpenIddict.Server;
 
 namespace MyLfc.Common.Web.Middlewares
 {
     public static class OpenIdDictMiddleware
     {
-        public static IServiceCollection ApplyCustomOpenIdDict(this IServiceCollection services, IHostingEnvironment env)
+        public static IServiceCollection ApplyCustomOpenIdDict(this IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddOpenIddict()
                 .AddCore(options =>

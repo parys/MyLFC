@@ -23,7 +23,6 @@ export class DynamicContentOutletService {
 
     async GetComponent(componentName: string): Promise<ComponentRef<any>> {
 
-        console.warn('dynamic content get component');
         const modulePath = this.getModulePathForComponent(componentName);
 
         if (!modulePath) {
@@ -45,7 +44,6 @@ export class DynamicContentOutletService {
             );
             return componentFactory.create(this.injector);
         } catch (error) {
-            console.error(error.message);
             return this.getDynamicContentErrorComponent(
                 `Unable to load module ${modulePath}.
                   Looked up using component: ${componentName}. Error Details: ${

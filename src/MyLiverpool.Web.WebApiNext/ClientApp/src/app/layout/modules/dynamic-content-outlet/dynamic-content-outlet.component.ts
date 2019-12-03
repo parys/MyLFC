@@ -26,7 +26,6 @@ export class DynamicContentOutletComponent implements OnDestroy, OnChanges {
     constructor(private dynamicContentService: DynamicContentOutletService) { }
 
     async ngOnChanges() {
-        console.warn('ngOnChanges');
         await this.renderComponent();
     }
 
