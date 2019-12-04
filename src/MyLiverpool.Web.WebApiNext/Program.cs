@@ -24,6 +24,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
+                .MinimumLevel.Warning()
                 .CreateLogger();
 
             var host = Host.CreateDefaultBuilder(args)
