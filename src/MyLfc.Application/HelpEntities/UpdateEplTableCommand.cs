@@ -18,7 +18,7 @@ namespace MyLfc.Application.HelpEntities
 
         public class Handler: IRequestHandler<Request, Response>
         {
-            private const string Address = "http://www.sports.ru/epl/table/";
+            private const string Address = "https://www.sports.ru/epl/table/";
             private const string XpathTableRows = "/html/body/div/div/div/div/div/div/div/table/tbody//tr";
 
             private readonly IMediator _mediator;

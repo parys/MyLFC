@@ -10,7 +10,7 @@ namespace MyLiverpool.Common.Utilities
     {
         public static async Task<HtmlNodeCollection> GetHtmlRowsAsync(string url, string xpath)
         {
-            var http = new HttpClient();
+            using var http = new HttpClient();
             var response = await http.GetByteArrayAsync(url);
             var source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
             source = WebUtility.HtmlDecode(source);
