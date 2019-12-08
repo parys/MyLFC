@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription } from 'rxjs';
 
-import { RolesCheckedService } from '@base/auth';
+import { RolesCheckedService, AuthService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
 import { RoleGroupService } from '@role-groups/index';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
@@ -36,7 +36,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar,
         private router: Router,
         private location: Location,
-        private titleService: CustomTitleService) { }
+        private titleService: CustomTitleService,
+        private authService: AuthService) {
+        }
+
+        public logout(): void {
+            this.authService.logout();
+        }
 
     public ngOnInit(): void {
         this.initRoleForm();

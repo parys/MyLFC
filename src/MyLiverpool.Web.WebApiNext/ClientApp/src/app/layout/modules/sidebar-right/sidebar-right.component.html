@@ -1,9 +1,9 @@
 ﻿<ul class="maroon-panel login-list-panel padding10">
     <li *ngIf="!roles.isLogined;else logined">
-        <account-signin></account-signin>
+        <account-signin-widget></account-signin-widget>
     </li>
     <ng-template #logined>
-        <li *ngIf="roles.isLogined" class="flex-space-around flex-v-c">
+        <li class="flex-space-around flex-v-c">
             <a [routerLink]="['/users', 0]" class="text-white flex-space-around flex-v-c"><mat-icon>person</mat-icon>Профиль</a>
             <pm-counter></pm-counter>
             <notification-counter></notification-counter>

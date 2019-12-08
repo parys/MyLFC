@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 
 import { LayoutModule } from '@layout/layout.module';
 import { ChatModule } from '@chat/chat.module';
+import { AccountSigninWidgetModule } from '@widgets/http/account-signin-widget';
+
 import { SidebarRightComponent } from './sidebar-right.component';
-import { AccountCoreModule } from '@accounts/core';
+
 import { RightSidebarMaterialModule } from './sidebar-right-material.module';
 
 @NgModule({
@@ -15,7 +17,7 @@ import { RightSidebarMaterialModule } from './sidebar-right-material.module';
         RightSidebarMaterialModule,
         LayoutModule,
         ChatModule,
-        AccountCoreModule,
+        AccountSigninWidgetModule
     ],
     declarations: [
         SidebarRightComponent

@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './resetPassword';
 import { ChangePasswordComponent } from './changePassword';
 
 export const accountRoutes: Routes = [
+
     {
         path: 'signup',
         component: AccountSignupComponent,

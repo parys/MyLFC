@@ -2,27 +2,23 @@
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-
-import { SharedModule } from '@shared/index';
-import { AccountSigninComponent } from './account-signin';
 import { CommonModule } from '@angular/common';
+
+import { AccountSigninWidgetComponent } from './account-signin-widget.component';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule,
         MatButtonModule,
         FormsModule,
         ReactiveFormsModule,
-        CommonModule
     ],
     declarations: [
-        AccountSigninComponent
+        AccountSigninWidgetComponent
     ],
     exports: [
-        AccountSigninComponent,
-    ],
-    providers: [
+        AccountSigninWidgetComponent,
     ]
 })
-export class AccountCoreModule { }
+export class AccountSigninWidgetModule { }

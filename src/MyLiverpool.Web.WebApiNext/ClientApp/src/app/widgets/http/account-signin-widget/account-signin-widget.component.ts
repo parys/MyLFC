@@ -1,25 +1,30 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '@base/auth';
-import { ACCOUNT_ROUTE } from '@constants/index';
+import { ACCOUNT_ROUTE } from '@constants/routes.constants';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
-    selector: 'account-signin',
-    templateUrl: './account-signin.component.html',
-    styleUrls: ['./account-signin.component.scss'],
+    selector: 'account-signin-widget',
+    templateUrl: './account-signin-widget.component.html',
+    styleUrls: ['./account-signin-widget.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class AccountSigninComponent implements OnInit {
+export class AccountSigninWidgetComponent extends ObserverComponent implements OnInit {
+
+    @Output() public signed = new EventEmitter();
     public loginForm: FormGroup;
 
     constructor(private authService: AuthService,
                 private formBuilder: FormBuilder,
                 private snackBar: MatSnackBar,
                 private router: Router) {
+        super();
     }
 
     public ngOnInit(): void {
@@ -30,8 +35,8 @@ export class AccountSigninComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        this.authService.login(this.loginForm.value)
-            .subscribe((data: any) => data,
+        const login$ = this.authService.login(this.loginForm.value)
+            .subscribe((data: any) => this.signed.emit(data),
                 (e: any) => {
                     if (e.error === 'unconfirmed_email') {
                         this.router.navigate([`/${ACCOUNT_ROUTE}/unconfirmedEmail`]);
@@ -49,5 +54,6 @@ export class AccountSigninComponent implements OnInit {
                             { duration: 65000 });
                     }
                 });
+        this.subscriptions.push(login$);
     }
 }
