@@ -37,7 +37,7 @@ namespace MyLfc.Application.Comments
             {
                 var comments = await _context.MaterialComments
                     .AsNoTracking()
-                    .OrderByDescending(x => x.AdditionTime)
+                    .OrderByDescending(x => x.Id)
                     .Take(GlobalConstants.LastCommentsCount)
                     .ProjectTo<LastCommentDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
