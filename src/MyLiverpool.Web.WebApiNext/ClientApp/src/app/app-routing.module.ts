@@ -136,6 +136,10 @@ const routes: Routes = [
         loadChildren: () => import('./comments/lazy/comment.module').then(m => m.CommentModule)
     },
     {
+        path: 'chat',
+        loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
+    },
+    {
         path: CLUBS_ROUTE,
         loadChildren: () => import('./clubs/club.module').then(m => m.ClubModule)
     },

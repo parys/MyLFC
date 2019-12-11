@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { EditorModule } from '@editor/index';
 import { PipesModule } from '@base/pipes';
@@ -24,7 +25,8 @@ import { ChatMessageService } from '@chat/chat-message.service';
         EditorModule,
         PipesModule,
         LayoutModule // todo needed for users-online
-        , MatButtonModule
+        , MatButtonModule,
+        MatTabsModule
     ],
     declarations: [
         MiniChatComponent,

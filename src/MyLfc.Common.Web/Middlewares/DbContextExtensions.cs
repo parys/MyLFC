@@ -7,7 +7,7 @@ namespace MyLfc.Common.Web.Middlewares
 {
     public static class DbContextExtensions
     {
-        public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration  )
+        public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         { 
             services.AddDbContext<LiverpoolContext>(options =>
             {

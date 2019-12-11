@@ -29,7 +29,6 @@ using MyLiverpool.Common.Mappings;
 
 namespace MyLiverpool.Web.Mvc
 {
-
     public class Startup
     {
         public Startup(IWebHostEnvironment env)

@@ -1,5 +1,5 @@
-﻿<nav class="maroon-panel beauty-font nav flex-space-around flex-v-c">
-    <button type="button" mat-button (click)="toggle.emit()" class="text-white">
+﻿<nav class="nav">
+    <button type="button" mat-button (click)="toggle.emit()" class="menu-btn">
         <mat-icon>menu</mat-icon>
     </button>
     <a class="logo-link" role="button" [routerLink]="['/']">
@@ -8,14 +8,14 @@
     <navbar-menu class="flex-space-around header-nav"></navbar-menu>
 
     <ng-container *ngIf="!roles.isLogined;else logined">        
-        <button type="button" [routerLink]="['/account/signin']" mat-button class="text-white">
+        <button type="button" [routerLink]="['/account/signin']" mat-button class="person-btn">
             <mat-icon>person</mat-icon>
         </button>
     </ng-container>
     <ng-template #logined>
-        <a [routerLink]="['/users', 0]" class="text-white">
+        <button mat-button role="button" [routerLink]="['/users', 0]" class="person-btn">
             <mat-icon>person</mat-icon>
-        </a>
+        </button>
     </ng-template>
     <ad [blockName]="'R-A-255349-4'" class="ad" *ngIf="showAd"></ad>
 </nav>

@@ -2,17 +2,21 @@
     height: 90px;
     width: 310px;
 }
+
 @media(max-width: 1050px) {
     .logo-link {
-        height: 63px;
-        width: 240px;
-    }}
+        height: 33px;
+        width: 114px;
+    }
+}
 
 .logo {
     width: inherit;
 }
 
-@media(max-width: 1810px) { /* should based on menu length? todo*/
+@media(max-width: 1810px) {
+
+    /* should based on menu length? todo*/
     .liverbird-navbar {
         display: none;
     }
@@ -35,7 +39,7 @@
     }
 }
 
-@media(max-width: 700px) {
+@media(max-width: 768px) {
     .header-nav {
         display: none;
     }
@@ -44,18 +48,35 @@
 .mat-button {
     min-width: 66px;
     height: 100%;
+    color: white;
 }
 
-@media(min-width: 906px) {
-    .mat-button {
+@media(min-width: 768px) {
+    .menu-btn {
+        display: none;
+    }
+}
+
+@media(min-width:768px) {
+    .person-btn {
         display: none;
     }
 }
 
 .nav {
+    align-items: center;
+    background-color: #731010;
     display: flex;
-    flex: auto;
-    width: 100%
+    font-family: "Beauty";
+    width: 100%;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+@media(max-width:767px) {
+    .nav {        
+        justify-content: space-between;
+    }
 }
 
 .ad {

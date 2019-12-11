@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { Subscription } from 'rxjs';
 
 import { RolesCheckedService, AuthService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
@@ -12,14 +10,14 @@ import { RoleGroupService } from '@role-groups/index';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 
 import { UserService } from '@users/user.service';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'user-detail',
     templateUrl: './user-detail.component.html'
 })
 
-export class UserDetailComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
+export class UserDetailComponent extends ObserverComponent implements OnInit {
     public item: User;
     public roleGroups: RoleGroup[];
     public roleForm: FormGroup;
@@ -38,31 +36,30 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private location: Location,
         private titleService: CustomTitleService,
         private authService: AuthService) {
-        }
-
-        public logout(): void {
-            this.authService.logout();
-        }
+        super();
+    }
 
     public ngOnInit(): void {
         this.initRoleForm();
         this.initBanForm();
-        this.sub = this.route.params.subscribe(params => {
+        const sub = this.route.params.subscribe(params => {
             this.service.getSingle(+params['id'])
                 .subscribe((data: User) => this.parse(data));
         });
+        this.subscriptions.push(sub);
+
         if (this.roles.isAdminAssistant) {
             this.loadRoleGroups();
         }
     }
 
-    public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
+    public logout(): void {
+        this.authService.logout();
     }
 
     public onSubmit(): void {
         const roleGroupId = this.roleForm.controls['roleGroupId'].value;
-        this.service.updateRoleGroup(this.item.id, roleGroupId)
+        const sub = this.service.updateRoleGroup(this.item.id, roleGroupId)
             .subscribe((data: boolean) => {
                 if (data) {
                     this.roleForm.patchValue(roleGroupId);
@@ -71,11 +68,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                     this.snackBar.open('Группа НЕ изменена');
                 }
             });
+
+        this.subscriptions.push(sub);
     }
 
     public onSubmitBan(): void {
         const banDaysCount = this.banForm.controls['banDaysCount'].value;
-        this.service.ban(this.item.id, banDaysCount)
+        const sub = this.service.ban(this.item.id, banDaysCount)
             .subscribe((data: boolean) => {
                 if (data) {
                     const time = new Date();
@@ -83,6 +82,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                     this.banForm.controls['banDaysCount'].patchValue(null);
                 }
             });
+
+        this.subscriptions.push(sub);
     }
 
     public onChangeAvatar(event: any): void {
@@ -92,23 +93,26 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                 alert('Размер изображения не должен превышать 250КБ');
                 return;
             }
-            this.service.updateAvatar(file)
+            const sub = this.service.updateAvatar(file)
                 .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`);
+            this.subscriptions.push(sub);
         }
     }
 
     public resetAvatar(): void {
-        this.service.resetAvatar(this.item.id)
+        const sub = this.service.resetAvatar(this.item.id)
             .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`);
+        this.subscriptions.push(sub);
     }
 
     public unban(): void {
-        this.service.unban(this.item.id)
+        const sub = this.service.unban(this.item.id)
             .subscribe((data: boolean) => {
                 if (data) {
                     this.item.lockoutEnd = null;
                 }
             });
+        this.subscriptions.push(sub);
     }
 
     public writePm(): void {
@@ -127,8 +131,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
 
     private loadRoleGroups(): void {
-        this.roleGroupService.getAll()
+        const sub = this.roleGroupService.getAll()
             .subscribe((data: RoleGroup[]) => this.roleGroups = data);
+        this.subscriptions.push(sub);
     }
 
     private initRoleForm(): void {
