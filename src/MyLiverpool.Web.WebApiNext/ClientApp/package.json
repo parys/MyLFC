@@ -34,7 +34,7 @@
     "@angular/service-worker": "8.2.14",
     "@aspnet/signalr": "1.0.4",
     "@nguniversal/aspnetcore-engine": "8.1.1",
-    "@nguniversal/module-map-ngfactory-loader": "8.1.1",
+    "@nguniversal/module-map-ngfactory-loader": "8.2.6",
     "angular2-recaptcha": "1.1.0",
     "aspnet-prerendering": "3.0.1",
     "aspnet-webpack": "3.0.0",
