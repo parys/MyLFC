@@ -196,13 +196,8 @@ ol {
 @font-face {
     font-display: swap;
     font-family: "Beauty";
-    src: url('./fonts/10427.ttf') format('truetype');
-}
-
-@font-face {
-    font-display: swap;
-    font-family: "AnotherFont";
-    src: url('./fonts/Cuprum-Regular.ttf');
+    src: url('./fonts/10427.woff2') format('woff2'),
+         url('./fonts/10427.woff') format('woff');
 }
 
 /* override theme material */

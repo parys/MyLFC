@@ -43,6 +43,9 @@
 <div class="menu-block chat">
     <a role="button" [routerLink]="['/chat']"><b class="beauty-font">Чаты</b></a>
 </div>
+<div class="menu-block pms" *ngIf="roles.isLogined">
+    <a role="button" [routerLink]="['/pms']"><b class="beauty-font">Личные сообщения</b></a>
+</div>
 <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
 <div class="menu-block">
     <a role="button" [matMenuTriggerFor]="siteMenu">
