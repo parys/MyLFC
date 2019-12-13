@@ -1,7 +1,10 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
-import { SharedModule } from '@shared/index';
 import { EditorModule } from '@editor/index';
 import { PipesModule } from '@base/pipes';
 import { LayoutModule } from '@layout/layout.module';
@@ -11,17 +14,19 @@ import { MaxiChatComponent } from '@chat/maxiChat';
 import { ChatWindowComponent } from '@chat/chat-window';
 import { chatRoutes } from '@chat/chat.routes';
 import { ChatMessageService } from '@chat/chat-message.service';
-import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(chatRoutes),
         EditorModule,
         PipesModule,
         LayoutModule // todo needed for users-online
-        , MatButtonModule
+        , MatButtonModule,
+        MatTabsModule
     ],
     declarations: [
         MiniChatComponent,

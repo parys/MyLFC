@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-import { StadiumListComponent } from '@stadiums/lazy/stadium-list';
-import { StadiumEditComponent } from '@stadiums/lazy/stadium-edit';
-import { stadiumRoutes } from '@stadiums/lazy/stadium.routes';
-import { SharedModule } from '@shared/index';
-import { StadiumCoreModule } from '@stadiums/core';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { STADIUMS_ROUTE } from '@constants/routes.constants';
 import { STADIUMS_RU } from '@constants/ru.constants';
-import { MatButtonModule } from '@angular/material/button';
 import { PaginationModule } from '@base/pagination/pagination.module';
+
+import { StadiumListComponent } from '@stadiums/lazy/stadium-list';
+import { StadiumEditComponent } from '@stadiums/lazy/stadium-edit';
+import { stadiumRoutes } from '@stadiums/lazy/stadium.routes';
+import { StadiumCoreModule } from '@stadiums/core';
 
 @NgModule({
     imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(stadiumRoutes),
-        SharedModule,
         StadiumCoreModule,
         MatInputModule,
         MatSortModule,

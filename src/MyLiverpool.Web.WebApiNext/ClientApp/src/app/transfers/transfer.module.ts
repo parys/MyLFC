@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TRANSFERS_RU } from '@constants/ru.constants';
 import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 import { SelectClubFormFieldModule } from '@widgets/http/select-club-form-field';
 import { SelectSeasonFormFieldModule } from '@widgets/http/select-season-form-field';
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
+import { PaginationModule } from '@base/pagination/pagination.module';
 import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 
 import { TransferCurrentListComponent } from '@transfers/pages/transfer-current-list';
@@ -15,11 +17,12 @@ import { TransferEditComponent } from '@transfers/pages/transfer-edit';
 import { TransferListComponent } from '@transfers/pages/transfer-list';
 import { TransferService } from '@transfers/transfer.service';
 import { TransfersMaterialModule } from './transfers-material.module';
-import { PaginationModule } from '@base/pagination/pagination.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(transferRoutes),
         SelectPersonFormFieldModule,
         SelectClubFormFieldModule,

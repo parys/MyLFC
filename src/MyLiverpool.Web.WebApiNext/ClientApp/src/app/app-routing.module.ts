@@ -106,11 +106,14 @@ const routes: Routes = [
         data: {
             title: TITLE_RU,
             // tslint:disable-next-line:max-line-length
-            keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение',
+            keywords: 'ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение, видео',
             // tslint:disable-next-line:max-line-length
-            description: 'Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.',
+            description: 'Сайт болельщиков футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, видео, статьи, составы. Русскоязычные болельщики.',
         },
         runGuardsAndResolvers: 'always'
+    },    {
+        path: 'account/signin',
+        loadChildren: () => import('./accounts/account-signin-page/account-signin-page.module').then(m => m.AccountSigninPageModule)
     },
     {
         path: ACCOUNT_ROUTE,
@@ -131,6 +134,10 @@ const routes: Routes = [
     {
         path: COMMENTS_ROUTE,
         loadChildren: () => import('./comments/lazy/comment.module').then(m => m.CommentModule)
+    },
+    {
+        path: 'chat',
+        loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
     },
     {
         path: CLUBS_ROUTE,

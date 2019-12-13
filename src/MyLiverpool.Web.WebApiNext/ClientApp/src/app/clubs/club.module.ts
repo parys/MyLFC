@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from '@shared/index';
 import { StadiumCoreModule } from '@stadiums/core';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { CLUBS_ROUTE } from '@constants/routes.constants';
@@ -16,7 +17,9 @@ import { PaginationModule } from '@base/pagination/pagination.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(clubRoutes),
         StadiumCoreModule,
         ClubMaterialModule,

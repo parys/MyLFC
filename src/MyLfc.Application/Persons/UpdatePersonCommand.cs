@@ -34,9 +34,9 @@ namespace MyLfc.Application.Persons
 
             private readonly IMapper _mapper;
 
-            private readonly IHostingEnvironment _appEnvironment;
+            private readonly IWebHostEnvironment _appEnvironment;
 
-            public Handler(LiverpoolContext context, IMapper mapper, IHostingEnvironment appEnvironment)
+            public Handler(LiverpoolContext context, IMapper mapper, IWebHostEnvironment appEnvironment)
             {
                 _context = context;
                 _mapper = mapper;

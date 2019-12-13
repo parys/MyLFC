@@ -1,0 +1,17 @@
+﻿<form class="top10" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="full-width">
+        <input class="form-control" formControlName="username" placeholder="Логин" type="text" />
+      </div>
+    <div class="full-width top10">
+        <input class="form-control" formControlName="password" placeholder="Пароль" type="password" />
+    </div>
+    <div class="flex-space-around flex-v-c top10">
+        <span>
+            <a [routerLink]="['/account/forgotPassword']" class="link">Забыл пароль</a></span>
+        <span>
+            <button mat-raised-button type="submit" [disabled]="!loginForm.valid" class="">Войти</button></span>
+        <span>
+            <a [routerLink]="['/account/signup']" class="link">Регистрация</a>
+        </span>
+    </div>
+</form>

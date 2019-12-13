@@ -1,6 +1,6 @@
-﻿<div>
+﻿<div class="menu-block">
     <a role="button" [matMenuTriggerFor]="newsMenu">
-        Материалы<mat-icon>arrow_drop_down</mat-icon>
+        Новости<mat-icon>arrow_drop_down</mat-icon>
     </a>
     <mat-menu #newsMenu="matMenu">
         <a [routerLink]="['/news']" mat-menu-item>Новости</a>
@@ -11,7 +11,7 @@
         <a [routerLink]="['/blogCategories']" mat-menu-item>Категории блогов</a>
     </mat-menu>
 </div>
-<div>
+<div class="menu-block">
     <a role="button" [matMenuTriggerFor]="fcClub">
         Клуб<mat-icon>arrow_drop_down</mat-icon>
     </a>
@@ -24,7 +24,7 @@
         </ng-template>
     </mat-menu>
 </div>
-<div>
+<div class="menu-block">
     <a role="button" [matMenuTriggerFor]="seasonMenu">
         Сезон<mat-icon>arrow_drop_down</mat-icon>
     </a>
@@ -34,14 +34,20 @@
         <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>
     </mat-menu>
 </div>
-<div>
+<div class="menu-block">
     <a role="button" [routerLink]="['/users']">Юзеры</a>
 </div>
-<div>
+<div class="menu-block">
     <a role="button" [routerLink]="['/rules']"><b class="color-red beauty-font">Правила</b></a>
 </div>
+<div class="menu-block chat">
+    <a role="button" [routerLink]="['/chat']"><b class="beauty-font">Чаты</b></a>
+</div>
+<div class="menu-block pms" *ngIf="roles.isLogined">
+    <a role="button" [routerLink]="['/pms']"><b class="beauty-font">Личные сообщения</b></a>
+</div>
 <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
-<div>
+<div class="menu-block">
     <a role="button" [matMenuTriggerFor]="siteMenu">
         Сайт<mat-icon>arrow_drop_down</mat-icon>
     </a>
@@ -54,9 +60,9 @@
         <a [routerLink]="['/faq']" mat-menu-item>F.A.Q.</a>
     </mat-menu>
 </div>
-<div *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isInformer">
+<div *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isInformer" class="menu-block">
     <a role="button" [routerLink]="['/admin']">Админ</a>
 </div>
-<div>
+<div class="menu-block">
     <a role="button" [routerLink]="['/wal']"><span class="turquose">Фан Движение</span></a>
 </div>

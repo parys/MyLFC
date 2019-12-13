@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
-import { SharedModule } from '@shared/index';
 import { RecaptchaModule } from '@widgets/recaptcha';
 import { WISHES_ROUTE } from '@constants/routes.constants';
 import { WISHES_RU } from '@constants/ru.constants';
+import { PaginationModule } from '@base/pagination/pagination.module';
 
 import { WishListComponent, WishEditComponent } from '@wishes/pages';
 import { WishService } from '@wishes/wish.service';
 import { wishRoutes } from '@wishes/wish.routes';
-import { WishMaterialModule } from './wish-material.module';
-import { PaginationModule } from '@base/pagination/pagination.module';
+import { WishMaterialModule } from '@wishes/wish-material.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(wishRoutes),
         RecaptchaModule,
         WishMaterialModule,

@@ -1,11 +1,21 @@
-﻿<nav class="maroon-panel beauty-font nav">
+﻿<nav class="nav">
+    <button type="button" mat-button (click)="toggle.emit()" class="menu-btn">
+        <mat-icon>menu</mat-icon>
+    </button>
     <a class="logo-link" role="button" [routerLink]="['/']">
         <img src="/content/logo34.png" class="logo" alt="MyLFC.ru" />
     </a>
     <navbar-menu class="flex-space-around header-nav"></navbar-menu>
-    <button type="button" mat-button (click)="toggle.emit()" class="text-white">
-        <mat-icon>menu</mat-icon>
-    </button>
-    
+
+    <ng-container *ngIf="!roles.isLogined;else logined">        
+        <button type="button" [routerLink]="['/account/signin']" mat-button class="person-btn">
+            <mat-icon>person</mat-icon>
+        </button>
+    </ng-container>
+    <ng-template #logined>
+        <button mat-button role="button" [routerLink]="['/users', 0]" class="person-btn">
+            <mat-icon>person</mat-icon>
+        </button>
+    </ng-template>
     <ad [blockName]="'R-A-255349-4'" class="ad" *ngIf="showAd"></ad>
 </nav>

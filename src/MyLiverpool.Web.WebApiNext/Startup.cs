@@ -29,6 +29,7 @@ using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Web.WebApiNext.Infrastructure.Filters;
+using Microsoft.Extensions.Hosting;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -41,7 +42,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// Constructor.
         /// </summary>
         /// <param name="env"></param>
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -61,7 +62,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private IConfigurationRoot Configuration { get; }
 
-        private IHostingEnvironment Env { get; }
+        private IWebHostEnvironment Env { get; }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -204,7 +205,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //  app.UseMiddleware<ExceptionHandlerMiddleware>();
 
@@ -310,7 +311,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterCoreHelpers(IServiceCollection services)
         {
-            services.AddSingleton<IHostingEnvironment>(Env);
+            services.AddSingleton<IWebHostEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ISignalRHubAggregator, SignalRHubAggregator>();

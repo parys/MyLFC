@@ -1,24 +1,26 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ForumSectionListComponent, ForumSectionService } from './forumSection';
+import { EditorModule } from '@editor/index';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PipesModule } from '@base/pipes';
+
+import { ForumSectionListComponent, ForumSectionService } from '@forum/forumSection';
 import * as forumSubsection from '@forum/forumSubsection';
 import * as forumMessage from '@forum/forumMessage';
 import * as forumTheme from '@forum/forumTheme';
 import { forumRoutes } from '@forum/forum.routes';
-import { EditorModule } from '@editor/index';
-import { SharedModule } from '@shared/index';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { PipesModule } from '@base/pipes';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         EditorModule,
         NgxPaginationModule,
         RouterModule.forChild(forumRoutes),
-        SharedModule,
         PipesModule
     ],
     declarations: [

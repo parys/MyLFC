@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
-import { SharedModule } from '@shared/index';
 import { accountRoutes } from './account.routes';
 import { AccountSignupComponent } from './account-signup';
 import { ChangePasswordComponent } from './changePassword';
@@ -12,19 +13,19 @@ import { ForgotPasswordComponent } from './forgotPassword';
 import { ResetPasswordComponent } from './resetPassword';
 import { UnconfirmedEmailComponent } from './unconfirmedEmail';
 import { AccountValidators } from './account.validators';
-import { AccountCoreModule } from '../core';
 import { RecaptchaModule } from '@widgets/recaptcha';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { AccountService } from './account.service';
 import { ACCOUNT_ROUTE } from '@constants/index';
-import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(accountRoutes),
-        AccountCoreModule,
         RecaptchaModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatCheckboxModule,
         MatInputModule,
         MatButtonModule
@@ -35,15 +36,11 @@ import { MatButtonModule } from '@angular/material/button';
         ConfirmEmailComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
-        UnconfirmedEmailComponent,
-  //      AccountInitComponent
+        UnconfirmedEmailComponent
     ],
     providers: [
         AccountValidators,
         AccountService
-    ],
-    bootstrap: [
-  //      AccountInitComponent
     ]
 })
 export class AccountModule {

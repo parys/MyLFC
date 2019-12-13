@@ -25,9 +25,9 @@ namespace MyLfc.Application.Clubs
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly IHostingEnvironment _appEnvironment;
+            private readonly IWebHostEnvironment _appEnvironment;
 
-            public Handler(IHostingEnvironment appEnvironment)
+            public Handler(IWebHostEnvironment appEnvironment)
             {
                 _appEnvironment = appEnvironment;
             }
@@ -51,7 +51,7 @@ namespace MyLfc.Application.Clubs
                     path = Path.GetFullPath(path, _appEnvironment.WebRootPath);
                 }
 
-                using (var fileStream = File.Create(path))
+                await using (var fileStream = File.Create(path))
                 {
                     await request.File.CopyToAsync(fileStream, cancellationToken);
                 }

@@ -1,15 +1,19 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from '@shared/index';
-import { staticPagesEditorRoutes } from '@static-pages-editor/static-pages-editor.routes';
 import { EditorModule } from '@editor/index';
+
+import { staticPagesEditorRoutes } from '@static-pages-editor/static-pages-editor.routes';
 import { PageEditorComponent } from '@static-pages-editor/page-editor';
 import { StaticPagesEditorService } from '@static-pages-editor/static-pages-editor.service';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(staticPagesEditorRoutes),
         EditorModule
     ],

@@ -14,9 +14,9 @@ namespace MyLiverpool.Business.Services
     {
         public const string ContentPath = "content";
         public readonly string ImagesPath = Path.Combine(ContentPath, "images");
-        private readonly IHostingEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public UploadService(IHostingEnvironment appEnvironment)
+        public UploadService(IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
         }
@@ -32,7 +32,7 @@ namespace MyLiverpool.Business.Services
                 var path = Path.Combine(_appEnvironment.WebRootPath, relativePath);
                 relativePath = Regex.Replace(relativePath, "\\\\", "/");
 
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                await using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }

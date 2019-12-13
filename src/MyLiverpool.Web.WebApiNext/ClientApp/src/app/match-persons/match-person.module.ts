@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/index';
 import { PersonEditModule } from '@persons/shared';
 import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 
@@ -12,7 +13,9 @@ import { MatchPersonInfoComponent } from '@match-persons/components/match-person
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         PersonEditModule,
         SelectPersonFormFieldModule,
         MatchPersonMaterialModule,

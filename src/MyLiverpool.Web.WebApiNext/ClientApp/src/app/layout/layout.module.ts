@@ -1,11 +1,11 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import {
     MatchCalendarComponent,
     MatchCalendarEntryComponent,
-    MatchHeaderComponent,
     NotificationCounterComponent,
     PersonBirthdayComponent,
     BestPlayerComponent,
@@ -25,7 +25,6 @@ const layoutComponents = [
     NotificationCounterComponent,
     MatchCalendarEntryComponent,
     MatchCalendarComponent,
-    MatchHeaderComponent,
     BestPlayerComponent,
     PersonBirthdayComponent,
     UserBirthdayComponent,
@@ -42,7 +41,8 @@ const layoutComponents = [
         CommonModule,
         RouterModule,
         LayoutMaterialModule,
-        PipesModule
+        PipesModule,
+        MatTooltipModule
     ],
     declarations: [
         ...layoutComponents
