@@ -2,13 +2,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>MyLiverpool.Web.WebApiNext</AssemblyName>
     <PackageId>MyLiverpool.Web.WebApiNext</PackageId>
       <IsPackable>false</IsPackable>
       <OutputType>Exe</OutputType>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
     <SpaRoot>ClientApp\</SpaRoot>

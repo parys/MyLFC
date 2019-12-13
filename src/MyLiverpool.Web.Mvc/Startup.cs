@@ -74,12 +74,12 @@ namespace MyLiverpool.Web.Mvc
 
             services.AddCustomIdentitySettings();
 
-            services.AddAuthentication()
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Account/Login/";
-                    options.LogoutPath = "/Account/Logout/";
-                });
+            //services.AddAuthentication()
+            //    .AddCookie(options =>
+            //    {
+            //        options.LoginPath = "/Account/Login/";
+            //        options.LogoutPath = "/Account/Logout/";
+            //    });
 
           //  services.ApplyCustomOpenIdDict(Env);
 
@@ -91,8 +91,8 @@ namespace MyLiverpool.Web.Mvc
 
             services.AddCustomRedisCache(Configuration);
 
-            var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
-            context.Database.Migrate();
+            //var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            //context.Database.Migrate();
 
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
@@ -135,6 +135,7 @@ namespace MyLiverpool.Web.Mvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
 

@@ -184,11 +184,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             //      //   options.InvocationTimeoutMilliseconds = 140000;
             //});
-            using (var dbContext =
-                (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
-            {
-                dbContext.Database.Migrate();
-            }
+            //todo using (var dbContext =
+            //    (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
+            //{
+            //    dbContext.Database.Migrate();
+            //}
             //if (Env.IsDevelopment())
             //{
             //    new DatabaseInitializer(context).Seed();
