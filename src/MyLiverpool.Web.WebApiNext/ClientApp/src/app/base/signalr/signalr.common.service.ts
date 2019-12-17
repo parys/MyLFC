@@ -65,7 +65,6 @@ export class SignalRService {
             this.lastCommentsSubject.next(data);
         });
         this.hubConnection.on('addMp', (data: any) => {
-            console.log(data);
             this.matchPerson.next(data);
         });
         this.hubConnection.on('addMe', (data: MatchEvent) => {

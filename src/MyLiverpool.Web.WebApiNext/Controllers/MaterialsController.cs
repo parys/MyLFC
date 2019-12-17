@@ -2,11 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using MyLfc.Application.Comments;
 using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -16,23 +14,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class MaterialsController : BaseController
     {
-        private readonly ILogger<MaterialsController> _logger;
-        private readonly IDistributedCacheManager _cacheManager;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="logger">Injecting logger.</param>
-        /// <param name="cacheManager"></param>
-        public MaterialsController(ILogger<MaterialsController> logger,
-            IDistributedCacheManager cacheManager)
-        {
-            _logger = logger;
-            _cacheManager = cacheManager;
-        }
-
-        #region Old
-
         /// <summary>
         /// Removes material.
         /// </summary>
@@ -43,8 +24,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            _cacheManager.Remove(CacheKeysConstants.Material + request.Id);
-            _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+            CacheManager.Remove(CacheKeysConstants.Material + request.Id);
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             return Ok(result);
         }
 
@@ -57,7 +38,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> ActivateAsync([FromRoute]ActivateMaterialCommand.Request request)
         {
             var result = await Mediator.Send(request);
-                _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest
                     , CacheKeysConstants.Material + request.Id);
             
             return Ok(true);
@@ -83,7 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(request);
             if (!result.Pending)
             {
-                _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+                CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             }
 
             return Ok(result);
@@ -116,23 +97,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await Mediator.Send(request);
-        //todo    _cacheManager.Set(CacheKeysConstants.Material + id, result);
-            _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+            //todo    _cacheManager.Set(CacheKeysConstants.Material + id, result);
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             return Ok(result);
-        }
-
-        /// <summary>
-        /// Adds view to material.
-        /// </summary>
-        /// <param name="id">Material identifier.</param>
-        /// <returns>Result of addition view.</returns>
-        [Obsolete("Remove after 15 july 19")]
-        [AllowAnonymous, HttpGet("AddView/{id:int}")]
-        public async Task<IActionResult> AddViewOldAsync(int id)
-        {
-            await Mediator.Send(new AddMaterialReadCommand.Request { Id = id });
-            UpdateMaterialCacheAddViewAsync(id);
-            return Ok(true);
         }
 
         /// <summary>
@@ -149,38 +116,33 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private async void UpdateMaterialCacheAddViewAsync(int materialId)
         {
-            var materialCache = await _cacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
+            var materialCache = await CacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
             if (materialCache != null)
             {
                 materialCache.Reads++;
-                _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
+                CacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
             }
 
             var materialsCache =
-                await _cacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
+                await CacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
 
             var matIndex = materialsCache?.Results.FindIndex(x => x.Id == materialId);
             if (matIndex.HasValue)
             {
                 materialsCache.Results[matIndex.Value].Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
+                CacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
             }
 
             var materialsPinnedCache =
-                await _cacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
+                await CacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
 
             var matPinnedIndex = materialsPinnedCache?.Results.FindIndex(x => x.Id == materialId);
             if (matPinnedIndex.HasValue)
             {
                 materialsPinnedCache.Results[matPinnedIndex.Value].Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
+                CacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
             }
         }
-
-        #endregion
-
-        #region Mediatr
-
 
         /// <summary>
         /// Returns latest list materials.  
@@ -189,7 +151,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("latest")]
         public async Task<IActionResult> GetLatestList()
         {
-            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsLatest,
+            var model = await CacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsLatest,
                 async () => await Mediator.Send(new GetLatestMaterialsQuery.Request()));
             return Ok(model);
         }
@@ -211,7 +173,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
             }
 
-            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsPinned,
+            var model = await CacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsPinned,
                 async () => await Mediator.Send(request));
 
             return Ok(model);
@@ -246,7 +208,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
             }
 
-            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.Material + request.Id,
+            var model = await CacheManager.GetOrCreateAsync(CacheKeysConstants.Material + request.Id,
                 async () => await Mediator.Send(request));
            
             return Ok(model);
@@ -264,6 +226,5 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             UpdateMaterialCacheAddViewAsync(request.Id);
             return Ok(true);
         }
-        #endregion
     }
 }

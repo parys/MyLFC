@@ -12,7 +12,6 @@ namespace MyLiverpool.Web.Mvc
         {
             var builtConfig = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", true)
                 .Build();
             
             var host = Host.CreateDefaultBuilder(args)

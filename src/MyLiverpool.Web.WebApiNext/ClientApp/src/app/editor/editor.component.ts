@@ -32,8 +32,8 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(private lazy: LazyLoadingModuleService,
-        private zone: NgZone,
-        private cdRef: ChangeDetectorRef) {
+                private zone: NgZone,
+                private cdRef: ChangeDetectorRef) {
       //  super(cd);
     }
 

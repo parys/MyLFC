@@ -19,23 +19,22 @@ namespace MyLiverpool.Web.WebApiNext
         {
             var builtConfig = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", true)
                 .Build();
 
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .MinimumLevel.Warning()
-                .CreateLogger();
+            //Log.Logger = new LoggerConfiguration()
+            //    .WriteTo.Console()
+            //    .MinimumLevel.Warning()
+            //    .CreateLogger();
 
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.AddConfiguration(builtConfig);
                 })
-                .ConfigureLogging(logging =>
-                {
-                    logging.AddSerilog();
-                })
+                //.ConfigureLogging(logging =>
+                //{
+                //    logging.AddSerilog();
+                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

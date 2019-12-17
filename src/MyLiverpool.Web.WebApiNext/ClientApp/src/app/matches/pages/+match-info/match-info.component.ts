@@ -43,7 +43,7 @@
 //    }
 
 //    public pin(id?: number): void {
-//        this.matchService.pin(id).subscribe((data: boolean) => data, e => console.log(e));
+//        this.matchService.pin(id).subscribe((data: boolean) => data);
 //    }
 
 //    private init(): void {
@@ -67,8 +67,7 @@
 //                            }
 
 //                        }
-//                    },
-//                    e => console.log(e));
+//                    }                    );
 //        };
 //    }
 

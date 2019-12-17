@@ -55,8 +55,6 @@ export class PollDetailComponent implements OnInit, OnDestroy {
 
 
     onSelect(event: any): void {
-        console.log(event);
-    }
 
     private convertToChart(): void {
         for (let i = 0; i < this.item.answers.length; i++) {

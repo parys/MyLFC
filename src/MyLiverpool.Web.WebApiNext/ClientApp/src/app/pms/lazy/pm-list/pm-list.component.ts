@@ -41,8 +41,7 @@ export class PmListComponent implements OnInit, OnDestroy {
     }
 
     public delete(index: number): void {
-        // this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
-        //    error => console.log(error),
+        // this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data, null,
         //    () => console.log("success remove categoryu"));
         // this.items.splice(index, 1);
     }

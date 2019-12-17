@@ -19,7 +19,7 @@ export class ImageAdditionComponent implements AfterViewInit {
     public loadedImage: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private service: ImageService,
-        private snackBar: MatSnackBar
+                private snackBar: MatSnackBar
     ) {
     }
 
@@ -40,7 +40,6 @@ export class ImageAdditionComponent implements AfterViewInit {
                         }
                     },
                     error => {
-                        console.log(error);
                         this.snackBar.open('Ошибка при загрузке', null);
                     });
         }

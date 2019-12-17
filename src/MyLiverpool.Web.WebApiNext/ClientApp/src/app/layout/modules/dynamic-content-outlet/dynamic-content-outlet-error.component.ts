@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-dynamic-content-outlet-error-component',
   template: `
-    <div>{{ errorMessage }}444</div>
+    <div>{{ errorMessage }}</div>
   `
 })
 export class DynamicContentOutletErrorComponent {

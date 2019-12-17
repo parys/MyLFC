@@ -27,8 +27,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
             this.sub2 = this.pmService.getSingle(+params['id'])
-                .subscribe(data => this.item = data,
-                e => console.log(e));
+                .subscribe(data => this.item = data);
         });
     }
 
