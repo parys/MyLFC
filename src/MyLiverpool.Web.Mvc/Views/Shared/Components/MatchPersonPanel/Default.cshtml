@@ -2,22 +2,26 @@
 
 <div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
-        <div class="text-center">
-            Главный судья: @Model[MatchPersonPlaceType.MainRef]?[0].PersonName
-        </div>
+        @if (Model[MatchPersonPlaceType.MainRef].Any())
+        {
+            <div class="text-center">
+                Главный судья:
+                @Model[MatchPersonPlaceType.MainRef][0].PersonName
+            </div>
+        }
         @if (Model[MatchPersonPlaceType.AssistantRef].Any())
         {
             <div class="text-center">
                 Помощники судьи:
                 @for (var i = 0; i < Model[MatchPersonPlaceType.AssistantRef].Count; i++)
                 {
-                <span>
-                    @Model[MatchPersonPlaceType.AssistantRef][i].PersonName
-                    @if (i < Model[MatchPersonPlaceType.AssistantRef].Count - 1)
-                    {
-                        <span>, </span>
-                    }
-                </span>
+                    <span>
+                        @Model[MatchPersonPlaceType.AssistantRef][i].PersonName
+                        @if (i < Model[MatchPersonPlaceType.AssistantRef].Count - 1)
+                        {
+                            <span>, </span>
+                        }
+                    </span>
                 }
             </div>
         }
@@ -37,7 +41,7 @@
                 }
             </div>
         }
-        @if (Model[MatchPersonPlaceType.FourthRef][0] != null)
+        @if (Model[MatchPersonPlaceType.FourthRef].Any())
         {
             <div class="text-center">Резервный судья: @Model[MatchPersonPlaceType.FourthRef][0].PersonName</div>
         }
@@ -45,7 +49,10 @@
             <i class="col-xs-12 container-row top10">
                 Главный тренер:
             </i>
-            <div class="col-xs-12 container-row">@Model[MatchPersonPlaceType.HomeCoach]?[0].PersonName</div>
+            @if (Model[MatchPersonPlaceType.HomeCoach].Any())
+            {
+                <div class="col-xs-12 container-row">@Model[MatchPersonPlaceType.HomeCoach][0].PersonName</div>
+            }
             <i class="col-xs-12 container-row top10">
                 Состав:
             </i>
@@ -93,8 +100,10 @@
             <i class="col-xs-12 container-row top10">
                 Главный тренер:
             </i>
-            <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName">@Model[MatchPersonPlaceType.AwayCoach]?[0].PersonName</div>
-            <i class="col-xs-12 container-row top10">
+            @if (Model[MatchPersonPlaceType.AwayCoach].Any())
+            {
+                <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName">@Model[MatchPersonPlaceType.AwayCoach][0].PersonName</div>
+            }   <i class="col-xs-12 container-row top10">
                 Состав:
             </i>
 

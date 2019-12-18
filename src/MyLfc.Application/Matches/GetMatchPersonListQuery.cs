@@ -46,14 +46,14 @@ namespace MyLfc.Application.Matches
                     .Select(x => x.IsHome)
                     .FirstAsync(cancellationToken);
 
-                var dict = new Dictionary<int, List<MatchPersonListDto>>();
+                var dict = new Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>>();
                 foreach (int value in Enum.GetValues(typeof(MatchPersonPlaceType)))
                 {
-                    dict.Add(value, new List<MatchPersonListDto>());
+                    dict.Add((MatchPersonPlaceType)value, new List<MatchPersonListDto>());
                 }
                 foreach (var person in persons)
                 {
-                    dict[(int)person.PersonType.GetMatchPlaceholderType(isHome)].Add(person);
+                    dict[person.PersonType.GetMatchPlaceholderType(isHome)].Add(person);
                 }
 
                 return new Response {Results = dict};
@@ -65,8 +65,8 @@ namespace MyLfc.Application.Matches
         [Serializable]
         public class Response
         {
-            public Dictionary<int, List<MatchPersonListDto>> Results =
-                new Dictionary<int, List<MatchPersonListDto>>();
+            public Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>> Results =
+                new Dictionary<MatchPersonPlaceType, List<MatchPersonListDto>>();
         }
 
         [Serializable]
