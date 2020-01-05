@@ -44,7 +44,7 @@
     "rxjs": "6.5.4",
     "tslib": "1.10.0",
     "zone.js": "0.10.2",
-    "ngx-image-cropper": "2.0.2",
+    "ngx-image-cropper": "2.0.3",
     "ngx-pagination": "4.1.0"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "tslint": "5.20.1",
     "codelyzer": "5.2.1",
     "tinymce": "4.9.3",
-    "@types/node": "12.12.22",
+    "@types/node": "12.12.24",
     "@types/tinymce": "4.5.22",
     "webpack-bundle-analyzer": "3.6.0",
     "source-map-explorer": "2.2.1"
