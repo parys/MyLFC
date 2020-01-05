@@ -87,7 +87,8 @@ namespace MyLfc.Application.Comments
                     .Include(x => x.Author)
                     .FirstOrDefaultAsync(x => x.Id == comment.Id, cancellationToken);
                 var response = _mapper.Map<Response>(addedComment);
-
+                response.CanNegativeVote = response.CanPositiveVote = true;
+                
                 return response;
             }
 

@@ -6,26 +6,66 @@
 }
 
 <h3>Статистика текущего сезона</h3>
-<table class="table table-condensed table-striped table-bordered table-hover">
-    <thead>
-        <tr>
-            <td>Игрок</td>
-            <td>Голы</td>
-            <td>Передачи</td>
-            <td>ЖК</td>
-            <td>КК</td>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Persons)
+<div class="table-responsive">
+    <table class="table table-condensed table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <td rowspan="2">Игрок</td>
+                <td colspan="5">Голы</td>
+                <td colspan="5">Передачи</td>
+                <td colspan="5">ЖК</td>
+                <td colspan="5">КК</td>
+            </tr>
+            <tr>
+                <td>АПЛ</td>
+                <td>ЛЧ</td>
+                <td>КЛ</td>
+                <td>КА</td>
+                <td>Всего</td>
+                <td>АПЛ</td>
+                <td>ЛЧ</td>
+                <td>КЛ</td>
+                <td>КА</td>
+                <td>Всего</td>
+                <td>АПЛ</td>
+                <td>ЛЧ</td>
+                <td>КЛ</td>
+                <td>КА</td>
+                <td>Всего</td>
+                <td>АПЛ</td>
+                <td>ЛЧ</td>
+                <td>КЛ</td>
+                <td>КА</td>
+                <td>Всего</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Persons)
     {
-        <tr>
-            <td>@item.PersonName</td>
-            <td>@item.Goals.Total</td>
-            <td>@item.Assists.Total</td>
-            <td>@item.Yellows.Total</td>
-            <td>@item.Reds.Total</td>
-        </tr>
+            <tr>
+                <td>@item.PersonName</td>
+                <td>@item.Goals.Epl</td>
+                <td>@item.Goals.Cl</td>
+                <td>@item.Goals.Lc</td>
+                <td>@item.Goals.Ec</td>
+                <td>@item.Goals.Total</td>
+                <td>@item.Assists.Epl</td>
+                <td>@item.Assists.Cl</td>
+                <td>@item.Assists.Lc</td>
+                <td>@item.Assists.Ec</td>
+                <td>@item.Assists.Total</td>
+                <td>@item.Yellows.Epl</td>
+                <td>@item.Yellows.Cl</td>
+                <td>@item.Yellows.Lc</td>
+                <td>@item.Yellows.Ec</td>
+                <td>@item.Yellows.Total</td>
+                <td>@item.Reds.Epl</td>
+                <td>@item.Reds.Cl</td>
+                <td>@item.Reds.Lc</td>
+                <td>@item.Reds.Ec</td>
+                <td>@item.Reds.Total</td>
+            </tr>
     }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

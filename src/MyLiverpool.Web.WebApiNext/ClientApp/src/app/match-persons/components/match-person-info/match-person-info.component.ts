@@ -4,10 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DeleteDialogComponent } from '@shared/index';
 import { RolesCheckedService } from '@base/auth';
-import { MatchPerson, Person } from '@domain/models';
+import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
-import { SignalRService } from '@base/signalr';
 import { ObserverComponent } from '@domain/base';
 
 @Component({

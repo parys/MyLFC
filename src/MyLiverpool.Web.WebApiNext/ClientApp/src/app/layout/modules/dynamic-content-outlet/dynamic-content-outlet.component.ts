@@ -16,7 +16,7 @@ import { DynamicContentOutletService } from './dynamic-content-outlet.service';
     `
 })
 export class DynamicContentOutletComponent implements OnDestroy, OnChanges {
-    @ViewChild('container', { read: ViewContainerRef, static: false })
+    @ViewChild('container', { read: ViewContainerRef, static: true })
     container: ViewContainerRef;
 
     @Input() componentName: string;

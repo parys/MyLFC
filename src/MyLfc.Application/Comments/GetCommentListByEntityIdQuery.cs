@@ -54,23 +54,43 @@ namespace MyLfc.Application.Comments
 
                 commentsQuery = commentsQuery.OrderBy(x => x.AdditionTime);
 
-                var comments = await commentsQuery.ToListAsync(cancellationToken);
-                UpdateCurrentUserField(comments);
+                var comments = await commentsQuery.Select(x=> new CommentForEntityDto
+                {
+                    AdditionTime = x.AdditionTime,
+                    Answer = x.Answer,
+                    AuthorId = x.AuthorId,
+                    AuthorUserName = x.Author.UserName,
+                    CanNegativeVote = !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
+                    CanPositiveVote = !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                    IsVerified = x.IsVerified,
+                    MatchId = x.MatchId,
+                    MaterialId = x.MaterialId,
+                    Id = x.Id,
+                    LastModified = x.LastModified,
+                    Message = x.Message,
+                    NegativeCount = x.CommentVotes.Count(v => !v.Positive),
+                    PositiveCount = x.CommentVotes.Count(v => v.Positive),
+                    ParentId = x.ParentId,
+                    Photo = x.Author.Photo,
+                    Type = x.Type,
+                    TypeName = x.Type.ToString()
+                }).ToListAsync(cancellationToken);
+               //fdddddddddd UpdateCurrentUserField(comments);
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
-                var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
+            //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
                 //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
                 var commentsCount = await commentsQuery.CountAsync(cancellationToken);
                 return new Response
                 {
                     PageSize = request.PageSize,
                     CurrentPage = request.CurrentPage,
-                    Results = commentDtos,
+                    Results = unitedComments.ToList(),
                     RowCount = commentsCount
                 };
             }
 
 
-            private static IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments, int page, int pageSize)
+            private static IEnumerable<CommentForEntityDto> UniteComments(ICollection<CommentForEntityDto> comments, int page, int pageSize)
             {
                 var startNumber = pageSize * (page - 1) + 1;
                 foreach (var comment in comments)
@@ -80,12 +100,12 @@ namespace MyLfc.Application.Comments
                     {
                         continue;
                     }
-                    var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId || c.Id == comment.ParentId);
+                    var parent = comments.FirstOrDefault(c => c.Id == comment.ParentId);
                     if (parent != null)
                     {
                         if (parent.Children == null)
                         {
-                            parent.Children = new List<MaterialComment>();
+                            parent.Children = new List<CommentForEntityDto>();
                         }
                         parent.Children.Add(comment);
                     }
@@ -93,16 +113,16 @@ namespace MyLfc.Application.Comments
                 return comments.Where(c => c.ParentId == null);
             }
 
-            private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
-            {
-                if (_requestContext.UserId.HasValue)
-                {
-                    foreach (var materialComment in comments)
-                    {
-                        materialComment.CurrentUserId = _requestContext.UserId.Value; //todo need more elegant solution
-                    }
-                }
-            }
+            //private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
+            //{
+            //    if (_requestContext.UserId.HasValue)
+            //    {
+            //        foreach (var materialComment in comments)
+            //        {
+            //            materialComment.CurrentUserId = _requestContext.UserId.Value; //todo need more elegant solution
+            //        }
+            //    }
+            //}
         }
 
 

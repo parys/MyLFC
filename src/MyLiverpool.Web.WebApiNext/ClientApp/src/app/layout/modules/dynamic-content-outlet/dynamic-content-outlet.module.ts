@@ -21,6 +21,10 @@ import { DynamicContentOutletService } from './dynamic-content-outlet.service';
       useClass: SystemJsNgModuleLoader
     },
     DynamicContentOutletService
+  ],
+  entryComponents: [
+    DynamicContentOutletComponent,
+    DynamicContentOutletErrorComponent
   ]
 })
 export class DynamicContentOutletModule {

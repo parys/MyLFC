@@ -49,7 +49,11 @@ namespace MyLiverpool.Common.Utilities
                 Directory.CreateDirectory(PersonPath);
             }
 
-            await File.WriteAllBytesAsync(personPath, Convert.FromBase64String(base64File));
+            if (!relativePath.Replace("\\", "/").Contains(base64File))
+            {
+                await File.WriteAllBytesAsync(personPath, Convert.FromBase64String(base64File));
+            }
+
             return Regex.Replace(relativePath, "\\\\", "/");
         }
 

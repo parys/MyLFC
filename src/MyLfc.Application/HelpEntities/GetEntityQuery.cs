@@ -38,8 +38,8 @@ namespace MyLfc.Application.HelpEntities
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity =
-                    await _context.HelpEntities.FirstOrDefaultAsync(x => x.Type == request.Type, cancellationToken);
+                var entity = await _context.HelpEntities.AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Type == request.Type, cancellationToken);
                 
                 if (entity == null)
                 {

@@ -32,6 +32,7 @@ namespace MyLfc.Application.Seasons
                 _mapper = mapper;
             }
 
+            //todo right now it executes in memory, not in SQL
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
 
@@ -45,10 +46,10 @@ namespace MyLfc.Application.Seasons
                                  && x.Match.MatchType != MatchTypeEnum.PreSeason
                                  && x.Person.Type != PersonType.Rival)
                     .Include(mp => mp.Person)
-                    .Include(mp => mp.Match);
+                    .Include(mp => mp.Match).ToList();
                 var persons = events.GroupBy(x => x.PersonId);
 
-                 var results = await persons.Select(person => new PersonStatisticDto
+                 var results =  persons.Select(person => new PersonStatisticDto
                 {
                     PersonId = person.Key,
                     PersonName = person.First().Person.RussianName,
@@ -56,11 +57,11 @@ namespace MyLfc.Application.Seasons
                     Assists = Count(person.Where(x => x.Type == MatchEventType.Assist)),
                     Yellows = Count(person.Where(x => x.Type == MatchEventType.Yellow)),
                     Reds = Count(person.Where(x => x.Type == MatchEventType.Red))
-                }).ToListAsync(cancellationToken);
+                });
                 return new Response
                 {
                     Id = request.SeasonId,
-                    Persons = results
+                    Persons = results.ToList()
                 };
             }
 
