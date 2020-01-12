@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
@@ -37,27 +38,27 @@ namespace MyLfc.Application.Pms
             {
                 var messages = await _context.PrivateMessages
                     .AsNoTracking()
-                    .Include(x => x.Receiver)
-                    .Include(y => y.Sender)
                     .Where(x => x.ReceiverId == _requestContext.UserId || x.SenderId == _requestContext.UserId)
                     .OrderByDescending(x => x.SentTime)
+                    .ProjectTo<PmListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
                 return new Response
                 {
-                    Received = _mapper.Map<ICollection<PmListDto>>(messages.Where(x => x.ReceiverId == _requestContext.UserId)),
-                    Sent = _mapper.Map<ICollection<PmListDto>>(messages.Where(x => x.SenderId == _requestContext.UserId))
+                    Received = messages.Where(x => x.ReceiverId == _requestContext.UserId),
+                    Sent = messages.Where(x => x.SenderId == _requestContext.UserId)
                 };
             }
         }
 
-
+        [Serializable]
         public class Response
         {
-            public ICollection<PmListDto> Received { get; set; }
-            public ICollection<PmListDto> Sent { get; set; }
+            public IEnumerable<PmListDto> Received { get; set; }
+            public IEnumerable<PmListDto> Sent { get; set; }
         }
 
+        [Serializable]
         public class PmListDto
         {
             public int Id { get; set; }

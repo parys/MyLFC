@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
@@ -27,14 +24,11 @@ namespace MyLfc.Application.Comments
         {
             private readonly LiverpoolContext _context;
 
-            private readonly IMapper _mapper;
-
             private readonly RequestContext _requestContext;
             
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(LiverpoolContext context, RequestContext requestContext)
             {
                 _context = context;
-                _mapper = mapper;
                 _requestContext = requestContext;
             }
 
@@ -55,26 +49,37 @@ namespace MyLfc.Application.Comments
                     comments = comments.Where(x => x.AuthorId == request.UserId.Value);
                 }
 
-                comments = comments.OrderByDescending(x => x.AdditionTime);
+                comments = comments.OrderByDescending(x => x.Id);
 
-                var results = await comments.Skip(request.SkipCount()).Take(request.PageSize).ToListAsync(cancellationToken);
-                UpdateCurrentUserField(results);
+                var results = await comments.Skip(request.SkipCount()).Take(request.PageSize)
+                    .Select(x => new CommentListDto
+                    {
+                        AdditionTime = x.AdditionTime,
+                        Answer = x.Answer,
+                        AuthorId = x.AuthorId,
+                        AuthorUserName = x.Author.UserName,
+                        CanNegativeVote = !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
+                        CanPositiveVote = !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                        IsVerified = x.IsVerified,
+                        MatchId = x.MatchId,
+                        MaterialId = x.MaterialId,
+                        Id = x.Id,
+                        LastModified = x.LastModified,
+                        Message = x.Message,
+                        NegativeCount = x.CommentVotes.Count(v => !v.Positive),
+                        PositiveCount = x.CommentVotes.Count(v => v.Positive),
+                        Photo = x.Author.Photo,
+                        Type = x.Type,
+                        TypeName = x.Type.ToString()
+                    }).ToListAsync(cancellationToken);
 
                 return new Response
                 {
-                    Results = _mapper.Map<List<CommentListDto>>(results),
+                    Results = results,
                     CurrentPage = request.CurrentPage,
                     PageSize = request.PageSize,
-                    RowCount = await comments.CountAsync(cancellationToken)
+                    RowCount = await _context.MaterialComments.CountAsync(cancellationToken)
                 };
-            }
-
-            private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
-            {
-                foreach (var materialComment in comments)
-                {
-                    materialComment.CurrentUserId = _requestContext.UserId;
-                }
             }
         }
 

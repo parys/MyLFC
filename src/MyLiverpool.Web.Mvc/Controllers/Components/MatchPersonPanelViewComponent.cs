@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Matches;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
@@ -17,7 +19,9 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
         public async Task<IViewComponentResult> InvokeAsync(int matchId, bool isHome)
         {
             var list = await _mediator.Send(new GetMatchPersonListQuery.Request {MatchId = matchId});
-            return View(list.Results);
+            var preparedList = list.Results
+                .ToDictionary(x => (MatchPersonPlaceType) x.Key, x => x.Value);
+            return View(preparedList);
         }
     }
 }

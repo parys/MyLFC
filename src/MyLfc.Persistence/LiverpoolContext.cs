@@ -206,10 +206,5 @@ namespace MyLfc.Persistence
             modelBuilder.Entity<Notification>().ToTable("Notifications");
 
         }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
-        {
-            base.OnConfiguring(modelBuilder);
-        }
     }
 }

@@ -31,7 +31,7 @@
         </div>
         <div class="full-width text-center">
             Резервный судья:
-            <span *ngIf="roles.isInformer && persons[14]?.length == 0" role="button" (click)="addMatchPerson(9, 0, 1, 14)">
+            <span *ngIf="roles.isInformer && persons[14]?.length == 0" role="button" (click)="addMatchPerson(9, 0, 1, 11)">
                 <mat-icon>add</mat-icon>
             </span>
             <div class="full-width" *ngFor="let person of persons[14]; trackBy: trackByFn"> 
@@ -97,7 +97,7 @@
             <i class="full-width top10">
                 Главный тренер:
                 <span *ngIf="roles.isInformer && persons[8]?.length == 0" role="button"
-                    (click)="addMatchPerson(isHome ? 6 : 5, 0,1, isHome ? 5 : 6)">
+                    (click)="addMatchPerson(isHome ? 6 : 5, 0, 1, isHome ? 5 : 6)">
                     <mat-icon>add</mat-icon>
                 </span>
                 <div class="full-width" *ngFor="let person of persons[8]; trackBy: trackByFn"> 
@@ -158,7 +158,7 @@
         <div class="full-width top20">
             <match-person-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson"
                 [currentCount]="currentCount" [neededCount]="neededCount" [personTypeId]="personTypeId"
-                [typeId]="selectedType" [isHome]="isHome" (exit)="onClose()"></match-person-edit-panel>
+                [typeId]="selectedType" [isHome]="isHome" (exit)="cancelMatchPersonEdit()"></match-person-edit-panel>
         </div>
     </div>
 </div>

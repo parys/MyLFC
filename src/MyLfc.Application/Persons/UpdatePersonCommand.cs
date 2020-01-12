@@ -57,8 +57,12 @@ namespace MyLfc.Application.Persons
 
                 var fileName = request.FirstName.Trim() + request.LastName.Trim();
 
-                person.Photo =
-                    await FileHelper.SavePersonPhotoAsync(request.Photo, fileName, _appEnvironment.WebRootPath);
+                if (request.Photo != null)
+                {
+                    person.Photo =
+                        await FileHelper.SavePersonPhotoAsync(request.Photo, fileName, _appEnvironment.WebRootPath);
+                }
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response {Id = person.Id};

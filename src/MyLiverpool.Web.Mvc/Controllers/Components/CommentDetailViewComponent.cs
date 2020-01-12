@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
 using MyLfc.Business.ViewModels;
-using MyLiverpool.Business.Dto;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {

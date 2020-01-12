@@ -25,6 +25,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TrimmerRootAssembly Include="mscorlib" />
+  </ItemGroup>
+
+  <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\node_modules\**" />
     <Content Remove="wwwroot\src\**" />

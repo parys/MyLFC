@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
@@ -26,14 +24,12 @@ namespace MyLfc.Application.Comments
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly LiverpoolContext _context;
-            private readonly IMapper _mapper;
             private readonly RequestContext _requestContext;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMapper mapper)
+            public Handler(LiverpoolContext context, RequestContext requestContext)
             {
                 _context = context;
                 _requestContext = requestContext;
-                _mapper = mapper;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -75,7 +71,6 @@ namespace MyLfc.Application.Comments
                     Type = x.Type,
                     TypeName = x.Type.ToString()
                 }).ToListAsync(cancellationToken);
-               //fdddddddddd UpdateCurrentUserField(comments);
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
                 //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
@@ -138,6 +133,7 @@ namespace MyLfc.Application.Comments
             public int Number { get; set; }
 
             public DateTimeOffset AdditionTime { get; set; }
+
             public DateTimeOffset LastModified { get; set; }
 
             public string AuthorUserName { get; set; }

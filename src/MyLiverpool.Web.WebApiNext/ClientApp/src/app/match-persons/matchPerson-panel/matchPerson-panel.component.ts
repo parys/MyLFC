@@ -62,10 +62,6 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
         this.cd.markForCheck();
     }
 
-    public onClose() {
-        this.cancelMatchPersonEdit();
-    }
-
     public onSelectPerson(person: MatchPerson): void {
         this.selectedMatchPerson = person;
      //   this.selectedIndex = this.matchPersons.indexOf(person);

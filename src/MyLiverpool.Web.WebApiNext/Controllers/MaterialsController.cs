@@ -88,8 +88,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">Contains material model.</param>
         /// <returns>Result of update.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult>
-            UpdateAsync(int id, [FromBody] UpdateMaterialCommand.Request request) //todo add cutting absolute path to relative
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateMaterialCommand.Request request) //todo add cutting absolute path to relative
         {
             if (id != request.Id)
             {
@@ -97,8 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await Mediator.Send(request);
-            //todo    _cacheManager.Set(CacheKeysConstants.Material + id, result);
-            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.Material + id);
             return Ok(result);
         }
 
@@ -127,7 +125,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 await CacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
 
             var matIndex = materialsCache?.Results.FindIndex(x => x.Id == materialId);
-            if (matIndex.HasValue)
+            if (matIndex.HasValue && matIndex >= 0)
             {
                 materialsCache.Results[matIndex.Value].Reads++;
                 CacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
@@ -137,7 +135,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 await CacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
 
             var matPinnedIndex = materialsPinnedCache?.Results.FindIndex(x => x.Id == materialId);
-            if (matPinnedIndex.HasValue)
+            if (matPinnedIndex.HasValue && matPinnedIndex >= 0)
             {
                 materialsPinnedCache.Results[matPinnedIndex.Value].Reads++;
                 CacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
@@ -170,6 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     || User.IsInRole(nameof(RolesEnum.BlogStart)))
                 {
                     request.IncludePending = true;
+                    return Ok(await Mediator.Send(request));
                 }
             }
 

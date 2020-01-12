@@ -123,6 +123,7 @@ export class AuthService {
                 return this.refreshTokens();
             }),
             catchError(e => {
+                console.warn(e);
                 this.logout();
                 this.updateState({ authReady: true });
                 return throwError(e);

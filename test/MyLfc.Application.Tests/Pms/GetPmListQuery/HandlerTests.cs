@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
@@ -25,8 +26,8 @@ namespace MyLfc.Application.Tests.Pms.GetPmListQuery
             var result = await _handler.Handle(new Request(), CancellationToken.None);
 
             result.Should().NotBeNull();
-            result.Received.Count.Should().BeGreaterThan(0);
-            result.Sent.Count.Should().BeGreaterThan(0);
+            result.Received.Count().Should().BeGreaterThan(0);
+            result.Sent.Count().Should().BeGreaterThan(0);
         }
     }
 }

@@ -36,7 +36,12 @@
         </footer>
         <div class="ad-container">
             <div class="ad-close" (click)="onAdClose($event)">×</div>
-            <ad [blockName]="'R-A-255349-3'"></ad>
+            <div *ngIf="isDesktop;else mobile">
+                <ad [blockName]="'R-A-255349-3'"></ad>
+            </div>
+            <ng-template #mobile>
+                <ad [blockName]="'R-A-255349-5'"></ad>
+            </ng-template>
             Реклама позволяет нам становиться лучше.
         </div>
     </mat-sidenav-content>

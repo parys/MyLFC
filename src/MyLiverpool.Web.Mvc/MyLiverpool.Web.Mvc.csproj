@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TrimmerRootAssembly Include="mscorlib" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="wwwroot\content\avatars\**" />
     <Compile Remove="wwwroot\content\fonts\**" />
     <Compile Remove="wwwroot\content\images\**" />

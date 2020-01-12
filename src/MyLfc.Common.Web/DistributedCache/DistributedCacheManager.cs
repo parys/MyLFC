@@ -18,6 +18,10 @@ namespace MyLfc.Common.Web.DistributedCache
 
         public async void Set<T>(string key, T obj)
         {
+            if (string.IsNullOrWhiteSpace(key) || obj == null)
+            {
+                return;
+            }
             try
             {
                 await _distributedCache.SetAsync(KeyPrefix + key, obj.Serialize());
@@ -29,6 +33,10 @@ namespace MyLfc.Common.Web.DistributedCache
 
         public async void SetString(string key, string obj)
         {
+            if (string.IsNullOrWhiteSpace(key) || obj == null)
+            {
+                return;
+            }
             try
             {
                 await _distributedCache.SetStringAsync(KeyPrefix + key, obj);
@@ -106,7 +114,7 @@ namespace MyLfc.Common.Web.DistributedCache
                 else
                 {
                     result = await (Task<T>)method.DynamicInvoke();
-                    if (result != null)
+                    if (result != null && !string.IsNullOrWhiteSpace(key))
                     {
                         await _distributedCache.SetAsync(KeyPrefix + key, result.Serialize());
                     }
@@ -132,7 +140,7 @@ namespace MyLfc.Common.Web.DistributedCache
                 }
 
                 result = await (Task<string>)method.DynamicInvoke();
-                if (string.IsNullOrWhiteSpace(result))
+                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(key))
                 {
                     await _distributedCache.RemoveAsync(KeyPrefix + key);
                 }

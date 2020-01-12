@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Materials;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
@@ -12,8 +13,9 @@ namespace MyLiverpool.Web.Mvc.Controllers
     [AllowAnonymous]
     public class HomeController : BaseController
     {
-        public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
+        public async Task<IActionResult> Index([FromQuery]GetMaterialListQuery.Request request)
         {
+            request.MaterialType = MaterialType.Both;
             return View(await Mediator.Send(request));
         }
 

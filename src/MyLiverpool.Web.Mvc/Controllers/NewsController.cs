@@ -32,6 +32,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
         [Route("")]
         public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
         {
+            request.MaterialType = MaterialType.News;
             return View("../Materials/Index", await Mediator.Send(request));
         }
 

@@ -24,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             request.Ip = HttpContext.GetIp();
             var result = await Mediator.Send(request);
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)request.Type);
+            CleanChatCache();
 
             return Ok(result);
         }
@@ -108,8 +108,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void CleanChatCache()
         {
-            CacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
-                CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
+            CacheManager.Remove(CacheKeysConstants.ChatName + ChatMessageTypeEnum.Mini,
+                CacheKeysConstants.ChatName + ChatMessageTypeEnum.All);
         }
     }
 }

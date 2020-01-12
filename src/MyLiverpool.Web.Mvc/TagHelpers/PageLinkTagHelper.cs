@@ -76,7 +76,7 @@ namespace MyLiverpool.Web.Mvc.TagHelpers
             }
             else
             {
-                PageUrlValues["page"] = pageNumber;
+                PageUrlValues["currentPage"] = pageNumber;
                 link.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
             }
             link.InnerHtml.Append(text ?? pageNumber.ToString());
