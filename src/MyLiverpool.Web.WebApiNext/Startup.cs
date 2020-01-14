@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.DefaultRequestCulture = new RequestCulture("ru-RU");
-                options.SupportedCultures = new List<CultureInfo> {new CultureInfo("ru-RU")};
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -121,12 +121,12 @@ namespace MyLiverpool.Web.WebApiNext
             services.ApplyCustomOpenIdDict(Env);
 
             services.AddSignalR()
-              // todo .AddMessagePackProtocol(options =>
-             //       options.FormatterResolvers = new List<IFormatterResolver>
-             //           {MessagePack.Resolvers.ContractlessStandardResolver.Instance})
+                        // todo .AddMessagePackProtocol(options =>
+                        //       options.FormatterResolvers = new List<IFormatterResolver>
+                        //           {MessagePack.Resolvers.ContractlessStandardResolver.Instance})
                         ;
 
-        RegisterCoreHelpers(services);
+            RegisterCoreHelpers(services);
             services.RegisterRepositories();
             services.RegisterServices();
 
@@ -159,7 +159,7 @@ namespace MyLiverpool.Web.WebApiNext
                 //        //{
                 //        //    Implicit = new OpenApiOAuthFlow()
                 //        //    {
-                                
+
                 //        //    }
                 //        //}"implicit",
                 //        //AuthorizationUrl = "/connect/authorize",
@@ -177,13 +177,13 @@ namespace MyLiverpool.Web.WebApiNext
             }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
-            //services.AddNodeServices(options =>
-            //{
-            //      options.DebuggingPort = 9229;
-            //      options.LaunchWithDebugging = false;
+            services.AddNodeServices(options =>
+            {
+                //      options.DebuggingPort = 9229;
+                      options.LaunchWithDebugging = false;
 
-            //      //   options.InvocationTimeoutMilliseconds = 140000;
-            //});
+                //      //   options.InvocationTimeoutMilliseconds = 140000;
+            });
             //todo using (var dbContext =
             //    (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
             //{
@@ -196,7 +196,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
-            
+
             services.AddScoped<RequestContext>();
         }
 
@@ -212,8 +212,8 @@ namespace MyLiverpool.Web.WebApiNext
             // app.UseXsrf();
             if (env.IsDevelopment())
             {
-               // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
- //               loggerFactory.AddDebug();
+                // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+                //               loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
 
@@ -256,10 +256,10 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseRouting();
             app.UseCors("MyPolicy");
             //   app.UseSignalRAuthentication();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<AnonymHub>("/hubs/anonym");
@@ -294,16 +294,16 @@ namespace MyLiverpool.Web.WebApiNext
                             options.SupplyData = (requestContext, obj) =>
                             {
                                 //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
-                       //         obj.Add("Cookies", requestContext.Request.Cookies);
+                                //         obj.Add("Cookies", requestContext.Request.Cookies);
                             };
                         });
                     }
 
                     if (env.IsDevelopment())
                     {
-                       // spa.UseAngularCliServer(npmScript: "start");
+                        // spa.UseAngularCliServer(npmScript: "start");
                         //   OR
-                       //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                        //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     }
                 });
             }

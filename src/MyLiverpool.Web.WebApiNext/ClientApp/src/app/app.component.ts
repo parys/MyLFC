@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     ) {
     }
     public showAd = true;
-    public isDesktop = true;
+    public isDesktop = false;
 
     @HostBinding('@.disabled')
     public animationsDisabled = true;
