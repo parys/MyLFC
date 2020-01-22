@@ -22,7 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateEplTable()
         {
             var result = await Mediator.Send(new UpdateEplTableCommand.Request());
-            CacheManager.SetString(GlobalConstants.HelperEntity + (int)HelperEntityType.EplTable, result.Result);
+            CacheManager.SetString(GlobalConstants.HelperEntity + HelperEntityType.EplTable, result.Result);
             return Ok(result.Result);
         }
     }

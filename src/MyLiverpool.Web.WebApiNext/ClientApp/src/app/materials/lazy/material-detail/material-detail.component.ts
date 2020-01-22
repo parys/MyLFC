@@ -14,7 +14,7 @@ import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';
 
 import { MaterialService, MaterialActivateDialogComponent } from '@materials/core';
-
+declare function ssn(): any;
 
 const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
 
@@ -104,7 +104,7 @@ export class MaterialDetailComponent implements OnDestroy {
         //    this.transferState.remove(MAT_DETAIL_KEY);
         // } else {
             this.sub = this.route.params.subscribe(params => {
-                this.service.getSingle(+params['id'])
+                this.service.getSingle(+params.id)
                     .subscribe(data => {
                             this.parse(data);
                             this.transferState.set(MAT_DETAIL_KEY, data);

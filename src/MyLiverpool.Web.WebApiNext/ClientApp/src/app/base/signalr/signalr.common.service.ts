@@ -7,6 +7,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { StorageService } from '@base/storage';
 import { ChatMessage, Comment, UsersOnline, Pm, Notification, MatchPerson, MatchEvent } from '@domain/models';
 // import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
@@ -24,8 +25,7 @@ export class SignalRService {
     public matchEvent: Subject<MatchEvent> = new Subject<MatchEvent>();
 
     constructor(private storage: StorageService,
-                @Inject(PLATFORM_ID) private platformId: object,
-                @Inject('BASE_URL') private baseUrl: string) {
+                @Inject(PLATFORM_ID) private platformId: object) {
     }
 
     public initializeHub(): void {
@@ -48,7 +48,7 @@ export class SignalRService {
         }
 
         this.hubConnection = new HubConnectionBuilder()
-            .withUrl(`${this.baseUrl}hubs/${hubUrl}`, options)
+            .withUrl(`${environment.apiUrl}hubs/${hubUrl}`, options)
           //  .withHubProtocol(new MessagePackHubProtocol())
             .configureLogging(LogLevel.Error)
             .build();

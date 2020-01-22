@@ -4,6 +4,23 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppModuleShared } from './app.module';
+
+
+@NgModule({
+    bootstrap: [ AppComponent ],
+    imports: [
+        AppModuleShared,
+        ServerModule,
+        ModuleMapLoaderModule,
+        NoopAnimationsModule,
+        ServerTransferStateModule,
+    ],
+    providers: [
+   //     SERVER_RENDER_PROVIDERS
+    ]
+})
+export class AppServerModule {
+}
 // import { ɵAnimationEngine } from '@angular/animations/browser';
 
 // declarations
@@ -35,20 +52,5 @@ import { AppModuleShared } from './app.module';
 //    }
 // ];
 
-@NgModule({
-    bootstrap: [ AppComponent ],
-    imports: [
-        AppModuleShared,
-        ServerModule,
-        ModuleMapLoaderModule,
-        NoopAnimationsModule,
-        ServerTransferStateModule,
-    ],
-    providers: [
-   //     SERVER_RENDER_PROVIDERS
-    ]
-})
-export class AppServerModule {
-}
 
 
