@@ -1,58 +1,58 @@
-﻿import { Injectable, Inject } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { API_URL } from '@constants/app.constants';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class HttpWrapper {
     constructor(
-        @Inject('BASE_URL') private baseUrl: string,
         private http: HttpClient
     ) {
     }
 
     public get<T>(url: string): Observable<T> {
-        return this.http.get<T>(this.baseUrl + API_URL + url, {
+        return this.http.get<T>(environment.apiUrl + API_URL + url, {
             headers: this.updateHeaders()
         });
     }
 
     public getWithParams<T>(url: string, params: HttpParams | { [param: string]: string | string[] } | any): Observable<T> {
-        return this.http.get<T>(this.baseUrl + API_URL + url, {
+        return this.http.get<T>(environment.apiUrl + API_URL + url, {
             headers: this.updateHeaders(),
             params: this.buildUrlSearchParams(params)
         });
     }
 
     public getString(url: string): Observable<string> {
-        return this.http.get(this.baseUrl + API_URL + url, {
+        return this.http.get(environment.apiUrl + API_URL + url, {
             headers: this.updateHeaders(),
             responseType: 'text'
         });
     }
 
     public post<T>(url: string, data: any, withFiles: boolean = false): Observable<T> {
-        return this.http.post<T>(this.baseUrl + API_URL + url, data, {
+        return this.http.post<T>(environment.apiUrl + API_URL + url, data, {
             headers: this.updateHeaders(withFiles)
         });
     }
 
     public put<T>(url: string, data: any): Observable<T> {
-        return this.http.put<T>(this.baseUrl + API_URL + url, data, {
+        return this.http.put<T>(environment.apiUrl + API_URL + url, data, {
             headers: this.updateHeaders()
         });
     }
 
     public patch<T>(url: string, data: any): Observable<T> {
-        return this.http.patch<T>(this.baseUrl + API_URL + url, data, {
+        return this.http.patch<T>(environment.apiUrl + API_URL + url, data, {
             headers: this.updateHeaders()
         });
     }
 
     public delete<T>(url: string): Observable<T> {
-        return this.http.delete<T>(this.baseUrl + API_URL + url, {
+        return this.http.delete<T>(environment.apiUrl + API_URL + url, {
             headers: this.updateHeaders()
         });
     }

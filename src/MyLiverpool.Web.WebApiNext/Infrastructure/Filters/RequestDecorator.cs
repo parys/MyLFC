@@ -25,7 +25,7 @@ namespace MyLiverpool.Web.WebApiNext.Infrastructure.Filters
 
             if (user?.Identity.IsAuthenticated != false)
             {
-                session.UserId = user.GetUserId();
+                session.UserId = user.GetIdSafe();
                 session.User = user;
             }
 
