@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             request.Type = (HelperEntityType) type;
             var result = await Mediator.Send(request);
-            CacheManager.SetString(GlobalConstants.HelperEntity + type, request.Value);
+            CacheManager.SetString(GlobalConstants.HelperEntity + request.Type, request.Value);
             return Ok(result);
         }
     }
