@@ -13,23 +13,22 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.ResourceAccess.Helpers;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Profiles;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Web.WebApiNext.Infrastructure.Filters;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -57,6 +56,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(Configuration)
+                .CreateLogger();
             Env = env;
         }
 
@@ -96,9 +97,12 @@ namespace MyLiverpool.Web.WebApiNext
             {
                 options.AddPolicy("MyPolicy", builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder
+                        .WithOrigins("localhost:1669", "localhost:4200", "test.mylfc.ru", "mylfc.ru")
+                        .SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
-                        .AllowAnyHeader().Build();
+                        .AllowAnyHeader()
+                        .Build();
                 });
             });
 
@@ -131,7 +135,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.RegisterServices();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-            services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
+          //  services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
             services.AddCustomRedisCache(Configuration);
 
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
@@ -177,13 +181,13 @@ namespace MyLiverpool.Web.WebApiNext
             }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
-            services.AddNodeServices(options =>
-            {
+           // services.AddNodeServices(options =>
+          //  {
                 //      options.DebuggingPort = 9229;
-                      options.LaunchWithDebugging = false;
+          //            options.LaunchWithDebugging = false;
 
                 //      //   options.InvocationTimeoutMilliseconds = 140000;
-            });
+         //   });
             //todo using (var dbContext =
             //    (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
             //{
@@ -195,7 +199,7 @@ namespace MyLiverpool.Web.WebApiNext
             //}
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
+        //    services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
 
             services.AddScoped<RequestContext>();
         }
@@ -214,9 +218,6 @@ namespace MyLiverpool.Web.WebApiNext
             {
                 // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
                 //               loggerFactory.AddDebug();
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-
                 //  app.UseSwagger();
                 //  app.UseSwaggerUI(c =>
                 //  {
@@ -226,7 +227,6 @@ namespace MyLiverpool.Web.WebApiNext
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseForwardedHeaders(new ForwardedHeadersOptions
                 {
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -238,6 +238,13 @@ namespace MyLiverpool.Web.WebApiNext
                 }
             }
 
+            if (env.IsDevelopment())
+            {
+                var options = new RewriteOptions()
+                    .AddRewrite("^/small([0-9]+)(.*)", "$1", true);
+
+                app.UseRewriter(options);
+            }
             app.UseDefaultFiles();
 
             var cachePeriod = env.IsDevelopment() ? "600" : "6048000";
@@ -248,10 +255,10 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
                 }
             });
-            if (!Env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            //if (!Env.IsDevelopment())
+            //{
+            //    app.UseSpaStaticFiles();
+            //}
 
             app.UseRouting();
             app.UseCors("MyPolicy");
@@ -270,43 +277,43 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             //    if (!Env.IsDevelopment())
-            {
-                var ssrEnabled = Configuration.GetSection("SSR") != null && Convert.ToBoolean(Configuration.GetSection("SSR")["Enabled"]);
-                app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "ClientApp";
+            //{
+            //    var ssrEnabled = Configuration.GetSection("SSR") != null && Convert.ToBoolean(Configuration.GetSection("SSR")["Enabled"]);
+            //    app.UseSpa(spa =>
+            //    {
+            //        spa.Options.SourcePath = "ClientApp";
 
-                    /*
-                             // If you want to enable server-side rendering (SSR),
-                             // [1] In AspNetCoreSpa.csproj, change the <BuildServerSideRenderer> property
-                             //     value to 'true', so that the SSR bundle is built during publish
-                             // [2] Uncomment this code block
-                             */
+            //        /*
+            //                 // If you want to enable server-side rendering (SSR),
+            //                 // [1] In AspNetCoreSpa.csproj, change the <BuildServerSideRenderer> property
+            //                 //     value to 'true', so that the SSR bundle is built during publish
+            //                 // [2] Uncomment this code block
+            //                 */
 
-                    if (ssrEnabled)
-                    {
-                        spa.UseSpaPrerendering(options =>
-                        {
-                            options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
-                            options.BootModuleBuilder =
-                                env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                            options.ExcludeUrls = new[] { "/api", "/sockjs-node", "/src", "/content", "/hubs", "/null", "/0", "/lite" };
-                            options.SupplyData = (requestContext, obj) =>
-                            {
-                                //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
-                                //         obj.Add("Cookies", requestContext.Request.Cookies);
-                            };
-                        });
-                    }
+            //        if (ssrEnabled)
+            //        {
+            //            spa.UseSpaPrerendering(options =>
+            //            {
+            //                options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
+            //                options.BootModuleBuilder =
+            //                    env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+            //                options.ExcludeUrls = new[] { "/api", "/sockjs-node", "/src", "/content", "/hubs", "/null", "/0", "/lite" };
+            //                options.SupplyData = (requestContext, obj) =>
+            //                {
+            //                    //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
+            //                    //         obj.Add("Cookies", requestContext.Request.Cookies);
+            //                };
+            //            });
+            //        }
 
-                    if (env.IsDevelopment())
-                    {
-                        // spa.UseAngularCliServer(npmScript: "start");
-                        //   OR
-                        //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                    }
-                });
-            }
+            //        if (env.IsDevelopment())
+            //        {
+            //            // spa.UseAngularCliServer(npmScript: "start");
+            //            //   OR
+            //            //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+            //        }
+            //    });
+            //}
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)

@@ -11,6 +11,7 @@ import { SignalRService } from '@base/signalr';
 
 import { IAuthStateModel, IAuthTokenModel, IRegisterModel, ILoginModel, IRefreshGrantModel } from './models';
 import { UriEncoder } from './uri-encoder';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
     }
 
     public register(data: IRegisterModel): Observable<any> {
-        return this.http1.post('api/v1/account/register', data).pipe(
+        return this.http1.post(environment + 'api/v1/account/register', data).pipe(
             catchError(res => throwError(res.error)));
     }
 
@@ -89,7 +90,7 @@ export class AuthService {
         Object.keys(data)
             .forEach(key => params2 = params2.append(key, data[key]));
 
-        return this.http1.post<IAuthTokenModel>('/connect/token', params2.toString(), { headers }).pipe(
+        return this.http1.post<IAuthTokenModel>(environment.apiUrl + 'connect/token', params2.toString(), { headers }).pipe(
             tap((tokens: IAuthTokenModel) => {
 
                 tokens.expiration_date = new Date(new Date().getTime() + tokens.expires_in * 1000).getTime().toString();

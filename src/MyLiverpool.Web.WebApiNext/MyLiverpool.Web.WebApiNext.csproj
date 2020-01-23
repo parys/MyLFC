@@ -50,7 +50,6 @@
     <Content Include="ClientApp\src\index.html" />
     <Content Include="ClientApp\src\tsconfig.cli.json" />
     <Folder Include="ClientApp\.vscode\" />
-    <Folder Include="wwwroot\assets\icons\" />
     <Folder Include="wwwroot\src\" />
   </ItemGroup>
 
@@ -60,8 +59,6 @@
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
     <PackageReference Include="Serilog" Version="2.9.0" />
 
@@ -71,6 +68,7 @@
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <!--<PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />-->
   </ItemGroup>
 
@@ -105,6 +103,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ClientApp\src\assets\favicon.ico" />
+    <Content Include="ClientApp\src\assets\img\goal.png" />
+    <Content Include="ClientApp\src\assets\img\goal_own.png" />
+    <Content Include="ClientApp\src\assets\img\not_goal.png" />
+    <Content Include="ClientApp\src\assets\robots.txt" />
+    <Content Include="ClientApp\src\assets\sitemap.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
@@ -115,41 +122,41 @@
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
   </ItemGroup>
 
-  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
-    <!-- Ensure Node.js is installed -->
-    <Exec Command="node --version" ContinueOnError="true">
+  <!--<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    --><!-- Ensure Node.js is installed --><!--
+    <Exec Command="node - -version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-  </Target>
+  </Target>-->
 
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+  <!--<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    --><!-- As part of publishing, ensure the JS resources are freshly built in production mode --><!--
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
-    <!-- Removes hashing from scripts-->
+    --><!-- Removes hashing from scripts--><!--
     <ItemGroup>
       <FilesToMove Include="$(SpaRoot)dist\aspnetcorespa\scripts*.js" />
     </ItemGroup>
     <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" Condition="'$(RemoveHashFromTiny)' == 'true'" />
-    <!--remove scripts from index-->
+    --><!--remove scripts from index--><!--
     <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" Condition="'$(RemoveHashFromTiny)' == 'true'" />
-    <!-- Include the newly-built files in the publish output -->
+    --><!-- Include the newly-built files in the publish output --><!--
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**;" />
       <DistFiles Include="$(SpaRoot)dist-server\**" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
-      <!--<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />-->
+      --><!--<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />--><!--
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
     </ItemGroup>
-  </Target>
+  </Target>-->
 
-  <ProjectExtensions><VisualStudio><UserProperties clientapp_4package_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties clientapp_4proxy_1conf_1json__JsonSchema="http://json.schemastore.org/proxies" clientapp_4package_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

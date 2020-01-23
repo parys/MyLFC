@@ -4,6 +4,8 @@
 import { isPlatformServer } from '@angular/common';
 
 import { Subscription } from 'rxjs';
+declare function addAd(name: string): any;
+declare function loadYa(): any;
 
 @Component({
     selector: 'ad',
