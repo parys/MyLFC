@@ -60,7 +60,7 @@
     "@angular/cli": "8.3.23",
     "@angular/pwa": "0.803.23",
     "@schematics/angular": "8.3.23",
-    "@types/express": "^4.17.0",
+    "@types/express": "4.17.2",
     "@types/node": "12.12.25",
     "@types/tinymce": "4.5.23",
     "codelyzer": "5.2.1",
