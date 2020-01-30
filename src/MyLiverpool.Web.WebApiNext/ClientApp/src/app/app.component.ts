@@ -50,10 +50,10 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             // This starts up the token refresh preocess for the app
-            this.authService.init()
-                .subscribe(null,
-                    e => console.warn(e)
-                );
+            // this.authService.init()
+            //     .subscribe(null,
+            //         e => console.warn(e)
+            //     );
             this.updateGestureState();
         }
 

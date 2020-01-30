@@ -1,8 +1,12 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
+
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { AppComponent } from './app.component';
 import * as home from './home';
@@ -17,6 +21,9 @@ import { StorageModule } from '@base/storage';
 import { LoaderModule } from '@base/loader';
 import { BreadcrumbModule } from '@base/breadcrumbs';
 import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outlet/dynamic-content-outlet.module';
+import { environment } from '@environments/environment';
+import { getAccessToken } from '@auth/auth.module';
+import { resolve } from 'dns';
 
 registerLocaleData(localeRU);
 
@@ -32,10 +39,25 @@ registerLocaleData(localeRU);
 //    }
 // }
 
+export function runAppInitializerFactories(injector: Injector): () => Promise<any> {
+    return async () => {
+        await getAccessToken(injector);
+
+     //   await getFeaturesOptions(injector);
+    };
+}
+
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc' }),
         SharedModule,
+        NgxsModule.forRoot([]),
+        NgxsReduxDevtoolsPluginModule.forRoot({
+            disabled: environment.production
+        }),
+        NgxsLoggerPluginModule.forRoot({
+            disabled: environment.production
+        }),
         HttpClientModule,
         MaterialCoreModule,
         AppRoutingModule,
@@ -58,6 +80,8 @@ registerLocaleData(localeRU);
     providers: [
         CustomTitleMetaService,
         { provide: LOCALE_ID, useValue: 'ru-RU' },
+        { provide: APP_INITIALIZER, useFactory: runAppInitializerFactories, deps: [Injector], multi: true },
+
         // {
         //    provide: ErrorHandler,
         //    useClass: UIErrorHandler

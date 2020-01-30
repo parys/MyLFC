@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -40,6 +41,7 @@ namespace MyLfc.Application.Users
                 return new Response
                 {
                     UserId = _requestContext.UserId.Value,
+                    UserName = _requestContext.User.Claims.First(x => x.Type == "name").Value,
                     Roles = roles
                 };
             }
@@ -49,6 +51,8 @@ namespace MyLfc.Application.Users
         public class Response
         {
             public int UserId { get; set; }
+
+            public string UserName { get; set; }
 
             public IList<string> Roles { get; set; }
         }

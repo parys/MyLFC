@@ -38,11 +38,16 @@ export class StorageService {
         return +this.get(USER_ID);
     }
 
+    public getUser(): any {
+        this.getObject('USER');
+    }
+
     public removeAuthTokens(): void {
         this.remove('roles');
         this.remove(USER_ID);
         this.remove('auth-tokens');
         this.remove('refresh-token');
+        this.remove('USER');
     }
 
     public setAuthTokens(item: any): boolean {
@@ -66,6 +71,11 @@ export class StorageService {
     public setUserId(id: number): void {
         if (!this.localStorage) { return; }
         this.setObject(USER_ID, id);
+    }
+
+    public setUser(user: any): void {
+        if (!this.localStorage) { return; }
+        this.setObject('USER', user);
     }
 
     public tryAddViewForMaterial(id: number): boolean {

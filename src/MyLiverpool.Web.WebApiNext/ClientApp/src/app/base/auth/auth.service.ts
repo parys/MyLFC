@@ -1,44 +1,53 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { filter, map, tap, catchError, flatMap, first } from 'rxjs/operators';
-import { Observable, Subscription, BehaviorSubject, of, interval, throwError } from 'rxjs';
+import { map, tap, catchError, flatMap, first } from 'rxjs/operators';
+import { Observable, Subscription, of, interval, throwError } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
 import { StorageService } from '@base/storage';
 import { RolesCheckedService } from '@base/auth/roles-checked.service';
 import { SignalRService } from '@base/signalr';
 
-import { IAuthStateModel, IAuthTokenModel, IRegisterModel, ILoginModel, IRefreshGrantModel } from './models';
+import { IAuthTokenModel, IRegisterModel, ILoginModel, IRefreshGrantModel } from './models';
 import { UriEncoder } from './uri-encoder';
 import { environment } from '@environments/environment';
+import { Store } from '@ngxs/store';
+import { SetTokens, SetRoles, SetUser } from '@auth/store';
 
 @Injectable()
 export class AuthService {
 
-    private initialState: IAuthStateModel = { tokens: null, authReady: false };
-    private state: BehaviorSubject<IAuthStateModel>;
     private refreshSubscription$: Subscription;
 
-    public tokens$: Observable<IAuthTokenModel>;
-    public loggedIn$: Observable<boolean>;
+
+    public tokens: IAuthTokenModel;
 
     constructor(private http: HttpWrapper,
-                private http1: HttpClient,
-                private storage: StorageService,
-                private signalRService: SignalRService,
-                private rolesCheckedService: RolesCheckedService
+        private http1: HttpClient,
+        private storage: StorageService,
+        private signalRService: SignalRService,
+        private rolesCheckedService: RolesCheckedService,
+        private store: Store
     ) {
 
-        this.state = new BehaviorSubject<IAuthStateModel>(this.initialState);
+        //     this.state = new BehaviorSubject<IAuthStateModel>(this.initialState);
 
-        this.tokens$ = this.state.pipe(
-            filter((state: IAuthStateModel) => state.authReady),
-            map((state: IAuthStateModel) => state.tokens));
-
-        this.loggedIn$ = this.tokens$.pipe(map(tokens => !!tokens));
+        // this.tokens$ = this.state.pipe(
+        //     filter((state: IAuthStateModel) => state.authReady),
+        //     map((state: IAuthStateModel) => state.tokens));
     }
 
+    // new one
+    public get authorizationHeader(): string {
+        if (this.tokens) {
+            return `${this.tokens.token_type} ${this.tokens.access_token}`;
+        } else {
+            return '';
+        }
+    }
+
+    // old stuff
     public init(): Observable<IAuthTokenModel> {
         return this.startupTokenRefresh().pipe(
             tap(() => this.scheduleRefresh()));
@@ -58,7 +67,7 @@ export class AuthService {
     }
 
     public logout(): void {
-        this.updateState({ tokens: null });
+        //    this.updateState({ tokens: null });
 
         this.storage.removeAuthTokens();
         this.rolesCheckedService.checkRoles();
@@ -66,18 +75,14 @@ export class AuthService {
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
 
-    //        console.warn("init hub from logout");
+            //        console.warn("init hub from logout");
             this.signalRService.initializeHub();
         }
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
         return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, 'refresh_token')
-                .pipe(catchError(error => throwError('Expired')));
-    }
-
-    private updateState(newState: IAuthStateModel): void {
-            this.state.next(Object.assign({}, this.state.getValue(), newState));
+            .pipe(catchError(error => throwError('Expired')));
     }
 
     private getTokens(data: IRefreshGrantModel | ILoginModel | any, grantType: string): Observable<IAuthTokenModel> {
@@ -99,43 +104,42 @@ export class AuthService {
                 if (tokens.refresh_token) {
                     this.storage.setRefreshToken(tokens.refresh_token);
                 }
-                this.updateState({ authReady: true, tokens });
+                //  this.updateState({ authReady: true, tokens });
+                this.tokens = tokens;
+                this.store.dispatch(new SetTokens(tokens));
                 this.getUserProfile();
             }));
     }
 
-    private startupTokenRefresh(): Observable<IAuthTokenModel> {
-        return of(this.storage.retrieveTokens()).pipe(
+    private startupTokenRefresh(): Observable<any> {
+        const tokenFromStorage = this.storage.retrieveTokens();
+        if (!tokenFromStorage) {
+            this.signalRService.initializeHub();
+            return of('');
+        }
+        const data = this.storage.getUser();
+        this.setUser(data);
+
+        return of(tokenFromStorage).pipe(
             flatMap((tokens: IAuthTokenModel) => {
-                if (!tokens) {
-                    this.updateState({ authReady: true });
-
-        //            console.warn("init hub from refresh");
-                    this.signalRService.initializeHub();
-                    return throwError('No token');
-                }
-
-                this.updateState({ tokens });
-
                 if (+tokens.expiration_date > new Date().getTime()) {
-                    this.updateState({ authReady: true });
+                    //            this.updateState({ authReady: true });
                 }
 
                 return this.refreshTokens();
             }),
             catchError(e => {
                 console.warn(e);
-                this.logout();
-                this.updateState({ authReady: true });
                 return throwError(e);
             }));
     }
 
     private scheduleRefresh(): void {
-        this.refreshSubscription$ = this.tokens$.pipe(
-            first(),
+        // this.refreshSubscription$ = this.tokens$.pipe(
+        //     first(),
             // refresh every half the total expiration time
-            flatMap((tokens: IAuthTokenModel) => interval(tokens.expires_in * 500)),
+          //  flatMap((tokens: IAuthTokenModel) => 
+            interval(this.tokens.expires_in * 500).pipe(
             flatMap(() => this.refreshTokens()))
             .subscribe();
     }
@@ -143,13 +147,21 @@ export class AuthService {
     private getUserProfile(): void {
         this.http.get<any>('users/roles') // bug make list request form service
             .subscribe((data: any) => {
-                    this.storage.setUserId(+data.userId);
-                    this.storage.setRoles(data.roles);
-                    this.rolesCheckedService.checkRoles();
+                this.storage.setUser(data);
+                this.storage.setRoles(data.roles); // todo temporary
+                this.rolesCheckedService.checkRoles();
 
-     //               console.warn("init hub from getUserProfile");
-                    this.signalRService.initializeHub(); // WARNING---------------------------------------------------------
-                }
+                this.setUser(data);
+                //               console.warn("init hub from getUserProfile");
+                this.signalRService.initializeHub(); // WARNING---------------------------------------------------------
+            }
             );
+    }
+
+    private setUser(data: any): void {
+        if (data) {
+            this.store.dispatch(new SetRoles(data.roles));
+            this.store.dispatch(new SetUser({ userId: data.userId, userName: data.userName }));
+        }
     }
 }
