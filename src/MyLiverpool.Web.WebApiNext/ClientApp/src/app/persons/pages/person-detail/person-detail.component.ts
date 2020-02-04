@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RolesCheckedService } from '@base/auth';
 import { CustomTitleMetaService } from '@shared/index';
 import { PersonService } from '@persons/person.service';
 import { Person } from '@domain/models';
@@ -17,7 +16,6 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
                 private personService: PersonService,
-                public roles: RolesCheckedService,
                 private title: CustomTitleMetaService,
                 @Inject(PLATFORM_ID) private platformId: object,
                 private route: ActivatedRoute) {

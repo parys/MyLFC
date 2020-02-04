@@ -1,23 +1,26 @@
-﻿<ad [blockName]="'R-A-255349-2'"></ad>
+﻿<ng-container *ngIf="{ isLogined: isLogined$ | async } as data">
+    <ad [blockName]="'R-A-255349-2'"></ad>
 
-<div id="comments" class="flex-v-c">
-    Комментарии: <span [textContent]="totalItems"></span>&nbsp;
-    <a (click)="update()"
-       role="button">
-        <mat-icon>refresh</mat-icon>
-    </a>
-</div>
-
-<div *ngFor="let comment of items; trackBy: trackByFn">
-    <comment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary" [type]="type" [matchId]="matchId"></comment-detail>
-</div>
-
-<form *ngIf="canCommentary && roles.isLogined" 
-       class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
-    <div class="full-width">
-        <bbeditor formControlName="message"></bbeditor>
-        <div class="comment-action-buttons" style="margin-bottom: 0">
-            <button mat-raised-button color="warn" type="submit" [disabled]="!commentAddForm.valid">Добавить</button>
-        </div>
+    <div id="comments" class="flex-v-c">
+        Комментарии: <span [textContent]="totalItems"></span>&nbsp;
+        <a (click)="update()" role="button">
+            <mat-icon>refresh</mat-icon>
+        </a>
     </div>
-</form>
+
+    <div *ngFor="let comment of items; trackBy: trackByFn">
+        <comment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"
+            [type]="type" [matchId]="matchId"></comment-detail>
+    </div>
+
+    <form *ngIf="canCommentary && data.isLogined" class="form-horizontal" role="form" [formGroup]="commentAddForm"
+        (ngSubmit)="onSubmit()">
+        <div class="full-width">
+            <bbeditor formControlName="message"></bbeditor>
+            <div class="comment-action-buttons" style="margin-bottom: 0">
+                <button mat-raised-button color="warn" type="submit"
+                    [disabled]="!commentAddForm.valid">Добавить</button>
+            </div>
+        </div>
+    </form>
+</ng-container>

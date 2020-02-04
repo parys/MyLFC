@@ -12,7 +12,6 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { TransferService } from '@transfers/transfer.service';
 import { Transfer, TransferFilters, PagedList } from '@domain/models';
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 import { PAGE } from '@constants/help.constants';
 
@@ -32,8 +31,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute,
                 private location: Location,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog,
-                public roles: RolesCheckedService) {
+                private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

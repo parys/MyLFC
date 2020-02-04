@@ -2,7 +2,7 @@ import { IAuthTokenModel } from '@auth/models';
 
 export class SetUser {
     static readonly type = '[Auth] Set logged user';
-    constructor(public payload: { userId: string, userName: string }) { }
+    constructor(public payload: { userId: number, userName: string, roles: string[] }) { }
 }
 
 export class StartupTokenRefresh {
@@ -16,5 +16,9 @@ export class SetTokens {
 
 export class SetRoles {
     static readonly type = '[Auth] Set roles';
-    constructor(public payload: string[]){}
+    constructor(public payload: string[]) {}
+}
+
+export class Logout {
+    static readonly type = '[Auth] Logout';
 }

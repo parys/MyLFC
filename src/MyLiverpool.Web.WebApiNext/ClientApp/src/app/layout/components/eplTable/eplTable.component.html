@@ -1,12 +1,13 @@
-﻿<span class="full-width" *ngIf="roles.isInformer">
-    <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
-</span>
-<button mat-raised-button (click)="open()" class="full-width top10 color-back-gold">
-    <span *ngIf="!opened"><b>Показать таблицу АПЛ</b></span>
-    <span *ngIf="opened"><b>Скрыть таблицу</b></span>
-</button>
-<div *ngIf="opened" class="eplTable" [innerHTML]="eplTable"></div>
-<!--<mat-accordion class="" [displayMode]="flat">
+﻿<ng-container *ngIf="{ isInformer: isInformer$ | async } as data">
+    <span class="full-width" *ngIf="data.isInformer">
+        <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
+    </span>
+    <button mat-raised-button (click)="open()" class="full-width top10 color-back-gold">
+        <span *ngIf="!opened"><b>Показать таблицу АПЛ</b></span>
+        <span *ngIf="opened"><b>Скрыть таблицу</b></span>
+    </button>
+    <div *ngIf="opened" class="eplTable" [innerHTML]="eplTable"></div>
+    <!--<mat-accordion class="" [displayMode]="flat">
     <mat-expansion-panel class="top10">
         <span class="full-width" *ngIf="roles.isInformer">
             <a role="button" (click)="updateEplTable()" class="full-width top10">Обновить таблицу</a>
@@ -19,3 +20,4 @@
         <div class="eplTable" [innerHTML]="eplTable"></div>
     </mat-expansion-panel>
 </mat-accordion>-->
+</ng-container>

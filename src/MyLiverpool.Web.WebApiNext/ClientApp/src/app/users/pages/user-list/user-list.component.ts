@@ -11,10 +11,11 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { UserService } from '@users/user.service';
 import { User, UserFilters, RoleGroup, PagedList } from '@domain/models';
 import { RoleGroupService } from '@role-groups/core';
-import { RolesCheckedService } from '@base/auth';
 import { KEYUP, PAGE } from '@constants/help.constants';
 import { DEBOUNCE_TIME } from '@constants/app.constants';
 import { USERS_ROUTE } from '@constants/routes.constants';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 
 @Component({
@@ -29,6 +30,10 @@ export class UserListComponent implements OnInit {
     public selectedUserIndex: number;
     displayedColumns = ['userName', 'lastModified', 'commentsCount', 'registrationDate', 'roleGroupName'];
 
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
     @ViewChild(MatSort, { static: true })sort: MatSort;
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
     @ViewChild('roleSelect', { static: true })roleSelect: MatSelect;
@@ -38,7 +43,6 @@ export class UserListComponent implements OnInit {
     constructor(private userService: UserService,
                 private location: Location,
                 private roleGroupService: RoleGroupService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute) {
     }
 

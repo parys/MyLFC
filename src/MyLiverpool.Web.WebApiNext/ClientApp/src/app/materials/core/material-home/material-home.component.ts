@@ -5,7 +5,6 @@ import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { Material, PagedList } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 import { TITLE_RU } from '@constants/ru.constants';
 
@@ -31,7 +30,6 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private materialService: MaterialService,
                 private cd: ChangeDetectorRef,
-                public roles: RolesCheckedService,
                 private titleService: CustomTitleService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component

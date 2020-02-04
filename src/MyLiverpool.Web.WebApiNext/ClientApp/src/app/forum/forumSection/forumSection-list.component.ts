@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
-import { RolesCheckedService } from '@base/auth';
-
 import { ForumSectionService } from './forumSection.service';
 import { ForumSection } from './forumSection.model';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'forumSection-list',
@@ -14,7 +14,9 @@ export class ForumSectionListComponent implements OnInit {
 
     items: ForumSection[];
 
-    constructor(private service: ForumSectionService, public roles: RolesCheckedService) {
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
+    constructor(private service: ForumSectionService) {
     }
 
     public ngOnInit(): void {

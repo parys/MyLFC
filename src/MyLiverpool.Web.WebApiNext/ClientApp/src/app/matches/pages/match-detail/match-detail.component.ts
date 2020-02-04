@@ -2,15 +2,16 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
-import { BehaviorSubject, Subscription, interval } from 'rxjs';
+import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Match, MatchEvent, MatchEventType } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { CustomTitleMetaService } from '@shared/index';
 
 import { MatchService } from '@matches/match.service';
 import { SignalRService } from '@base/signalr';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'match-detail',
@@ -23,9 +24,10 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     public item: Match;
     public countDown$: BehaviorSubject<string>;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private router: Router,
                 private matchService: MatchService,
-                public roles: RolesCheckedService,
                 private title: CustomTitleMetaService,
                 @Inject(PLATFORM_ID) private platformId: object,
                 private signalR: SignalRService,
@@ -45,6 +47,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         if (this.sub$) { this.sub$.unsubscribe(); }
         if (this.sub2) { this.sub2.unsubscribe(); }
+        if (this.countDown$) { this.countDown$.unsubscribe(); }
     }
 
     public pin(id?: number): void {

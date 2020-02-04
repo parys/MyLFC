@@ -1,12 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { Injury } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 
 import { LayoutService } from '@layout/layout.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 const INJURY_CURRENT_KEY = makeStateKey<Injury[]>('injury-current');
 
@@ -20,9 +21,10 @@ export class InjuryCurrentListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Injury[];
 
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
     constructor(private service: LayoutService,
                 private transferState: TransferState,
-                public roles: RolesCheckedService,
                 private cd: ChangeDetectorRef) {
     }
 

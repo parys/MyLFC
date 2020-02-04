@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { RolesCheckedService } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+
+import { AuthState } from '@auth/store';
 import { DeleteDialogComponent } from '@shared/index';
 import { FaqItem } from '@domain/models';
 
@@ -18,11 +21,13 @@ import { FaqItemService } from '../faq-item.service';
 export class FaqItemListComponent implements OnInit {
     public items: FaqItem[];
 
+    @Select(AuthState.isSiteMember) isSiteMember$: Observable<boolean>;
+
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
     constructor(private service: FaqItemService,
                 private dialog: MatDialog,
-                private snackBar: MatSnackBar,
-                public roles: RolesCheckedService) {
+                private snackBar: MatSnackBar) {
     }
 
     public ngOnInit(): void {

@@ -23,7 +23,6 @@ import { BreadcrumbModule } from '@base/breadcrumbs';
 import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outlet/dynamic-content-outlet.module';
 import { environment } from '@environments/environment';
 import { getAccessToken } from '@auth/auth.module';
-import { resolve } from 'dns';
 
 registerLocaleData(localeRU);
 
@@ -42,8 +41,6 @@ registerLocaleData(localeRU);
 export function runAppInitializerFactories(injector: Injector): () => Promise<any> {
     return async () => {
         await getAccessToken(injector);
-
-     //   await getFeaturesOptions(injector);
     };
 }
 

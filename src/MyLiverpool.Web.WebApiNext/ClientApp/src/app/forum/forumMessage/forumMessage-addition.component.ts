@@ -1,9 +1,10 @@
 ﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { RolesCheckedService } from '@base/auth';
-
 import { ForumMessageService, ForumMessage } from '@forum/forumMessage';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'forumMessage-addition',
@@ -16,8 +17,9 @@ export class ForumMessageAdditionComponent implements OnInit {
     @Input() themeId: number;
     @Output() newMessage = new EventEmitter<ForumMessage>();
 
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+
     constructor(private service: ForumMessageService,
-                public roles: RolesCheckedService,
                 private formBuilder: FormBuilder) {
     }
 

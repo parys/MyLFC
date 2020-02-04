@@ -1,17 +1,17 @@
-﻿<div>
-    <a *ngIf="roles.isEditor" [routerLink]="[0, 'edit']">Создать опрос</a>
+﻿<ng-container *ngIf="{ isEditor: isEditor$ | async } as data">
+    <a *ngIf="data.isEditor" [routerLink]="[0, 'edit']">Создать опрос</a>
     <div *ngFor="let poll of items; let i = index;">
         <a [routerLink]="[poll.id, 'edit']">
             {{poll.question}}
         </a>
-        <!--<li *ngIf="roles.isEditor || category.itemsCount != 0">
+        <!--<li *ngIf="data.isEditor || category.itemsCount != 0">
             <a [routerLink]="[+category.materialType === 1 ? '/news' : '/blogs']" [queryParams]="{page: 1, categoryId: category.id}">
                 <span [textContent]="category.name"></span> [<span [textContent]="category.itemsCount"></span>]
             </a>
-            <span *ngIf="roles.isEditor">
+            <span *ngIf="data.isEditor">
                 <a [routerLink]="[category.id, 'edit']"> <i class="material-icons">edit</i></a>
                 <a *ngIf="category.itemsCount == 0" (click)="delete(i)"> <i class="material-icons">clear</i></a>
             </span>
         </li>-->
     </div>
-</div>
+</ng-container>

@@ -1,15 +1,15 @@
-﻿<div>
+﻿<ng-container *ngIf="{ userId: userId$ | async, isNewsmaker: isNewsmaker$ | async, isAuthor: isAuthor$ | async, isEditor: isEditor$ | async } as data">
     <div *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
-        <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
+        <div class="bottom10" *ngIf="!item.pending || data.isNewsmaker || data.isAuthor && data.userId === item.userId">
             <div class="material" [class.material-pending]="item.pending">
                 <div class="header">
                     <a [routerLink]="['/', item.typeName, item.id]">
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
-                    <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)">
+                    <span *ngIf="data.isEditor || data.userId === item.userId">
+                        <a role="button" *ngIf="item.pending && data.isEditor" (click)="showActivateModal(i)">
                             <i class="material-icons">done</i>
                         </a>
                         <a [routerLink]="['/', item.typeName, item.id, 'edit']">
@@ -58,4 +58,4 @@
             previousLabel="Назад" nextLabel="Вперед" screenReaderPaginationLabel="Постраничный вид"
             screenReaderPageLabel="Страница" screenReaderCurrentLabel="Вы на странице"></pagination-controls>
     </div>
-</div>
+</ng-container>

@@ -1,37 +1,43 @@
-﻿<div class="flex-space-around flex-v-c" *ngIf="roles.isInformer">
-    <button mat-raised-button color="warn" type="button" [routerLink]="['/faq-categories', 0, 'edit']">Добавить категорию</button>
-    <button mat-raised-button color="warn" type="button" [routerLink]="['/faq-items', 0, 'edit']">Добавить вопрос</button>
-</div>
+﻿<ng-container *ngIf="{ isSiteMember: isSiteMember$ | async, isInformer: isInformer$ | async } as data">
+    <mat-expansion-panel>
+        <div class="flex-space-around flex-v-c" *ngIf="data.isInformer">
+            <button mat-raised-button color="warn" type="button" [routerLink]="['/faq-categories', 0, 'edit']">Добавить
+                категорию</button>
+            <button mat-raised-button color="warn" type="button" [routerLink]="['/faq-items', 0, 'edit']">Добавить
+                вопрос</button>
+        </div>
 
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let category of items; let i = index; trackBy: trackByFn">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{category.name}}
-            </mat-panel-title>
-            <mat-panel-description *ngIf="roles.isInformer">
-                <a [routerLink]="['/faq-categories', category.id, 'edit']">
-                    <i class="material-icons">edit</i>
-                </a>
-                <a role="button" (click)="showDeleteCategoryModal(i)">
-                    <i class="material-icons">clear</i>
-                </a>
-            </mat-panel-description>
-        </mat-expansion-panel-header>
         <mat-accordion>
-            <mat-expansion-panel *ngFor="let item of category.items; let u = index; trackBy: trackByItemFn">
+            <mat-expansion-panel *ngFor="let category of items; let i = index; trackBy: trackByFn">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                       <b> {{item.question}}</b>
+                        {{category.name}}
                     </mat-panel-title>
-                    <mat-panel-description *ngIf="roles.isInformer">
-                        <a [routerLink]="['/faq-items', item.id, 'edit']">
+                    <mat-panel-description *ngIf="data.isInformer">
+                        <a [routerLink]="['/faq-categories', category.id, 'edit']">
                             <i class="material-icons">edit</i>
+                        </a>
+                        <a role="button" (click)="showDeleteCategoryModal(i)">
+                            <i class="material-icons">clear</i>
                         </a>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <div [innerHTML]="item.answer | safe: 'html'" class="answer"></div>
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let item of category.items; let u = index; trackBy: trackByItemFn">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <b> {{item.question}}</b>
+                            </mat-panel-title>
+                            <mat-panel-description *ngIf="data.isInformer">
+                                <a [routerLink]="['/faq-items', item.id, 'edit']">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="item.answer | safe: 'html'" class="answer"></div>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-expansion-panel>
-</mat-accordion>
+</ng-container>

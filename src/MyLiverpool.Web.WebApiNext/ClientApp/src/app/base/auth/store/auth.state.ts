@@ -1,7 +1,8 @@
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, createSelector } from '@ngxs/store';
 
 import { AuthStateModel } from './auth-state.model';
-import { SetUser, SetTokens } from './auth.actions';
+import { SetUser, SetTokens, Logout } from './auth.actions';
+import { RolesEnum } from '@auth/models';
 
 
 @State<AuthStateModel>({
@@ -12,6 +13,12 @@ import { SetUser, SetTokens } from './auth.actions';
     },
 })
 export class AuthState {
+
+    private static isInRole(state: AuthStateModel, role: string): boolean {
+        const roles = state.user && state.user.roles ? state.user.roles : [];
+        const updatedRoles = roles.map(x => x.toLowerCase);
+        return updatedRoles.includes(role.toLowerCase)
+    }
 
     @Selector()
     static user(state: AuthStateModel) {
@@ -28,11 +35,68 @@ export class AuthState {
         return state.user ? state.user.userName : null;
     }
 
-    // @Selector()
-    // static admin(state: AuthStateModel) {
-    //     const roles = state.user && state.user.roles ? state.user.roles : [];
-    //     return roles.includes('admin');
-    // }
+    @Selector()
+    static isLogined(state: AuthStateModel) {
+        return state.user !== null;
+    }
+
+    @Selector()
+    static isInformer(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.InfoStart.toString());
+    }
+
+    @Selector()
+    static isNewsmaker(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.NewsStart.toString());
+    }
+
+    @Selector()
+    static isAdmin(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.AdminFull.toString());
+    }
+
+    @Selector()
+    static isAdminAssistant(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.AdminStart.toString());
+    }
+
+    @Selector()
+    static isModerator(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.UserStart.toString());
+    }
+
+    @Selector()
+    static isMainModerator(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.UserFull.toString());
+    }
+
+    @Selector()
+    static isAuthor(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.BlogStart.toString());
+    }
+
+    @Selector()
+    static isEditor(state: AuthStateModel) {
+        return AuthState.isInRole(state, RolesEnum.BlogFull.toString()) || AuthState.isInRole(state, RolesEnum.NewsFull.toString());
+    }
+
+    @Selector()
+    static isSiteMember(state: AuthStateModel) {
+        return state.user !== null && (AuthState.isInRole(state, RolesEnum.NewsStart.toString())
+        || AuthState.isInRole(state, RolesEnum.UserStart.toString())
+        || AuthState.isInRole(state, RolesEnum.AdminStart.toString())
+        || AuthState.isInRole(state, RolesEnum.BlogStart.toString())
+        || AuthState.isInRole(state, RolesEnum.InfoStart.toString()));
+    }
+
+    static isSelf(userId: number) {
+        return createSelector(
+            [AuthState],
+            (state: AuthStateModel) => {
+                return state.user.userId === userId;
+            }
+        );
+    }
 
     @Action(SetUser)
     onSetUser({ patchState }: StateContext<AuthStateModel>, { payload }: SetUser) {
@@ -41,7 +105,14 @@ export class AuthState {
 
     @Action(SetTokens)
     onSetTokens({ patchState }: StateContext<AuthStateModel>, { payload }: SetTokens) {
-        patchState({ tokens: {...payload}});
+        patchState({ tokens: { ...payload } });
     }
+
+    @Action(Logout)
+    onLogout({ patchState }: StateContext<AuthStateModel>) {
+        patchState({ tokens:  null  });
+        patchState({ user:  null  });
+    }
+
 
 }

@@ -1,116 +1,127 @@
-﻿<div *ngIf="item">
-    <h2>
-        <span [textContent]="item.userName"></span>
-        <span *ngIf="roles.isLogined && !roles.isSelf(item.id)">
-            <a role="button" (click)="writePm()"><i class="material-icons">email</i></a>
-        </span>
-    </h2>
-    <pm-reply *ngIf="selectedUserId" [userId]="selectedUserId" (close)="closePmWindow($event);" [userName]="item.userName"></pm-reply>
-    <div class="full-width flex-space-between">
-        <div class="width20p">
-            <img class="avatar" [src]="item.photo" [alt]="item.userName" />
-        </div>
-        <div class="flex-space-between">
-            <div *ngIf="roles.isSelf(item.id) || roles.isModerator">
-                <label role="button"
-                       for="update-avatar-input"
-                       *ngIf="roles.isSelf(item.id)"
-                       matTooltip="Обновить фото"
-                       class=""><i class="material-icons">add_photo_alternate</i></label>
-                <input type="file"
-                       class="hidden"
-                       accept="image/*"
-                       (change)="onChangeAvatar($event)"
-                       id="update-avatar-input" />
-                <button mat-raised-button
-                        color="primary"
-                        (click)="resetAvatar()">
-                    Удалить аватар
-                </button>
-                <button mat-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/account/changePassword']">Изменить пароль</button>
-                
-            <button *ngIf="roles.isSelf(item.id)" mat-raised-button (click)="logout()">Выйти из аккаунта</button>
-            </div>        
-            <span>
-                <mat-icon *ngIf="roles.isSelf(item.id)"
-                          role="button"
-                          [routerLink]="['./settings']"
-                          matTooltip="Уведомления"
-                          class="color-back-gold">notifications</mat-icon>
-                <mat-icon *ngIf="roles.isSelf(item.id)"
-                          role="button"
-                          matTooltip="Изменить профиль"
-                          [routerLink]="['./edit']">settings</mat-icon>
+﻿<ng-container *ngIf="{ isAdminAssistant: isAdminAssistant$ | async,
+    userId: userId$ | async,
+    isModerator: isModerator$ | async,
+    isMainModerator: isMainModerator$ | async } as data">
+    <div *ngIf="item">
+        <h2>
+            <span [textContent]="item.userName"></span>
+            <span *ngIf="data.userId !== item.id">
+                <a role="button" (click)="writePm()"><i class="material-icons">email</i></a>
             </span>
+        </h2>
+        <pm-reply *ngIf="selectedUserId" [userId]="selectedUserId" (close)="closePmWindow($event);"
+            [userName]="item.userName"></pm-reply>
+        <div class="full-width flex-space-between">
+            <div class="width20p">
+                <img class="avatar" [src]="item.photo" [alt]="item.userName" />
+            </div>
+            <div class="flex-space-between">
+                <div *ngIf="data.userId === item.id || data.isModerator">
+                    <label role="button" for="update-avatar-input" *ngIf="data.userId === item.id"
+                        matTooltip="Обновить фото" class=""><i class="material-icons">add_photo_alternate</i></label>
+                    <input type="file" class="hidden" accept="image/*" (change)="onChangeAvatar($event)"
+                        id="update-avatar-input" />
+                    <button mat-raised-button color="primary" (click)="resetAvatar()">
+                        Удалить аватар
+                    </button>
+                    <button mat-raised-button color="warn" *ngIf="data.userId === item.id"
+                        [routerLink]="['/account/changePassword']">Изменить пароль</button>
+
+                    <button *ngIf="data.userId === item.id" mat-raised-button (click)="logout()">Выйти из
+                        аккаунта</button>
+                </div>
+                <span>
+                    <mat-icon *ngIf="data.userId === item.id" role="button" [routerLink]="['./settings']"
+                        matTooltip="Уведомления" class="color-back-gold">notifications</mat-icon>
+                    <mat-icon *ngIf="data.userId === item.id" role="button" matTooltip="Изменить профиль"
+                        [routerLink]="['./edit']">settings</mat-icon>
+                </span>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="form-horizontal top10" role="form">
-        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="flex-space-around flex-v-c">
-            <div>
-                <form *ngIf="!item.lockoutEnd" class="form-inline" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
-                    <mat-form-field>
-                        <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount" min="1" type="number">
-                    </mat-form-field>
-                    <button mat-raised-button color="warn" type="submit" [disabled]="!banForm.valid">Забанить</button>
-                </form>
-                <div class="full-width" *ngIf="item.lockoutEnd">
-                    <mat-form-field>
-                        <input matInput placeholder="Заблокирован до" [value]="item.lockoutEnd | customDate:true">
-                    </mat-form-field>
-                    <button mat-raised-button color="primary" *ngIf="roles.isMainModerator" (click)="unban()">Снять бан</button>
+        <div class="form-horizontal top10" role="form">
+            <div *ngIf="data.isModerator && data.userId !== item.id" class="flex-space-around flex-v-c">
+                <div>
+                    <form *ngIf="!item.lockoutEnd" class="form-inline" role="form" [formGroup]="banForm"
+                        (ngSubmit)="onSubmitBan()">
+                        <mat-form-field>
+                            <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount"
+                                min="1" type="number">
+                        </mat-form-field>
+                        <button mat-raised-button color="warn" type="submit"
+                            [disabled]="!banForm.valid">Забанить</button>
+                    </form>
+                    <div class="full-width" *ngIf="item.lockoutEnd">
+                        <mat-form-field>
+                            <input matInput placeholder="Заблокирован до" [value]="item.lockoutEnd | customDate:true">
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" *ngIf="data.isMainModerator" (click)="unban()">Снять
+                            бан</button>
+                    </div>
+                </div>
+                <div>
+                    <div *ngIf="(data.isAdminAssistant && data.userId !== item.id);else admin">
+                        <form class="form-inline" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+                            <mat-form-field>
+                                <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
+                                    <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id"
+                                        [textContent]="roleGroup.name"></mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-raised-button type="submit" color="warn"
+                                [disabled]="!roleForm.valid">Сохранить</button>
+                        </form>
+                    </div>
+                    <ng-template #admin>
+                        <mat-form-field>
+                            <input matInput placeholder="Группа" readonly [value]="item.roleGroupName">
+                        </mat-form-field>
+                    </ng-template>
                 </div>
             </div>
-            <div>
-            <mat-form-field *ngIf="!roles.isAdminAssistant || roles.isSelf(item.id)">
-                <input matInput placeholder="Группа" readonly [value]="item.roleGroupName">
+            <mat-form-field class="full-width" *ngIf="(data.userId === item.id || data.isAdminAssistant)">
+                <input matInput placeholder="Почта" readonly [value]="item.email">
+                <div *ngIf="!item.emailConfirmed" class="text-danger">Почта не подтверждена</div>
             </mat-form-field>
-            <div *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)">
-                <form class="form-inline" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field>
-                        <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
-                            <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <button mat-raised-button type="submit" color="warn" [disabled]="!roleForm.valid">Сохранить</button>
-                </form>
-            </div></div>
-        </div>
-        <mat-form-field class="full-width" *ngIf="(roles.isSelf(item.id) || roles.isAdminAssistant)">
-            <input matInput placeholder="Почта" readonly [value]="item.email">
-            <div *ngIf="!item.emailConfirmed" class="text-danger">Почта не подтверждена</div>
-        </mat-form-field>
-        <mat-form-field *ngIf="roles.isAdminAssistant" class="full-width">
-            <input matInput placeholder="Ip" readonly [value]="item.ip">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Последний вход" readonly [value]="item.lastModifiedOn | customDate:true">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Дата регистрации" readonly [value]="item.registrationDate | customDate:true">
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="item.fullName">
-            <input matInput placeholder="Полное имя" readonly [value]="item.fullName">
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="item.birthday">
-            <input matInput placeholder="День рождения" readonly [value]="item.birthday | customDate:false:false:true:true">
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="item.gender != null">
-            <input matInput placeholder="Пол" readonly [value]="item.gender ? 'Женский' : 'Мужской'">
-        </mat-form-field>
-        <div class="flex-space-around">
-            <span *ngIf="item.newsCount > 0">
-                <a [routerLink]="['/news']" [queryParams]="{page: 1, userName: item.userName, userId: item.id}">Новости(<span [textContent]="item.newsCount"></span>)</a>
-            </span>
-            <span> | </span>
-            <span *ngIf="item.blogsCount > 0">
-                <a [routerLink]="['/blogs']" [queryParams]="{page: 1, userName: item.userName, userId: item.id}">Блоги(<span [textContent]="item.blogsCount"></span>)</a>
-            </span>
-            <span> | </span>
-            <span *ngIf="item.commentsCount > 0">
-                <a [routerLink]="['/comments']" [queryParams]="{page: 1, userId: item.id}">Комментарии(<span [textContent]="item.commentsCount"></span>)</a>
-            </span>
+            <mat-form-field *ngIf="data.isAdminAssistant" class="full-width">
+                <input matInput placeholder="Ip" readonly [value]="item.ip">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Последний вход" readonly [value]="item.lastModifiedOn | customDate:true">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Дата регистрации" readonly
+                    [value]="item.registrationDate | customDate:true">
+            </mat-form-field>
+            <mat-form-field class="full-width" *ngIf="item.fullName">
+                <input matInput placeholder="Полное имя" readonly [value]="item.fullName">
+            </mat-form-field>
+            <mat-form-field class="full-width" *ngIf="item.birthday">
+                <input matInput placeholder="День рождения" readonly
+                    [value]="item.birthday | customDate:false:false:true:true">
+            </mat-form-field>
+            <mat-form-field class="full-width" *ngIf="item.gender != null">
+                <input matInput placeholder="Пол" readonly [value]="item.gender ? 'Женский' : 'Мужской'">
+            </mat-form-field>
+            <div class="flex-space-around">
+                <span *ngIf="item.newsCount > 0">
+                    <a [routerLink]="['/news']"
+                        [queryParams]="{page: 1, userName: item.userName, userId: item.id}">Новости(<span
+                            [textContent]="item.newsCount"></span>)</a>
+                </span>
+                <span> | </span>
+                <span *ngIf="item.blogsCount > 0">
+                    <a [routerLink]="['/blogs']"
+                        [queryParams]="{page: 1, userName: item.userName, userId: item.id}">Блоги(<span
+                            [textContent]="item.blogsCount"></span>)</a>
+                </span>
+                <span> | </span>
+                <span *ngIf="item.commentsCount > 0">
+                    <a [routerLink]="['/comments']" [queryParams]="{page: 1, userId: item.id}">Комментарии(<span
+                            [textContent]="item.commentsCount"></span>)</a>
+                </span>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>

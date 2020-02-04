@@ -1,17 +1,19 @@
-﻿<div>
-        <span *ngIf="roles.isInformer">
-            <a [routerLink]="['/matches']" mat-menu-item >Матчи</a>
-            <a [routerLink]="['/clubs']" mat-menu-item >Клубы</a>
-            <a [routerLink]="['/persons']" mat-menu-item >Люди</a>
-            <a [routerLink]="['/stadiums']" mat-menu-item >Стадионы</a>
-            <a [routerLink]="['/injuries']" mat-menu-item >Травмы</a>
+﻿<ng-container *ngIf="{ isInformer: isInformer$ | async, isAdminAssistant: isAdminAssistant$ | async } as data">
+    <div>
+        <span *ngIf="data.isInformer">
+            <a [routerLink]="['/matches']" mat-menu-item>Матчи</a>
+            <a [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
+            <a [routerLink]="['/persons']" mat-menu-item>Люди</a>
+            <a [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
+            <a [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
         </span>
         <a [routerLink]="['/images']" mat-menu-item>Изображения</a>
         <!--<a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/polls']" [queryParams]="{page: 1}" mat-menu-item>Опросы</a>-->
-</div>
-<span *ngIf="roles.isAdminAssistant">
-    <a [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
-    <a [routerLink]="['/plans']" mat-menu-item>Планы</a>
-    <a [routerLink]="['/instructions']" mat-menu-item>Инструкции</a>
-    <a [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
-</span>
+    </div>
+    <span *ngIf="data.isAdminAssistant">
+        <a [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
+        <a [routerLink]="['/plans']" mat-menu-item>Планы</a>
+        <a [routerLink]="['/instructions']" mat-menu-item>Инструкции</a>
+        <a [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
+    </span>
+</ng-container>

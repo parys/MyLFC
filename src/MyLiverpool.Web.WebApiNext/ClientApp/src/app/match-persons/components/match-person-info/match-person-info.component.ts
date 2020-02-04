@@ -1,13 +1,15 @@
-import { Component, OnInit, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { ObserverComponent } from '@domain/base';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'match-person-info',
@@ -21,8 +23,9 @@ export class MatchPersonInfoComponent extends ObserverComponent {
     @Input() public matchId: number;
     @Output() public selected: EventEmitter<MatchPerson> = new EventEmitter<MatchPerson>();
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private matchPersonService: MatchPersonService,
-                public roles: RolesCheckedService,
                 private snackBar: MatSnackBar,
                 private dialog: MatDialog) {
         super();

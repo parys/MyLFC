@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 
 import { ForumThemeService, ForumTheme } from '@forum/forumTheme';
 import { ForumMessage, ForumMessageService } from '@forum/forumMessage';
+import { AuthState } from '@auth/store';
+import { Select } from '@ngxs/store';
 
 @Component({
     selector: 'forumTheme-list',
@@ -27,9 +28,12 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     public isEditMode = false;
     public selectedCommentIndex: number = null;
 
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
+    @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
+
     constructor(private service: ForumThemeService,
                 private messageService: ForumMessageService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute,
                 private formBuilder: FormBuilder,
                 private location: Location,

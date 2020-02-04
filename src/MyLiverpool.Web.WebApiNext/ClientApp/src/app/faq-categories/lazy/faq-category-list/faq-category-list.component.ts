@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { RolesCheckedService } from '@base/auth';
 import { DeleteDialogComponent } from '@shared/index';
 
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 import { FaqCategory } from '@domain/models';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
+import { Select } from '@ngxs/store';
 
 
 @Component({
@@ -18,11 +20,13 @@ import { FaqCategory } from '@domain/models';
 export class FaqCategoryListComponent implements OnInit {
     public items: FaqCategory[];
 
+    @Select(AuthState.isSiteMember) isSiteMember$: Observable<boolean>;
+
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
     constructor(private faqService: FaqCategoryService,
                 private dialog: MatDialog,
-                private snackBar: MatSnackBar,
-                public roles: RolesCheckedService) {
+                private snackBar: MatSnackBar) {
     }
 
     public ngOnInit(): void {

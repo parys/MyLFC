@@ -1,2 +1,5 @@
-﻿<a *ngIf="roles.isAdminAssistant || (roles.isInformer && typeId === 3)" [routerLink]="['/editPage', typeId]">Редактировать</a>
-<div [innerHtml]="content | safe: 'html'"></div>
+﻿<ng-container *ngIf="{ isInformer: isInformer$ | async, isAdminAssistant: isAdminAssistant$ | async } as data">
+    <a *ngIf="data.isAdminAssistant || (data.isInformer && typeId === 3)"
+        [routerLink]="['/editPage', typeId]">Редактировать</a>
+    <div [innerHtml]="content | safe: 'html'"></div>
+</ng-container>

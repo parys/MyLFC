@@ -1,6 +1,9 @@
 ﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-import { RolesCheckedService, AuthService } from '@base/auth';
+import { AuthService } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'sidebar-right',
@@ -9,8 +12,10 @@ import { RolesCheckedService, AuthService } from '@base/auth';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarRightComponent {
-    constructor(public roles: RolesCheckedService,
-                private authService: AuthService) {
+
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+    
+    constructor(private authService: AuthService) {
     }
 
     public logout(): void {

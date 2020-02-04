@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Material } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { MaterialActivateDialogComponent } from '../material-activate-dialog';
 import { DeleteDialogComponent } from '@shared/index';
 import { MaterialService } from '../material.service';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'material-item',
@@ -17,9 +19,16 @@ export class MaterialItemComponent {
     @Input()
     public item: Material;
 
+    @Select(AuthState.isNewsmaker) isNewsmaker$: Observable<boolean>;
+
+    @Select(AuthState.isAuthor) isAuthor$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
     constructor(
         private dialog: MatDialog,
-        public roles: RolesCheckedService,
         private materialService: MaterialService,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar) {}

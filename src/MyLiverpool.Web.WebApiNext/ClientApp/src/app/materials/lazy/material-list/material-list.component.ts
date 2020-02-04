@@ -4,16 +4,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { Material, MaterialFilters, MaterialType, PagedList } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { CustomTitleMetaService as CustomTitleService, DeleteDialogComponent } from '@shared/index';
 import { TITLE_RU, NEWSS_RU, BLOGS_RU } from '@constants/ru.constants';
 
 import { MaterialService } from '@materials/core/material.service';
 import { MaterialActivateDialogComponent } from '@materials/core/material-activate-dialog';
 import { PAGE } from '@constants/help.constants';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'material-list',
@@ -21,7 +23,7 @@ import { PAGE } from '@constants/help.constants';
     styleUrls: ['./material-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialListComponent implements OnInit, OnDestroy {
+export class MaterialListComponent extends ObserverComponent implements OnInit, OnDestroy {
     private type: MaterialType = MaterialType.Both;
     private sub: Subscription;
     private sub2: Subscription;
@@ -33,22 +35,29 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     public totalItems: number;
     public categoryId: number;
 
+    @Select(AuthState.isNewsmaker) isNewsmaker$: Observable<boolean>;
+
+    @Select(AuthState.isAuthor) isAuthor$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
     constructor(private router: Router,
                 private materialService: MaterialService,
                 private route: ActivatedRoute,
                 private location: Location,
                 private cd: ChangeDetectorRef,
-                public roles: RolesCheckedService,
-
                 private snackBar: MatSnackBar,
                 private titleService: CustomTitleService,
                 private dialog: MatDialog) {
-        this.navigationSubscription = this.router.events.subscribe((e: any) => {
-            // If it is a NavigationEnd event re-initalise the component
-            if (e instanceof NavigationEnd) {
-                this.parseQueryParamsAndUpdate();
-            }
-        });
+                    super();
+                    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+                        // If it is a NavigationEnd event re-initalise the component
+                        if (e instanceof NavigationEnd) {
+                            this.parseQueryParamsAndUpdate();
+                        }
+                    });
     }
 
     public showActivateModal(index: number): void {
@@ -119,7 +128,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     private delete(index: number): void {
-        this.materialService.delete(this.items[index].id)
+        const sub$ = this.materialService.delete(this.items[index].id)
             .subscribe(res => {
                 if (res) {
                     this.items.splice(index, 1);
@@ -129,6 +138,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
             },
             null,
             () => this.cd.markForCheck());
+        this.subscriptions.push(sub$);
     }
 
     private parsePageable(pageable: PagedList<Material>): void {

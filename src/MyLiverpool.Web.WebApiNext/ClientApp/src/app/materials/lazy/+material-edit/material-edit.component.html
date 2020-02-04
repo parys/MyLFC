@@ -1,63 +1,70 @@
-﻿<div *ngIf="item">
-    <form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
-        <mat-form-field class="full-width">
-            <mat-select placeholder="Категория" formControlName="categoryId">
-                <mat-option *ngFor="let category of categories" [value]="category.id" [textContent]="category.name">
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <input matInput formControlName="title" placeholder="Название" />
-        </mat-form-field>
-        <div class="full-width">
-            <label class="control-label"> Описание:</label>
-            <bbeditor name="brief" [type]="1" [value]="item.brief" [height]="70" formControlName="brief"></bbeditor>
-        </div>
-        <div class="full-width">
-            <label class="control-label"> Текст:</label>
-            <bbeditor name="message" [type]="2" [value]="item.message" [height]="400" formControlName="message"></bbeditor>
-        </div>
-        <div class="full-width">
-            <button mat-raised-button color="warn" class="full-width" type="submit" [disabled]="!editForm.valid">Сохранить</button>
-        </div>
-        <div class="full-width">
+﻿<ng-container *ngIf="{ isEditor: isEditor$ | async } as data">
+    <div *ngIf="item">
+        <form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="full-width">
-                <input matInput formControlName="source" placeholder="Источник" />
-                <button mat-button matSuffix role="button" type="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
-                    <mat-icon>burst_mode</mat-icon>
-                </button>
+                <mat-select placeholder="Категория" formControlName="categoryId">
+                    <mat-option *ngFor="let category of categories" [value]="category.id" [textContent]="category.name">
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
-        </div>        
-        <mat-form-field class="full-width">
-            <input matInput formControlName="tags" placeholder="Тэги через запятую и пробел" />
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <input matInput formControlName="photoPreview" placeholder="Фото для превью" />
-        </mat-form-field>
-        <image-crop-addition (loadedImage)="updatePreviewImage($event)"></image-crop-addition>
-        <mat-form-field class="full-width">
-            <input matInput formControlName="photo" placeholder="Главное фото" />
-        </mat-form-field>
-        <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="title" placeholder="Название" />
+            </mat-form-field>
+            <div class="full-width">
+                <label class="control-label"> Описание:</label>
+                <bbeditor name="brief" [type]="1" [value]="item.brief" [height]="70" formControlName="brief"></bbeditor>
+            </div>
+            <div class="full-width">
+                <label class="control-label"> Текст:</label>
+                <bbeditor name="message" [type]="2" [value]="item.message" [height]="400" formControlName="message">
+                </bbeditor>
+            </div>
+            <div class="full-width">
+                <button mat-raised-button color="warn" class="full-width" type="submit"
+                    [disabled]="!editForm.valid">Сохранить</button>
+            </div>
+            <div class="full-width">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="source" placeholder="Источник" />
+                    <button mat-button matSuffix role="button" type="button" [disabled]="!editForm.get('source').value"
+                        (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
+                        <mat-icon>burst_mode</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="tags" placeholder="Тэги через запятую и пробел" />
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="photoPreview" placeholder="Фото для превью" />
+            </mat-form-field>
+            <image-crop-addition (loadedImage)="updatePreviewImage($event)"></image-crop-addition>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="photo" placeholder="Главное фото" />
+            </mat-form-field>
+            <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
 
-        <div class="full-width">
-            <span> Дополнительные фото:</span>
-            <image-addition [isMultiple]="true" [controlName]="additional"></image-addition>
-        </div>
-        <div class="full-width">
-            <mat-checkbox color="warn" formControlName="canCommentary">Разрешить комментарии</mat-checkbox>
-        </div>
-        <div class="full-width">
-            <mat-checkbox color="warn" formControlName="onTop">Наверху</mat-checkbox>
-        </div>
-        <div class="full-width" *ngIf="roles.isEditor">
-            <mat-checkbox color="warn" formControlName="pending">Отложена</mat-checkbox>
-        </div>
-        <div class="full-width">
-            <mat-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения</mat-checkbox>
-        </div>
-        <div class="full-width">
-            <mat-checkbox color="warn" formControlName="usePhotoInBody">Использовать главное фото в новости</mat-checkbox>
-        </div>
-    </form>
-</div>
+            <div class="full-width">
+                <span> Дополнительные фото:</span>
+                <image-addition [isMultiple]="true" [controlName]="additional"></image-addition>
+            </div>
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="canCommentary">Разрешить комментарии</mat-checkbox>
+            </div>
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="onTop">Наверху</mat-checkbox>
+            </div>
+            <div class="full-width" *ngIf="data.isEditor">
+                <mat-checkbox color="warn" formControlName="pending">Отложена</mat-checkbox>
+            </div>
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения
+                </mat-checkbox>
+            </div>
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="usePhotoInBody">Использовать главное фото в новости
+                </mat-checkbox>
+            </div>
+        </form>
+    </div>
+</ng-container>

@@ -1,9 +1,13 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+
 import { MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
 import { MaterialCategoryService } from '@material-categories/core';
-import { RolesCheckedService } from '@base/auth';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'materialCategory-list',
@@ -13,8 +17,9 @@ export class MaterialCategoryListComponent implements OnInit {
     public items: MaterialCategory[];
     public type: MaterialType;
 
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
     constructor(private service: MaterialCategoryService,
-                public roles: RolesCheckedService,
                 private router: Router,
                 private titleService: CustomTitleService) {
     }

@@ -14,9 +14,6 @@ import { AppComponent } from './app.component';
         NoopAnimationsModule,
         BrowserTransferStateModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
-    ],
-    providers: [
-        //   { provide: 'BASE_URL', useFactory: getBaseUrl }
     ]
 })
 export class AppModule {

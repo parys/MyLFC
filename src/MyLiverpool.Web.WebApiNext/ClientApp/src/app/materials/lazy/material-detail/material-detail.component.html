@@ -1,49 +1,56 @@
-﻿<div *ngIf="item">
-    <div class="flex-v-c material-header">
-        <h3 class="full-width flex-space-between">
-            <span class="beauty-font" [textContent]="item.title"></span>
-            <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal()">
-                    <i class="material-icons">done</i>
-                </a>
-                <a [routerLink]="['./edit']">
-                    <i class="material-icons">edit</i>
-                </a>
-                <a role="button" (click)="showDeleteModal()">
-                    <i class="material-icons">clear</i>
-                </a>
-            </span>
-        </h3>
-    </div>
-    <div class="full-width">
-        <div *ngIf="item.usePhotoInBody" class="full-width bottom10">
-            <img [src]="item.photo" [srcset]="item.photo | img:[300, 450, 700]"
-            sizes="(max-width: 767px) 300px,
-                   (max-width: 900px) 450px,
-                   700px" class="material-preview" [alt]="item.brief"  loading="lazy"/>
-            
-            <b><i class="full-width" [innerHTML]="item.brief | safe: 'html'"></i></b>
+﻿<ng-container *ngIf="{ isEditor: isEditor$ | async, userId: userId$ | async } as data">
+    <div *ngIf="item">
+        <div class="flex-v-c material-header">
+            <h3 class="full-width flex-space-between">
+                <span class="beauty-font" [textContent]="item.title"></span>
+                <span *ngIf="data.isEditor || data.userId === item.userId">
+                    <a role="button" *ngIf="item.pending && data.isEditor" (click)="showActivateModal()">
+                        <i class="material-icons">done</i>
+                    </a>
+                    <a [routerLink]="['./edit']">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <a role="button" (click)="showDeleteModal()">
+                        <i class="material-icons">clear</i>
+                    </a>
+                </span>
+            </h3>
         </div>
-        <article class="material-body" [innerHTML]="item.message | safe: 'html'"></article>
-        <div class="full-width material-info-panel top10">
-            <ul class="list-inline small small-offset padding5">
-                <li><label>Просмотры:</label>&nbsp; <span [textContent]="item.reads"></span></li>
-                <li class="">|</li>
-                <li *ngIf="item.source"><label>Источник:</label>&nbsp; <a [href]="item.source | safe: 'url'" target="_blank" [textContent]="item.shortLink" rel="noopener"></a></li>
-                <li class="">|</li>
-                <li><label>Дата добавления:</label>&nbsp; <span [textContent]="item.additionTime | customDate:true"></span></li>
-                <li class="">|</li>
-                <li><label>Категория:</label>&nbsp; <a [routerLink]="['/' + item.typeName]" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
-                <li class="">|</li>
-                <li><label>Автор:</label>&nbsp; <a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
-            </ul>
+        <div class="full-width">
+            <div *ngIf="item.usePhotoInBody" class="full-width bottom10">
+                <img [src]="item.photo" [srcset]="item.photo | img:[300, 450, 700]"
+                 sizes="(max-width: 767px) 300px, (max-width: 900px) 450px, 700px" 
+                 class="material-preview" [alt]="item.brief" loading="lazy" />
+
+                <b><i class="full-width" [innerHTML]="item.brief | safe: 'html'"></i></b>
+            </div>
+            <article class="material-body" [innerHTML]="item.message | safe: 'html'"></article>
+            <div class="full-width material-info-panel top10">
+                <ul class="list-inline small small-offset padding5">
+                    <li><label>Просмотры:</label>&nbsp; <span [textContent]="item.reads"></span></li>
+                    <li class="">|</li>
+                    <li *ngIf="item.source"><label>Источник:</label>&nbsp; <a [href]="item.source | safe: 'url'"
+                            target="_blank" [textContent]="item.shortLink" rel="noopener"></a></li>
+                    <li class="">|</li>
+                    <li><label>Дата добавления:</label>&nbsp; <span
+                            [textContent]="item.additionTime | customDate:true"></span></li>
+                    <li class="">|</li>
+                    <li><label>Категория:</label>&nbsp; <a [routerLink]="['/' + item.typeName]"
+                            [queryParams]="{page: 1, categoryId: item.categoryId}"> <span
+                                [textContent]="item.categoryName"></span> </a></li>
+                    <li class="">|</li>
+                    <li><label>Автор:</label>&nbsp; <a [routerLink]="['/users', item.userId ]"
+                            [textContent]="item.userName"></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <!-- <div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
+        <!-- <div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
         <a *ngIf="item.prevMaterialId" [routerLink]="['/', item.typeName, item.prevMaterialId]"><span [textContent]="item.prevMaterialTitle"></span>(назад)</a>
         <a *ngIf="item.nextMaterialId" [routerLink]="['/', item.typeName, item.nextMaterialId]"><span [textContent]="item.nextMaterialTitle"></span>(вперед)</a>
     </div> -->
-    <div class="full-width flex">
-        <comment-section [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>
+        <div class="full-width flex">
+            <comment-section [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary">
+            </comment-section>
+        </div>
     </div>
-</div>
+</ng-container>

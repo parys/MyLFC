@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ChatMessage, ChatFilters, PagedList } from '@domain/models';
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { SignalRService } from '@base/signalr';
 import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@constants/index';
 
 import { ChatMessageService } from '@chat/chat-message.service';
 import { EditorComponent } from '@editor/index';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
+import { RolesEnum } from '@auth/models';
 
 @Component({
     selector: 'chat-window',
@@ -18,7 +21,7 @@ import { EditorComponent } from '@editor/index';
     styleUrls: ['./chat-window.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatWindowComponent implements OnInit, AfterContentChecked {
+export class ChatWindowComponent implements OnInit {
     public messageForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
@@ -27,11 +30,16 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     @Input() public type: number;
     @Input() public height = 200;
 
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+
+    @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
     constructor(private service: ChatMessageService,
                 private formBuilder: FormBuilder,
                 private cd: ChangeDetectorRef,
                 private snackBar: MatSnackBar,
-                public roles: RolesCheckedService,
                 private dialog: MatDialog,
                 private signalRService: SignalRService) {
     }
@@ -44,12 +52,6 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
                 this.putToChat(data, false);
             }
         });
-        // this.roles.rolesChanged.subscribe(() =>
-        //    this.cd.markForCheck());
-    }
-
-    public ngAfterContentChecked(): void {
-        this.cd.markForCheck();
     }
 
     public update(): void {

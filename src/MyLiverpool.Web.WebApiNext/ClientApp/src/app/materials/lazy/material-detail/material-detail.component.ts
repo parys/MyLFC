@@ -5,15 +5,16 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { DeleteDialogComponent, CustomTitleMetaService as CustomTitleService } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { NEWS_RU, BLOG_RU } from '@constants/ru.constants';
 import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';
 
 import { MaterialService, MaterialActivateDialogComponent } from '@materials/core';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 declare function ssn(): any;
 
 const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
@@ -31,13 +32,16 @@ export class MaterialDetailComponent implements OnDestroy {
     public item: Material = new Material();
     public type: MaterialType;
 
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
     constructor(private transferState: TransferState,
                 private service: MaterialService,
                 @Inject(PLATFORM_ID) private platformId: object,
                 private route: ActivatedRoute,
                 private cd: ChangeDetectorRef,
                 private storage: StorageService,
-                public roles: RolesCheckedService,
                 private router: Router,
                 private titleService: CustomTitleService,
                 private snackBar: MatSnackBar,

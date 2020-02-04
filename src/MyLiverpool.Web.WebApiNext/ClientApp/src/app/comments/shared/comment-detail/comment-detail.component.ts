@@ -4,12 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Comment, CommentVote } from '@domain/models';
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
-
 import { CommentService } from '@comments/comment.service';
 import { EditorComponent } from '@editor/index';
 import { ObserverComponent } from '@domain/base';
 import { SignalRService } from '@base/signalr';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'comment-detail',
@@ -28,12 +29,19 @@ export class CommentDetailComponent extends ObserverComponent implements OnInit 
     @Input() public type: number;
     @ViewChild('replyInput', { static: false }) private elementRef: EditorComponent;
 
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
+    @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
+
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
     public commentForm: FormGroup;
     public isEditMode = false;
     public isAddingMode = false;
 
     constructor(private materialCommentService: CommentService,
-                public roles: RolesCheckedService,
                 private dialog: MatDialog,
                 private cd: ChangeDetectorRef,
                 private formBuilder: FormBuilder,

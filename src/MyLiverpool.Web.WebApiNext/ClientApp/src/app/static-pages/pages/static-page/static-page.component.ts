@@ -1,40 +1,41 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
 
-import { StaticPagesService } from '@static-pages/static-pages.service'; 
-import { RolesCheckedService } from '@base/auth';
+import { StaticPagesService } from '@static-pages/static-pages.service';
+import { AuthState } from '@auth/store';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: '<static-page>',
     templateUrl: './static-page.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StaticPageComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
+export class StaticPageComponent extends ObserverComponent implements OnInit {
     public content: string;
-    @Input()public typeId: number;
+    @Input() public typeId: number;
+
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
 
     constructor(private service: StaticPagesService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute,
                 private cd: ChangeDetectorRef) {
-
+        super();
         this.typeId = +route.snapshot.data.type;
     }
 
     public ngOnInit(): void {
-        this.sub = this.service.getValue(this.typeId)
+        const sub$ = this.service.getValue(this.typeId)
             .subscribe((pageData: string) => {
                 if (pageData) {
                     this.content = pageData;
                     this.cd.markForCheck();
                 }
             });
-    }
-
-    public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
+        this.subscriptions.push(sub$);
     }
 }

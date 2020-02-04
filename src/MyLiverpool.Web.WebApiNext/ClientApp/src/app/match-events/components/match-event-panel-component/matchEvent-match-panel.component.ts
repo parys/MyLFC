@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { MatchEvent } from '@domain/models';
 
 import { MatchEventService } from '@match-events/matchEvent.service';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
+import { Select } from '@ngxs/store';
 
 @Component({
     selector: 'match-event-match-panel',
@@ -22,8 +24,9 @@ export class MatchEventMatchPanelComponent implements OnInit {
     public isHomeEdit = false;
     public selectedIndex: number;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private matchEventService: MatchEventService,
-                public roles: RolesCheckedService,
                 private snackBar: MatSnackBar,
                 private dialog: MatDialog) {
     }

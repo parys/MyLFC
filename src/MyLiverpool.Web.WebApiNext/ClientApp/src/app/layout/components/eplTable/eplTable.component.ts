@@ -2,9 +2,11 @@
 
 import { HelperType } from '@domain/models';
 import { ObserverComponent } from '@domain/base';
-import { RolesCheckedService } from '@base/auth';
 
 import { LayoutService } from '@layout/layout.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'epl-table',
@@ -16,9 +18,10 @@ export class EplTableComponent extends ObserverComponent {
     public eplTable: string;
     public opened = false;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private service: LayoutService,
-                private cd: ChangeDetectorRef,
-                public roles: RolesCheckedService) {
+                private cd: ChangeDetectorRef) {
         super();
     }
 

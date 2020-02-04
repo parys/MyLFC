@@ -1,7 +1,9 @@
 ﻿import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { Match } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'match-calendar-entry',
@@ -14,6 +16,5 @@ export class MatchCalendarEntryComponent {
     @Input() public name: string;
     @Input() public next: boolean;
 
-    constructor(
-        public roles: RolesCheckedService) {}
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 }

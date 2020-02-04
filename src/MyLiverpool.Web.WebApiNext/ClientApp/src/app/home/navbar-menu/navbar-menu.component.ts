@@ -1,6 +1,9 @@
 ﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-import { RolesCheckedService } from '@base/auth';
+import { RolesEnum } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'navbar-menu',
@@ -9,6 +12,15 @@ import { RolesCheckedService } from '@base/auth';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarMenuComponent {
-    constructor(public roles: RolesCheckedService) {
+
+    @Select(AuthState.isNewsmaker) isNewsmaker$: Observable<boolean>;
+
+    @Select(AuthState.isAuthor) isAuthor$: Observable<boolean>;
+
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+
+    constructor() {
     }
 }

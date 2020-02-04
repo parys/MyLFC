@@ -10,9 +10,10 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { Wish, WishFilter, PagedList } from '@domain/models';
 import { WishService } from '@wishes/wish.service';
 import { DeleteDialogComponent } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 import { WISHES_ROUTE } from '@constants/routes.constants';
 import { PAGE } from '@constants/help.constants';
+import { AuthState } from '@auth/store';
+import { Select } from '@ngxs/store';
 
 @Component({
     selector: 'wish-list',
@@ -24,8 +25,9 @@ export class WishListComponent implements OnInit {
     public stateId: number;
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
 
+    @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
+
     constructor(private service: WishService,
-                public roles: RolesCheckedService,
                 private location: Location,
                 private route: ActivatedRoute,
                 private dialog: MatDialog) {

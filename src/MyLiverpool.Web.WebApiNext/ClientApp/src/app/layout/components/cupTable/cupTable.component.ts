@@ -1,12 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { HelperType } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 
 import { LayoutService } from '@layout/layout.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 const CUP_TABLE_KEY = makeStateKey<string>('cup-table');
 
@@ -20,10 +21,11 @@ export class CupTableComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public cupTable: string;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private service: LayoutService,
                 private cd: ChangeDetectorRef,
-                private transferState: TransferState,
-                public roles: RolesCheckedService) {
+                private transferState: TransferState) {
     }
 
     public ngOnInit(): void {

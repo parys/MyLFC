@@ -4,13 +4,16 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { RolesCheckedService, AuthService } from '@base/auth';
+import { AuthService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
 import { RoleGroupService } from '@role-groups/index';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 
 import { UserService } from '@users/user.service';
 import { ObserverComponent } from '@domain/base';
+import { Store, Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'user-detail',
@@ -25,10 +28,18 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
     public selectedUserId: number;
     public banDaysCount = 0;
 
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
+    @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
+
+    @Select(AuthState.userId) userId$: Observable<number>;
+
+    @Select(AuthState.isMainModerator) isMainModerator$: Observable<boolean>;
+
     constructor(
         private service: UserService,
         private route: ActivatedRoute,
-        public roles: RolesCheckedService,
+        private store: Store,
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
@@ -47,8 +58,8 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
                 .subscribe((data: User) => this.parse(data));
         });
         this.subscriptions.push(sub);
-
-        if (this.roles.isAdminAssistant) {
+        const isAdmin = this.store.selectSnapshot(AuthState.isAdminAssistant);
+        if (isAdmin) {
             this.loadRoleGroups();
         }
     }

@@ -1,29 +1,28 @@
-﻿<form class="form-horizontal" role="form" name="editWish" [formGroup]="editWishForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Заголовок" formControlName="title">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <textarea matInput matTextareaAutosize rows="4" placeholder="Сообщение" formControlName="message"></textarea>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <mat-select placeholder="Тип" formControlName="type">
-            <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name">
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <mat-select placeholder="Состояние" formControlName="state">
-            <mat-option *ngFor="let state of states" [value]="state.id" [textContent]="state.name">
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div class="full-width text-center">
-        <button mat-raised-button color="warn"
-                type="submit"
-                [disabled]="!editWishForm.valid"
-                *ngIf="isHuman || roles.isLogined">Отправить</button>
-        <recaptcha (isHuman)="isHuman = $event" 
-                   *ngIf="!roles.isLogined"
-                   [hidden]="isHuman"></recaptcha>
-    </div>
-</form>
+﻿<ng-container *ngIf="{ isLogined: isLogined$ | async } as data">
+    <form class="form-horizontal" role="form" name="editWish" [formGroup]="editWishForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Заголовок" formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <textarea matInput matTextareaAutosize rows="4" placeholder="Сообщение"
+                formControlName="message"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-select placeholder="Тип" formControlName="type">
+                <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name">
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-select placeholder="Состояние" formControlName="state">
+                <mat-option *ngFor="let state of states" [value]="state.id" [textContent]="state.name">
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="full-width text-center">
+            <button mat-raised-button color="warn" type="submit" [disabled]="!editWishForm.valid"
+                *ngIf="isHuman || data.isLogined; else anon">Отправить</button>
+            <recaptcha (isHuman)="isHuman = $event" #anon [hidden]="isHuman"></recaptcha>
+        </div>
+    </form>
+</ng-container>

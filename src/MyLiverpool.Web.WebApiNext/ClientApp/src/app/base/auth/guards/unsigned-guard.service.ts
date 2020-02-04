@@ -5,16 +5,18 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 
-import { RolesCheckedService } from '@base/auth/roles-checked.service';
-import { NEWS_ROUTE } from '@constants/routes.constants';
+import { Store } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Injectable()
 export class UnSignedGuard implements CanActivate {
-    constructor(private rolesService: RolesCheckedService, private router: Router) { }
+    constructor(private store: Store, private router: Router) { }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (this.rolesService.isLogined) {
-            this.router.navigate([NEWS_ROUTE]);              // bug need to go to root
+
+        const authState = this.store.selectSnapshot(AuthState);
+        if (authState.user != null || authState.tokens != null) {
+            this.router.navigate(['/']);
             return false;
         }
         return true;

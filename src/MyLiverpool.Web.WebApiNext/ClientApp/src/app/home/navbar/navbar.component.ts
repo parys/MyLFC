@@ -1,6 +1,10 @@
 ﻿import { Component, Output, EventEmitter, ChangeDetectionStrategy, PLATFORM_ID, Inject, HostListener } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RolesCheckedService } from '@base/auth';
+
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'navbar',
@@ -12,7 +16,8 @@ export class NavbarComponent {
     @Output()
     public toggle: EventEmitter<any> = new EventEmitter();
     public showAd = false;
-    public roles;
+
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
 
     @HostListener('window:resize', ['$event'])
     public sizeChange(event: any) {
@@ -25,11 +30,9 @@ export class NavbarComponent {
     }
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: object,
-        roles: RolesCheckedService) {
+        @Inject(PLATFORM_ID) private platformId: object) {
         if (isPlatformBrowser(this.platformId)) {
             this.sizeChange('');
         }
-        this.roles = roles;
     }
 }

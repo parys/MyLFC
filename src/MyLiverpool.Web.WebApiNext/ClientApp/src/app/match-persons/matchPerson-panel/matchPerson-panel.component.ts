@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { RolesCheckedService } from '@base/auth';
 import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { SignalRService } from '@base/signalr';
 import { ObserverComponent } from '@domain/base';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'match-person-panel',
@@ -24,8 +26,9 @@ export class MatchPersonPanelComponent extends ObserverComponent implements OnIn
     public neededCount: number;
     public personTypeId: number;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private matchPersonService: MatchPersonService,
-                public roles: RolesCheckedService,
                 private signalR: SignalRService,
                 private cd: ChangeDetectorRef) {
         super();

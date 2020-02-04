@@ -11,9 +11,10 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { Comment, CommentFilter, PagedList } from '@domain/models';
 import { COMMENTS_ROUTE, PAGE, USER_ID } from '@constants/index';
 import { DeleteDialogComponent,  } from '@shared/index';
-import { RolesCheckedService } from '@base/auth';
 
 import { CommentService } from '@comments/comment.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'comment-list',
@@ -26,13 +27,14 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
     public userName: string;
     public userId: number;
 
+    @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
+
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
     @ViewChild('onlyUnverified', { static: true })onlyUnverified: MatCheckbox;
 
     constructor(private materialCommentService: CommentService,
                 private route: ActivatedRoute,
                 private location: Location,
-                public roles: RolesCheckedService,
                 private dialog: MatDialog) {
     }
 

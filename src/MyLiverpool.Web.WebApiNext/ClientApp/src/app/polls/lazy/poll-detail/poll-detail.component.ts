@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { PollService } from '@polls/core';
-import { RolesCheckedService } from '@base/auth';
 import { PollChart, Poll } from '@domain/models';
 
 @Component({
@@ -35,7 +34,6 @@ export class PollDetailComponent implements OnInit, OnDestroy {
     };
 
     constructor(private pollService: PollService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute) { }
 
     public ngOnInit(): void {

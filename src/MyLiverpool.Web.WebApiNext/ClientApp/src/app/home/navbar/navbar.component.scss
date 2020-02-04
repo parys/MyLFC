@@ -63,7 +63,7 @@
     }
 }
 
-.nav {
+nav {
     align-items: center;
     background-color: #731010;
     display: flex;
@@ -74,7 +74,7 @@
 }
 
 @media(max-width:767px) {
-    .nav {        
+    nav {        
         justify-content: space-between;
     }
 }

@@ -8,9 +8,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialService } from '@materials/core';
 import { Material, MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
 import { MaterialCategoryService } from '@material-categories/core';
-import { RolesCheckedService } from '@base/auth';
 import { MaterialGuardDialogComponent } from './material-guard-dialog';
 import { EDIT_ROUTE, MESSAGE } from '@constants/index';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 // todo moved to script till I found solution to include it here(and in page-editor)
 // import "tinymce/plugins/fullscreen/plugin.min.js";
@@ -32,13 +34,14 @@ export class MaterialEditComponent implements OnInit {
     public type: MaterialType;
     public additional = 'additional';
 
+    @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
+
     constructor(private service: MaterialService,
                 private materialCategoryService: MaterialCategoryService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private snackBar: MatSnackBar,
                 private location: Location,
-                public roles: RolesCheckedService,
                 private formBuilder: FormBuilder,
                 private dialog: MatDialog) {
         if (this.router.url.startsWith('/news')) {

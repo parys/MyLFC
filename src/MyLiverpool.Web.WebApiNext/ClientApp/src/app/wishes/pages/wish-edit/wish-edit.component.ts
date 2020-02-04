@@ -3,12 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { Wish, WishType, WishState } from '@domain/models';
 import { WishService } from '@wishes/wish.service';
-import { RolesCheckedService } from '@base/auth';
 import { WISHES_ROUTE } from '@constants/index';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'wish-edit',
@@ -23,10 +24,11 @@ export class WishEditComponent implements OnInit, OnDestroy {
     public states: WishState[];
     public isHuman = false;
 
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+
     constructor(private service: WishService,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
-                public roles: RolesCheckedService,
                 private snackBar: MatSnackBar,
                 private router: Router) {
     }

@@ -1,6 +1,7 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { RolesCheckedService } from '@base/auth';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthState } from '@auth/store';
+import { Select } from '@ngxs/store';
 
 @Component({
     selector: 'admin-home',
@@ -8,16 +9,10 @@ import { RolesCheckedService } from '@base/auth';
     styleUrls: ['./admin-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminHomeComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
+export class AdminHomeComponent {
     public cupTable: string;
 
-    constructor(public roles: RolesCheckedService) {
-    }
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
-    public ngOnInit(): void {}
-
-    public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
-    }
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
 }

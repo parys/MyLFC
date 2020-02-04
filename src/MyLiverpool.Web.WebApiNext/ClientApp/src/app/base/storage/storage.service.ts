@@ -34,10 +34,6 @@ export class StorageService {
         return this.getObject('roles');
     }
 
-    public getUserId(): number {
-        return +this.get(USER_ID);
-    }
-
     public getUser(): any {
         this.getObject('USER');
     }
@@ -66,11 +62,6 @@ export class StorageService {
     public setRoles(roles: string[]): void {
         if (!this.localStorage) { return; }
         this.setObject('roles', roles);
-    }
-
-    public setUserId(id: number): void {
-        if (!this.localStorage) { return; }
-        this.setObject(USER_ID, id);
     }
 
     public setUser(user: any): void {

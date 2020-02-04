@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { TransferService } from '@transfers/transfer.service';
 import { Transfer } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'transfer-current-list',
@@ -18,8 +19,9 @@ export class TransferCurrentListComponent implements OnInit, OnDestroy {
     public totalIn = 0;
     public totalOut = 0;
 
-    constructor(private service: TransferService,
-                public roles: RolesCheckedService) {
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
+    constructor(private service: TransferService) {
     }
 
     public ngOnInit(): void {

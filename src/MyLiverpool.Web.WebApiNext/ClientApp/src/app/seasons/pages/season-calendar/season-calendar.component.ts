@@ -3,9 +3,11 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 
 import { Season, PagedList } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 
 import { SeasonService } from '@seasons/season.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'season-calendar',
@@ -20,8 +22,9 @@ export class SeasonCalendarComponent implements OnInit {
 
     @ViewChild('seasonSelect', { static: true }) seasonSelect: MatSelect;
 
+    @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
+
     constructor(private service: SeasonService,
-                public roles: RolesCheckedService,
                 private cd: ChangeDetectorRef,
                 private route: ActivatedRoute) {
     }

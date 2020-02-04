@@ -5,8 +5,8 @@
     additionTime: Date;
     isFirstMessage: boolean;
     message: string;
-    // virtual User Author: ;
+    authorUserName: string;
     authorId: number;
-    //   public string Ip: ;
+    photo: string;
     lastModifiedTime: Date;
 }

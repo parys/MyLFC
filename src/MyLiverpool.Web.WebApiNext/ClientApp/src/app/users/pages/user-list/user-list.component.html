@@ -1,60 +1,66 @@
-﻿<div class="table-container">
-    <pm-reply *ngIf="selectedUserIndex" [userId]="items[selectedUserIndex].id" (close)="closePmWindow($event);" [userName]="items[selectedUserIndex].userName"></pm-reply>
+﻿<ng-container *ngIf="{ isAdminAssistant: isAdminAssistant$ | async, userId: userId$ | async } as data">
+    <div class="table-container">
+        <pm-reply *ngIf="selectedUserIndex" [userId]="items[selectedUserIndex].id" (close)="closePmWindow($event);"
+            [userName]="items[selectedUserIndex].userName"></pm-reply>
 
-    <table mat-table [dataSource]="items" matSort class="user-table" matSortActive="lastModified" matSortDirection="desc">
+        <table mat-table [dataSource]="items" matSort class="user-table" matSortActive="lastModified"
+            matSortDirection="desc">
 
-        <ng-container matColumnDef="userName" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Логин </th>
-            <td mat-cell *matCellDef="let user">
-                <a [routerLink]="[user.id]" class="">
-                    <img class="mini-avatar" [src]="user.photo" [alt]="user.userName" />
-                    <span [textContent]="user.userName"></span>
-                </a>
-                <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssistant || roles.isSelf(user.id))"> *</span>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="userName" sticky>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Логин </th>
+                <td mat-cell *matCellDef="let user">
+                    <a [routerLink]="[user.id]" class="">
+                        <img class="mini-avatar" [src]="user.photo" [alt]="user.userName" />
+                        <span [textContent]="user.userName"></span>
+                    </a>
+                    <span class="text-danger" tooltip="Почта не подтверждена"
+                        *ngIf="!user.emailConfirmed && (data.isAdminAssistant || data.userId === user.id)"> *</span>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="lastModified">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Последний вход </th>
-            <td mat-cell *matCellDef="let user" [textContent]="user.lastModified | customDate:true"></td>
-        </ng-container>
+            <ng-container matColumnDef="lastModified">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Последний вход </th>
+                <td mat-cell *matCellDef="let user" [textContent]="user.lastModified | customDate:true"></td>
+            </ng-container>
 
-        <ng-container matColumnDef="commentsCount">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Комментарии </th>
-            <td mat-cell *matCellDef="let user" [textContent]="user.commentsCount"></td>
-        </ng-container>
+            <ng-container matColumnDef="commentsCount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Комментарии </th>
+                <td mat-cell *matCellDef="let user" [textContent]="user.commentsCount"></td>
+            </ng-container>
 
-        <ng-container matColumnDef="registrationDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Регистрация </th>
-            <td mat-cell *matCellDef="let user" [textContent]="user.registrationDate | customDate:true"></td>
-        </ng-container>
+            <ng-container matColumnDef="registrationDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Регистрация </th>
+                <td mat-cell *matCellDef="let user" [textContent]="user.registrationDate | customDate:true"></td>
+            </ng-container>
 
-        <ng-container matColumnDef="roleGroupName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Группа </th>
-            <td mat-cell *matCellDef="let user" [textContent]="user.roleGroupName"></td>
-        </ng-container>
+            <ng-container matColumnDef="roleGroupName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Группа </th>
+                <td mat-cell *matCellDef="let user" [textContent]="user.roleGroupName"></td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
-    </table>
-</div>
-    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
     <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]"></mat-paginator>
-    
+
     <div class="flex-space-around flex-v-c">
         <mat-form-field>
             <mat-select #roleSelect placeholder="Тип">
                 <mat-option value="">Все группы</mat-option>
-                <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.russianName">
+                <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id"
+                    [textContent]="roleGroup.russianName">
                 </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
             <input matInput #userInput placeholder="Логин">
         </mat-form-field>
-        <span [hidden]="!roles.isAdminAssistant">
+        <span [hidden]="!data.isAdminAssistant">
             <mat-form-field>
                 <input matInput #ipInput placeholder="Ip">
             </mat-form-field>
         </span>
     </div>
+</ng-container>

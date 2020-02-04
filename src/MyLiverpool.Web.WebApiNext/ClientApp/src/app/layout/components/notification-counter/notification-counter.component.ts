@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Notification } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { SignalRService } from '@base/signalr';
 import { CustomTitleMetaService } from '@shared/index';
 import { NOTIFICATIONS_ROUTE } from '@constants/routes.constants';
@@ -22,12 +21,11 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
     public count = 0;
 
     constructor(private service: LayoutService,
-        public roles: RolesCheckedService,
-        private signalR: SignalRService,
-        private router: Router,
-        private titleService: CustomTitleMetaService,
-        private cd: ChangeDetectorRef,
-        private snackBar: MatSnackBar) { }
+                private signalR: SignalRService,
+                private router: Router,
+                private titleService: CustomTitleMetaService,
+                private cd: ChangeDetectorRef,
+                private snackBar: MatSnackBar) { }
 
     public ngOnInit(): void {
         this.updateCount();

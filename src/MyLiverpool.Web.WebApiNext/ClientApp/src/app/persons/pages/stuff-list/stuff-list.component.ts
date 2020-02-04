@@ -2,11 +2,12 @@
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { PersonService } from '@persons/person.service';
 import { Person, PersonTypeEnum } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'stuff-list',
@@ -19,10 +20,11 @@ export class StuffListComponent implements OnInit, OnDestroy {
     public routeLinks: any[];
     public activeLinkIndex = 0;
 
+    @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
+
     constructor(private personService: PersonService,
                 private route: ActivatedRoute,
-                private location: Location,
-                public roles: RolesCheckedService) {
+                private location: Location) {
     }
 
     public ngOnInit(): void {

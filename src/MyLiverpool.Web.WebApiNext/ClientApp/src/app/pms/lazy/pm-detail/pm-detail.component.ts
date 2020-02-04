@@ -1,11 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { PmService } from '@pms/pm.service';
-import { RolesCheckedService } from '@base/auth';
 import { Pm } from '@domain/models';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'pm-detail',
@@ -20,8 +21,9 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     public selectedUserId: number;
     public selectedUserName: string;
 
+    @Select(AuthState.userId) userId$: Observable<number>;
+
     constructor(private pmService: PmService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
@@ -36,8 +38,8 @@ export class PmDetailComponent implements OnInit, OnDestroy {
         if (this.sub2) { this.sub2.unsubscribe(); }
     }
 
-    public writePm(): void {
-        if (this.roles.isSelf(this.item.senderId)) {
+    public writePm(isSelf: boolean): void {
+        if (isSelf) {
             this.selectedUserId = this.item.receiverId;
             this.selectedUserName = this.item.receiver;
         } else {

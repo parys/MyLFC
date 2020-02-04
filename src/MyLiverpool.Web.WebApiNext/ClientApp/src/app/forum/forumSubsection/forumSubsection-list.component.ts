@@ -4,8 +4,6 @@ import { Location } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 
-import { RolesCheckedService } from '@base/auth';
-
 import { ForumSubsectionService, ForumSubsection } from '@forum/forumSubsection';
 import { ForumTheme } from '@forum/forumTheme';
 
@@ -23,7 +21,6 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     totalItems: number;
 
     constructor(private service: ForumSubsectionService,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute, private location: Location) {
     }
 

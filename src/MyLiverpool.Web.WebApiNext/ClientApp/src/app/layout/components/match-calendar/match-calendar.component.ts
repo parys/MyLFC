@@ -4,7 +4,6 @@ import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { Match, MatchCalendar } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { LayoutService } from '@layout/layout.service';
 
 const MATCH_CALENDAR_KEY = makeStateKey<Match[]>('match-calendar');
@@ -21,7 +20,6 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
     public next: Match;
 
     constructor(private service: LayoutService,
-                public roles: RolesCheckedService,
                 private transferState: TransferState,
                 private cd: ChangeDetectorRef) { }
 

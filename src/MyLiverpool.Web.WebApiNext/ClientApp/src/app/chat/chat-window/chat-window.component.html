@@ -1,14 +1,15 @@
-﻿    <div class="blockcontent-inside">
+﻿<ng-container *ngIf="{ isLogined: isLogined$ | async, isModerator: isModerator$ | async, userId: userId$ | async } as data">
+    <div class="blockcontent-inside">
         <div class="chatMessage-block" [style.height.px]="height">
             <div class="chat-message" *ngFor="let message of items; let i = index; trackBy: trackByFn">
                 <div class="full-width flex-space-between">
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.userName"></a>
                     <span class="">
-                        <a role="button" *ngIf="roles.isModerator || roles.isSelf(message.authorId)" (click)="edit(i)"
+                        <a role="button" *ngIf="data.isModerator || data.userId === message.authorId" (click)="edit(i)"
                             class="material-icons" style="font-size: 100%">
                             edit
                         </a>
-                        <a role="button" *ngIf="roles.isModerator" (click)="showDeleteModal(i)" class="material-icons"
+                        <a role="button" *ngIf="data.isModerator" (click)="showDeleteModal(i)" class="material-icons"
                             style="font-size: 100%">
                             clear
                         </a>
@@ -17,17 +18,17 @@
                 </div>
                 <div class="full-width message" [innerHTML]="message.message | safe: 'html'"></div>
                 <div class="full-width">
-                    <a role="button" (click)="addReply(i)"><i *ngIf="roles.isLogined && !roles.isSelf(message.authorId)"
+                    <a role="button" (click)="addReply(i)"><i *ngIf="data.isLogined && data.userId !== message.authorId"
                             class="material-icons">reply</i></a>
                 </div>
             </div>
         </div>
-        <form *ngIf="roles.isLogined" class="form-horizontal clearfix" role="form" [formGroup]="messageForm"
+        <form *ngIf="data.isLogined" class="form-horizontal clearfix" role="form" [formGroup]="messageForm"
             (ngSubmit)="onSubmit()">
             <div>
                 <div class="full-width">
-                    <bbeditor [type]="3" [value]="messageForm.get('message').value" [height]="150" formControlName="message"
-                        #chatInput></bbeditor>
+                    <bbeditor [type]="3" [value]="messageForm.get('message').value" [height]="150"
+                        formControlName="message" #chatInput></bbeditor>
                 </div>
             </div>
             <div class="comment-action-buttons">
@@ -40,9 +41,10 @@
                     (click)="cancelEdit()">Отмена</button>
             </div>
         </form>
-        <div *ngIf="!roles.isLogined" class="text-white text-center">Для добавления сообщений необходимо войти.</div>
+        <div *ngIf="!data.isLogined" class="text-white text-center">Для добавления сообщений необходимо войти.</div>
         <div class="full-width text-center flex-space-around top10">
             <a *ngIf="type === 0" mat-raised-button role="button" class="color-back-gold"
                 [routerLink]="['/chat']"><b>Флудилка</b></a>
         </div>
     </div>
+</ng-container>

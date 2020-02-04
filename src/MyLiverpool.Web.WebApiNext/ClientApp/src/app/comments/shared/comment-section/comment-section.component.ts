@@ -13,11 +13,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Comment, CommentFilter, PagedList } from '@domain/models';
-import { RolesCheckedService } from '@base/auth';
 import { SignalRService } from '@base/signalr';
 
 import { CommentService } from '@comments/comment.service';
 import { ObserverComponent } from '@domain/base';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@auth/store';
 
 @Component({
     selector: 'comment-section',
@@ -37,10 +39,12 @@ export class CommentSectionComponent extends ObserverComponent implements OnInit
     @Input() public matchId: number;
     @Input() public type: number;
     @Input() public canCommentary = false;
+    
+
+    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
 
     constructor(private commentService: CommentService,
                 private cd: ChangeDetectorRef,
-                public roles: RolesCheckedService,
                 private route: ActivatedRoute,
                 private renderer: Renderer2,
                 public element: ElementRef,
