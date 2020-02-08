@@ -56,10 +56,10 @@
     "ngx-pagination": "4.1.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.803.25",
+    "@angular-devkit/build-angular": "0.900.1",
     "@angular-devkit/schematics": "9.0.1",
     "@angular/cli": "9.0.1",
-    "@angular/pwa": "0.803.25",
+    "@angular/pwa": "0.900.1",
     "@ngxs/devtools-plugin": "3.6.2",
     "@ngxs/logger-plugin": "3.6.2",
     "@schematics/angular": "9.0.1",
