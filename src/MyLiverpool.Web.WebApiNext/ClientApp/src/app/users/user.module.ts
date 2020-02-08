@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgxsModule } from '@ngxs/store';
+
 import { RoleGroupCoreModule } from '@role-groups/core';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { USERS_ROUTE } from '@constants/routes.constants';
@@ -18,6 +20,9 @@ import { UserDetailComponent } from '@users/pages/user-detail';
 import { UserConfigComponent } from '@users/pages/user-config';
 import { UserMaterialModule } from '@users/user-material.module';
 
+import { UsersState } from '@users/store';
+import { UsersFilterComponent } from '@users/components';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -27,13 +32,15 @@ import { UserMaterialModule } from '@users/user-material.module';
         RoleGroupCoreModule,
         PmSharedModule,
         PipesModule,
-        UserMaterialModule
+        UserMaterialModule,
+        NgxsModule.forFeature([UsersState])
     ],
     declarations: [
         UserDetailComponent,
         UserConfigComponent,
         UserEditComponent,
-        UserListComponent
+        UserListComponent,
+        UsersFilterComponent
     ],
     providers: [
         UserService

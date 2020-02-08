@@ -62,7 +62,6 @@ export class AuthService {
     }
 
     public logout(): void {
-        //    this.updateState({ tokens: null });
 
         this.storage.removeAuthTokens();
         this.store.dispatch(new Logout())

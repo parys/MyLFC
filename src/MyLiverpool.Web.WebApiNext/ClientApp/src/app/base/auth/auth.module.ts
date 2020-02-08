@@ -21,7 +21,6 @@ export function getAccessToken(injector: Injector): Promise<any> {
 
         const authService = injector.get(AuthService);
         await authService.init();
-        console.warn('REZOLVED');
         return resolve(true);
     });
 }

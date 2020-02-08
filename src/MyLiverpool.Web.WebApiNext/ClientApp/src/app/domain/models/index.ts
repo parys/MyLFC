@@ -1,4 +1,5 @@
-﻿export * from './chat-message.model';
+﻿export * from './base-entity.model';
+export * from './chat-message.model';
 export * from './comment.model';
 export * from './commentFilter.model';
 export * from './commentVote.model';
@@ -58,3 +59,4 @@ export * from './wish-filter.model';
 export * from './wish-state.model';
 export * from './wish-type.model';
 export * from './pagedList.model';
+export * from './paged';

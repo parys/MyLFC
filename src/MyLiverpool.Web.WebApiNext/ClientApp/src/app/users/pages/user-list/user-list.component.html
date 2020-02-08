@@ -1,9 +1,11 @@
-﻿<ng-container *ngIf="{ isAdminAssistant: isAdminAssistant$ | async, userId: userId$ | async } as data">
+﻿<ng-container *ngIf="{ isAdminAssistant: isAdminAssistant$ | async, userId: userId$ | async, roleGroups: roleGroups$ | async,
+        request: request$ | async,
+        pmReceiver: pmReceiver$ | async } as data" #scroller>
     <div class="table-container">
-        <pm-reply *ngIf="selectedUserIndex" [userId]="items[selectedUserIndex].id" (close)="closePmWindow($event);"
-            [userName]="items[selectedUserIndex].userName"></pm-reply>
-
-        <table mat-table [dataSource]="items" matSort class="user-table" matSortActive="lastModified"
+       <pm-reply *ngIf="data.pmReceiver" [userId]="data.pmReceiver.id" (close)="onClosePmWindow($event);"
+            [userName]="data.pmReceiver.userName"></pm-reply>
+        
+        <table mat-table [dataSource]="dataSource" matSort class="user-table" matSortActive="lastModified"
             matSortDirection="desc">
 
             <ng-container matColumnDef="userName" sticky>
@@ -13,8 +15,10 @@
                         <img class="mini-avatar" [src]="user.photo" [alt]="user.userName" />
                         <span [textContent]="user.userName"></span>
                     </a>
-                    <span class="text-danger" tooltip="Почта не подтверждена"
-                        *ngIf="!user.emailConfirmed && (data.isAdminAssistant || data.userId === user.id)"> *</span>
+                    <span class="text-danger" tooltip="Почта не подтверждена" 
+                        *ngIf="!user.emailConfirmed && (data.isAdminAssistant || data.userId === user.id)"> *</span>   
+                        <a role="button" *ngIf="data.userId !== user.id" (click)="onWritePm(user.id, user.userName)"><i class="material-icons">email</i></a>
+        
                 </td>
             </ng-container>
 
@@ -43,24 +47,9 @@
         </table>
     </div>
 
-    <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]"></mat-paginator>
+    <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]" [pageIndex]="data.request.currentPage - 1" [length]="data.request.rowCount"
+     (page)="onPageChanged($event)"></mat-paginator>
 
-    <div class="flex-space-around flex-v-c">
-        <mat-form-field>
-            <mat-select #roleSelect placeholder="Тип">
-                <mat-option value="">Все группы</mat-option>
-                <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id"
-                    [textContent]="roleGroup.russianName">
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput #userInput placeholder="Логин">
-        </mat-form-field>
-        <span [hidden]="!data.isAdminAssistant">
-            <mat-form-field>
-                <input matInput #ipInput placeholder="Ip">
-            </mat-form-field>
-        </span>
-    </div>
+    <users-filter [roleGroups]="data.roleGroups" [isAdminAssistant]="data.isAdminAssistant" (filterChange)="onFilterChange($event)"></users-filter>
+
 </ng-container>

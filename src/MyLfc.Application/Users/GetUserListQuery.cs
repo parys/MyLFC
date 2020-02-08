@@ -56,7 +56,7 @@ namespace MyLfc.Application.Users
                 }
 
                 Expression<Func<User, object>> sortBy = x => x.LastModified;
-                request.SortDirection = "Desc";
+                request.SortDirection ??= "Desc";
                 if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
                     if (request.SortOn.Contains("RoleGroupName", StringComparison.InvariantCultureIgnoreCase))

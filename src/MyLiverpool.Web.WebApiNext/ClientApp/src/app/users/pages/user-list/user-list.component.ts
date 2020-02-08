@@ -1,21 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Location } from '@angular/common';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSelect } from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
-import { merge, of, Observable, fromEvent } from 'rxjs';
-import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { UserService } from '@users/user.service';
-import { User, UserFilters, RoleGroup, PagedList } from '@domain/models';
-import { RoleGroupService } from '@role-groups/core';
-import { KEYUP, PAGE } from '@constants/help.constants';
-import { DEBOUNCE_TIME } from '@constants/app.constants';
-import { USERS_ROUTE } from '@constants/routes.constants';
-import { Select } from '@ngxs/store';
+import { UserFilters, RoleGroup } from '@domain/models';
+import { Select, Store } from '@ngxs/store';
 import { AuthState } from '@auth/store';
+import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions } from '@users/store';
+import { UsersState } from '@users/store/users.state';
+import { GetUsersListQuery } from '@network/shared';
+import { KeyMapper, TableComponent } from '@domain/base/table.component';
 
 
 @Component({
@@ -24,112 +17,67 @@ import { AuthState } from '@auth/store';
     styleUrls: ['./user-list.component.scss']
 })
 
-export class UserListComponent implements OnInit {
-    public items: User[];
-    public roleGroups: RoleGroup[];
-    public selectedUserIndex: number;
+export class UserListComponent extends TableComponent<GetUsersListQuery.UserListDto> implements OnInit, AfterViewInit {
+
     displayedColumns = ['userName', 'lastModified', 'commentsCount', 'registrationDate', 'roleGroupName'];
 
     @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
-
     @Select(AuthState.userId) userId$: Observable<number>;
+    @Select(UsersState.roleGroups) roleGroups$: Observable<RoleGroup[]>;
+    @Select(UsersState.users) users$: Observable<GetUsersListQuery.UserListDto[]>;
+    @Select(UsersState.request) request$: Observable<GetUsersListQuery.Request>;
+    @Select(UsersState.pmReceiver) pmReceiver$: Observable<{ id: number, userName: string}>;
 
-    @ViewChild(MatSort, { static: true })sort: MatSort;
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
-    @ViewChild('roleSelect', { static: true })roleSelect: MatSelect;
-    @ViewChild('userInput', { static: true })userInput: ElementRef;
-    @ViewChild('ipInput', { static: true })ipInput: ElementRef;
+    @ViewChild('scroller', { static: false }) scrollerElem: ElementRef;
 
-    constructor(private userService: UserService,
-                private location: Location,
-                private roleGroupService: RoleGroupService,
-                private route: ActivatedRoute) {
+    constructor(private store: Store) {
+                    super();
     }
 
     public ngOnInit(): void {
-        this.paginator.pageIndex = +this.route.snapshot.queryParams[PAGE] - 1 || 0;
-        this.paginator.pageSize = +this.route.snapshot.queryParams['itemsPerPage'] || 15;
-        this.userInput.nativeElement.value = this.route.snapshot.queryParams['userName'] || '';
-        this.ipInput.nativeElement.value = this.route.snapshot.queryParams['ip'] || '';
-        this.roleSelect.value = this.route.snapshot.queryParams['roleGroupId'] || '';
-        this.updateRoleGroups();
-
-        merge(this.sort.sortChange,
-            this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, KEYUP),
-            fromEvent(this.ipInput.nativeElement, KEYUP)
-                .pipe(debounceTime(DEBOUNCE_TIME),
-                    distinctUntilChanged()))
-            .subscribe(() => this.paginator.pageIndex = 0);
-
-        merge(this.sort.sortChange,
-            this.paginator.page,
-            this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, KEYUP),
-            fromEvent(this.ipInput.nativeElement, KEYUP)
-                .pipe(debounceTime(DEBOUNCE_TIME),
-                    distinctUntilChanged()))
-            .pipe(
-                startWith({}),
-                switchMap(() => {
-                    return this.update();
-                }),
-                map((data: PagedList<User>) => {
-                    this.paginator.pageIndex = data.currentPage - 1;
-                    this.paginator.pageSize = data.pageSize;
-                    this.paginator.length = data.rowCount;
-
-                    return data.results;
-                }),
-                catchError(() => {
-                    return of([]);
-                })
-        ).subscribe((data: User[]) => {
-                this.items = data;
-                this.updateUrl();
-            });
+        this.store.dispatch([new GetRoleGroups(), new GetUsersList()]);
+        this.subscribeOnChangeUsers();
     }
 
-    public writePm(index: number): void {
-        this.selectedUserIndex = index;
+    public ngAfterViewInit(): void {
+        this.scrollerRef = this.scrollerElem;
+        console.warn(this.scrollerElem);
+        super.ngAfterViewInit();
     }
 
-    public closePmWindow(event: any): void {
-        this.selectedUserIndex = null;
+    protected onLoad(): Observable<any> {
+        return this.store.dispatch(new GetUsersList());
     }
 
-    public update(): Observable<PagedList<User>> {
-        const filters = new UserFilters();
-        filters.currentPage = this.paginator.pageIndex + 1;
-        filters.pageSize = this.paginator.pageSize;
-        filters.roleGroupId = this.roleSelect.value;
-        filters.userName = this.userInput.nativeElement.value;
-        filters.ip = this.ipInput.nativeElement.value;
-        filters.sortOn = this.sort.active;
-        filters.sortDirection = this.sort.direction;
+    protected key: KeyMapper<GetUsersListQuery.UserListDto> = x => x.id;
 
-        return this.userService
-            .getAll(filters);
+
+    public onPageChanged(event: any): void {
+        console.log(event);
+        this.store.dispatch(new ChangePage({ currentPage: event.pageIndex, pageSize: event.pageSize}));
     }
 
-    private updateUrl(): void {
-        let newUrl = `${USERS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
-
-        const userName = this.userInput.nativeElement.value;
-        if (userName) {
-            newUrl = `${newUrl}&userName=${userName}`;
-        }
-        const roleGroupId = this.roleSelect.value;
-        if (roleGroupId) {
-            newUrl = `${newUrl}&roleGroupId=${roleGroupId}`;
-        }
-
-        this.location.replaceState(newUrl);
+    public onWritePm(userId: number, userName: string): void {
+        this.store.dispatch(new SetPmReceiverId({id: userId, userName}));
     }
 
-    private updateRoleGroups() {
-        this.roleGroupService
-            .getAll()
-            .subscribe((data: RoleGroup[]) => this.roleGroups = data);
+    public onClosePmWindow(event: any): void {
+        this.store.dispatch(new SetPmReceiverId(null));
     }
+
+    public onFilterChange(filters: UserFilters): void {
+        this.store.dispatch(new SetUsersFilterOptions({ ...filters, currentPage: 1 }));
+    }
+
+    protected onSortChange(event: { sortOn: string; sortDirection: string; }): void {
+        this.store.dispatch(new ChangeSort({ ...event, currentPage: 1}));
+    }
+
+    private subscribeOnChangeUsers(): void {
+        const subscription = this.users$.subscribe(users => {
+            this.setDataSource(users || []);
+        });
+        this.subscriptions.push(subscription);
+    }
+
 }

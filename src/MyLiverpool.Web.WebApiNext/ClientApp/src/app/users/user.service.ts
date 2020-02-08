@@ -7,6 +7,7 @@ import { USERS_ROUTE } from '@constants/routes.constants';
 import { BaseRestService } from '@base/infrastructure';
 
 import { UserFilters, User, UserConfig } from '@domain/models';
+import { GetUsersListQuery } from '@network/shared';
 
 @Injectable()
 export class UserService extends BaseRestService<User, UserFilters> {
@@ -44,5 +45,10 @@ export class UserService extends BaseRestService<User, UserFilters> {
 
     public updateConfig(itemToUpdate: UserConfig): Observable<UserConfig> {
         return this.http.put<UserConfig>(`${this.actionUrl}config`, JSON.stringify(itemToUpdate));
+    }
+
+    // new approach
+    public getAll2(request: GetUsersListQuery.Request): Observable<GetUsersListQuery.Response> {
+        return this.http.getWithParams<GetUsersListQuery.Response>(this.baseActionUrl, request);
     }
 }
