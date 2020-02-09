@@ -1,11 +1,11 @@
-﻿<ng-container *ngIf="{ isLogined: isLogined$ | async } as data">
+﻿<ng-container *ngIf="{ userId: userId$ | async } as data">
     <ul class="maroon-panel login-list-panel padding10">
-        <li *ngIf="!data.isLogined;else logined">
+        <li *ngIf="!data.userId;else logined">
             <account-signin-widget></account-signin-widget>
         </li>
         <ng-template #logined>
             <li class="flex-space-around flex-v-c">
-                <a [routerLink]="['/users', 0]" class="text-white flex-space-around flex-v-c">
+                <a [routerLink]="['/users', data.userId]" class="text-white flex-space-around flex-v-c">
                     <mat-icon>person</mat-icon>Профиль
                 </a>
                 <pm-counter></pm-counter>

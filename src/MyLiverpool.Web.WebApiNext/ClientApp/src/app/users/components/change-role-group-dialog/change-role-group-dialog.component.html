@@ -1,0 +1,21 @@
+<ng-container *ngIf="{ roleGroups: roleGroups$ | async } as data">
+    <h2 mat-dialog-title>Изменение роли пользователя {{ dialogData.user.userName }} </h2>
+    <div mat-dialog-content>
+        <form class="form-inline" role="form" [formGroup]="roleForm">
+            <mat-form-field>
+                <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
+                    <mat-option *ngFor="let roleGroup of data.roleGroups" [value]="roleGroup.id"
+                        [textContent]="roleGroup.name"></mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <div mat-dialog-actions>
+        <button type="button" mat-raised-button (click)="onCancel()">
+            Отменить
+        </button>
+        <button type="submit" mat-raised-button color="warn" [disabled]="!roleForm.valid"
+            (click)="onSave()">Сохранить</button>
+    </div>
+</ng-container>

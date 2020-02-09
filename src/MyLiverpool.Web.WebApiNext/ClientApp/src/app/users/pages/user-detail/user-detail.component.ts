@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
-import { RoleGroupService } from '@role-groups/index';
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 
 import { UserService } from '@users/user.service';
@@ -14,16 +10,20 @@ import { ObserverComponent } from '@domain/base';
 import { Store, Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
+import { UsersState } from '@users/store';
+import { GetUserDetailQuery } from '@network/shared';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeRoleGroupDialogData, ChangeRoleGroupDialogComponent } from '@users/components/change-role-group-dialog/change-role-group-dialog.component';
 
 @Component({
     selector: 'user-detail',
-    templateUrl: './user-detail.component.html'
+    templateUrl: './user-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class UserDetailComponent extends ObserverComponent implements OnInit {
     public item: User;
     public roleGroups: RoleGroup[];
-    public roleForm: FormGroup;
     public banForm: FormGroup;
     public selectedUserId: number;
     public banDaysCount = 0;
@@ -34,53 +34,29 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
 
     @Select(AuthState.userId) userId$: Observable<number>;
 
+    @Select(UsersState.user) user$: Observable<GetUserDetailQuery.Response>;
+
     @Select(AuthState.isMainModerator) isMainModerator$: Observable<boolean>;
 
     constructor(
         private service: UserService,
-        private route: ActivatedRoute,
+        public dialog: MatDialog,
         private store: Store,
-        private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-        private router: Router,
-        private location: Location,
         private titleService: CustomTitleService,
+        private cd: ChangeDetectorRef,
         private authService: AuthService) {
         super();
     }
 
     public ngOnInit(): void {
-        this.initRoleForm();
         this.initBanForm();
-        const sub = this.route.params.subscribe(params => {
-            this.service.getSingle(+params['id'])
-                .subscribe((data: User) => this.parse(data));
-        });
-        this.subscriptions.push(sub);
-        const isAdmin = this.store.selectSnapshot(AuthState.isAdminAssistant);
-        if (isAdmin) {
-            this.loadRoleGroups();
-        }
+        const usersState = this.store.selectSnapshot(UsersState);
+        this.titleService.setTitle(usersState.user.userName);
     }
 
     public logout(): void {
         this.authService.logout();
-    }
-
-    public onSubmit(): void {
-        const roleGroupId = this.roleForm.controls['roleGroupId'].value;
-        const sub = this.service.updateRoleGroup(this.item.id, roleGroupId)
-            .subscribe((data: boolean) => {
-                if (data) {
-                    this.roleForm.patchValue(roleGroupId);
-                    this.snackBar.open('Группа изменена');
-                } else {
-                    this.snackBar.open('Группа НЕ изменена');
-                }
-            });
-
-        this.subscriptions.push(sub);
     }
 
     public onSubmitBan(): void {
@@ -134,23 +110,15 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
         this.selectedUserId = null;
     }
 
-    private parse(item: User): void {
-        this.item = item;
-        this.titleService.setTitle(item.userName);
-        this.roleForm.patchValue(item);
-        this.location.go(this.router.createUrlTree(['users', item.id]).toString());
-    }
-
-    private loadRoleGroups(): void {
-        const sub = this.roleGroupService.getAll()
-            .subscribe((data: RoleGroup[]) => this.roleGroups = data);
-        this.subscriptions.push(sub);
-    }
-
-    private initRoleForm(): void {
-        this.roleForm = this.formBuilder.group({
-            roleGroupId: ['', Validators.required]
+    public onEditRoleGroup(): void {
+        const data: ChangeRoleGroupDialogData = {
+            user: this.store.selectSnapshot(UsersState.user)
+        };
+        const changeRoleGpoupDialogRef = this.dialog.open(ChangeRoleGroupDialogComponent, {
+            data
         });
+
+        changeRoleGpoupDialogRef.afterClosed().subscribe(() => this.cd.markForCheck());
     }
 
     private initBanForm(): void {

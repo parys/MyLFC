@@ -21,7 +21,8 @@ import { UserConfigComponent } from '@users/pages/user-config';
 import { UserMaterialModule } from '@users/user-material.module';
 
 import { UsersState } from '@users/store';
-import { UsersFilterComponent } from '@users/components';
+import { UsersFilterComponent, ChangeRoleGroupDialogComponent } from '@users/components';
+import { UserResolver } from './resolvers';
 
 @NgModule({
     imports: [
@@ -40,10 +41,15 @@ import { UsersFilterComponent } from '@users/components';
         UserConfigComponent,
         UserEditComponent,
         UserListComponent,
-        UsersFilterComponent
+        UsersFilterComponent,
+        ChangeRoleGroupDialogComponent
     ],
     providers: [
-        UserService
+        UserService,
+        UserResolver
+    ],
+    entryComponents: [
+        ChangeRoleGroupDialogComponent
     ]
 })
 export class UserModule {

@@ -1,4 +1,5 @@
 import { User, UserFilters } from '@domain/models';
+import { GetUserDetailQuery, ChangeUserRoleGroupCommand } from '@network/shared';
 
 export class SetUser {
     static readonly type = '[Users] Set logged user';
@@ -31,4 +32,14 @@ export class ChangePage {
 export class SetUsersFilterOptions {
     static readonly type = '[Users] Set users filter options';
     constructor(public readonly payload: UserFilters & { currentPage: number }) { }
+}
+
+export class GetUserById {
+    static readonly type = '[Users] Get user by id';
+    constructor(public readonly payload: GetUserDetailQuery.Request) { }
+}
+
+export class ChangeUserRoleGroup {
+    static readonly type = '[Users] Change user role group';
+    constructor(public readonly payload: ChangeUserRoleGroupCommand.Request) { }
 }

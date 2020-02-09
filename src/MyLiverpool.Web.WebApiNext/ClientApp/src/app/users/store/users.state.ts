@@ -1,12 +1,13 @@
 import { tap } from 'rxjs/operators';
 
-import { State, Action, StateContext, Selector, createSelector } from '@ngxs/store';
+import { of } from 'rxjs';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 
 import { UsersStateModel } from './users.model';
-import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions } from './users.actions';
+import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions, GetUserById, ChangeUserRoleGroup } from './users.actions';
 import { RoleGroupService } from '@role-groups/core';
 
-import { GetUsersListQuery } from '@network/shared';
+import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared';
 import { UserService } from '@users/user.service';
 
 
@@ -72,12 +73,16 @@ export class UsersState {
     onGetUsersList(ctx: StateContext<UsersStateModel>) {
         const { request } = ctx.getState();
         return this.usersNetwork.getAll2(new GetUsersListQuery.Request(request))
-        .pipe(
-            tap(response => {
-                ctx.patchState({ users: response.results || [] });
-                ctx.patchState({ request: {...request, rowCount: response.rowCount,
-                                         currentPage: response.currentPage, pageSize: response.pageSize } });
-            }));
+            .pipe(
+                tap(response => {
+                    ctx.patchState({ users: response.results || [] });
+                    ctx.patchState({
+                        request: {
+                            ...request, rowCount: response.rowCount,
+                            currentPage: response.currentPage, pageSize: response.pageSize
+                        }
+                    });
+                }));
     }
 
 
@@ -93,8 +98,27 @@ export class UsersState {
     }
 
     @Action(SetPmReceiverId)
-    onSetPmReceiverId({patchState}: StateContext<UsersStateModel>, { payload }: SetPmReceiverId) {
-        patchState({pmReceiver: payload});
+    onSetPmReceiverId({ patchState }: StateContext<UsersStateModel>, { payload }: SetPmReceiverId) {
+        patchState({ pmReceiver: payload });
+    }
+
+    @Action(GetUserById)
+    onGetUserById({ patchState }: StateContext<UsersStateModel>, { payload }: GetUserById) {
+        return (payload.id ? this.usersNetwork.getSingle2(payload.id) : of(new GetUserDetailQuery.Response()))
+            .pipe(
+                tap(user => {
+                    patchState({ user });
+                })
+            );
+    }
+
+    @Action(ChangeUserRoleGroup)
+    onChangeUserRoleGroup({ getState, patchState }: StateContext<UsersStateModel>, { payload }: ChangeUserRoleGroup) {
+        const { user } = getState();
+        return this.usersNetwork.updateRoleGroup(payload.userId, payload.roleGroupId).pipe(
+            tap(response => {
+                patchState({ user: { ...user, roleGroupId: payload.roleGroupId } });
+            }));
     }
 
 }

@@ -6,13 +6,19 @@ import { UserConfigComponent } from './pages/user-config';
 import { UserEditComponent } from './pages/user-edit';
 import { USERS_RU, EDITING_RU, USER_RU } from '@constants/ru.constants';
 import { EDIT_ROUTE } from '@constants/routes.constants';
+import { UserResolver } from '@users/resolvers';
 
 export const userRoutes: Routes = [
     { path: '', component: UserListComponent, data: { title: USERS_RU } },
     {
         path: ':id',
         children: [
-            { path: '', component: UserDetailComponent, data: { title: USER_RU } },
+            {
+                path: '',
+                component: UserDetailComponent,
+                data: { title: USER_RU },
+                resolve: { UserResolver }
+            },
             {
                 path: 'settings',
                 component: UserConfigComponent,

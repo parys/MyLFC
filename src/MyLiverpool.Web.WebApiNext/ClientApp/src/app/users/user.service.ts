@@ -7,7 +7,7 @@ import { USERS_ROUTE } from '@constants/routes.constants';
 import { BaseRestService } from '@base/infrastructure';
 
 import { UserFilters, User, UserConfig } from '@domain/models';
-import { GetUsersListQuery } from '@network/shared';
+import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared';
 
 @Injectable()
 export class UserService extends BaseRestService<User, UserFilters> {
@@ -18,7 +18,7 @@ export class UserService extends BaseRestService<User, UserFilters> {
     }
 
     public updateRoleGroup(id: number, roleGroupId: number): Observable<boolean> {
-        return this.http.put<boolean>(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, '');
+        return this.http.put<boolean>(`${this.actionUrl}${id}/roleGroup/${roleGroupId}`, '');
     }
 
     public ban(id: number, days: number): Observable<boolean> {
@@ -50,5 +50,9 @@ export class UserService extends BaseRestService<User, UserFilters> {
     // new approach
     public getAll2(request: GetUsersListQuery.Request): Observable<GetUsersListQuery.Response> {
         return this.http.getWithParams<GetUsersListQuery.Response>(this.baseActionUrl, request);
+    }
+
+    public getSingle2(id: number): Observable<GetUserDetailQuery.Response> {
+        return this.http.get<GetUserDetailQuery.Response>(this.baseActionUrl + id);
     }
 }

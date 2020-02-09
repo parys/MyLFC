@@ -1,1 +1,1 @@
-export { GetUsersListQuery } from './users';
+export { GetUsersListQuery, GetUserDetailQuery, ChangeUserRoleGroupCommand } from './users';

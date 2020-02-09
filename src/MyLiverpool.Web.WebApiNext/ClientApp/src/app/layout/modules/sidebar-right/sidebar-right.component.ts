@@ -13,7 +13,7 @@ import { AuthState } from '@auth/store';
 })
 export class SidebarRightComponent {
 
-    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+    @Select(AuthState.userId) userId$: Observable<number>;
     
     constructor(private authService: AuthService) {
     }

@@ -41,7 +41,6 @@ export class UserListComponent extends TableComponent<GetUsersListQuery.UserList
 
     public ngAfterViewInit(): void {
         this.scrollerRef = this.scrollerElem;
-        console.warn(this.scrollerElem);
         super.ngAfterViewInit();
     }
 
@@ -53,7 +52,6 @@ export class UserListComponent extends TableComponent<GetUsersListQuery.UserList
 
 
     public onPageChanged(event: any): void {
-        console.log(event);
         this.store.dispatch(new ChangePage({ currentPage: event.pageIndex, pageSize: event.pageSize}));
     }
 
