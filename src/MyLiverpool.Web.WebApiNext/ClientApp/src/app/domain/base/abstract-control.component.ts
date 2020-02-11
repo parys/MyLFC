@@ -11,6 +11,7 @@ export function ControlValueProvider(type: any) {
     };
 }
 
+@Directive()
 export abstract class AbstractControlComponent<T = any> extends ObserverComponent implements ControlValueAccessor {
 
     @Input() disabled: boolean;

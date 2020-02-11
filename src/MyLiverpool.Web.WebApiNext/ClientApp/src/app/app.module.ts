@@ -59,7 +59,7 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
         AuthModule.forRoot(),
         LoaderModule.forRoot(),
         BreadcrumbModule.forRoot(),
-        NoticesModule,
+        NoticesModule.forRoot(),
         DynamicContentOutletModule
     ],
     declarations: [

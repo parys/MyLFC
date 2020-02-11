@@ -16,7 +16,7 @@ import { EnsureModuleLoadedOnceGuard } from '@domain/base/ensure-module-loaded-o
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<CoreModule> {
         return {
             ngModule: CoreModule,
         };

@@ -1,21 +1,21 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 import { Subscription, Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
 
 import { Material, MaterialFilters, MaterialType, PagedList } from '@domain/models';
-import { CustomTitleMetaService as CustomTitleService, DeleteDialogComponent } from '@shared/index';
+import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 import { TITLE_RU, NEWSS_RU, BLOGS_RU } from '@constants/ru.constants';
 
 import { MaterialService } from '@materials/core/material.service';
-import { MaterialActivateDialogComponent } from '@materials/core/material-activate-dialog';
 import { PAGE } from '@constants/help.constants';
-import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 @Component({
     selector: 'material-list',
@@ -50,7 +50,7 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
                 private cd: ChangeDetectorRef,
                 private snackBar: MatSnackBar,
                 private titleService: CustomTitleService,
-                private dialog: MatDialog) {
+                private notifierService: NotifierService) {
                     super();
                     this.navigationSubscription = this.router.events.subscribe((e: any) => {
                         // If it is a NavigationEnd event re-initalise the component
@@ -60,22 +60,32 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
                     });
     }
 
-    public showActivateModal(index: number): void {
-        const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.activate(index);
+    public onShowActivateModal(index: number): void {
+        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Активировать материал?' }))
+        .subscribe(result => {
+            if (!result) {
+                return;
             }
+
+            this.activate(index);
+        //    const payload = new DeleteUserCommand.Request({ userId });
+        //    this.store.dispatch(new DeleteUser(payload));
         });
+        this.subscriptions.push(sub$);
     }
 
-    public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
+    public onShowDeleteModal(index: number): void {
+        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Удалить материал?' }))
+        .subscribe(result => {
+            if (!result) {
+                return;
             }
+
+            this.delete(index);
+        //    const payload = new DeleteUserCommand.Request({ userId });
+        //    this.store.dispatch(new DeleteUser(payload));
         });
+        this.subscriptions.push(sub$);
     }
 
     public ngOnInit(): void {

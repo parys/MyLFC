@@ -5,7 +5,6 @@ import { SharedModule } from '@shared/index';
 import { PipesModule } from '@base/pipes';
 import { MatchHeaderModule } from '@layout/modules/match-header/match-header.module';
 
-import { MaterialActivateDialogComponent } from '@materials/core/material-activate-dialog';
 import { MaterialService } from '@materials/core/material.service';
 import { MaterialHomeComponent } from '@materials/core/material-home';
 import { MaterialItemComponent } from '@materials/core/material-item';
@@ -19,11 +18,7 @@ import { MaterialItemComponent } from '@materials/core/material-item';
     ],
     declarations: [
         MaterialHomeComponent,
-        MaterialActivateDialogComponent,
         MaterialItemComponent
-    ],
-    entryComponents: [
-        MaterialActivateDialogComponent
     ],
     providers: [
         MaterialService

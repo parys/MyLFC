@@ -8,7 +8,7 @@ import { AuthState } from '@auth/store';
 import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions } from '@users/store';
 import { UsersState } from '@users/store/users.state';
 import { GetUsersListQuery } from '@network/shared';
-import { KeyMapper, TableComponent } from '@domain/base/table.component';
+import { KeyMapper, TableComponent } from '@domain/tables/components';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class UserListComponent extends TableComponent<GetUsersListQuery.UserList
     @Select(UsersState.request) request$: Observable<GetUsersListQuery.Request>;
     @Select(UsersState.pmReceiver) pmReceiver$: Observable<{ id: number, userName: string}>;
 
-    @ViewChild('scroller', { static: false }) scrollerElem: ElementRef;
+    @ViewChild('scroller') scrollerElem: ElementRef;
 
     constructor(private store: Store) {
                     super();

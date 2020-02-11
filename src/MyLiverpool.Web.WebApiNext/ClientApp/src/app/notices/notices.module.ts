@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatDialogModule, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { ConfirmationComponent, NoticeComponent, NotifierComponent } from '@notices/components';
 import { NotifierService } from '@notices/services';
+import { EnsureModuleLoadedOnceGuard } from '@domain/base/ensure-module-loaded-once.guard';
 
 
 @NgModule({
@@ -25,13 +29,28 @@ import { NotifierService } from '@notices/services';
     entryComponents: [
         NoticeComponent,
         ConfirmationComponent,
-    ],
-    providers: [
-        NotifierService,
-        {
-            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-            useValue: { duration: 2500, verticalPosition: 'bottom', horizontalPosition: 'center', panelClass: [ 'system-notification-container' ]  }
-        }
     ]
 })
-export class NoticesModule { }
+export class NoticesModule extends EnsureModuleLoadedOnceGuard {
+
+    static forRoot(): ModuleWithProviders<NoticesModule> {
+        return {
+            ngModule: NoticesModule,
+            providers: [
+                NotifierService,
+                {
+                    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+                    useValue: { duration: 2500, verticalPosition: 'bottom', horizontalPosition: 'center', panelClass: [ 'system-notification-container' ]  }
+                }
+            ]
+        };
+    }
+
+    constructor(
+        @Optional()
+        @SkipSelf()
+        parentModule: NoticesModule,
+    ) {
+        super(parentModule);
+    }
+}
