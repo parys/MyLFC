@@ -1,4 +1,4 @@
-﻿<ng-container *ngIf="{ isLogined: isLogined$ | async } as data">
+﻿<ng-container *ngIf="{ userId: userId$ | async } as data">
     <nav>
         <button type="button" mat-button (click)="toggle.emit()" class="menu-btn">
             <mat-icon>menu</mat-icon>
@@ -8,13 +8,13 @@
         </a>
         <navbar-menu class="flex-space-around header-nav"></navbar-menu>
 
-        <ng-container *ngIf="!data.isLogined;else logined">
+        <ng-container *ngIf="!data.userId;else logined">
             <button type="button" [routerLink]="['/account/signin']" mat-button class="person-btn">
                 <mat-icon>person</mat-icon>
             </button>
         </ng-container>
         <ng-template #logined>
-            <button mat-button role="button" [routerLink]="['/users', 0]" class="person-btn">
+            <button mat-button role="button" [routerLink]="['/users', data.userId]" class="person-btn">
                 <mat-icon>person</mat-icon>
             </button>
         </ng-template>

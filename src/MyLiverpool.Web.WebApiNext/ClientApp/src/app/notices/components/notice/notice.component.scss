@@ -1,0 +1,44 @@
+:host {
+    display: block;
+    color: #fff;
+    padding: 8px;
+
+    &.notification-0 {
+        background-color: #1bad41f0;
+    }
+
+    &.notification-1 {
+        background-color: #ff4d4d;
+    }
+
+    &.notification-2 {
+        background-color: #7a8eff;
+    }
+
+    &.notification-3 {
+        background-color: #f1ae35;
+    }
+}
+
+.content {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+        margin-right: 8px;
+    }
+}
+
+.title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+::ng-deep {
+
+    .system-notification-container {
+        padding: 0;
+    }
+
+}

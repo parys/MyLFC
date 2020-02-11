@@ -1,0 +1,27 @@
+<p class="title" *ngIf="data.title">
+    <span>{{data.title}}</span>
+</p>
+
+<div class="content">
+
+    <ng-container *ngIf="data.type === noticeType.Success">
+        <mat-icon>check_circle</mat-icon>
+        <p class="text">{{ data.message }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.type === noticeType.Error">
+        <mat-icon>error</mat-icon>
+        <p class="text">{{ data.message }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.type === noticeType.Warning">
+        <mat-icon>warning</mat-icon>
+        <p class="text">{{ data.message }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.type === noticeType.Info">
+        <mat-icon>info</mat-icon>
+        <p class="text">{{ data.message }}</p>
+    </ng-container>
+
+</div>

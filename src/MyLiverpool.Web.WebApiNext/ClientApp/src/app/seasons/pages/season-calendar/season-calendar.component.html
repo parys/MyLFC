@@ -19,7 +19,7 @@
             <table class="full-width">
                 <tbody>
                     <tr *ngFor="let match of month.matches; let i = index;" class="center-middle">
-                        <td>
+                        <td class="match-type">
                             <span [textContent]="match.typeName"></span>
                         </td>
                         <td>
@@ -46,7 +46,7 @@
                                 </span>
                             </div>
                         </td>
-                        <td>
+                        <td class="stadium">
                             <span [textContent]="match.stadiumName"></span>
                         </td>
                         <td class="flex-space-around" style="height: 100%">

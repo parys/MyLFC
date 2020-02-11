@@ -3,6 +3,10 @@ import { tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 
+
+import { NoticeMessage } from '@notices/shared';
+import { ShowNotice } from '@notices/store';
+
 import { UsersStateModel } from './users.model';
 import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions, GetUserById, ChangeUserRoleGroup } from './users.actions';
 import { RoleGroupService } from '@role-groups/core';
@@ -113,11 +117,13 @@ export class UsersState {
     }
 
     @Action(ChangeUserRoleGroup)
-    onChangeUserRoleGroup({ getState, patchState }: StateContext<UsersStateModel>, { payload }: ChangeUserRoleGroup) {
-        const { user } = getState();
+    onChangeUserRoleGroup(ctx: StateContext<UsersStateModel>, { payload }: ChangeUserRoleGroup) {
+        const { user } = ctx.getState();
         return this.usersNetwork.updateRoleGroup(payload.userId, payload.roleGroupId).pipe(
             tap(response => {
-                patchState({ user: { ...user, roleGroupId: payload.roleGroupId } });
+                ctx.patchState({ user: { ...user, roleGroupId: payload.roleGroupId } });
+                const notice = NoticeMessage.success('Роль изменена', 'Группа пользователя заменена.');
+                ctx.dispatch(new ShowNotice(notice));
             }));
     }
 

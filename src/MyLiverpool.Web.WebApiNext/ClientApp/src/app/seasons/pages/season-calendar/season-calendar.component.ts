@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,12 +15,12 @@ import { Observable } from 'rxjs';
     styleUrls: ['./season-calendar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SeasonCalendarComponent implements OnInit {
+export class SeasonCalendarComponent implements OnInit, AfterViewInit {
     public selected: Season;
     private id = 0;
     public seasons: Season[];
 
-    @ViewChild('seasonSelect', { static: true }) seasonSelect: MatSelect;
+    @ViewChild('seasonSelect', { static: false }) seasonSelect: MatSelect;
 
     @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
 
@@ -33,15 +33,18 @@ export class SeasonCalendarComponent implements OnInit {
         this.id = +this.route.snapshot.params.id || 0;
 
 
+        this.service.getAllWithoutFilter()
+            .subscribe((data: PagedList<Season>) => this.seasons = data.results);
+
+        this.update(true);
+    }
+
+    public ngAfterViewInit(): void {
         this.seasonSelect.selectionChange.subscribe((data: MatSelectChange) => {
             this.id = data.value;
             this.update(false);
         });
 
-        this.service.getAllWithoutFilter()
-            .subscribe((data: PagedList<Season>) => this.seasons = data.results);
-
-        this.update(true);
     }
 
     private update(selectUpdate: boolean): void {

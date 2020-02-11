@@ -3,6 +3,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
 import { environment } from '@environments/environment';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
@@ -13,7 +16,13 @@ import { AppComponent } from './app.component';
         AppModuleShared,
         NoopAnimationsModule,
         BrowserTransferStateModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        NgxsReduxDevtoolsPluginModule.forRoot({
+            disabled: environment.production
+        }),
+        NgxsLoggerPluginModule.forRoot({
+            disabled: environment.production
+        }),
     ]
 })
 export class AppModule {
