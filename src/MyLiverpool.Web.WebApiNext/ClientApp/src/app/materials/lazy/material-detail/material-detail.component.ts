@@ -2,17 +2,19 @@ import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATF
 import { isPlatformBrowser } from '@angular/common';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription, Observable } from 'rxjs';
 
-import { DeleteDialogComponent, CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
 import { NEWS_RU, BLOG_RU } from '@constants/ru.constants';
 import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
-import { MaterialService, MaterialActivateDialogComponent } from '@materials/core';
+import { MaterialService } from '@materials/core';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 declare function ssn(): any;
@@ -26,9 +28,8 @@ const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MaterialDetailComponent implements OnDestroy {
+export class MaterialDetailComponent extends ObserverComponent implements OnDestroy {
     private sub: Subscription;
-    private navigationSubscription: Subscription;
     public item: Material = new Material();
     public type: MaterialType;
 
@@ -45,35 +46,46 @@ export class MaterialDetailComponent implements OnDestroy {
                 private router: Router,
                 private titleService: CustomTitleService,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog) {
-        this.navigationSubscription = this.router.events.subscribe((e: any) => {
-            if (e instanceof NavigationEnd) {
-                this.init();
-            }
-        });
+                private notifierService: NotifierService) {
+                    super();
+                    const sub$ = this.router.events.subscribe((e: any) => {
+                        if (e instanceof NavigationEnd) {
+                            this.init();
+                        }
+                    }); // look when move to material store
+                    this.subscriptions.push(sub$);
     }
 
     public ngOnDestroy(): void {
         if (this.sub) { this.sub.unsubscribe(); }
-        if (this.navigationSubscription) { this.navigationSubscription.unsubscribe(); }
     }
 
-    public showActivateModal(): void {
-        const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.activate();
+    public onShowActivateModal(): void {
+        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Активировать материал?' }))
+        .subscribe(result => {
+            if (!result) {
+                return;
             }
+
+            this.activate();
+        //    const payload = new DeleteUserCommand.Request({ userId });
+        //    this.store.dispatch(new DeleteUser(payload));
         });
+        this.subscriptions.push(sub$);
     }
 
-    public showDeleteModal(): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete();
+    public onShowDeleteModal(): void {
+        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Удалить материал?' }))
+        .subscribe(result => {
+            if (!result) {
+                return;
             }
+
+            this.delete();
+        //    const payload = new DeleteUserCommand.Request({ userId });
+        //    this.store.dispatch(new DeleteUser(payload));
         });
+        this.subscriptions.push(sub$);
     }
 
     private init(): void {

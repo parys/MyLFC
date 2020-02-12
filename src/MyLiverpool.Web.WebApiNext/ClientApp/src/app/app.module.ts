@@ -5,8 +5,6 @@ import { registerLocaleData } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 
 import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { AppComponent } from './app.component';
 import * as home from './home';
@@ -21,8 +19,9 @@ import { StorageModule } from '@base/storage';
 import { LoaderModule } from '@base/loader';
 import { BreadcrumbModule } from '@base/breadcrumbs';
 import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outlet/dynamic-content-outlet.module';
-import { environment } from '@environments/environment';
 import { getAccessToken } from '@auth/auth.module';
+import { CoreModule } from '@core/core.module';
+import { NoticesModule } from '@notices/notices.module';
 
 registerLocaleData(localeRU);
 
@@ -48,13 +47,8 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc' }),
         SharedModule,
+        CoreModule.forRoot(),
         NgxsModule.forRoot([]),
-        NgxsReduxDevtoolsPluginModule.forRoot({
-            disabled: environment.production
-        }),
-        NgxsLoggerPluginModule.forRoot({
-            disabled: environment.production
-        }),
         HttpClientModule,
         MaterialCoreModule,
         AppRoutingModule,
@@ -65,6 +59,7 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
         AuthModule.forRoot(),
         LoaderModule.forRoot(),
         BreadcrumbModule.forRoot(),
+        NoticesModule.forRoot(),
         DynamicContentOutletModule
     ],
     declarations: [

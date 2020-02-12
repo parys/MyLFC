@@ -16,50 +16,132 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "@environments/*": [
-          "./src/environments/*"
+        "./src/environments/*"
       ],
-      "@accounts/*": [ "./src/app/accounts/*" ],
-      "@admin/*": [ "./src/app/admin/*" ],
-      "@auth/*": [ "./src/app/base/auth/*" ],
-      "@base/*": [ "./src/app/base/*" ],
-      "@chat/*": [ "./src/app/chat/*" ],
-      "@constants/*": [ "./src/app/constants/*" ],
-      "@clubs/*": [ "./src/app/clubs/*" ],
-      "@comments/*": [ "./src/app/comments/*" ],
-      "@domain/*": [ "./src/app/domain/*" ],
-      "@editor/*": [ "./src/app/editor/*" ],
-      "@faq/*": [ "./src/app/faq/*"],
-      "@faq-categories/*": [ "./src/app/faq-categories/*" ],
-      "@faq-items/*": [ "./src/app/faq-items/*" ],
-      "@forum/*": [ "./src/app/forum/*" ],
-      "@images/*": [ "./src/app/images/*" ],
-      "@injuries/*": [ "./src/app/injuries/*" ],
-      "@layout/*": [ "./src/app/layout/*" ],
-      "@matches/*": [ "./src/app/matches/*" ],
-      "@match-events/*": [ "./src/app/match-events/*" ],
-      "@match-persons/*": [ "./src/app/match-persons/*" ],
-      "@materials/*": [ "./src/app/materials/*" ],
-      "@material-categories/*": [ "./src/app/material-categories/*" ],
-      "@notifications/*": [ "./src/app/notifications/*" ],
-      "@network/*": [ "./src/app/network/*" ],
-      "@persons/*": [ "./src/app/persons/*" ],
-      "@pms/*": [ "./src/app/pms/*" ],
-      "@polls/*": [ "./src/app/polls/*" ],
-      "@role-groups/*": [ "./src/app/role-groups/*" ],
-      "@seasons/*": [ "./src/app/seasons/*" ],
-      "@shared/*": [ "./src/app/shared/*"],
-      "@stadiums/*": [ "./src/app/stadiums/*" ],
-      "@static-pages/*": [ "./src/app/static-pages/*" ],
-      "@static-pages-editor/*": [ "./src/app/static-pages-editor/*" ],
-      "@transfers/*": [ "./src/app/transfers/*" ],
-      "@users/*": [ "./src/app/users/*" ],
-      "@wal/*": [ "./src/app/wal/*" ],
-      "@wishes/*": [ "./src/app/wishes/*" ],
-      "@widgets/*": [ "./src/app/widgets/*" ],
+      "@accounts/*": [
+        "./src/app/accounts/*"
+      ],
+      "@admin/*": [
+        "./src/app/admin/*"
+      ],
+      "@auth/*": [
+        "./src/app/base/auth/*"
+      ],
+      "@base/*": [
+        "./src/app/base/*"
+      ],
+      "@chat/*": [
+        "./src/app/chat/*"
+      ],
+      "@constants/*": [
+        "./src/app/constants/*"
+      ],
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@clubs/*": [
+        "./src/app/clubs/*"
+      ],
+      "@comments/*": [
+        "./src/app/comments/*"
+      ],
+      "@domain/*": [
+        "./src/app/domain/*"
+      ],
+      "@editor/*": [
+        "./src/app/editor/*"
+      ],
+      "@faq/*": [
+        "./src/app/faq/*"
+      ],
+      "@faq-categories/*": [
+        "./src/app/faq-categories/*"
+      ],
+      "@faq-items/*": [
+        "./src/app/faq-items/*"
+      ],
+      "@forum/*": [
+        "./src/app/forum/*"
+      ],
+      "@images/*": [
+        "./src/app/images/*"
+      ],
+      "@injuries/*": [
+        "./src/app/injuries/*"
+      ],
+      "@layout/*": [
+        "./src/app/layout/*"
+      ],
+      "@matches/*": [
+        "./src/app/matches/*"
+      ],
+      "@match-events/*": [
+        "./src/app/match-events/*"
+      ],
+      "@match-persons/*": [
+        "./src/app/match-persons/*"
+      ],
+      "@materials/*": [
+        "./src/app/materials/*"
+      ],
+      "@material-categories/*": [
+        "./src/app/material-categories/*"
+      ],
+      "@notices/*": [
+        "./src/app/notices/*"
+      ],
+      "@notifications/*": [
+        "./src/app/notifications/*"
+      ],
+      "@network/*": [
+        "./src/app/network/*"
+      ],
+      "@persons/*": [
+        "./src/app/persons/*"
+      ],
+      "@pms/*": [
+        "./src/app/pms/*"
+      ],
+      "@polls/*": [
+        "./src/app/polls/*"
+      ],
+      "@role-groups/*": [
+        "./src/app/role-groups/*"
+      ],
+      "@seasons/*": [
+        "./src/app/seasons/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@stadiums/*": [
+        "./src/app/stadiums/*"
+      ],
+      "@static-pages/*": [
+        "./src/app/static-pages/*"
+      ],
+      "@static-pages-editor/*": [
+        "./src/app/static-pages-editor/*"
+      ],
+      "@transfers/*": [
+        "./src/app/transfers/*"
+      ],
+      "@users/*": [
+        "./src/app/users/*"
+      ],
+      "@wal/*": [
+        "./src/app/wal/*"
+      ],
+      "@wishes/*": [
+        "./src/app/wishes/*"
+      ],
+      "@widgets/*": [
+        "./src/app/widgets/*"
+      ],
     },
     "removeComments": true,
     "sourceMap": true,
-    "target": "es2015"
+    "target": "es2015",
   },
   "typeRoots": [
     "node_modules/@types"
@@ -68,8 +150,15 @@
     "node",
     "tinymce"
   ],
+  "exclude": [
+    "./src/app/forum/*",
+    "./src/environments/*",
+    "./src/app/app/app.module.server.ts"
+  ],
   "compileOnSave": false,
-  "atom": { "rewriteTsconfig": false },
+  "atom": {
+    "rewriteTsconfig": false
+  },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

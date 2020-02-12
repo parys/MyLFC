@@ -2,20 +2,21 @@ import {
     Component,
     OnInit,
     ViewEncapsulation,
-    PLATFORM_ID,
-    Inject,
     ViewChild,
-    HostListener,
     ChangeDetectionStrategy,
     HostBinding
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
-import { filter, map } from 'rxjs/operators';
+import { filter, map, distinctUntilChanged } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Store, Select } from '@ngxs/store';
+import { ChangeMobile, CoreState } from '@core/store';
 
 import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ObserverComponent } from '@domain/base';
 
 
 @Component({
@@ -25,31 +26,27 @@ import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
     encapsulation: ViewEncapsulation.Emulated,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends ObserverComponent implements OnInit {
+
+    @Select(CoreState.mobile) mobile$: Observable<boolean>;
+
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private titleService: CustomTitleService,
-                @Inject(PLATFORM_ID) private platformId: object
+                private store: Store,
+                private breakpointObserver: BreakpointObserver
     ) {
+        super();
+        this.subscribeOnChangeLayout();
     }
-    public showAd = true;
-    public isDesktop = false;
 
+    public showAd = true;
     @HostBinding('@.disabled')
     public animationsDisabled = true;
 
-    @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
-
-    @HostListener('window:resize', ['$event'])
-    public sizeChange(event: any) {
-        this.updateGestureState();
-    }
+    @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
     public ngOnInit(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            this.updateGestureState();
-        }
-
         this.initTitleSubscriber();
     }
 
@@ -83,10 +80,16 @@ export class AppComponent implements OnInit {
             });
     }
 
-    private updateGestureState(): void {
-        if (!isPlatformBrowser(this.platformId)) {
-            return;
-        }
-        this.isDesktop = window.innerWidth > 767;
+    private subscribeOnChangeLayout(): void {
+        const subscription = this.breakpointObserver.observe(['screen and (max-width: 767px)'])
+            .pipe(
+                map(x => x.matches),
+                distinctUntilChanged()
+            )
+            .subscribe((mobile: boolean) => {
+                this.store.dispatch(new ChangeMobile(mobile));
+            });
+
+        this.subscriptions.push(subscription);
     }
 }

@@ -1,0 +1,16 @@
+::ng-deep {
+    .confirmation-panel-dialog {
+        width: 760px;
+        max-width: 100%;
+
+        .mat-dialog-title {
+            margin: 0;
+        }
+    }
+}
+
+.mat-dialog-content {
+    p {
+        font-size: 1.2em;
+    }
+}

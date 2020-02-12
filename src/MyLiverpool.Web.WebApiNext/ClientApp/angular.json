@@ -29,15 +29,15 @@
               "src/favicon.ico",
               "src/assets",
               {
-                  "glob": "**/*",
-                  "input": "src/icons",
-                  "output": "/"
+                "glob": "**/*",
+                "input": "src/icons",
+                "output": "/"
               },
               {
                 "glob": "**/*",
                 "input": "src/fonts",
                 "output": "/"
-            }
+              }
             ],
             "styles": [
               "src/fonts/iconfont/material-icons.css",
@@ -134,9 +134,10 @@
               "bundleDependencies": "all",
               "fileReplacements": [
                 {
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }]
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "test": {
               "optimization": false,
@@ -148,14 +149,18 @@
               "bundleDependencies": "all",
               "fileReplacements": [
                 {
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.test.ts"
-              }]
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
             }
           }
         }
       }
-    }    
+    }
   },
-  "defaultProject": "angular2app"
+  "defaultProject": "angular2app",
+  "cli": {
+    "analytics": "c62591b2-4fa4-42dc-afe6-75838d589868"
+  }
 }

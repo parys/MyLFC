@@ -17,7 +17,7 @@ export class NavbarComponent {
     public toggle: EventEmitter<any> = new EventEmitter();
     public showAd = false;
 
-    @Select(AuthState.isLogined) isLogined$: Observable<boolean>;
+    @Select(AuthState.userId) userId$: Observable<number>;
 
     @HostListener('window:resize', ['$event'])
     public sizeChange(event: any) {

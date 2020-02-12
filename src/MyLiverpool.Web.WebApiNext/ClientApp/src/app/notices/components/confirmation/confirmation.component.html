@@ -1,0 +1,9 @@
+<h1 mat-dialog-title [innerHtml]="data.title"></h1>
+<mat-dialog-content>
+    <p [innerHtml]="data.message" *ngIf="data.message"></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="accent" type="button" [mat-dialog-close]="false">Нет</button>
+    <div class="spacer"></div>
+    <button mat-raised-button color="warn" type="button" [mat-dialog-close]="true">Да</button>
+</mat-dialog-actions>
