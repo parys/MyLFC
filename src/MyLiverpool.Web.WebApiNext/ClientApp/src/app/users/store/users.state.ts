@@ -1,5 +1,6 @@
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 
+import { tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 
@@ -8,7 +9,16 @@ import { NoticeMessage } from '@notices/shared';
 import { ShowNotice } from '@notices/store';
 
 import { UsersStateModel } from './users.model';
-import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions, GetUserById, ChangeUserRoleGroup } from './users.actions';
+import {
+    GetRoleGroups,
+    GetUsersList,
+    ChangeSort,
+    SetPmReceiverId,
+    ChangePage,
+    SetUsersFilterOptions,
+    GetUserById,
+    ChangeUserRoleGroup
+} from './users.actions';
 import { RoleGroupService } from '@role-groups/core';
 
 import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared';
@@ -25,6 +35,7 @@ import { UserService } from '@users/user.service';
         pmReceiver: null
     },
 })
+@Injectable()
 export class UsersState {
 
     @Selector()

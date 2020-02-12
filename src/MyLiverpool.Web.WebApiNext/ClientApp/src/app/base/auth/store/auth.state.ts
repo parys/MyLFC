@@ -1,3 +1,5 @@
+
+import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector, createSelector } from '@ngxs/store';
 
 import { AuthStateModel } from './auth-state.model';
@@ -12,6 +14,7 @@ import { RolesEnum } from '@auth/models';
         tokens: null
     },
 })
+@Injectable()
 export class AuthState {
 
     private static isInRole(state: AuthStateModel, role: string): boolean {

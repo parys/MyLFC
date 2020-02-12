@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 
 import { CoreStateModel } from '@core/store/core-state.model';
@@ -11,6 +13,7 @@ import { ChangeMobile, SetNotificationsCount, SetPmsCount } from '@core/store/co
         pmCount: 0
     },
 })
+@Injectable()
 export class CoreState {
 
     @Selector()
