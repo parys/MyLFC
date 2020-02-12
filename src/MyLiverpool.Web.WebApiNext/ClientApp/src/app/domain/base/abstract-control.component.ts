@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeDetectorRef, Input, forwardRef, Directive } from '@angular/core';
+import { ChangeDetectorRef, Input, forwardRef, Injectable } from '@angular/core';
 
 import { ObserverComponent } from '@domain/base/observer.component';
 
@@ -11,7 +11,7 @@ export function ControlValueProvider(type: any) {
     };
 }
 
-@Directive()
+@Injectable()
 export abstract class AbstractControlComponent<T = any> extends ObserverComponent implements ControlValueAccessor {
 
     @Input() disabled: boolean;
