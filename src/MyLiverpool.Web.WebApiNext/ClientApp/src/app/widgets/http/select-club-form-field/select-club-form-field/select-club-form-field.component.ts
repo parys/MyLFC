@@ -4,7 +4,7 @@ import { FormControl, ControlValueAccessor } from '@angular/forms';
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
-import { AbstractControlComponent, ControlValueProvider } from '@domain/base';
+import { AbstractControlComponent, ControlValueProvider } from '@domain/base/abstract-control.component';
 import { PagedList, Club, ClubFilters } from '@domain/models';
 import { DEBOUNCE_TIME } from '@constants/app.constants';
 import { ClubService } from '@clubs/club.service';

@@ -1,12 +1,15 @@
-﻿import { Component } from '@angular/core';
-import { Country } from '@domain/models';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { Country, HelperType } from '@domain/models';
 
 @Component({
     selector: 'wal-main',
     templateUrl: './wal-main.component.html',
-    styleUrls: ['./wal-main.component.scss']
+    styleUrls: ['./wal-main.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class WalMainComponent {
+    type = HelperType.WalMainInfo;
     public countries: Country[] = new Array();
 
     constructor() {

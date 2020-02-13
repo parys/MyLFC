@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { LazyLoadingModuleService } from './lazy-loading-module.service';
-import { AbstractControlComponent, ControlValueProvider } from '@domain/base';
+import { ControlValueProvider } from '@domain/base/abstract-control.component';
 
 // import { Editor, Settings } from "tinymce";
 

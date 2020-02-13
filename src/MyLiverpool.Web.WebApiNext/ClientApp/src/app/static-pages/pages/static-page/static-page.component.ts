@@ -25,10 +25,14 @@ export class StaticPageComponent extends ObserverComponent implements OnInit {
                 private route: ActivatedRoute,
                 private cd: ChangeDetectorRef) {
         super();
-        this.typeId = +route.snapshot.data.type;
     }
 
     public ngOnInit(): void {
+        console.warn(this.typeId);
+        this.typeId = this.typeId || this.route.snapshot.data.type || this.route.parent.snapshot.data.type;
+        if (!this.typeId) {
+            return;
+        }
         const sub$ = this.service.getValue(this.typeId)
             .subscribe((pageData: string) => {
                 if (pageData) {

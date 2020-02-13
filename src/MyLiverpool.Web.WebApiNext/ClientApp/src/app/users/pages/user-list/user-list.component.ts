@@ -28,7 +28,7 @@ export class UserListComponent extends TableComponent<GetUsersListQuery.UserList
     @Select(UsersState.request) request$: Observable<GetUsersListQuery.Request>;
     @Select(UsersState.pmReceiver) pmReceiver$: Observable<{ id: number, userName: string}>;
 
-    @ViewChild('scroller') scrollerElem: ElementRef;
+    @ViewChild('scroller', { static: false}) scrollerElem: ElementRef;
 
     constructor(private store: Store) {
                     super();

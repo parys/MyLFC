@@ -11,7 +11,6 @@ export function ControlValueProvider(type: any) {
     };
 }
 
-@Injectable()
 export abstract class AbstractControlComponent<T = any> extends ObserverComponent implements ControlValueAccessor {
 
     @Input() disabled: boolean;

@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, ViewChild, Directive, Injectable } from '@angular/core';
+import { AfterViewInit, ElementRef, ViewChild, Injectable } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,7 +17,7 @@ export declare type KeyType = string | number;
 @Injectable()
 export abstract class TableComponent<T> extends ObserverComponent implements AfterViewInit {
 
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatSort, { static: false}) sort: MatSort;
 
     public scrollerRef: ElementRef;
 

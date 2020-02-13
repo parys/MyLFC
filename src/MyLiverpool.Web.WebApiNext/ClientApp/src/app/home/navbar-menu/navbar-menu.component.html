@@ -11,7 +11,7 @@
             <a *ngIf="data.isNewsmaker" [routerLink]="['/news', 0, 'edit']" mat-menu-item>+</a>
             <a [routerLink]="['/newsCategories']" mat-menu-item>Категории новостей</a>
             <a [routerLink]="['/blogs']" mat-menu-item>Блоги</a>
-            <a *ngIf="data.isAuthor" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>+</a>
+            <a *ngIf="data.isAuthor || data.isNewsmaker" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>+</a>
             <a [routerLink]="['/blogCategories']" mat-menu-item>Категории блогов</a>
         </mat-menu>
     </div>

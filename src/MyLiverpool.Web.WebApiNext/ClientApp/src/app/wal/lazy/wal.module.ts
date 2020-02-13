@@ -1,8 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
-import { SharedModule } from '@shared/index';
 import { WAL_ROUTE, WAL_RU } from '@constants/index';
 
 import { WalMainComponent } from '@wal/lazy/wal-main';
@@ -12,10 +12,10 @@ import { WalMaterialModule } from './wal-material.module';
 
 @NgModule({
     imports: [
-        SharedModule, // todo does it need
+        CommonModule,
         RouterModule.forChild(walRoutes),
-        StaticPagesModule,
-        WalMaterialModule
+        WalMaterialModule,
+        StaticPagesModule
     ],
     declarations: [
         WalMainComponent
