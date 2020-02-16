@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -10,14 +9,16 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Stadium, StadiumFilters, PagedList } from '@domain/models';
 import { StadiumService } from '@stadiums/core';
-import { DeleteDialogComponent } from '@shared/index';
 import { PAGE, STADIUMS_ROUTE } from '@constants/index';
+import { ConfirmationMessage } from '@notices/shared';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
 
 @Component({
     selector: 'stadium-list',
     templateUrl: './stadium-list.component.html'
 })
-export class StadiumListComponent implements OnInit, OnDestroy {
+export class StadiumListComponent extends ObserverComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Stadium[];
@@ -31,7 +32,8 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     constructor(private service: StadiumService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -77,12 +79,15 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            });
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     public update(): Observable<PagedList<Stadium>> {

@@ -40,7 +40,7 @@ export class NoticesModule extends EnsureModuleLoadedOnceGuard {
                 NotifierService,
                 {
                     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-                    useValue: { duration: 2500, verticalPosition: 'bottom', horizontalPosition: 'center', panelClass: [ 'system-notification-container' ]  }
+                    useValue: { duration: 5000, verticalPosition: 'bottom', horizontalPosition: 'center', panelClass: [ 'system-notification-container' ]  }
                 }
             ]
         };

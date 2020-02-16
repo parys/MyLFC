@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -10,26 +9,31 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 
 import { ClubService } from '@clubs/club.service';
 import { PagedList, Club, ClubFilters } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
-import { CLUBS_ROUTE, DEBOUNCE_TIME, KEYUP, PAGE } from '@constants/index';
+import { CLUBS_ROUTE } from '@constants/routes.constants';
+import { KEYUP, PAGE } from '@constants/help.constants';
+import { DEBOUNCE_TIME } from '@constants/app.constants';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 @Component({
     selector: 'club-list',
     templateUrl: './club-list.component.html',
     styleUrls: ['./club-list.component.scss']
 })
-export class ClubListComponent implements OnInit {
+export class ClubListComponent extends ObserverComponent implements OnInit {
     public items: Club[];
     displayedColumns = ['logo', 'name', 'englishName', 'stadiumName', 'tool'];
 
-    @ViewChild(MatSort, { static: true })sort: MatSort;
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
-    @ViewChild('nameInput', { static: true })nameInput: ElementRef;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild('nameInput', { static: true }) nameInput: ElementRef;
 
     constructor(private clubService: ClubService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+        super();
     }
 
     public ngOnInit(): void {
@@ -38,14 +42,14 @@ export class ClubListComponent implements OnInit {
         }
 
         merge(this.sort.sortChange,
-                fromEvent(this.nameInput.nativeElement, KEYUP)
+            fromEvent(this.nameInput.nativeElement, KEYUP)
                 .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
 
         merge(this.sort.sortChange,
-                this.paginator.page,
+            this.paginator.page,
             fromEvent(this.nameInput.nativeElement, KEYUP)
                 .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
@@ -65,18 +69,20 @@ export class ClubListComponent implements OnInit {
                     return of([]);
                 })
             ).subscribe((data: Club[]) => {
-                    this.items = data;
-                    this.updateUrl();
-                });
+                this.items = data;
+                this.updateUrl();
+            });
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            });
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить клуб?'
+        })).subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     public update(): Observable<PagedList<Club>> {
@@ -98,10 +104,10 @@ export class ClubListComponent implements OnInit {
     private delete(index: number): void {
         this.clubService.delete(this.items[index].id)
             .subscribe((result: boolean) => {
-                    if (result) {
-                        this.items.splice(index, 1);
-                        this.paginator.length -= 1;
-                    }
-                });
+                if (result) {
+                    this.items.splice(index, 1);
+                    this.paginator.length -= 1;
+                }
+            });
     }
 }

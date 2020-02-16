@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelect } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
@@ -11,16 +10,18 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 
 import { PersonService } from '@persons/person.service';
 import { Person, PersonType, PersonFilters, PagedList } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
 import { PERSONS_ROUTE } from '@constants/routes.constants';
 import { DEBOUNCE_TIME } from '@constants/app.constants';
 import { KEYUP, PAGE } from '@constants/help.constants';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 @Component({
     selector: 'person-list',
     templateUrl: './person-list.component.html'
 })
-export class PersonListComponent implements OnInit {
+export class PersonListComponent extends ObserverComponent implements OnInit {
     public items: Person[];
     public personTypes: PersonType[];
     displayedColumns = ['lastRussianName', 'firstRussianName', 'birthday', 'position', 'country'];
@@ -33,7 +34,8 @@ export class PersonListComponent implements OnInit {
     constructor(private personService: PersonService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -74,12 +76,15 @@ export class PersonListComponent implements OnInit {
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(index);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     public update(): Observable<PagedList<Person>> {

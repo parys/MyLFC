@@ -38,10 +38,10 @@
             <div class="ad-container">
                 <div class="ad-close" (click)="onAdClose($event)">×</div>
                 <div *ngIf="data.mobile;else desktop">
-                    <ad [blockName]="'R-A-255349-5'"></ad>
+                    <od [blockName]="'R-A-255349-5'"></od>
                 </div>
                 <ng-template #desktop>
-                    <ad [blockName]="'R-A-255349-3'"></ad>
+                    <od [blockName]="'R-A-255349-3'"></od>
                 </ng-template>
                 Реклама позволяет нам становиться лучше.
             </div>

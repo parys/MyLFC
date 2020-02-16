@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { MaterialType } from '@domain/models';
-import { CustomTitleMetaService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 
 import { MaterialCategoryService } from '@material-categories/core';
 

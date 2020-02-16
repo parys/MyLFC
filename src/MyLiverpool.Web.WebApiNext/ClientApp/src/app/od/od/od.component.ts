@@ -8,12 +8,12 @@ declare function addAd(name: string): any;
 declare function loadYa(): any;
 
 @Component({
-    selector: 'ad',
-    templateUrl: 'ad.component.html',
-    styleUrls: ['ad.component.scss'],
+    selector: 'od',
+    templateUrl: 'od.component.html',
+    styleUrls: ['od.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdComponent implements AfterContentInit {
+export class OdComponent implements AfterContentInit {
     public name: string = null;
     private sub$: Subscription;
     @Input()

@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Comment, CommentVote } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
 import { CommentService } from '@comments/comment.service';
 import { EditorComponent } from '@editor/index';
 import { ObserverComponent } from '@domain/base';
@@ -11,6 +9,8 @@ import { SignalRService } from '@base/signalr';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 @Component({
     selector: 'comment-detail',
@@ -42,7 +42,7 @@ export class CommentDetailComponent extends ObserverComponent implements OnInit 
     public isAddingMode = false;
 
     constructor(private materialCommentService: CommentService,
-                private dialog: MatDialog,
+                private notifier: NotifierService,
                 private cd: ChangeDetectorRef,
                 private formBuilder: FormBuilder,
                 private signalRService: SignalRService) {
@@ -95,8 +95,9 @@ export class CommentDetailComponent extends ObserverComponent implements OnInit 
     }
 
     public showDeleteModal(): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        const sub$ = dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить комментарий?'
+        })).subscribe(result => {
             if (result) {
                 this.delete();
             }

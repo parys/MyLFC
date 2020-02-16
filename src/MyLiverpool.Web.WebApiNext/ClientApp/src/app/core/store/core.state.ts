@@ -15,7 +15,7 @@ import {
 } from '@core/store/core.actions';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomTitleMetaService } from '@shared/titleService';
+import { CustomTitleMetaService } from '@core/services';
 import { Router } from '@angular/router';
 import { MobileLayoutService } from '@layout/modules/mobile-layout/mobile-layout.service';
 

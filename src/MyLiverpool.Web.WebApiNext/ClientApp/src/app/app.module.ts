@@ -1,15 +1,13 @@
 import { NgModule, LOCALE_ID, APP_INITIALIZER, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 
 import { NgxsModule } from '@ngxs/store';
 
 import { AppComponent } from './app.component';
-import * as home from './home';
 import { MaterialCoreModule } from '@materials/core';
-import { SharedModule, CustomTitleMetaService } from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { PipesModule } from './base/pipes';
@@ -23,6 +21,8 @@ import { getAccessToken } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { NoticesModule } from '@notices/notices.module';
 import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
+import { OdModule } from './od';
+import { NavbarMenuModule } from './home/navbar-menu.module';
 
 registerLocaleData(localeRU);
 
@@ -46,8 +46,8 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
 
 @NgModule({
     imports: [
+        CommonModule,
         BrowserModule.withServerTransition({ appId: 'mylfc' }),
-        SharedModule,
         CoreModule.forRoot(),
         NgxsModule.forRoot([]),
         HttpClientModule,
@@ -62,17 +62,16 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
         BreadcrumbModule.forRoot(),
         NoticesModule.forRoot(),
         DynamicContentOutletModule,
-        MobileLayoutModule
+        MobileLayoutModule,
+        OdModule,
+        NavbarMenuModule
     ],
     declarations: [
-        home.NavbarComponent,
-        home.NavbarMenuComponent,
         AppComponent,
     ],
     exports: [
     ],
     providers: [
-        CustomTitleMetaService,
         { provide: LOCALE_ID, useValue: 'ru-RU' },
         { provide: APP_INITIALIZER, useFactory: runAppInitializerFactories, deps: [Injector], multi: true },
 

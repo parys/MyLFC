@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { ChangeMobile, CoreState } from '@core/store';
 
-import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ObserverComponent } from '@domain/base';
 
@@ -32,7 +32,7 @@ export class AppComponent extends ObserverComponent implements OnInit {
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
-                private titleService: CustomTitleService,
+                private titleService: CustomTitleMetaService,
                 private store: Store,
                 private breakpointObserver: BreakpointObserver
     ) {

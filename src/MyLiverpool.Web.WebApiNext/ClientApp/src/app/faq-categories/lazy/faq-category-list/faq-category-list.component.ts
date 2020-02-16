@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { DeleteDialogComponent } from '@shared/index';
 
 import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 import { FaqCategory } from '@domain/models';
 import { Observable } from 'rxjs';
 import { AuthState } from '@auth/store';
 import { Select } from '@ngxs/store';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { Select } from '@ngxs/store';
     styleUrls: ['./faq-category-list.component.scss']
 })
 
-export class FaqCategoryListComponent implements OnInit {
+export class FaqCategoryListComponent extends ObserverComponent implements OnInit {
     public items: FaqCategory[];
 
     @Select(AuthState.isSiteMember) isSiteMember$: Observable<boolean>;
@@ -25,8 +25,9 @@ export class FaqCategoryListComponent implements OnInit {
     @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
     constructor(private faqService: FaqCategoryService,
-                private dialog: MatDialog,
+                private notifier: NotifierService,
                 private snackBar: MatSnackBar) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -46,12 +47,15 @@ export class FaqCategoryListComponent implements OnInit {
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить категорию ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(index);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     private delete(index: number): void {

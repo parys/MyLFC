@@ -102,6 +102,9 @@
       "@pms/*": [
         "./src/app/pms/*"
       ],
+      "@od/*": [
+        "./src/app/od/*"
+      ],
       "@polls/*": [
         "./src/app/polls/*"
       ],
@@ -110,9 +113,6 @@
       ],
       "@seasons/*": [
         "./src/app/seasons/*"
-      ],
-      "@shared/*": [
-        "./src/app/shared/*"
       ],
       "@stadiums/*": [
         "./src/app/stadiums/*"

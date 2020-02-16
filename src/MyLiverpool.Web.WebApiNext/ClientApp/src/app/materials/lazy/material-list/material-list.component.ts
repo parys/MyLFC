@@ -7,7 +7,7 @@ import { Subscription, Observable } from 'rxjs';
 import { Select } from '@ngxs/store';
 
 import { Material, MaterialFilters, MaterialType, PagedList } from '@domain/models';
-import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 import { TITLE_RU, NEWSS_RU, BLOGS_RU } from '@constants/ru.constants';
 
 import { MaterialService } from '@materials/core/material.service';
@@ -49,7 +49,7 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
                 private location: Location,
                 private cd: ChangeDetectorRef,
                 private snackBar: MatSnackBar,
-                private titleService: CustomTitleService,
+                private titleService: CustomTitleMetaService,
                 private notifierService: NotifierService) {
                     super();
                     this.navigationSubscription = this.router.events.subscribe((e: any) => {

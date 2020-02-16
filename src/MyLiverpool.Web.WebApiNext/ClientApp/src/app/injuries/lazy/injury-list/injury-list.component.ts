@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef  } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
@@ -10,17 +9,19 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 
 import { Injury, InjuryFilters, PagedList } from '@domain/models';
 import { InjuryService } from '@injuries/injury.service';
-import { DeleteDialogComponent } from '@shared/index';
 import { DEBOUNCE_TIME } from '@constants/app.constants';
 import { PAGE, KEYUP } from '@constants/help.constants';
 import { INJURIES_ROUTE } from '@constants/routes.constants';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'injury-list',
     templateUrl: './injury-list.component.html'
 })
 
-export class InjuryListComponent implements OnInit, OnDestroy {
+export class InjuryListComponent extends ObserverComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Injury[];
     displayedColumns = ['personName', 'startTime', 'endTime', 'description', 'tool'];
@@ -32,7 +33,8 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     constructor(private injuryService: InjuryService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -76,12 +78,15 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(injury: Injury): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(injury.id);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     public update(): Observable<PagedList<Injury>> {

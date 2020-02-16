@@ -1,7 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/index';
 import { PipesModule } from '@base/pipes';
 import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
 
@@ -11,7 +11,7 @@ import { MaterialItemComponent } from '@materials/core/material-item';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule,
         MobileLayoutModule,
         PipesModule

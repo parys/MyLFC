@@ -3,7 +3,6 @@
 //import { MatchEventModule } from "@app/matchEvent";
 //import { MatchPersonModule } from "@app/matchPerson";
 //import { CommentSharedModule } from "@app/comment";
-//import { SharedModule } from "@app/shared";
 //import { MatchCoreModule } from "../../core";
 //import { ClubCoreModule } from "@app/club";
 //import { StadiumCoreModule } from "@app/stadium";
@@ -18,7 +17,6 @@
 //@NgModule({
 //    imports: [
 //        CommentSharedModule,
-//        SharedModule,
 //        MatchEventModule,
 //        RouterModule.forChild(),
 //        MatchPersonModule,

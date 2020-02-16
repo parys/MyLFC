@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { DeleteDialogComponent } from '@shared/index';
 import { FaqCategory, FaqItem } from '@domain/models';
 
 import { FaqService } from '@faq/faq.service';
@@ -10,6 +8,9 @@ import { FaqCategoryService } from '@faq-categories/lazy/faq-category.service';
 import { AuthState } from '@auth/store';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { ObserverComponent } from '@domain/base';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./faq.component.scss']
 })
 
-export class FaqComponent implements OnInit {
+export class FaqComponent extends ObserverComponent implements OnInit {
     public items: FaqCategory[];
 
     @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
@@ -28,8 +29,9 @@ export class FaqComponent implements OnInit {
 
     constructor(private service: FaqService,
                 private categoryService: FaqCategoryService,
-                private dialog: MatDialog,
+                private notifier: NotifierService,
                 private snackBar: MatSnackBar) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -54,12 +56,15 @@ export class FaqComponent implements OnInit {
     }
 
     public showDeleteCategoryModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.deleteCategory(index);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     private deleteCategory(index: number): void {

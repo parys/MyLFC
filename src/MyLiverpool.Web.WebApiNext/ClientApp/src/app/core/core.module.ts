@@ -5,17 +5,17 @@ import { NgxsModule } from '@ngxs/store';
 
 import { CoreState } from '@core/store';
 import { EnsureModuleLoadedOnceGuard } from '@domain/base/ensure-module-loaded-once.guard';
-import { SharedModule } from '@shared/shared.module';
 import { MobileLayoutService } from '@layout/modules/mobile-layout/mobile-layout.service';
+import { CustomTitleMetaService } from './services';
 
 @NgModule({
     providers: [
-        MobileLayoutService
+        MobileLayoutService,
+        CustomTitleMetaService
     ],
     declarations: [],
     imports: [
         CommonModule,
-        SharedModule,
         NgxsModule.forFeature([CoreState])
     ]
 })

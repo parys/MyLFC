@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
 import { MaterialCategoryService } from '@material-categories/core';
-import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 import { AuthState } from '@auth/store';
 
 @Component({
@@ -21,7 +21,7 @@ export class MaterialCategoryListComponent implements OnInit {
 
     constructor(private service: MaterialCategoryService,
                 private router: Router,
-                private titleService: CustomTitleService) {
+                private titleService: CustomTitleMetaService) {
     }
 
     public ngOnInit(): void {

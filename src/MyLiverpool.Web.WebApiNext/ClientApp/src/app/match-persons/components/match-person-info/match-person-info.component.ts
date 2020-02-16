@@ -1,8 +1,6 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { DeleteDialogComponent } from '@shared/index';
 import { MatchPerson } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
@@ -10,6 +8,8 @@ import { ObserverComponent } from '@domain/base';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
 
 @Component({
     selector: 'match-person-info',
@@ -27,7 +27,7 @@ export class MatchPersonInfoComponent extends ObserverComponent {
 
     constructor(private matchPersonService: MatchPersonService,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
         super();
     }
     public onSelectPerson(person: MatchPerson): void {
@@ -35,8 +35,10 @@ export class MatchPersonInfoComponent extends ObserverComponent {
     }
 
     public showDeleteModal(person: MatchPerson): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        const sub$ = dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(person);
             }

@@ -1,7 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { IMAGES_ROUTE } from '@constants/index';
 
@@ -9,10 +8,11 @@ import { ImageCoreModule } from '@images/core';
 import { ImageDetailComponent } from '@images/lazy/image-detail';
 import { ImageListComponent } from '@images/lazy/image-list';
 import { imageRoutes } from '@images/lazy/image.routes';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(imageRoutes),
         ImageCoreModule
     ],

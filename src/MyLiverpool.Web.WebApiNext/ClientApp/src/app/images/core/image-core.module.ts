@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
-import { ImageCropperModule } from 'ngx-image-cropper';
-
-import { SharedModule } from '@shared/index';
-import { ImageService } from './image.service';
-import { ImageAdditionComponent } from './image-addition';
-import { ImageCropAdditionComponent } from './image-crop-addition';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
+import { ImageService } from './image.service';
+import { ImageAdditionComponent } from './image-addition';
+import { ImageCropAdditionComponent } from './image-crop-addition';
+
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         ImageCropperModule,
         MatInputModule,
         MatButtonModule

@@ -1,7 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/index';
 import { roleGroupRoutes } from '@role-groups/lazy/roleGroup.routes';
 import { RoleGroupListComponent } from '@role-groups/lazy/roleGroup-list';
 import { RoleGroupCoreModule } from '@role-groups/core/roleGroup-core.module';
@@ -10,7 +10,7 @@ import { ROLE_GROUPS_ROUTE } from '@constants/routes.constants';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(roleGroupRoutes),
         RoleGroupCoreModule
     ],

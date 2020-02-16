@@ -1,21 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { DeleteDialogComponent } from '@shared/index';
 import { MatchEvent } from '@domain/models';
 
 import { MatchEventService } from '@match-events/matchEvent.service';
 import { Observable } from 'rxjs';
 import { AuthState } from '@auth/store';
 import { Select } from '@ngxs/store';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'match-event-match-panel',
     templateUrl: './matchEvent-match-panel.component.html',
     styleUrls: ['./matchEvent-match-panel.component.scss']
 })
-export class MatchEventMatchPanelComponent implements OnInit {
+export class MatchEventMatchPanelComponent extends ObserverComponent implements OnInit {
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     @Input() public seasonId: number;
@@ -28,7 +29,8 @@ export class MatchEventMatchPanelComponent implements OnInit {
 
     constructor(private matchEventService: MatchEventService,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -63,12 +65,15 @@ export class MatchEventMatchPanelComponent implements OnInit {
 
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(index);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
 

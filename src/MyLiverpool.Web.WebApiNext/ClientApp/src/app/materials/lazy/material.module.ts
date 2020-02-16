@@ -1,9 +1,9 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { SharedModule } from '@shared/index';
 import { CommentSharedModule } from '@comments/shared';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from '@constants/index';
@@ -16,7 +16,7 @@ import { MaterialDetailComponent } from '@materials/lazy/material-detail';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(materialRoutes),
         CommentSharedModule,
         MaterialCoreModule,

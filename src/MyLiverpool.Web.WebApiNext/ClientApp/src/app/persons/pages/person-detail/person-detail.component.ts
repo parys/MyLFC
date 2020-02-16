@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CustomTitleMetaService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 import { PersonService } from '@persons/person.service';
 import { Person } from '@domain/models';
 

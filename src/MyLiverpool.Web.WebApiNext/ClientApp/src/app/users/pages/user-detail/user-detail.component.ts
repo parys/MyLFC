@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '@base/auth';
 import { User, RoleGroup} from '@domain/models';
-import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 
 import { UserService } from '@users/user.service';
 import { ObserverComponent } from '@domain/base';
@@ -43,7 +43,7 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
         public dialog: MatDialog,
         private store: Store,
         private formBuilder: FormBuilder,
-        private titleService: CustomTitleService,
+        private titleService: CustomTitleMetaService,
         private cd: ChangeDetectorRef,
         private authService: AuthService) {
         super();

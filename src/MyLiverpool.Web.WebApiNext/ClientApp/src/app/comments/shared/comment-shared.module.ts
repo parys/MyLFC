@@ -11,19 +11,19 @@ import { PipesModule } from '@base/pipes';
 import { CommentService } from '@comments/comment.service';
 import { CommentDetailComponent } from '@comments/shared/comment-detail';
 import { CommentSectionComponent } from '@comments/shared/comment-section';
-import { SharedModule } from '@shared/index';
+import { OdModule } from '@od/od.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule, // the ad component
         EditorModule,
         RouterModule,
         PipesModule,
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        OdModule
     ],
     declarations: [
         CommentDetailComponent,

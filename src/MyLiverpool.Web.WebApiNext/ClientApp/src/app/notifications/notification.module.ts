@@ -2,7 +2,6 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { NOTIFICATIONS_ROUTE } from '@constants/routes.constants';
 
@@ -16,7 +15,6 @@ import { NotificationMaterialModule } from './notification-material.module';
     imports: [
         CommonModule,
         RouterModule.forChild(notificationRoutes),
-        SharedModule,
         PipesModule,
         NotificationMaterialModule,
     ],

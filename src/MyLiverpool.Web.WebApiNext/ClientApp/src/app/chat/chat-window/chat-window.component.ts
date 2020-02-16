@@ -1,19 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ChatMessage, ChatFilters, PagedList } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
 import { SignalRService } from '@base/signalr';
 import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from '@constants/index';
 
 import { ChatMessageService } from '@chat/chat-message.service';
 import { EditorComponent } from '@editor/index';
 import { Select } from '@ngxs/store';
-import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
-import { RolesEnum } from '@auth/models';
+
+import { AuthState } from '@auth/store';
+import { NotifierService } from '@notices/services';
+import { ConfirmationMessage } from '@notices/shared';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'chat-window',
@@ -21,12 +22,12 @@ import { RolesEnum } from '@auth/models';
     styleUrls: ['./chat-window.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatWindowComponent implements OnInit {
+export class ChatWindowComponent extends ObserverComponent implements OnInit {
     public messageForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
 
-    @ViewChild('chatInput', { static: false })private elementRef: EditorComponent;
+    @ViewChild('chatInput', { static: false }) private elementRef: EditorComponent;
     @Input() public type: number;
     @Input() public height = 200;
 
@@ -40,8 +41,9 @@ export class ChatWindowComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private cd: ChangeDetectorRef,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog,
+                private notifier: NotifierService,
                 private signalRService: SignalRService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -62,8 +64,8 @@ export class ChatWindowComponent implements OnInit {
         this.service
             .getAll(chatFilters)
             .subscribe((data: PagedList<ChatMessage>) => {
-                    this.items = data.results.concat(this.items);
-                },
+                this.items = data.results.concat(this.items);
+            },
                 null,
                 () => this.cd.markForCheck());
     }
@@ -79,17 +81,19 @@ export class ChatWindowComponent implements OnInit {
         }
 
         this.service.createOrUpdate(message.id, message).subscribe(data => {
-                this.cancelEdit();
-            });
+            this.cancelEdit();
+        });
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            });
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        })).subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     public addReply(index: number): void {
@@ -119,11 +123,11 @@ export class ChatWindowComponent implements OnInit {
 
     private delete(index: number): void {
         this.service.delete(this.items[index].id).subscribe(data => {
-                if (data) {
-                    this.items.slice(index, 1);
-                    this.snackBar.open('Коммент удален');
-                }
-            },
+            if (data) {
+                this.items.slice(index, 1);
+                this.snackBar.open('Коммент удален');
+            }
+        },
             () => {
                 this.snackBar.open('Коммент НЕ удален');
             },
@@ -151,7 +155,7 @@ export class ChatWindowComponent implements OnInit {
         this.messageForm = this.formBuilder.group({
             message: [message,
                 Validators.compose([Validators.required,
-                    Validators.maxLength(MAX_CHAT_MESSAGE_LENGTH)])], // todo add visual warning
+                Validators.maxLength(MAX_CHAT_MESSAGE_LENGTH)])], // todo add visual warning
             typeId: [this.type, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {

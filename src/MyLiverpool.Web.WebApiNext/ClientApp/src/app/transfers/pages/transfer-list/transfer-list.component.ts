@@ -4,22 +4,23 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Subscription, merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { TransferService } from '@transfers/transfer.service';
 import { Transfer, TransferFilters, PagedList } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
 import { TRANSFERS_ROUTE } from '@constants/routes.constants';
 import { PAGE } from '@constants/help.constants';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'transfer-list',
     templateUrl: './transfer-list.component.html'
 })
-export class TransferListComponent implements OnInit, OnDestroy {
+export class TransferListComponent extends ObserverComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Transfer[];
     displayedColumns = ['personName', 'clubName', 'startDate', 'onLoan', 'amount'];
@@ -31,7 +32,8 @@ export class TransferListComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute,
                 private location: Location,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -85,12 +87,15 @@ export class TransferListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(id: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(id);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     private delete(id: number): void {

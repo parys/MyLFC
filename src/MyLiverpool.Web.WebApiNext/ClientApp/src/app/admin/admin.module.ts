@@ -1,7 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@shared/index';
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { ADMIN_ROUTE } from '@constants/index';
 
@@ -10,7 +10,7 @@ import { adminRoutes } from '@admin/admin.routes';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(adminRoutes)
     ],
     declarations: [

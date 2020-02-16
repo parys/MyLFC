@@ -1,25 +1,26 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 
 import { Subscription, merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Match, MatchFilters, PagedList } from '@domain/models';
-import { DeleteDialogComponent } from '@shared/index';
 import {  MATCHES_ROUTE } from '@constants/routes.constants';
 
 import { MatchService } from '@matches/match.service';
 import { PAGE } from '@constants/help.constants';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
+import { ObserverComponent } from '@domain/base';
 
 @Component({
     selector: 'match-list',
     templateUrl: './match-list.component.html',
     styleUrls: ['./match-list.component.scss']
 })
-export class MatchListComponent implements OnInit, OnDestroy {
+export class MatchListComponent extends ObserverComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Match[];
@@ -29,7 +30,8 @@ export class MatchListComponent implements OnInit, OnDestroy {
     constructor(private matchService: MatchService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+                    super();
     }
 
     public ngOnInit(): void {
@@ -85,12 +87,15 @@ export class MatchListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            });
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        });
+        this.subscriptions.push(sub$);
     }
 
     private delete(index: number): void {

@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription, Observable } from 'rxjs';
 
-import { CustomTitleMetaService as CustomTitleService } from '@shared/index';
+import { CustomTitleMetaService as CustomTitleService } from '@core/services';
 import { NEWS_RU, BLOG_RU } from '@constants/ru.constants';
 import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';

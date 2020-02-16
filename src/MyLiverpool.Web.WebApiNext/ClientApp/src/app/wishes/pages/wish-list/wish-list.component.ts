@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 
 import { merge, of, Observable } from 'rxjs';
@@ -9,29 +8,33 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Wish, WishFilter, PagedList } from '@domain/models';
 import { WishService } from '@wishes/wish.service';
-import { DeleteDialogComponent } from '@shared/index';
 import { WISHES_ROUTE } from '@constants/routes.constants';
 import { PAGE } from '@constants/help.constants';
 import { AuthState } from '@auth/store';
 import { Select } from '@ngxs/store';
+import { ObserverComponent } from '@domain/base';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
 
 @Component({
     selector: 'wish-list',
     templateUrl: './wish-list.component.html',
     styleUrls: ['./wish-list.component.scss']
 })
-export class WishListComponent implements OnInit {
+export class WishListComponent extends ObserverComponent implements OnInit {
     public items: Wish[];
     public stateId: number;
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
 
     constructor(private service: WishService,
                 private location: Location,
                 private route: ActivatedRoute,
-                private dialog: MatDialog) {
+                private notifier: NotifierService) {
+        super();
     }
+
 
     public ngOnInit(): void {
         this.route.queryParams.subscribe(qParams => {
@@ -58,9 +61,9 @@ export class WishListComponent implements OnInit {
                     return of([]);
                 })
             ).subscribe((data: Wish[]) => {
-                    this.items = data;
-                    this.updateUrl();
-                });
+                this.items = data;
+                this.updateUrl();
+            });
     }
 
     public updateUrl(): void {
@@ -93,12 +96,15 @@ export class WishListComponent implements OnInit {
     }
 
     public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const sub$ = this.notifier.confirm(new ConfirmationMessage({
+            title: 'Удалить ?'
+        }))
+        .subscribe(result => {
             if (result) {
                 this.delete(index);
             }
         });
+        this.subscriptions.push(sub$);
     }
 
     private delete(index: number): void {

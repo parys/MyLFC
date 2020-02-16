@@ -6,7 +6,7 @@ import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Match, MatchEvent, MatchEventType } from '@domain/models';
-import { CustomTitleMetaService } from '@shared/index';
+import { CustomTitleMetaService } from '@core/services';
 
 import { MatchService } from '@matches/match.service';
 import { SignalRService } from '@base/signalr';

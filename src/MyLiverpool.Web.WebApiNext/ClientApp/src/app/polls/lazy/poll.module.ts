@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
-import { SharedModule } from '@shared/index';
 import { POLLS_ROUTE } from '@constants/routes.constants';
 
 import { pollRoutes } from '@polls/lazy/poll.routes';
@@ -13,7 +13,7 @@ import { PollDetailComponent } from '@polls/lazy/poll-detail';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         RouterModule.forChild(pollRoutes),
         PollCoreModule,
         MatInputModule

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { SharedModule } from '@shared/index';
 import { commentRoutes } from '@comments/lazy/comment.routes';
 import { CommentListComponent } from '@comments/lazy/comment-list';
 import { EditorModule } from '@editor/index';
@@ -11,10 +10,11 @@ import { BreadcrumbService } from '@base/breadcrumbs';
 import { COMMENTS_ROUTE, COMMENTS_RU } from '@constants/index';
 import { CommentService } from '@comments/comment.service';
 import { PaginationModule } from '@base/pagination/pagination.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         EditorModule,
         RouterModule.forChild(commentRoutes),
         CommentSharedModule,
