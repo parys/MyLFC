@@ -9,6 +9,7 @@ import { AccountSigninWidgetModule } from '@widgets/http/account-signin-widget';
 import { SidebarRightComponent } from './sidebar-right.component';
 
 import { RightSidebarMaterialModule } from './sidebar-right-material.module';
+import { MobileLayoutModule } from '../mobile-layout/mobile-layout.module';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { RightSidebarMaterialModule } from './sidebar-right-material.module';
         RightSidebarMaterialModule,
         LayoutModule,
         ChatModule,
-        AccountSigninWidgetModule
+        AccountSigninWidgetModule,
+        MobileLayoutModule,
     ],
     declarations: [
         SidebarRightComponent

@@ -1,0 +1,5 @@
+﻿<ng-container *ngIf="{ pmsCount: pmsCount$ | async } as data">
+    <a [routerLink]="['/pms']" class="text-white">
+        <mat-icon [matBadge]="data.pmsCount" matBadgeColor="warn" [matBadgeHidden]="data.pmsCount < 1">mail</mat-icon>
+    </a>
+</ng-container>

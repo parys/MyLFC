@@ -57,9 +57,22 @@
     }
 }
 
+.profile-btns {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    min-height: 0;    
+    min-width: 102px;
+
+    a {
+        color: white;
+
+    }
+}
+
 @media(min-width:768px) {
-    .person-btn {
-        display: none;
+    .profile-btns {
+               display: none;
     }
 }
 
@@ -74,12 +87,12 @@ nav {
 }
 
 @media(max-width:767px) {
-    nav {        
+    nav {
         justify-content: space-between;
     }
 }
 
-.ad {
+.od {
     height: 90px;
     width: calc(100% - 310px - 588px);
 }

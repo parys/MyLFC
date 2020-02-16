@@ -6,12 +6,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {
     MatchCalendarComponent,
     MatchCalendarEntryComponent,
-    NotificationCounterComponent,
     PersonBirthdayComponent,
     BestPlayerComponent,
     UserBirthdayComponent,
     UserOnlineCounterComponent,
-    PmCounterComponent,
     CommentLastComponent,
     InjuryCurrentListComponent,
     CupTableComponent,
@@ -22,14 +20,12 @@ import { PipesModule } from '@base/pipes';
 import { LayoutMaterialModule } from './layout-material.module';
 
 const layoutComponents = [
-    NotificationCounterComponent,
     MatchCalendarEntryComponent,
     MatchCalendarComponent,
     BestPlayerComponent,
     PersonBirthdayComponent,
     UserBirthdayComponent,
     UserOnlineCounterComponent,
-    PmCounterComponent,
     CommentLastComponent,
     InjuryCurrentListComponent,
     CupTableComponent,

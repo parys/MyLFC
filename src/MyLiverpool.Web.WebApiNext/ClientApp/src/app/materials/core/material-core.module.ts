@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/index';
 import { PipesModule } from '@base/pipes';
-import { MatchHeaderModule } from '@layout/modules/match-header/match-header.module';
+import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
 
 import { MaterialService } from '@materials/core/material.service';
 import { MaterialHomeComponent } from '@materials/core/material-home';
@@ -13,7 +13,7 @@ import { MaterialItemComponent } from '@materials/core/material-item';
     imports: [
         SharedModule,
         RouterModule,
-        MatchHeaderModule,
+        MobileLayoutModule,
         PipesModule
     ],
     declarations: [

@@ -26,7 +26,7 @@ mat-icon {
 
 :host {
     @media (min-width: 768px) {
-        .chat, .pms {
+        .chat {
             display: none;
         }        
     }

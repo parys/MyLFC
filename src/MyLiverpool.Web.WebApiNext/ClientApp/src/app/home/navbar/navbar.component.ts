@@ -5,6 +5,7 @@ import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { AuthState } from '@auth/store';
+import { CoreState } from '@core/store';
 
 @Component({
     selector: 'navbar',
@@ -15,16 +16,18 @@ import { AuthState } from '@auth/store';
 export class NavbarComponent {
     @Output()
     public toggle: EventEmitter<any> = new EventEmitter();
-    public showAd = false;
+    public showOd = false;
 
     @Select(AuthState.userId) userId$: Observable<number>;
+
+    @Select(CoreState.mobile) mobile$: Observable<boolean>;
 
     @HostListener('window:resize', ['$event'])
     public sizeChange(event: any) {
         if (isPlatformBrowser(this.platformId)) {
-            const showAd = window.innerWidth > 1673;
-            if (showAd !== this.showAd) {
-                this.showAd = showAd;
+            const showOd = window.innerWidth > 1673;
+            if (showOd !== this.showOd) {
+                this.showOd = showOd;
             }
         }
     }

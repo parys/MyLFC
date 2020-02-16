@@ -22,6 +22,7 @@ import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outl
 import { getAccessToken } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { NoticesModule } from '@notices/notices.module';
+import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
 
 registerLocaleData(localeRU);
 
@@ -60,7 +61,8 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
         LoaderModule.forRoot(),
         BreadcrumbModule.forRoot(),
         NoticesModule.forRoot(),
-        DynamicContentOutletModule
+        DynamicContentOutletModule,
+        MobileLayoutModule
     ],
     declarations: [
         home.NavbarComponent,

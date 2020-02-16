@@ -1,0 +1,5 @@
+﻿<ng-container *ngIf="{ notificationsCount: notificationsCount$ | async } as data">
+    <a [routerLink]="['/notifications']" class="text-white flex-v-c">
+        <mat-icon [matBadge]="data.notificationsCount" matBadgeColor="warn" [matBadgeHidden]="data.notificationsCount < 1">notifications_active</mat-icon>
+    </a>
+</ng-container>

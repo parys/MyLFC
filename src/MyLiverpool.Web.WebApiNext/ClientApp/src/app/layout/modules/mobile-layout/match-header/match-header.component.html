@@ -1,0 +1,34 @@
+﻿<ng-container *ngIf="{ match: headerMatch$ | async } as data">
+    <div class="full-width flex" *ngIf="data.match">
+        <div class="full-width text-center bottom10">
+            {{data.match.dateTime | customDate:false:true }}, {{data.match.typeName}}, {{data.match.stadiumName}}
+        </div>
+        <div class="flex-space-between full-width">
+            <div class="">
+                <div class="full-width text-center">
+                    <img [src]="data.match.homeClubLogo" [alt]="data.match.homeClubName" [title]="data.match.homeClubName" />
+                </div>
+                <div class="club-name full-width text-center">
+                    <b [textContent]="data.match.homeClubName"></b>
+                </div>
+            </div>
+            <div class="score-text">
+                <b [textContent]="data.match.scoreHome"></b>
+                <span class="padding0">:</span>
+                <b [textContent]="data.match.scoreAway"></b>
+                <b
+                    *ngIf="data.match.scorePenaltyHome || data.match.scorePenaltyAway">({{data.match.scorePenaltyHome}}-{{data.match.scorePenaltyAway}})</b>
+            </div>
+            <div class="">
+                <div class="full-width text-center">
+                    <img [src]="data.match.awayClubLogo" [alt]="data.match.awayClubName" [title]="data.match.awayClubName" />
+                </div>
+                <div class="club-name full-width text-center">
+                    <b [textContent]="data.match.awayClubName"></b>
+                </div>
+            </div>
+        </div>
+        <div class="full-width text-center"> <a [routerLink]="['/matches', data.match.id]">Перейти к
+                обсуждению({{data.match.commentCount}})</a></div>
+    </div>
+</ng-container>

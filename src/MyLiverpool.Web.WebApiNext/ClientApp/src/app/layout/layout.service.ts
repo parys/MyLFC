@@ -3,22 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
-import { NOTIFICATIONS_ROUTE, MATCHES_ROUTE, PERSONS_ROUTE, USERS_ROUTE, PMS_ROUTE, COMMENTS_ROUTE, INJURIES_ROUTE, HELPERS_ROUTE } from '@constants/routes.constants';
-import { Comment, Match, MatchCalendar, Person, User, UsersOnline, Injury } from '@domain/models';
+import { MATCHES_ROUTE, PERSONS_ROUTE, USERS_ROUTE, COMMENTS_ROUTE, INJURIES_ROUTE, HELPERS_ROUTE } from '@constants/routes.constants';
+import { Comment, MatchCalendar, Person, User, UsersOnline, Injury } from '@domain/models';
 
 @Injectable()
 export class LayoutService {
     constructor(private http: HttpWrapper) {
     }
-
-    public getUnreadNotificationsCount(): Observable<number> {
-        return this.http.get<number>(NOTIFICATIONS_ROUTE + '/unread/');
-    }
-
-    public read(ids: number[]): Observable<boolean> {
-        return this.http.put<boolean>(NOTIFICATIONS_ROUTE + '/read/', { ids });
-    }
-
     public getForCalendar(): Observable<MatchCalendar> {
         return this.http.get<MatchCalendar>(MATCHES_ROUTE + '/getForCalendar');
     }
@@ -37,10 +28,6 @@ export class LayoutService {
 
     public getOnlineCount(): Observable<UsersOnline> {
         return this.http.get<UsersOnline>(`${USERS_ROUTE}/online`);
-    }
-
-    public getUnreadPmsCount(): Observable<number> {
-        return this.http.get<number>(PMS_ROUTE + '/unread/');
     }
 
     public getLastComments(): Observable<Comment[]> {

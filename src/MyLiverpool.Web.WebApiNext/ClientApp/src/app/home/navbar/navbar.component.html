@@ -1,4 +1,4 @@
-﻿<ng-container *ngIf="{ userId: userId$ | async } as data">
+﻿<ng-container *ngIf="{ userId: userId$ | async, mobile: mobile$ | async } as data">
     <nav>
         <button type="button" mat-button (click)="toggle.emit()" class="menu-btn">
             <mat-icon>menu</mat-icon>
@@ -8,16 +8,22 @@
         </a>
         <navbar-menu class="flex-space-around header-nav"></navbar-menu>
 
-        <ng-container *ngIf="!data.userId;else logined">
-            <button type="button" [routerLink]="['/account/signin']" mat-button class="person-btn">
-                <mat-icon>person</mat-icon>
-            </button>
+        <ng-container >
+            <ng-container *ngIf="!data.userId;else logined" class="profile-btns">
+                <a [routerLink]="['/account/signin']" mat-button>
+                    <mat-icon>person</mat-icon>
+                </a>
+            </ng-container>
+            <ng-template #logined>
+                <div class="profile-btns">
+                    <a role="button" [routerLink]="['/users', data.userId]">
+                        <mat-icon>person</mat-icon>
+                    </a>
+                    <pm-counter class="a"></pm-counter>
+                    <notification-counter></notification-counter>
+                </div>
+            </ng-template>
         </ng-container>
-        <ng-template #logined>
-            <button mat-button role="button" [routerLink]="['/users', data.userId]" class="person-btn">
-                <mat-icon>person</mat-icon>
-            </button>
-        </ng-template>
-        <ad [blockName]="'R-A-255349-4'" class="ad" *ngIf="showAd"></ad>
+        <ad [blockName]="'R-A-255349-4'" class="od" *ngIf="showOd"></ad>
     </nav>
 </ng-container>

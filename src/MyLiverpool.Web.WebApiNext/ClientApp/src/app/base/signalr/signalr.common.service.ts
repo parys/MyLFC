@@ -3,11 +3,13 @@ import { isPlatformServer } from '@angular/common';
 
 import { Subject } from 'rxjs';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { Store } from '@ngxs/store';
 
 import { StorageService } from '@base/storage';
 import { ChatMessage, Comment, UsersOnline, Pm, Notification, MatchPerson, MatchEvent } from '@domain/models';
 // import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
 import { environment } from '@environments/environment';
+import { NewPm, ReadPms, NewNotification, ReadNotifications, GetUnreadNotificationsCount, GetUnreadPmsCount } from '@core/store/core.actions';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
@@ -16,15 +18,12 @@ export class SignalRService {
     public chatSubject: Subject<ChatMessage> = new Subject<ChatMessage>();
     public onlineSubject: Subject<UsersOnline> = new Subject<UsersOnline>();
     public lastCommentsSubject: Subject<Comment> = new Subject<Comment>();
-    public readPm: Subject<boolean> = new Subject<boolean>();
-    public newPm: Subject<Pm> = new Subject<Pm>();
-    public newNotify: Subject<Notification> = new Subject<Notification>();
-    public readNotify: Subject<number> = new Subject<number>();
     public newComment: Subject<Comment> = new Subject<Comment>();
     public matchPerson: Subject<MatchPerson> = new Subject<MatchPerson>();
     public matchEvent: Subject<MatchEvent> = new Subject<MatchEvent>();
 
     constructor(private storage: StorageService,
+                private store: Store,
                 @Inject(PLATFORM_ID) private platformId: object) {
     }
 
@@ -75,21 +74,23 @@ export class SignalRService {
             this.newComment.next(data);
         });
         if (token) {
+
+            this.store.dispatch([new GetUnreadNotificationsCount(), new GetUnreadPmsCount()]);
             this.hubConnection.on('readPm',
                 (data: boolean) => {
-                    this.readPm.next(data);
+                    this.store.dispatch(new ReadPms());
                 });
             this.hubConnection.on('newPm',
                 (data: Pm) => {
-                    this.newPm.next(data);
+                    this.store.dispatch(new NewPm(data));
                 });
             this.hubConnection.on('newNotify',
                 (data: Notification) => {
-                    this.newNotify.next(data);
+                    this.store.dispatch(new NewNotification(data));
                 });
             this.hubConnection.on('readNotify',
                 (data: number) => {
-                    this.readNotify.next(data);
+                    this.store.dispatch(new ReadNotifications(data));
                 });
         }
 
