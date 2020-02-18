@@ -8,6 +8,7 @@ import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.
 import { MaterialService } from '@materials/core/material.service';
 import { MaterialHomeComponent } from '@materials/core/material-home';
 import { MaterialItemComponent } from '@materials/core/material-item';
+import { MaterialToolsComponent } from './components/material-tools';
 
 @NgModule({
     imports: [
@@ -18,7 +19,11 @@ import { MaterialItemComponent } from '@materials/core/material-item';
     ],
     declarations: [
         MaterialHomeComponent,
-        MaterialItemComponent
+        MaterialItemComponent,
+        MaterialToolsComponent
+    ],
+    exports: [
+        MaterialToolsComponent
     ],
     providers: [
         MaterialService

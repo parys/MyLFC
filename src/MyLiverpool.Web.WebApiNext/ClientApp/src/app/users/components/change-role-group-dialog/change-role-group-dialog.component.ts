@@ -3,15 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Store, Select } from '@ngxs/store';
-import { GetUserDetailQuery, ChangeUserRoleGroupCommand } from '@network/shared';
+import { GetUserDetailQuery, ChangeUserRoleGroupCommand } from '@network/shared/users';
 import { UsersState, GetRoleGroups, ChangeUserRoleGroup } from '@users/store';
 import { Observable } from 'rxjs';
 import { RoleGroup } from '@domain/models';
 
 // import { markFormAsTouched } from '@domain/static';
 
-// import { ShowNotification } from '@notifications/store';
-// import { NotificationMessage } from '@notifications/shared';
 
 
 @Component({

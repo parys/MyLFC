@@ -7,7 +7,7 @@ import { USERS_ROUTE } from '@constants/routes.constants';
 import { BaseRestService } from '@base/infrastructure';
 
 import { UserFilters, User, UserConfig } from '@domain/models';
-import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared';
+import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared/users';
 
 @Injectable()
 export class UserService extends BaseRestService<User, UserFilters> {

@@ -22,7 +22,7 @@ import { MobileLayoutService } from '@layout/modules/mobile-layout/mobile-layout
 @State<CoreStateModel>({
     name: 'core',
     defaults: {
-        mobile: true,
+        mobile: null,
         notificationsCount: 0,
         pmsCount: 0,
         headerMatch: null,

@@ -21,7 +21,7 @@ import {
 } from './users.actions';
 import { RoleGroupService } from '@role-groups/core';
 
-import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared';
+import { GetUsersListQuery, GetUserDetailQuery } from '@network/shared/users';
 import { UserService } from '@users/user.service';
 
 

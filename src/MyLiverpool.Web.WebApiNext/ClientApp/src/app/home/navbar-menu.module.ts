@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
 import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
 import { OdModule } from '../od';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -15,6 +16,7 @@ import { OdModule } from '../od';
         RouterModule,
         MatMenuModule,
         MatIconModule,
+        MatButtonModule,
         MobileLayoutModule,
         OdModule
     ],

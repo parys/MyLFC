@@ -2,6 +2,7 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { NgxsModule } from '@ngxs/store';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { CommentSharedModule } from '@comments/shared';
@@ -13,6 +14,8 @@ import { MaterialListComponent } from '@materials/lazy/material-list';
 import { materialRoutes } from '@materials/lazy/material.routes';
 import { MaterialCoreModule } from '@materials/core/material-core.module';
 import { MaterialDetailComponent } from '@materials/lazy/material-detail';
+import { MaterialResolver } from './resolvers';
+import { MaterialsState } from './store';
 
 @NgModule({
     imports: [
@@ -21,13 +24,15 @@ import { MaterialDetailComponent } from '@materials/lazy/material-detail';
         CommentSharedModule,
         MaterialCoreModule,
         NgxPaginationModule,
-        PipesModule
+        PipesModule,
+        NgxsModule.forFeature([MaterialsState])
     ],
     declarations: [
         MaterialDetailComponent,
         MaterialListComponent
     ],
     providers: [
+        MaterialResolver
     ]
 })
 export class MaterialModule {

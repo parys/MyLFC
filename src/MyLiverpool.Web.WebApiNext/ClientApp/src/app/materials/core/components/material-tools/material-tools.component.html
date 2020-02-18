@@ -1,0 +1,9 @@
+﻿<a role="button" *ngIf="pending && editor" (click)="onShowActivateModal()">
+    <i class="material-icons">done</i>
+</a>
+<a [routerLink]="editLink">
+    <i class="material-icons">edit</i>
+</a>
+<a role="button" (click)="onShowDeleteModal()">
+    <i class="material-icons">clear</i>
+</a>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MaterialType, MaterialFilters, Material, PagedList } from '@domain/models';
 import { HttpWrapper } from '@base/httpWrapper';
 import { MATERIALS_ROUTE } from '@constants/routes.constants';
+import { GetMaterialsListQuery, GetMaterialDetailQuery } from '@network/shared/materials';
 
 @Injectable()
 export class MaterialService {
@@ -52,5 +53,14 @@ export class MaterialService {
 
     public extractPhoto(url: string): Observable<string[]> {
         return this.http.get<string[]>(this.actionUrl + 'imageLinks/' + url);
+    }
+    
+    // new approach
+    public getAll2(request: GetMaterialsListQuery.Request): Observable<GetMaterialsListQuery.Response> {
+        return this.http.getWithParams<GetMaterialsListQuery.Response>(this.actionUrl, request);
+    }
+
+    public getSingle2(id: number): Observable<GetMaterialDetailQuery.Response> {
+        return this.http.get<GetMaterialDetailQuery.Response>(this.actionUrl + id);
     }
 }

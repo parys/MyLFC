@@ -11,7 +11,7 @@ import { Store, Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
 import { UsersState } from '@users/store';
-import { GetUserDetailQuery } from '@network/shared';
+import { GetUserDetailQuery } from '@network/shared/users';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeRoleGroupDialogData, ChangeRoleGroupDialogComponent } from '@users/components/change-role-group-dialog/change-role-group-dialog.component';
 

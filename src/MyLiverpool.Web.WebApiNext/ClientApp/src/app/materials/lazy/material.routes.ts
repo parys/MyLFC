@@ -2,6 +2,7 @@
 import { MaterialDetailComponent } from './material-detail';
 import { MaterialListComponent } from './material-list';
 import { EDIT_ROUTE } from '@constants/routes.constants';
+import { MaterialResolver } from './resolvers';
 
 export const materialRoutes: Routes = [
     {
@@ -16,7 +17,8 @@ export const materialRoutes: Routes = [
                 component: MaterialDetailComponent,
                 data: {
                     ogType: 'article'
-                }
+                },
+                resolve: { MaterialResolver }
             },
             {
                 path: EDIT_ROUTE,

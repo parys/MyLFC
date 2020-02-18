@@ -12,11 +12,12 @@ import { StorageService } from '@base/storage';
 import { Material, MaterialType } from '@domain/models';
 import { ObserverComponent } from '@domain/base';
 import { NotifierService } from '@notices/services';
-import { ConfirmationMessage } from '@notices/shared';
 
 import { MaterialService } from '@materials/core';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
+import { GetMaterialDetailQuery } from '@network/shared/materials';
+import { MaterialsState } from '../store';
 declare function ssn(): any;
 
 const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
@@ -31,11 +32,12 @@ const MAT_DETAIL_KEY = makeStateKey<Material>('mat-detail');
 export class MaterialDetailComponent extends ObserverComponent implements OnDestroy {
     private sub: Subscription;
     public item: Material = new Material();
-    public type: MaterialType;
 
     @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
 
     @Select(AuthState.userId) userId$: Observable<number>;
+
+    @Select(MaterialsState.material) material$: Observable<GetMaterialDetailQuery.Response>;
 
     constructor(private transferState: TransferState,
                 private service: MaterialService,
@@ -60,47 +62,17 @@ export class MaterialDetailComponent extends ObserverComponent implements OnDest
         if (this.sub) { this.sub.unsubscribe(); }
     }
 
-    public onShowActivateModal(): void {
-        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Активировать материал?' }))
-        .subscribe(result => {
-            if (!result) {
-                return;
-            }
-
-            this.activate();
-        //    const payload = new DeleteUserCommand.Request({ userId });
-        //    this.store.dispatch(new DeleteUser(payload));
-        });
-        this.subscriptions.push(sub$);
-    }
-
-    public onShowDeleteModal(): void {
-        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Удалить материал?' }))
-        .subscribe(result => {
-            if (!result) {
-                return;
-            }
-
-            this.delete();
-        //    const payload = new DeleteUserCommand.Request({ userId });
-        //    this.store.dispatch(new DeleteUser(payload));
-        });
-        this.subscriptions.push(sub$);
-    }
-
     private init(): void {
         if (this.router.url.startsWith('/news')) {
             this.titleService.setTitle(NEWS_RU);
-            this.type = MaterialType.News;
         } else {
             this.titleService.setTitle(BLOG_RU);
-            this.type = MaterialType.Blogs;
         }
         this.update();
         this.cd.markForCheck();
     }
 
-    private activate(): void {
+    public onActivate(): void {
         this.service.activate(this.item.id)
             .subscribe(res => {
                 if (res) {
@@ -133,11 +105,11 @@ export class MaterialDetailComponent extends ObserverComponent implements OnDest
        // }
     }
 
-    private delete(): void {
+    public onDelete(): void {
         this.service.delete(this.item.id)
             .subscribe(result => {
                 if (result) {
-                    this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
+                    this.router.navigate([`/news}`]); // todo to appropriate url
                 } else {
                     this.snackBar.open('Ошибка удаления');
                 }

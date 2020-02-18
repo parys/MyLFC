@@ -1,56 +1,52 @@
-﻿<ng-container *ngIf="{ isEditor: isEditor$ | async, userId: userId$ | async } as data">
-    <div *ngIf="item">
-        <div class="flex-v-c material-header">
-            <h3 class="full-width flex-space-between">
-                <span class="beauty-font" [textContent]="item.title"></span>
-                <span *ngIf="data.isEditor || data.userId === item.userId">
-                    <a role="button" *ngIf="item.pending && data.isEditor" (click)="onShowActivateModal()">
-                        <i class="material-icons">done</i>
-                    </a>
-                    <a [routerLink]="['./edit']">
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a role="button" (click)="onShowDeleteModal()">
-                        <i class="material-icons">clear</i>
-                    </a>
-                </span>
-            </h3>
-        </div>
-        <div class="full-width">
-            <div *ngIf="item.usePhotoInBody" class="full-width bottom10">
-                <img [src]="item.photo" [srcset]="item.photo | img:[300, 450, 700]"
-                 sizes="(max-width: 767px) 300px, (max-width: 900px) 450px, 700px" 
-                 class="material-preview" [alt]="item.brief" loading="lazy" />
+﻿<ng-container *ngIf="{ isEditor: isEditor$ | async, userId: userId$ | async, material: material$ | async } as data">
+    <div class="flex-v-c material-header">
+        <h3 class="full-width flex-space-between">
+            <span class="beauty-font" [textContent]="data.material.title"></span>
+            <span *ngIf="data.isEditor || data.userId === data.material.userId">
+                <material-tools [editLink]="'./edit'"
+                 [editor]="data.isEditor || data.userId === data.material.userId"
+                 [pending]="data.material.pending"
+                 (activate)="onActivate()"
+                 (delete)="onDelete()"></material-tools>                
+            </span>
+        </h3>
+    </div>
+    <div class="full-width">
+        <div *ngIf="data.material.usePhotoInBody" class="full-width bottom10">
+            <img [src]="data.material.photo" [srcset]="data.material.photo | img:[300, 450, 700]"
+                sizes="(max-width: 767px) 300px, (max-width: 900px) 450px, 700px" class="material-preview"
+                [alt]="data.material.brief" loading="lazy" />
 
-                <b><i class="full-width" [innerHTML]="item.brief | safe: 'html'"></i></b>
-            </div>
-            <article class="material-body" [innerHTML]="item.message | safe: 'html'"></article>
-            <div class="full-width material-info-panel top10">
-                <ul class="list-inline small small-offset padding5">
-                    <li><label>Просмотры:</label>&nbsp; <span [textContent]="item.reads"></span></li>
-                    <li class="">|</li>
-                    <li *ngIf="item.source"><label>Источник:</label>&nbsp; <a [href]="item.source | safe: 'url'"
-                            target="_blank" [textContent]="item.shortLink" rel="noopener"></a></li>
-                    <li class="">|</li>
-                    <li><label>Дата добавления:</label>&nbsp; <span
-                            [textContent]="item.additionTime | customDate:true"></span></li>
-                    <li class="">|</li>
-                    <li><label>Категория:</label>&nbsp; <a [routerLink]="['/' + item.typeName]"
-                            [queryParams]="{page: 1, categoryId: item.categoryId}"> <span
-                                [textContent]="item.categoryName"></span> </a></li>
-                    <li class="">|</li>
-                    <li><label>Автор:</label>&nbsp; <a [routerLink]="['/users', item.userId ]"
-                            [textContent]="item.userName"></a></li>
-                </ul>
-            </div>
+            <b><i class="full-width" [innerHTML]="data.material.brief | safe: 'html'"></i></b>
         </div>
-        <!-- <div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
-        <a *ngIf="item.prevMaterialId" [routerLink]="['/', item.typeName, item.prevMaterialId]"><span [textContent]="item.prevMaterialTitle"></span>(назад)</a>
-        <a *ngIf="item.nextMaterialId" [routerLink]="['/', item.typeName, item.nextMaterialId]"><span [textContent]="item.nextMaterialTitle"></span>(вперед)</a>
+        <article class="material-body" [innerHTML]="data.material.message | safe: 'html'"></article>
+        <div class="full-width material-info-panel top10">
+            <ul class="list-inline small small-offset padding5">
+                <li><label>Просмотры:</label>&nbsp; <span [textContent]="data.material.reads"></span></li>
+                <li class="">|</li>
+                <li *ngIf="data.material.source"><label>Источник:</label>&nbsp; <a
+                        [href]="data.material.source | safe: 'url'" target="_blank"
+                        [textContent]="data.material.shortLink" rel="noopener"></a></li>
+                <li class="">|</li>
+                <li><label>Дата добавления:</label>&nbsp; <span
+                        [textContent]="data.material.additionTime | customDate:true"></span></li>
+                <li class="">|</li>
+                <li><label>Категория:</label>&nbsp; <a [routerLink]="['/' + data.material.typeName]"
+                        [queryParams]="{page: 1, categoryId: data.material.categoryId}"> <span
+                            [textContent]="data.material.categoryName"></span> </a></li>
+                <li class="">|</li>
+                <li><label>Автор:</label>&nbsp; <a [routerLink]="['/users', data.material.userId ]"
+                        [textContent]="data.material.userName"></a></li>
+            </ul>
+        </div>
+    </div>
+    <!--div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
+        <a *ngIf="data.material.prevMaterialId" [routerLink]="['/', data.material.typeName, data.material.prevMaterialId]"><span [textContent]="data.material.prevMaterialTitle"></span>(назад)</a>
+        <a *ngIf="data.material.nextMaterialId" [routerLink]="['/', data.material.typeName, data.material.nextMaterialId]"><span [textContent]="data.material.nextMaterialTitle"></span>(вперед)</a>
     </div> -->
-        <div class="full-width flex">
-            <comment-section [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary">
-            </comment-section>
-        </div>
+    <div class="full-width flex">
+        <comment-section [materialId]="data.material.id" [type]="data.material.type"
+            [canCommentary]="data.material.canCommentary">
+        </comment-section>
     </div>
 </ng-container>

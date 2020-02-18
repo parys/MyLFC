@@ -7,7 +7,7 @@ import { Select, Store } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { GetRoleGroups, GetUsersList, ChangeSort, SetPmReceiverId, ChangePage, SetUsersFilterOptions } from '@users/store';
 import { UsersState } from '@users/store/users.state';
-import { GetUsersListQuery } from '@network/shared';
+import { GetUsersListQuery } from '@network/shared/users';
 import { KeyMapper, TableComponent } from '@domain/tables/components';
 
 
