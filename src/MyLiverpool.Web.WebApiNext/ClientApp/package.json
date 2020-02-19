@@ -65,7 +65,7 @@
     "@types/node": "12.12.27",
     "@types/tinymce": "4.5.23",
     "codelyzer": "5.2.1",
-    "source-map-explorer": "2.2.2",
+    "source-map-explorer": "2.3.0",
     "tinymce": "4.9.3",
     "ts-loader": "6.2.1",
     "ts-node": "8.6.2",
