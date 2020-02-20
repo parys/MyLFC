@@ -10,8 +10,6 @@ import { RoleGroup } from '@domain/models';
 
 // import { markFormAsTouched } from '@domain/static';
 
-
-
 @Component({
     selector: 'change-role-group-dialog.component',
     templateUrl: './change-role-group-dialog.component.html',

@@ -5,9 +5,9 @@
             <span *ngIf="data.isEditor || data.userId === data.material.userId">
                 <material-tools [editLink]="'./edit'"
                  [editor]="data.isEditor || data.userId === data.material.userId"
-                 [pending]="data.material.pending"
-                 (activate)="onActivate()"
-                 (delete)="onDelete()"></material-tools>                
+                 [material]="data.material"
+                 (activate)="onActivate(data.material.id)"
+                 (delete)="onDelete(data.material.id)"></material-tools>                
             </span>
         </h3>
     </div>

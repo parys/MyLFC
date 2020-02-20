@@ -24,3 +24,18 @@ export class GetMaterialById {
     static readonly type = '[Materials] Get material by id';
     constructor(public readonly payload: GetMaterialDetailQuery.Request) { }
 }
+
+export class ActivateMaterial {
+    static readonly type = '[Materials] Activate material';
+    constructor(public readonly payload: number) { }
+}
+
+export class DeleteMaterial {
+    static readonly type = '[Materials] Delete material';
+    constructor(public readonly payload: { id: number, redirect: boolean }) { }
+}
+
+export class AddView {
+    static readonly type = '[Materials] Add material view';
+    constructor(public readonly payload: number) { }
+}

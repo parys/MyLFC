@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
 
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-
+import { patch } from '@ngxs/store/operators';
+import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { MaterialsStateModel } from './materials.model';
+import { updateManyItems } from '@domain/operators/update-many-items';
+import { removeMany } from '@domain/operators/remove-from-many';
+import { ShowNotice } from '@notices/store';
+import { NoticeMessage } from '@notices/shared';
+import { StorageService } from '@base/storage';
+import { CustomTitleMetaService } from '@core/services';
+
 import { GetMaterialsListQuery, GetMaterialDetailQuery } from '@network/shared/materials';
 import { MaterialService } from '@materials/core';
-import { SetMaterialsFilterOptions, GetMaterialsList, ChangeSort, ChangePage, GetMaterialById } from './materials.actions';
-import { of } from 'rxjs';
+import { MaterialsStateModel } from './materials.model';
+import {
+    SetMaterialsFilterOptions,
+    GetMaterialsList,
+    ChangeSort,
+    ChangePage,
+    GetMaterialById,
+    ActivateMaterial,
+    DeleteMaterial,
+    AddView
+} from './materials.actions';
+
+declare function ssn(): any;
 
 @State<MaterialsStateModel>({
     name: 'materials',
@@ -37,7 +55,9 @@ export class MaterialsState {
         return state.request;
     }
 
-    constructor(protected network: MaterialService) { }
+    constructor(protected network: MaterialService,
+                private storage: StorageService,
+                protected titleService: CustomTitleMetaService) { }
 
     @Action(ChangeSort)
     @Action(ChangePage)
@@ -70,7 +90,71 @@ export class MaterialsState {
             .pipe(
                 tap(material => {
                     patchState({ material });
+
+                    this.titleService.setTitle(material.title);
+                    this.titleService.updateDescriptionMetaTag(material.brief);
+                    this.titleService.updateKeywordsMetaTag(material.tags);
+                    this.titleService.updateOgImageMetaTag(`https://mylfc.ru${material.photoPreview}`);
+                    if (material.socialLinks) {
+                        ssn();
+                    }
                 })
             );
+    }
+
+    @Action(ActivateMaterial)
+    onActivateMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: ActivateMaterial) {
+        const { material } = getState();
+        return this.network.activate(payload).pipe(
+            tap(result => {
+                if (result && material && payload === material.id) {
+                    material.pending = false;
+                    patchState({ material });
+
+                }
+                setState(
+                        patch({
+                            materials: updateManyItems<GetMaterialsListQuery.MaterialListDto>
+                                (item => item.id === payload, patch<GetMaterialsListQuery.MaterialListDto>({ pending: false }))
+                        })
+                );
+                dispatch(new ShowNotice(NoticeMessage.success('Материал активирован', '')));
+            })
+        );
+    }
+
+    @Action(DeleteMaterial)
+    onDeleteMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: DeleteMaterial) {
+        const { material } = getState();
+        return this.network.delete(payload.id).pipe(
+            tap(result => {
+                if (result && material && payload.id === material.id) {
+                    patchState({ material: null });
+                }
+                setState(
+                        patch({
+                            materials: removeMany<GetMaterialsListQuery.MaterialListDto>
+                                (item => item.id === payload.id)
+                        })
+                );
+                dispatch(new ShowNotice(NoticeMessage.success('Материал удален', '')));
+            })
+        );
+    }
+
+    @Action(AddView)
+    onAddView({ getState, patchState }: StateContext<MaterialsStateModel>, { payload }: AddView) {
+
+        if (!this.storage.tryAddViewForMaterial(payload)) { return; }
+
+        const { material } = getState();
+        return this.network.addView(payload).pipe(
+            tap(result => {
+                material.reads++;
+                if (result && material && payload === material.id) {
+                    patchState({ material });
+                }
+            })
+        );
     }
 }

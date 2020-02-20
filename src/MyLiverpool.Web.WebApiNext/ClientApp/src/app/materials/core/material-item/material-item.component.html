@@ -6,18 +6,14 @@
             <div class="header" style="flex-grow: 5">
                 <a [routerLink]="['/', item.typeName, item.id]">
                     <h3 class="beauty-font" [textContent]="item.title"></h3>
-                </a>
-                <span *ngIf="data.isEditor || data.userId == item.userId">
-                    <a role="button" *ngIf="item.pending && data.isEditor" (click)="onShowActivateModal()">
-                        <i class="material-icons">done</i>
-                    </a>
-                    <a [routerLink]="['/', item.typeName, item.id, 'edit']">
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a role="button" (click)="onShowDeleteModal()">
-                        <i class="material-icons">clear</i>
-                    </a>
-                </span>
+                </a>              
+                <span *ngIf="data.isEditor || data.userId === item.userId">
+                <material-tools [editLink]="'/' + item.typeName + '/' + item.id + '/edit'"
+                 [editor]="data.isEditor || data.userId === item.userId"
+                 [material]="item"
+                 (activate)="onActivate(item.id)"
+                 (delete)="onDelete(item.id)"></material-tools>                
+            </span>
             </div>
             <div class="mat-preview-list full-width" style="align-self: flex-end;">
                 <img class="img-thumbnail" [alt]="item.title" loading="lazy" [src]="item.photoPreview" />

@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { ObserverComponent } from '@domain/base';
 import { NotifierService } from '@notices/services';
 import { ConfirmationMessage } from '@notices/shared';
+import { Material } from '@domain/models';
 
 @Component({
     selector: 'material-tools',
@@ -12,7 +13,7 @@ import { ConfirmationMessage } from '@notices/shared';
 })
 export class MaterialToolsComponent extends ObserverComponent {
 
-    @Input() pending: boolean;
+    @Input() material: Material;
 
     @Input() editor: boolean;
 

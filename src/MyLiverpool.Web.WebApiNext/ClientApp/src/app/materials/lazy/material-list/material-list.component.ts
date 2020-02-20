@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 import { Subscription, Observable } from 'rxjs';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 
 import { Material, MaterialFilters, MaterialType, PagedList } from '@domain/models';
 import { CustomTitleMetaService } from '@core/services';
@@ -14,8 +13,7 @@ import { MaterialService } from '@materials/core/material.service';
 import { PAGE } from '@constants/help.constants';
 import { AuthState } from '@auth/store';
 import { ObserverComponent } from '@domain/base';
-import { NotifierService } from '@notices/services';
-import { ConfirmationMessage } from '@notices/shared';
+import { ActivateMaterial, DeleteMaterial } from '../store';
 
 @Component({
     selector: 'material-list',
@@ -48,9 +46,8 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
                 private route: ActivatedRoute,
                 private location: Location,
                 private cd: ChangeDetectorRef,
-                private snackBar: MatSnackBar,
                 private titleService: CustomTitleMetaService,
-                private notifierService: NotifierService) {
+                private store: Store) {
                     super();
                     this.navigationSubscription = this.router.events.subscribe((e: any) => {
                         // If it is a NavigationEnd event re-initalise the component
@@ -60,32 +57,12 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
                     });
     }
 
-    public onShowActivateModal(index: number): void {
-        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Активировать материал?' }))
-        .subscribe(result => {
-            if (!result) {
-                return;
-            }
-
-            this.activate(index);
-        //    const payload = new DeleteUserCommand.Request({ userId });
-        //    this.store.dispatch(new DeleteUser(payload));
-        });
-        this.subscriptions.push(sub$);
+    public onActivate(id: number): void {
+        this.store.dispatch(new ActivateMaterial(id));
     }
 
-    public onShowDeleteModal(index: number): void {
-        const sub$ = this.notifierService.confirm(new ConfirmationMessage({ title: 'Удалить материал?' }))
-        .subscribe(result => {
-            if (!result) {
-                return;
-            }
-
-            this.delete(index);
-        //    const payload = new DeleteUserCommand.Request({ userId });
-        //    this.store.dispatch(new DeleteUser(payload));
-        });
-        this.subscriptions.push(sub$);
+    public onDelete(id: number): void {
+        this.store.dispatch(new DeleteMaterial({ id, redirect: true }));
     }
 
     public ngOnInit(): void {
@@ -120,35 +97,6 @@ export class MaterialListComponent extends ObserverComponent implements OnInit, 
         }
 
         this.location.replaceState(newUrl);
-    }
-
-    private activate(index: number): void {
-        const news: Material = this.items[index];
-        this.materialService.activate(news.id)
-            .subscribe(res => {
-                    if (res) {
-                        news.pending = false;
-                        this.snackBar.open('Материал активирован');
-                    } else {
-                        this.snackBar.open('Материал НЕ активирован');
-                    }
-                },
-                null,
-                () => this.cd.markForCheck());
-    }
-
-    private delete(index: number): void {
-        const sub$ = this.materialService.delete(this.items[index].id)
-            .subscribe(res => {
-                if (res) {
-                    this.items.splice(index, 1);
-                } else {
-                    this.snackBar.open('Ошибка удаления');
-                }
-            },
-            null,
-            () => this.cd.markForCheck());
-        this.subscriptions.push(sub$);
     }
 
     private parsePageable(pageable: PagedList<Material>): void {
