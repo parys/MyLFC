@@ -15,7 +15,6 @@ import { materialRoutes } from '@materials/lazy/material.routes';
 import { MaterialCoreModule } from '@materials/core/material-core.module';
 import { MaterialDetailComponent } from '@materials/lazy/material-detail';
 import { MaterialResolver } from './resolvers';
-import { MaterialsState } from './store';
 
 @NgModule({
     imports: [
@@ -25,7 +24,6 @@ import { MaterialsState } from './store';
         MaterialCoreModule,
         NgxPaginationModule,
         PipesModule,
-        NgxsModule.forFeature([MaterialsState])
     ],
     declarations: [
         MaterialDetailComponent,

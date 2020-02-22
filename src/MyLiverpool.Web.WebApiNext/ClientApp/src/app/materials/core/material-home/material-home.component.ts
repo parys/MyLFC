@@ -50,6 +50,11 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
         if (this.navigationSubscription) { this.navigationSubscription.unsubscribe(); }
     }
 
+    public trackByFn(index: number, item: Material) {
+        if (!item) { return null; }
+        return item.id;
+    }
+
     private update(): void {
         this.updateLatest();
         this.updatePinned();

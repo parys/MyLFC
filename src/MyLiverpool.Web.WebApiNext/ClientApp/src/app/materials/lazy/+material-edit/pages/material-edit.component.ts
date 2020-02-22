@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
 
 import { MaterialService } from '@materials/core';
 import { Material, MaterialCategory, MaterialType, MaterialCategoryFilter, PagedList } from '@domain/models';
 import { MaterialCategoryService } from '@material-categories/core';
-import { MaterialGuardDialogComponent } from './material-guard-dialog';
 import { EDIT_ROUTE, MESSAGE } from '@constants/index';
-import { Observable } from 'rxjs';
-import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
+import { ConfirmationMessage } from '@notices/shared';
+import { NotifierService } from '@notices/services';
+import { ObserverComponent } from '@domain/base';
 
 // todo moved to script till I found solution to include it here(and in page-editor)
 // import "tinymce/plugins/fullscreen/plugin.min.js";
@@ -26,7 +28,7 @@ import { AuthState } from '@auth/store';
     templateUrl: './material-edit.component.html'
 })
 
-export class MaterialEditComponent implements OnInit {
+export class MaterialEditComponent extends ObserverComponent implements OnInit {
     private id: number;
     public editForm: FormGroup;
     public categories: MaterialCategory[];
@@ -37,13 +39,14 @@ export class MaterialEditComponent implements OnInit {
     @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
 
     constructor(private service: MaterialService,
-                private materialCategoryService: MaterialCategoryService,
-                private route: ActivatedRoute,
-                private router: Router,
-                private snackBar: MatSnackBar,
-                private location: Location,
-                private formBuilder: FormBuilder,
-                private dialog: MatDialog) {
+        private materialCategoryService: MaterialCategoryService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private snackBar: MatSnackBar,
+        private location: Location,
+        private notifierService: NotifierService,
+        private formBuilder: FormBuilder) {
+        super();
         if (this.router.url.startsWith('/news')) {
             this.type = MaterialType.News;
         } else if (this.router.url.startsWith('/blogs')) {
@@ -120,12 +123,12 @@ export class MaterialEditComponent implements OnInit {
             });
     }
 
-    public showLeaveModal(): any { // odo Observable<boolean> | boolean {
+    public showLeaveModal(): Observable<boolean> | boolean {
         if (this.editForm.dirty && this.editForm.touched) {
-            const dialogRef = this.dialog.open(MaterialGuardDialogComponent);
-            return dialogRef.afterClosed();
+            return this.notifierService.confirm(new ConfirmationMessage({ title: 'Уйти со страницы?' }));                
+        } else {
+            return true;
         }
-        return true;
     }
 
     private parse(data: Material): void {

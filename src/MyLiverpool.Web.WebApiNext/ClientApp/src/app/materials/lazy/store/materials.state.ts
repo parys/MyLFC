@@ -104,19 +104,19 @@ export class MaterialsState {
 
     @Action(ActivateMaterial)
     onActivateMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: ActivateMaterial) {
-        const { material } = getState();
         return this.network.activate(payload).pipe(
             tap(result => {
+                const { material } = getState();
                 if (result && material && payload === material.id) {
                     material.pending = false;
                     patchState({ material });
 
                 }
                 setState(
-                        patch({
-                            materials: updateManyItems<GetMaterialsListQuery.MaterialListDto>
-                                (item => item.id === payload, patch<GetMaterialsListQuery.MaterialListDto>({ pending: false }))
-                        })
+                    patch({
+                        materials: updateManyItems<GetMaterialsListQuery.MaterialListDto>
+                            (item => item.id === payload, patch<GetMaterialsListQuery.MaterialListDto>({ pending: false }))
+                    })
                 );
                 dispatch(new ShowNotice(NoticeMessage.success('Материал активирован', '')));
             })
@@ -125,9 +125,9 @@ export class MaterialsState {
 
     @Action(DeleteMaterial)
     onDeleteMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: DeleteMaterial) {
-        const { material } = getState();
         return this.network.delete(payload.id).pipe(
             tap(result => {
+                const { material } = getState();
                 if (result && material && payload.id === material.id) {
                     patchState({ material: null });
                 }

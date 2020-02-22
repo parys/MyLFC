@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, SimpleChanges, OnChanges } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MaterialDetailComponent extends ObserverComponent {
+export class MaterialDetailComponent extends ObserverComponent implements OnChanges {
     public item: Material = new Material();
 
     @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
@@ -29,7 +29,12 @@ export class MaterialDetailComponent extends ObserverComponent {
 
     constructor(protected router: Router, private store: Store) {
                     super();
+                    this.material$.subscribe(l => console.warn(l));
     }
+    ngOnChanges(changes: SimpleChanges): void {
+        console.warn(changes);
+    }
+
 
     public onActivate(id: number): void {
         this.store.dispatch(new ActivateMaterial(id));

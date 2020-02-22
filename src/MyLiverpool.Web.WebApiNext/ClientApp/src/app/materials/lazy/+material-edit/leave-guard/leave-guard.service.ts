@@ -6,7 +6,7 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 
-import { MaterialEditComponent } from '../material-edit.component';
+import { MaterialEditComponent } from '../pages/material-edit.component';
 
 @Injectable()
 export class MaterialLeaveGuard implements CanDeactivate<MaterialEditComponent> {

@@ -1,5 +1,5 @@
 ﻿import { Routes } from '@angular/router';
-import { MaterialEditComponent } from './material-edit.component';
+import { MaterialEditComponent } from './pages/material-edit.component';
 import { RoleGuard, RolesEnum } from '@base/auth';
 import { MaterialLeaveGuard } from './leave-guard/leave-guard.service';
 import { EDITING_RU } from '@constants/index';

@@ -21,7 +21,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]CreateInjuryCommand.Request request)
         {
-            return Ok(await Mediator.Send(request));
+            var result = await Mediator.Send(request);
+
+            CacheManager.Remove(CacheKeysConstants.LastInjuries);
+            return Ok(result);
         }
 
         /// <summary>
