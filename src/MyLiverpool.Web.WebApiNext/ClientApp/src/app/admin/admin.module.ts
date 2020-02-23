@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { ADMIN_ROUTE } from '@constants/index';
@@ -11,6 +12,7 @@ import { adminRoutes } from '@admin/admin.routes';
 @NgModule({
     imports: [
         CommonModule,
+        MatMenuModule,
         RouterModule.forChild(adminRoutes)
     ],
     declarations: [

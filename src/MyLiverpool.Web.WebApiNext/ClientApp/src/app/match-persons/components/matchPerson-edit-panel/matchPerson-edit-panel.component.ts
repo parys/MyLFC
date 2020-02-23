@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatchPerson, Person, MatchPersonType } from '@domain/models';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
+import { MatchPersonsState, GetMatchPersonTypesList } from '@match-persons/store';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
 
 @Component({
     selector: 'match-person-edit-panel',
@@ -24,18 +27,18 @@ export class MatchPersonEditPanelComponent implements OnInit {
     public name: string;
     public isCreation: boolean;
 
-    public types: MatchPersonType[];
+    @Select(MatchPersonsState.matchPersonTypes) types$: Observable<MatchPersonType[]>;
 
     constructor(private matchPersonService: MatchPersonService,
                 private cdr: ChangeDetectorRef,
+                private store: Store,
                 private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
         this.initForm();
 
-        this.matchPersonService.getTypes()
-            .subscribe(data => this.types = data);
+        this.store.dispatch(new GetMatchPersonTypesList());
     }
 
 

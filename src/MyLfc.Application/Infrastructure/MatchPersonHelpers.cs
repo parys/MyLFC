@@ -5,65 +5,65 @@ namespace MyLfc.Application.Infrastructure
 {
     public static class MatchPersonHelpers
     {
-        public static MatchPersonPlaceType GetMatchPlaceholderType(this MatchPersonType personType, bool isHome)
+        public static MatchPersonType GetMatchPlaceholderType(this MatchPersonType personType, bool isHome)
         {
             switch (personType)
             {
                 case MatchPersonType.Team:
                     {
-                        return isHome ? MatchPersonPlaceType.HomeTeam : MatchPersonPlaceType.AwayTeam;
+                        return isHome ? MatchPersonType.Team : MatchPersonType.Competitor;
                     }
                 case MatchPersonType.TeamBench:
                     {
-                        return isHome ? MatchPersonPlaceType.HomeBench : MatchPersonPlaceType.AwayBench;
+                        return isHome ? MatchPersonType.TeamBench : MatchPersonType.CompetitorBench;
                     }
                 case MatchPersonType.Ban:
                     {
-                        return isHome ? MatchPersonPlaceType.HomeBan : MatchPersonPlaceType.AwayBan;
+                        return isHome ? MatchPersonType.Ban : MatchPersonType.BanCompetitor;
                     }
                 case MatchPersonType.Injury:
                     {
-                        return isHome ? MatchPersonPlaceType.HomeInjury : MatchPersonPlaceType.AwayInjury;
+                        return isHome ? MatchPersonType.Injury : MatchPersonType.InjuryCompetitor;
                     }
                 case MatchPersonType.Coach:
                     {
-                        return isHome ? MatchPersonPlaceType.HomeCoach : MatchPersonPlaceType.AwayCoach;
+                        return isHome ? MatchPersonType.Coach : MatchPersonType.CompetitorCoach;
                     }
                 case MatchPersonType.Competitor:
                     {
-                        return !isHome ? MatchPersonPlaceType.HomeTeam : MatchPersonPlaceType.AwayTeam;
+                        return !isHome ? MatchPersonType.Team : MatchPersonType.Competitor;
                     }
                 case MatchPersonType.CompetitorBench:
                     {
-                        return !isHome ? MatchPersonPlaceType.HomeBench : MatchPersonPlaceType.AwayBench;
+                        return !isHome ? MatchPersonType.TeamBench : MatchPersonType.CompetitorBench;
                     }
                 case MatchPersonType.BanCompetitor:
                     {
-                        return !isHome ? MatchPersonPlaceType.HomeBan : MatchPersonPlaceType.AwayBan;
+                        return !isHome ? MatchPersonType.Ban : MatchPersonType.BanCompetitor;
                     }
                 case MatchPersonType.InjuryCompetitor:
                     {
-                        return !isHome ? MatchPersonPlaceType.HomeInjury : MatchPersonPlaceType.AwayInjury;
+                        return !isHome ? MatchPersonType.Injury : MatchPersonType.InjuryCompetitor;
                     }
                 case MatchPersonType.CompetitorCoach:
                     {
-                        return !isHome ? MatchPersonPlaceType.HomeCoach : MatchPersonPlaceType.AwayCoach;
+                        return !isHome ? MatchPersonType.Coach : MatchPersonType.CompetitorCoach;
                     }
                 case MatchPersonType.MainReferee:
                     {
-                        return MatchPersonPlaceType.MainRef;
+                        return MatchPersonType.MainReferee;
                     }
                 case MatchPersonType.AdditionalReferee:
                     {
-                        return MatchPersonPlaceType.AdditionalRef;
+                        return MatchPersonType.AdditionalReferee;
                     }
                 case MatchPersonType.SubReferee:
                     {
-                        return MatchPersonPlaceType.AssistantRef;
+                        return MatchPersonType.SubReferee;
                     }
                 case MatchPersonType.FourthReferee:
                     {
-                        return MatchPersonPlaceType.FourthRef;
+                        return MatchPersonType.FourthReferee;
                     }
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -21,6 +21,9 @@ import { MatchMaterialModule } from '@matches/match-material.module';
 import { SelectClubFormFieldModule } from '@widgets/http/select-club-form-field';
 import { SelectSeasonFormFieldModule } from '@widgets/http/select-season-form-field';
 import { PaginationModule } from '@base/pagination/pagination.module';
+import { NgxsModule } from '@ngxs/store';
+import { MatchesState } from './store';
+import { MatchResolver } from './resolvers';
 
 @NgModule({
     imports: [
@@ -36,7 +39,8 @@ import { PaginationModule } from '@base/pagination/pagination.module';
         MatchMaterialModule,
         SelectClubFormFieldModule,
         SelectSeasonFormFieldModule,
-        PaginationModule
+        PaginationModule,
+        NgxsModule.forFeature([MatchesState])
     ],
     declarations: [
         MatchEditComponent,
@@ -44,7 +48,8 @@ import { PaginationModule } from '@base/pagination/pagination.module';
         MatchDetailComponent
     ],
     providers: [
-        MatchService
+        MatchService,
+        MatchResolver
     ]
 })
 export class MatchModule {

@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
         {
             var list = await _mediator.Send(new GetMatchPersonListQuery.Request {MatchId = matchId});
             var preparedList = list.Results
-                .ToDictionary(x => (MatchPersonPlaceType) x.Key, x => x.Value);
+                .ToDictionary(x => (MatchPersonType) x.Key, x => x.Value);
             return View(preparedList);
         }
     }

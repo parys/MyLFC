@@ -1,23 +1,23 @@
-﻿@model Dictionary<MatchPersonPlaceType, List<MyLfc.Application.Matches.GetMatchPersonListQuery.MatchPersonListDto>>
+﻿@model Dictionary<MatchPersonType, List<MyLfc.Application.Matches.GetMatchPersonListQuery.MatchPersonListDto>>
 
 <div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
-        @if (Model[MatchPersonPlaceType.MainRef].Any())
+        @if (Model[MatchPersonType.MainReferee].Any())
         {
             <div class="text-center">
                 Главный судья:
-                @Model[MatchPersonPlaceType.MainRef][0].PersonName
+                @Model[MatchPersonType.MainReferee][0].PersonName
             </div>
         }
-        @if (Model[MatchPersonPlaceType.AssistantRef].Any())
+        @if (Model[MatchPersonType.SubReferee].Any())
         {
             <div class="text-center">
                 Помощники судьи:
-                @for (var i = 0; i < Model[MatchPersonPlaceType.AssistantRef].Count; i++)
+                @for (var i = 0; i < Model[MatchPersonType.SubReferee].Count; i++)
                 {
                     <span>
-                        @Model[MatchPersonPlaceType.AssistantRef][i].PersonName
-                        @if (i < Model[MatchPersonPlaceType.AssistantRef].Count - 1)
+                        @Model[MatchPersonType.SubReferee][i].PersonName
+                        @if (i < Model[MatchPersonType.SubReferee].Count - 1)
                         {
                             <span>, </span>
                         }
@@ -25,15 +25,15 @@
                 }
             </div>
         }
-        @if (Model[MatchPersonPlaceType.AdditionalRef].Any())
+        @if (Model[MatchPersonType.AdditionalReferee].Any())
         {
             <div class="text-center">
                 Дополнительные судьи:
-                @for (var i = 0; i < Model[MatchPersonPlaceType.AdditionalRef].Count; i++)
+                @for (var i = 0; i < Model[MatchPersonType.AdditionalReferee].Count; i++)
                 {
                     <span *ngFor="let ref of assistantRef; let last = last;">
-                        @Model[MatchPersonPlaceType.AdditionalRef][i].PersonName
-                        @if (i < Model[MatchPersonPlaceType.AdditionalRef].Count - 1)
+                        @Model[MatchPersonType.AdditionalReferee][i].PersonName
+                        @if (i < Model[MatchPersonType.AdditionalReferee].Count - 1)
                         {
                             <span>, </span>
                         }
@@ -41,22 +41,22 @@
                 }
             </div>
         }
-        @if (Model[MatchPersonPlaceType.FourthRef].Any())
+        @if (Model[MatchPersonType.FourthReferee].Any())
         {
-            <div class="text-center">Резервный судья: @Model[MatchPersonPlaceType.FourthRef][0].PersonName</div>
+            <div class="text-center">Резервный судья: @Model[MatchPersonType.FourthReferee][0].PersonName</div>
         }
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 container-row top10">
                 Главный тренер:
             </i>
-            @if (Model[MatchPersonPlaceType.HomeCoach].Any())
+            @if (Model[MatchPersonType.Coach].Any())
             {
-                <div class="col-xs-12 container-row">@Model[MatchPersonPlaceType.HomeCoach][0].PersonName</div>
+                <div class="col-xs-12 container-row">@Model[MatchPersonType.Coach][0].PersonName</div>
             }
             <i class="col-xs-12 container-row top10">
                 Состав:
             </i>
-            @foreach (var person in Model[MatchPersonPlaceType.HomeTeam])
+            @foreach (var person in Model[MatchPersonType.Team])
             {
                 <div class="col-xs-12 container-row">
                     @person.Number - @person.PersonName
@@ -65,17 +65,17 @@
             <i class="col-xs-12 container-row top10">
                 Запасные:
             </i>
-            @foreach (var person in Model[MatchPersonPlaceType.HomeBench])
+            @foreach (var person in Model[MatchPersonType.TeamBench])
             {
                 <div class="col-xs-12 container-row">
                     @person.Number - @person.PersonName
                 </div>
             }
-            @if (Model[MatchPersonPlaceType.HomeBan].Any())
+            @if (Model[MatchPersonType.Ban].Any())
             {
                 <div class="col-xs-12 container-row top10">
                     <i class="col-xs-12 container-row">Дисквалифицированы:</i>
-                    @foreach (var person in Model[MatchPersonPlaceType.HomeBench])
+                    @foreach (var person in Model[MatchPersonType.Ban])
                     {
                         <div class="col-xs-12 container-row">
                             @person.Number - @person.PersonName
@@ -83,11 +83,11 @@
                     }
                 </div>
             }
-            @if (Model[MatchPersonPlaceType.HomeInjury].Any())
+            @if (Model[MatchPersonType.Injury].Any())
             {
                 <div class="col-xs-12 container-row top10">
                     <i class="col-xs-12 container-row">Травмированы:</i>
-                    @foreach (var person in Model[MatchPersonPlaceType.HomeInjury])
+                    @foreach (var person in Model[MatchPersonType.Injury])
                     {
                         <div class="col-xs-12 container-row">
                             @person.Number - @person.PersonName
@@ -100,14 +100,14 @@
             <i class="col-xs-12 container-row top10">
                 Главный тренер:
             </i>
-            @if (Model[MatchPersonPlaceType.AwayCoach].Any())
+            @if (Model[MatchPersonType.CompetitorCoach].Any())
             {
-                <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName">@Model[MatchPersonPlaceType.AwayCoach][0].PersonName</div>
+                <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName">@Model[MatchPersonType.CompetitorCoach][0].PersonName</div>
             }   <i class="col-xs-12 container-row top10">
                 Состав:
             </i>
 
-            @foreach (var person in Model[MatchPersonPlaceType.AwayTeam])
+            @foreach (var person in Model[MatchPersonType.Competitor])
             {
                 <div class="col-xs-12 container-row">
                     @person.Number - @person.PersonName
@@ -116,17 +116,17 @@
             <i class="col-xs-12 container-row top10">
                 Запасные:
             </i>
-            @foreach (var person in Model[MatchPersonPlaceType.AwayBench])
+            @foreach (var person in Model[MatchPersonType.CompetitorBench])
             {
                 <div class="col-xs-12 container-row">
                     @person.Number - @person.PersonName
                 </div>
             }
-            @if (Model[MatchPersonPlaceType.AwayBan].Any())
+            @if (Model[MatchPersonType.BanCompetitor].Any())
             {
                 <div class="col-xs-12 container-row top10" *ngIf="awayBan.length > 0">
                     <i class="col-xs-12 container-row">Дисквалифицированы:</i>
-                    @foreach (var person in Model[MatchPersonPlaceType.AwayBan])
+                    @foreach (var person in Model[MatchPersonType.BanCompetitor])
                     {
                         <div class="col-xs-12 container-row">
                             @person.Number - @person.PersonName
@@ -134,11 +134,11 @@
                     }
                 </div>
             }
-            @if (Model[MatchPersonPlaceType.AwayInjury].Any())
+            @if (Model[MatchPersonType.InjuryCompetitor].Any())
             {
                 <div class="col-xs-12 container-row top10" *ngIf="awayInjury.length > 0">
                     <i class="col-xs-12 container-row">Травмированы:</i>
-                    @foreach (var person in Model[MatchPersonPlaceType.AwayInjury])
+                    @foreach (var person in Model[MatchPersonType.InjuryCompetitor])
                     {
                         <div class="col-xs-12 container-row">
                             @person.Number - @person.PersonName

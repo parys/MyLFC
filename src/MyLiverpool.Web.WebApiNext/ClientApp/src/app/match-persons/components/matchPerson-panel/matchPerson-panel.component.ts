@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatchPerson } from '@domain/models';
+import { MatchPersonTypeEnum } from '@domain/enums/match-person-type.enum';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 import { SignalRService } from '@base/signalr';
@@ -15,6 +16,7 @@ import { Observable } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatchPersonPanelComponent extends ObserverComponent implements OnInit {
+    mpType = MatchPersonTypeEnum;
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     public isEdit = false;

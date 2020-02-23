@@ -88,7 +88,7 @@ namespace MyLfc.Application.MatchPersons
 
             public string PersonName { get; set; }
 
-            public MatchPersonPlaceType Type { get; set; }
+            public MatchPersonType Type { get; set; }
         }
     }
 }

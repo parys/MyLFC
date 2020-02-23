@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { PersonEditModule } from '@persons/shared';
 import { SelectPersonFormFieldModule } from '@widgets/http/select-person-form-field';
 
-import { MatchPersonEditPanelComponent } from '@match-persons/matchPerson-edit-panel';
+import { MatchPersonEditPanelComponent } from '@match-persons/components/matchPerson-edit-panel';
 import { MatchPersonService } from '@match-persons/match-person.service';
-import { MatchPersonPanelComponent } from '@match-persons/matchPerson-panel';
+import { MatchPersonPanelComponent } from '@match-persons/components/matchPerson-panel';
 import { MatchPersonMaterialModule } from '@match-persons/match-person-material.module';
 import { MatchPersonInfoComponent } from '@match-persons/components/match-person-info';
+import { NgxsModule } from '@ngxs/store';
+import { MatchPersonsState } from './store';
 
 @NgModule({
     imports: [
@@ -19,6 +21,7 @@ import { MatchPersonInfoComponent } from '@match-persons/components/match-person
         PersonEditModule,
         SelectPersonFormFieldModule,
         MatchPersonMaterialModule,
+        NgxsModule.forFeature([MatchPersonsState])
     ],
     declarations: [
         MatchPersonEditPanelComponent,

@@ -47,7 +47,7 @@ namespace MyLfc.Application.Matches
                     .FirstAsync(cancellationToken);
 
                 var dict = new Dictionary<int, List<MatchPersonListDto>>();
-                foreach (int value in Enum.GetValues(typeof(MatchPersonPlaceType)))
+                foreach (int value in Enum.GetValues(typeof(MatchPersonType)))
                 {
                     dict.Add(value, new List<MatchPersonListDto>());
                 }
