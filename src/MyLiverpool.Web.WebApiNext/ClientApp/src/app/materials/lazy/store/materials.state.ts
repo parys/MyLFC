@@ -109,7 +109,7 @@ export class MaterialsState {
                 const { material } = getState();
                 if (result && material && payload === material.id) {
                     material.pending = false;
-                    patchState({ material });
+                    patchState({ material: {...material }});
 
                 }
                 setState(
