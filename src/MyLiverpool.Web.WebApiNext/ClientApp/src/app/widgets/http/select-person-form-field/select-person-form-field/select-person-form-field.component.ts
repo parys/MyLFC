@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, ElementRef, ViewChild, Input, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, ControlValueAccessor } from '@angular/forms';
 
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
@@ -14,13 +14,14 @@ import { PersonService } from '@persons/person.service';
     selector: 'select-person-form-field',
     templateUrl: './select-person-form-field.component.html',
     styleUrls: ['./select-person-form-field.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     providers: [
         ControlValueProvider(SelectPersonFormFieldComponent)
     ],
 })
 export class SelectPersonFormFieldComponent extends AbstractControlComponent<number>
-    implements OnInit, AfterViewInit, ControlValueAccessor {
+    implements OnInit, OnChanges, AfterViewInit, ControlValueAccessor {
+
 
     @Input() personName: string;
     @Input() focus = false;
@@ -50,6 +51,12 @@ export class SelectPersonFormFieldComponent extends AbstractControlComponent<num
                 return of(pagingPersons.results);
             }));
         this.selectCtrl.setValue(this.personName);
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['personName']) {
+            this.selectCtrl.setValue(this.personName);
+        }
     }
 
 

@@ -1,9 +1,7 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MatchPerson } from '@domain/models';
 
-import { MatchPersonService } from '@match-persons/match-person.service';
 import { ObserverComponent } from '@domain/base';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
@@ -22,12 +20,11 @@ export class MatchPersonInfoComponent extends ObserverComponent {
     @Input() public isPlayer: boolean;
     @Input() public matchId: number;
     @Output() public selected: EventEmitter<MatchPerson> = new EventEmitter<MatchPerson>();
+    @Output() public delete = new EventEmitter<MatchPerson>();
 
     @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
-    constructor(private matchPersonService: MatchPersonService,
-                private snackBar: MatSnackBar,
-                private notifier: NotifierService) {
+    constructor(private notifier: NotifierService) {
         super();
     }
     public onSelectPerson(person: MatchPerson): void {
@@ -40,23 +37,10 @@ export class MatchPersonInfoComponent extends ObserverComponent {
         }))
         .subscribe(result => {
             if (result) {
-                this.delete(person);
+                person.matchId = this.matchId;
+                this.delete.emit(person);
             }
         });
-        this.subscriptions.push(sub$);
-    }
-
-
-    private delete(person: MatchPerson): void {
-        const sub$ = this.matchPersonService.delete(this.matchId, person.personId)
-            .subscribe((result: boolean) => {
-                if (result) {
-                    this.person = null;
-                    this.snackBar.open('Удалено');
-                } else {
-                    this.snackBar.open('Ошибка удаления');
-                }
-            });
         this.subscriptions.push(sub$);
     }
 }

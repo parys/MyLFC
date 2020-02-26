@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { tap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { State, Action, StateContext, Selector } from '@ngxs/store';
-
-
-import { NoticeMessage } from '@notices/shared';
-import { ShowNotice } from '@notices/store';
+import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 
 import { MatchPersonsStateModel } from './match-persons.model';
-import {     GetMatchPersonTypesList
-} from './match-persons.actions';
+import { Actions } from './match-persons.actions';
 
 import { MatchPersonService } from '@match-persons/match-person.service';
 
@@ -18,7 +12,9 @@ import { MatchPersonService } from '@match-persons/match-person.service';
 @State<MatchPersonsStateModel>({
     name: 'matchPersons',
     defaults: {
-        matchPersonTypes: []
+        matchPersonTypes: [],
+        matchPersons: null,
+        editOptions: null
     },
 })
 @Injectable()
@@ -29,35 +25,30 @@ export class MatchPersonsState {
         return state.matchPersonTypes;
     }
 
-    constructor(protected matchPersonNetwork: MatchPersonService) { }
+    @Selector()
+    static matchPersons(state: MatchPersonsStateModel) {
+        return state.matchPersons;
+    }
 
-    // @Action(ChangeSort)
-    // @Action(ChangePage)
-    // @Action(SetMatchesFilterOptions)
-    // onChangeSort({ patchState, getState, dispatch }: StateContext<MatchesStateModel>, { payload }: ChangeSort) {
-    //     const { request } = getState();
-    //     patchState({ request: { ...request, ...payload } });
-    //     dispatch(new GetMatchesList());
-    // }
+    @Selector()
+    static editOptions(state: MatchPersonsStateModel) {
+        return state.editOptions;
+    }
 
-    // @Action(GetMatchesList)
-    // onGetMatchesList(ctx: StateContext<MatchesStateModel>) {
-    //     const { request } = ctx.getState();
-    //     return this.matchNetwork.getAll2(new GetMatchesListQuery.Request(request))
-    //         .pipe(
-    //             tap(response => {
-    //                 ctx.patchState({ matches: response.results || [] });
-    //                 ctx.patchState({
-    //                     request: {
-    //                         ...request, rowCount: response.rowCount,
-    //                         currentPage: response.currentPage, pageSize: response.pageSize
-    //                     }
-    //                 });
-    //             }));
-    // }
+    constructor(private store: Store, protected matchPersonNetwork: MatchPersonService) { }
+
+    @Action(Actions.GetMatchPersonsList)
+    onGetMatchesList({ patchState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.GetMatchPersonsList) {
+
+        return this.matchPersonNetwork.getMatchPersons(payload)
+            .pipe(
+                tap(response => {
+                    patchState({ matchPersons: response.results || [] });
+                }));
+    }
 
 
-    @Action(GetMatchPersonTypesList)
+    @Action(Actions.GetMatchPersonTypesList)
     onGetMatchPersonTypesList({ patchState, getState }: StateContext<MatchPersonsStateModel>) {
         const { matchPersonTypes } = getState();
         if (matchPersonTypes.length === 0) {
@@ -68,25 +59,59 @@ export class MatchPersonsState {
         }
     }
 
-    // @Action(GetMatchById)
-    // onGetMatchById({ patchState }: StateContext<MatchesStateModel>, { payload }: GetMatchById) {
-    //     return (payload.id ? this.matchNetwork.getSingle2(payload.id) : of(new GetMatchDetailQuery.Response()))
-    //         .pipe(
-    //             tap(match => {
-    //                 patchState({ match });
-    //             })
-    //         );
-    // }
+    @Action(Actions.UpdateMatchPerson)
+    onUpdateMatchPerson({ patchState, getState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.UpdateMatchPerson) {
+        const { editOptions } = getState();
+        return this.matchPersonNetwork.createOrUpdate(payload)
+        .pipe(
+            tap(response => {
+                editOptions.currentCount++;
+                if (this.checkExit(editOptions.neededCount, editOptions.currentCount)) {
+                    patchState({ editOptions: null});
+                } else {
+                    editOptions.selected = null;
+                    patchState({ editOptions: {...editOptions}});
+                }
+        }));
+    }
 
-    // @Action(ChangeUserRoleGroup)
-    // onChangeUserRoleGroup(ctx: StateContext<MatchesStateModel>, { payload }: ChangeUserRoleGroup) {
-    //     const { match } = ctx.getState();
-    //     return this.matchesNetwork.updateRoleGroup(payload.userId, payload.roleGroupId).pipe(
-    //         tap(response => {
-    //             ctx.patchState({ user: { ...user, roleGroupId: payload.roleGroupId } });
-    //             const notice = NoticeMessage.success('Роль изменена', 'Группа пользователя заменена.');
-    //             ctx.dispatch(new ShowNotice(notice));
-    //         }));
-    // }
+    @Action(Actions.DeleteMatchPerson)
+    onDeleteMatchPerson({patchState, getState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.DeleteMatchPerson) {
+        const { matchPersons } = getState();
+        return this.matchPersonNetwork.delete(payload.matchId, payload.personId)
+        .pipe(tap(response => {
+            matchPersons[payload.personType] = matchPersons[payload.personType].filter(x => x.personId !== payload.personId);
+            patchState({ matchPersons: {...matchPersons} });
+        }));
+    }
 
+    @Action(Actions.PushMatchPerson)
+    onPushMatchPerson({ patchState, getState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.PushMatchPerson) {
+        const { matchPersons } = getState();
+
+        matchPersons[payload.type].push(payload);
+
+        patchState({ matchPersons});
+    }
+
+    @Action(Actions.SetEditOptions)
+    onSetEditOptions({ patchState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.SetEditOptions) {
+        this.store.dispatch(new Actions.GetMatchPersonTypesList());
+        patchState({ editOptions: {selected: null, ...payload} });
+    }
+
+    @Action(Actions.SetSelectedPerson)
+    onSetSelectedPerson({ patchState }: StateContext<MatchPersonsStateModel>, { payload }: Actions.SetSelectedPerson) {
+        this.store.dispatch(new Actions.GetMatchPersonTypesList());
+        patchState({ editOptions: {selected: payload, mpType: null, currentCount: 0, neededCount: 0, personTypeId: null } });
+    }
+
+    @Action(Actions.CancelEdit)
+    onCancelEdit({ patchState }: StateContext<MatchPersonsStateModel>) {
+        patchState({ editOptions: null });
+    }
+
+    private checkExit(neededCount: number, currentCount: number): boolean {
+        return currentCount === neededCount && neededCount !== 0;
+    }
 }

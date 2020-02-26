@@ -10,6 +10,7 @@ import { ChatMessage, Comment, UsersOnline, Pm, Notification, MatchPerson, Match
 // import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
 import { environment } from '@environments/environment';
 import { NewPm, ReadPms, NewNotification, ReadNotifications, GetUnreadNotificationsCount, GetUnreadPmsCount } from '@core/store/core.actions';
+import { Actions as MpActions } from '@match-persons/store/match-persons.actions';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
@@ -19,7 +20,6 @@ export class SignalRService {
     public onlineSubject: Subject<UsersOnline> = new Subject<UsersOnline>();
     public lastCommentsSubject: Subject<Comment> = new Subject<Comment>();
     public newComment: Subject<Comment> = new Subject<Comment>();
-    public matchPerson: Subject<MatchPerson> = new Subject<MatchPerson>();
     public matchEvent: Subject<MatchEvent> = new Subject<MatchEvent>();
 
     constructor(private storage: StorageService,
@@ -63,8 +63,8 @@ export class SignalRService {
         this.hubConnection.on('updateComment', (data: Comment) => {
             this.lastCommentsSubject.next(data);
         });
-        this.hubConnection.on('addMp', (data: any) => {
-            this.matchPerson.next(data);
+        this.hubConnection.on('addMp', (data: MatchPerson) => {
+            this.store.dispatch(new MpActions.PushMatchPerson(data));
         });
         this.hubConnection.on('addMe', (data: MatchEvent) => {
             this.matchEvent.next(data);

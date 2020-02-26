@@ -32,7 +32,6 @@ export * from './person.model';
 export * from './person-filters.model';
 export * from './squad-list.model';
 export * from './person-type.model';
-export * from '../enums/person-type.enum';
 export * from './poll-answer.model';
 export * from './poll.model';
 export * from './poll-chart.model';

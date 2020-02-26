@@ -5,9 +5,10 @@ import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
 
 import { PersonService } from '@persons/person.service';
-import { Person, PersonTypeEnum } from '@domain/models';
+import { Person } from '@domain/models';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
+import { PersonPageTypeEnum } from '@domain/enums/person-page-type.enum';
 
 @Component({
     selector: 'stuff-list',
@@ -31,7 +32,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
         this.routeLinks = [
             { label: 'Первая команда', link: '/persons/stuff/first' },
             { label: 'Академия', link: '/persons/stuff/academy' }];
-        if (this.route.snapshot.data.type === PersonTypeEnum[PersonTypeEnum.First]) {
+        if (this.route.snapshot.data.type === PersonPageTypeEnum[PersonPageTypeEnum.First]) {
             this.activeLinkIndex = 0;
         } else {
             this.activeLinkIndex = 1;
@@ -44,7 +45,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
     }
 
     public updateState(): void {
-        const type = PersonTypeEnum[this.activeLinkIndex].toString();
+        const type = PersonPageTypeEnum[this.activeLinkIndex].toString();
         this.sub = this.personService.getStuff(type).subscribe((data: Person[]) => this.items = data);
     }
 

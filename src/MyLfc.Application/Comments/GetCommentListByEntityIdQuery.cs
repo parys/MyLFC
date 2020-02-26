@@ -69,7 +69,7 @@ namespace MyLfc.Application.Comments
                     ParentId = x.ParentId,
                     Photo = x.Author.Photo,
                     Type = x.Type,
-                    TypeName = x.Type.ToString()
+                    TypeName = x.Type.ToString().ToLower()
                 }).ToListAsync(cancellationToken);
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);

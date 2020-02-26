@@ -167,7 +167,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("{matchId:int}/persons")]
         public async Task<IActionResult> GetForMatchAsync([FromRoute]GetMatchPersonListQuery.Request request)
         {
-            return Ok((await Mediator.Send(request)).Results);
+            return Ok(await Mediator.Send(request));
         }
 
 

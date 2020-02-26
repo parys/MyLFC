@@ -3,8 +3,9 @@
 import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
-import { MatchPersonType, MatchPerson } from '@domain/models';
+import { MatchPersonType } from '@domain/models';
 import { MATCH_PERSONS_ROUTE, MATCHES_ROUTE } from '@constants/routes.constants';
+import { GetMatchPersonsListQuery, UpdateMatchPersonCommand } from '@network/shared/match-persons';
 
 @Injectable()
 export class MatchPersonService {
@@ -14,12 +15,12 @@ export class MatchPersonService {
         this.actionUrl = MATCH_PERSONS_ROUTE + '/';
     }
 
-    public getMatchPersons(matchId: number): Observable<Record<number, MatchPerson[]>> {
-        return this.http.get<Record<number, MatchPerson[]>>(`${MATCHES_ROUTE}/${matchId}/persons`);
+    public getMatchPersons(matchId: number): Observable<GetMatchPersonsListQuery.Response> {
+        return this.http.get<GetMatchPersonsListQuery.Response>(`${MATCHES_ROUTE}/${matchId}/persons`);
     }
 
-    public createOrUpdate(item: MatchPerson): Observable<MatchPerson> {
-        return this.http.put<MatchPerson>(this.actionUrl, JSON.stringify(item));
+    public createOrUpdate(item: UpdateMatchPersonCommand.Request): Observable<UpdateMatchPersonCommand.Response> {
+        return this.http.put<UpdateMatchPersonCommand.Response>(this.actionUrl, JSON.stringify(item));
     }
 
     public getTypes(): Observable<MatchPersonType[]> {

@@ -2,8 +2,8 @@
     <hr class="full-width" />
     <div class="text-center">Добавление человека к матчу</div>
     <form class="full-width" role="form" [formGroup]="editMatchPersonForm" (ngSubmit)="onSubmit()">
-        <select-person-form-field formControlName="personId" [personName]="name"
-            [type]="this.editMatchPersonForm.get('useType').value ? personTypeId : null" focus="true">
+        <select-person-form-field formControlName="personId" [personName]="editOptions.selected?.personName"
+            [type]="this.editMatchPersonForm.get('useType').value ? editOptions.personTypeId : null" focus="true">
         </select-person-form-field>
         <mat-form-field class="full-width">
             <mat-select placeholder="Тип" formControlName="personType">

@@ -5,9 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 
 import { PersonService } from '@persons/person.service';
-import { SquadList, PersonTypeEnum } from '@domain/models';
+import { SquadList } from '@domain/models';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
+import { PersonPageTypeEnum } from '@domain/enums/person-page-type.enum';
 
 @Component({
     selector: 'squad',
@@ -32,9 +33,9 @@ export class SquadComponent implements OnInit, OnDestroy {
             { label: 'Первая команда', link: '/persons/squad/first' },
             { label: 'Академия', link: '/persons/squad/academy' },
             { label: 'В аренде', link: '/persons/squad/loan' }];
-        if (this.route.snapshot.data.type === PersonTypeEnum[PersonTypeEnum.First]) {
+        if (this.route.snapshot.data.type === PersonPageTypeEnum[PersonPageTypeEnum.First]) {
             this.activeLinkIndex = 0;
-        } else if (this.route.snapshot.data.type === PersonTypeEnum[PersonTypeEnum.Academy]) {
+        } else if (this.route.snapshot.data.type === PersonPageTypeEnum[PersonPageTypeEnum.Academy]) {
             this.activeLinkIndex = 1;
         } else {
             this.activeLinkIndex = 2;
@@ -47,7 +48,7 @@ export class SquadComponent implements OnInit, OnDestroy {
     }
 
     public updateState(): void {
-        const type = PersonTypeEnum[this.activeLinkIndex].toString();
+        const type = PersonPageTypeEnum[this.activeLinkIndex].toString();
         this.sub = this.personService
             .getSquad(type)
             .subscribe((data: SquadList) => this.item = data);
