@@ -6,9 +6,10 @@
         <a class="logo-link" role="button" [routerLink]="['/']">
             <img src="/content/logo34.png" class="logo" alt="MyLFC.ru" />
         </a>
-        <navbar-menu class="flex-space-around header-nav"></navbar-menu>
-
-        <ng-container>
+        <!-- <navbar-menu class="flex-space-around header-nav"></navbar-menu> -->
+        <app-dynamic-content-outlet *ngIf="!data.mobile" [componentName]="'NavbarMenuComponent'">
+        </app-dynamic-content-outlet>
+        <ng-container *ngIf="data.mobile">
             <ng-container *ngIf="!data.userId;else logined" class="profile-btns">
                 <a [routerLink]="['/account/signin']" mat-button>
                     <mat-icon>person</mat-icon>

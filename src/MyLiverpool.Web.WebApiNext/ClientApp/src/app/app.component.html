@@ -8,7 +8,9 @@
     <mat-sidenav-container (backdropClick)="sidenav.close()">
         <mat-sidenav #sidenav mode="over" class="sidenav" (keydown.escape)="sidenav.close()" [fixedInViewport]="true"
             [fixedTopGap]="0" [fixedBottomGap]="0">
-            <navbar-menu class="nav-menu beauty-font"></navbar-menu>
+            
+            <app-dynamic-content-outlet [componentName]="'NavbarMenuComponent'" class="nav-menu beauty-font">
+            </app-dynamic-content-outlet>
             <button type="button" mat-button (click)="sidenav.close()" class="full-width text-white">
                 <mat-icon>close</mat-icon>
             </button>

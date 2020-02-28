@@ -122,7 +122,7 @@ namespace MyLiverpool.Business.Services
         #region private
         private async Task<string> GetConfirmEmailBody(int userId)
         {
-            var host = _accessor.HttpContext.Request.Host;
+            var host = _accessor.HttpContext.Request.Headers["HeaderReferer"];
             string code = await _userRepository.GenerateEmailConfirmationTokenAsync(userId);
             code = code.Base64ForUrlEncode();
             

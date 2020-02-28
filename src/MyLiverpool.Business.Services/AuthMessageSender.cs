@@ -42,17 +42,17 @@ namespace MyLiverpool.Business.Services
             emailMessage.Body = new TextPart("html") { Text = message };
             try
             {
-                using (var client = new SmtpClient())
+                using var client = new SmtpClient
                 {
                     //TODO fix and test on test env
-                    client.ServerCertificateValidationCallback = (s, c, ch, e) => true;
+                    ServerCertificateValidationCallback = (s, c, ch, e) => true
+                };
 
-                    await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
-                    await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
+                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
+                await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
-                    await client.SendAsync(emailMessage);
-                    await client.DisconnectAsync(true);
-                }
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
             }
             catch (Exception ex) //todo add another try to send email
             {

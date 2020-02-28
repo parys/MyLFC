@@ -49,7 +49,7 @@ export class AuthService {
     }
 
     public register(data: IRegisterModel): Observable<any> {
-        return this.http1.post(environment + 'api/v1/account/register', data).pipe(
+        return this.http1.post(environment.apiUrl + 'api/v1/account/register', data).pipe(
             catchError(res => throwError(res.error)));
     }
 

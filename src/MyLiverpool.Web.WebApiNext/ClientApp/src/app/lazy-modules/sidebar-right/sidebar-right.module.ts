@@ -9,7 +9,7 @@ import { AccountSigninWidgetModule } from '@widgets/http/account-signin-widget';
 import { SidebarRightComponent } from './sidebar-right.component';
 
 import { RightSidebarMaterialModule } from './sidebar-right-material.module';
-import { MobileLayoutModule } from '../mobile-layout/mobile-layout.module';
+import { MobileLayoutModule } from '../../layout/modules/mobile-layout/mobile-layout.module';
 
 @NgModule({
     imports: [

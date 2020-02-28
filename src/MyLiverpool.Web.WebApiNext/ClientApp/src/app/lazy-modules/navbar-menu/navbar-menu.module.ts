@@ -4,10 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
-import { NavbarComponent } from './navbar/navbar.component';
-import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
-import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
-import { OdModule } from '../od';
+import { NavbarMenuComponent } from './components/navbar-menu.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -17,16 +14,16 @@ import { MatButtonModule } from '@angular/material/button';
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        MobileLayoutModule,
-        OdModule
     ],
     declarations: [
-        NavbarComponent,
         NavbarMenuComponent,
     ],
-    exports: [
-        NavbarComponent,
+    entryComponents: [
         NavbarMenuComponent,
     ]
 })
-export class NavbarMenuModule { }
+export class NavbarMenuModule {
+    static dynamicComponentsMap = {
+        NavbarMenuComponent
+    };
+ }

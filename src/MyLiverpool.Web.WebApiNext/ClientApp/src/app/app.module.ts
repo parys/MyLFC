@@ -22,7 +22,7 @@ import { CoreModule } from '@core/core.module';
 import { NoticesModule } from '@notices/notices.module';
 import { MobileLayoutModule } from '@layout/modules/mobile-layout/mobile-layout.module';
 import { OdModule } from './od';
-import { NavbarMenuModule } from './home/navbar-menu.module';
+import { NavbarModule } from './home/navbar/navbar.module';
 
 registerLocaleData(localeRU);
 
@@ -64,7 +64,7 @@ export function runAppInitializerFactories(injector: Injector): () => Promise<an
         DynamicContentOutletModule,
         MobileLayoutModule,
         OdModule,
-        NavbarMenuModule
+        NavbarModule
     ],
     declarations: [
         AppComponent,

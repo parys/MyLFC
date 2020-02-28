@@ -10,12 +10,17 @@ interface RegistryItem {
 export const DynamicContentOutletRegistry: RegistryItem[] = [
     {
         componentName: 'SidebarLeftComponent',
-        modulePath: 'src/app/layout/modules/sidebar-left/sidebar-left.module',
+        modulePath: 'src/app/lazy-modules/sidebar-left/sidebar-left.module',
         moduleName: 'SidebarLeftModule'
       },
       {
         componentName: 'SidebarRightComponent',
-        modulePath: 'src/app/layout/modules/sidebar-right/sidebar-right.module',
+        modulePath: 'src/app/lazy-modules/sidebar-right/sidebar-right.module',
         moduleName: 'SidebarRightModule'
+      },
+      {
+        componentName: 'NavbarMenuComponent',
+        modulePath: 'src/app/lazy-modules/navbar-menu/navbar-menu.module',
+        moduleName: 'NavbarMenuModule'
       },
 ];
