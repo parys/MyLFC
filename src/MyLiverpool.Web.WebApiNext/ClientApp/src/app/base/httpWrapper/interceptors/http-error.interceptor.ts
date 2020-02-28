@@ -34,7 +34,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             switchMap(() => throwError(error))
                         );
                 })
-            )
+            );
     }
 
     public parseError(err: HttpErrorResponse): Observable<NoticeMessage> {
