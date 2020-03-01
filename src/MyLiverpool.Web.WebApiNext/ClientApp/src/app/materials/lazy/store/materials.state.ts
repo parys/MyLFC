@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { patch } from '@ngxs/store/operators';
@@ -25,6 +25,7 @@ import {
     DeleteMaterial,
     AddView
 } from './materials.actions';
+import { isPlatformBrowser } from '@angular/common';
 
 declare function ssn(): any;
 
@@ -56,8 +57,9 @@ export class MaterialsState {
     }
 
     constructor(protected network: MaterialService,
-                private storage: StorageService,
-                protected titleService: CustomTitleMetaService) { }
+        private storage: StorageService,
+        @Inject(PLATFORM_ID) private platformId: object,
+        protected titleService: CustomTitleMetaService) { }
 
     @Action(ChangeSort)
     @Action(ChangePage)
@@ -95,21 +97,25 @@ export class MaterialsState {
                     this.titleService.updateDescriptionMetaTag(material.brief);
                     this.titleService.updateKeywordsMetaTag(material.tags);
                     this.titleService.updateOgImageMetaTag(`https://mylfc.ru${material.photoPreview}`);
-                    if (material.socialLinks) {
-                        ssn();
+
+
+                    if (isPlatformBrowser(this.platformId)) {
+                        if (material.socialLinks) {
+                            ssn();
+                        }
                     }
                 })
             );
     }
 
     @Action(ActivateMaterial)
-    onActivateMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: ActivateMaterial) {
+    onActivateMaterial({ setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: ActivateMaterial) {
         return this.network.activate(payload).pipe(
             tap(result => {
                 const { material } = getState();
                 if (result && material && payload === material.id) {
                     material.pending = false;
-                    patchState({ material: {...material }});
+                    patchState({ material: { ...material } });
 
                 }
                 setState(
@@ -124,7 +130,7 @@ export class MaterialsState {
     }
 
     @Action(DeleteMaterial)
-    onDeleteMaterial({setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: DeleteMaterial) {
+    onDeleteMaterial({ setState, getState, patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: DeleteMaterial) {
         return this.network.delete(payload.id).pipe(
             tap(result => {
                 const { material } = getState();
@@ -132,10 +138,10 @@ export class MaterialsState {
                     patchState({ material: null });
                 }
                 setState(
-                        patch({
-                            materials: removeMany<GetMaterialsListQuery.MaterialListDto>
-                                (item => item.id === payload.id)
-                        })
+                    patch({
+                        materials: removeMany<GetMaterialsListQuery.MaterialListDto>
+                            (item => item.id === payload.id)
+                    })
                 );
                 dispatch(new ShowNotice(NoticeMessage.success('Материал удален', '')));
             })

@@ -17,19 +17,14 @@
 
 import 'zone.js/dist/zone-node';
 
-import { enableProdMode } from '@angular/core';
-
 import * as express from 'express';
 import {join} from 'path';
-
-// Faster server renders w/ Prod mode (dev mode never needed)
-enableProdMode();
 
 // Express server
 const app = express();
 
 const PORT = process.env.PORT || 4000;
-const DIST_FOLDER = join(process.cwd(), 'browser');
+const DIST_FOLDER = join(process.cwd(), 'dist/browser'); // remove on ui folders
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');

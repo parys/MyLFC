@@ -72,11 +72,11 @@ export class AppComponent extends ObserverComponent implements OnInit {
             })).subscribe((data: any) => {
                 if (data.title) {
                     this.titleService.setTitle(data.title);
+                    this.titleService.updateKeywordsMetaTag(data.keywords || '');
+                    this.titleService.updateDescriptionMetaTag(data.description || '');
+                    this.titleService.updateTypeMetaTag(data.ogType || 'website');
+                    this.titleService.updateOgImageMetaTag('https://mylfc.ru/content/logo34.png');
                 }
-                this.titleService.updateKeywordsMetaTag(data.keywords || '');
-                this.titleService.updateDescriptionMetaTag(data.description || '');
-                this.titleService.updateTypeMetaTag(data.ogType || 'website');
-                this.titleService.updateOgImageMetaTag('https://mylfc.ru/content/logo34.png');
             });
     }
 

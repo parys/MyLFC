@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -17,14 +18,16 @@ namespace MyLiverpool.Business.Services
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
         private readonly IUserRepository _userRepository;
+        private readonly IOptions<EmailSettings> _settings;
         private const string DefaultPhotoPath = "/content/avatars/default.png";
 
-        public AccountService(IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, IUserRepository userRepository)
+        public AccountService(IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, IUserRepository userRepository, IOptions<EmailSettings> settings)
         {
             _mapper = mapper;
             _messageService = messageService;
             _accessor = accessor;
             _userRepository = userRepository;
+            _settings = settings;
         }
 
         public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
@@ -122,21 +125,19 @@ namespace MyLiverpool.Business.Services
         #region private
         private async Task<string> GetConfirmEmailBody(int userId)
         {
-            var host = _accessor.HttpContext.Request.Headers["HeaderReferer"];
-            string code = await _userRepository.GenerateEmailConfirmationTokenAsync(userId);
-            code = code.Base64ForUrlEncode();
-            
-            var callbackUrl = $"http://{host}/account/confirmEmail?userId={userId}&code={code}";
-            return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
+                string code = await _userRepository.GenerateEmailConfirmationTokenAsync(userId);
+                code = code.Base64ForUrlEncode();
+
+                var callbackUrl = $"{_settings.Value.UiUrl}/account/confirmEmail?userId={userId}&code={code}";
+                return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
         }
 
         private async Task<string> GetForgotPasswordBody(int userId)
         {
-            var host = _accessor.HttpContext.Request.Host;
             string code = await _userRepository.GeneratePasswordResetTokenAsync(userId);
             code = code.Base64ForUrlEncode();
 
-            var callbackUrl = $"http://{host}/account/resetPassword?code={code}";
+            var callbackUrl = $"{_settings.Value.UiUrl}/account/resetPassword?code={code}";
             return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href=\"{callbackUrl}\"> здесь </a>.";
         }
 

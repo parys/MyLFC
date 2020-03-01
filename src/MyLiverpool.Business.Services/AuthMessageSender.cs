@@ -42,11 +42,7 @@ namespace MyLiverpool.Business.Services
             emailMessage.Body = new TextPart("html") { Text = message };
             try
             {
-                using var client = new SmtpClient
-                {
-                    //TODO fix and test on test env
-                    ServerCertificateValidationCallback = (s, c, ch, e) => true
-                };
+                using var client = new SmtpClient();
 
                 await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);

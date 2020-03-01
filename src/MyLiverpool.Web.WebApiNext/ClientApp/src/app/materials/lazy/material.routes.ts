@@ -15,9 +15,6 @@ export const materialRoutes: Routes = [
             {
                 path: '',
                 component: MaterialDetailComponent,
-                data: {
-                    ogType: 'article'
-                },
                 resolve: { MaterialResolver }
             },
             {

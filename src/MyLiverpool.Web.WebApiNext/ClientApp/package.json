@@ -6,8 +6,6 @@
     "serve": "ng serve --proxy-config proxy.conf.json",
     "start": "ng serve",
     "lint": "ng lint",
-    "run1": "ng serve --hmr false --proxy-config proxy.conf.json",
-    "run2": "ng serve  --proxy-config proxy.conf.json",
     "build": "ng build --prod --build-optimizer",
     "build-ssr": "ng build --prod --project=server",
     "build-nohash": "ng build --prod --build-optimizer --output-hashing none",

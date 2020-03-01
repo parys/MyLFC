@@ -126,7 +126,7 @@
           },
           "configurations": {
             "production": {
-              "optimization": false,
+              "optimization": true,
               "outputHashing": "media",
               "sourceMap": false,
               "namedChunks": false,
@@ -141,7 +141,7 @@
               ]
             },
             "test": {
-              "optimization": false,
+              "optimization": true,
               "outputHashing": "media",
               "sourceMap": false,
               "namedChunks": false,
