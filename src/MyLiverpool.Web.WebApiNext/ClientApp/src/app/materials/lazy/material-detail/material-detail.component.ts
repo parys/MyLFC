@@ -21,7 +21,7 @@ export class MaterialDetailComponent extends ObserverComponent {
 
     @Select(AuthState.isEditor) isEditor$: Observable<boolean>;
 
-    @Select(AuthState.userId) userId$: Observable<number>;
+    @Select(AuthState.userId) userId$: Observable<number >;
 
     @Select(MaterialsState.material) material$: Observable<GetMaterialDetailQuery.Response>;
 

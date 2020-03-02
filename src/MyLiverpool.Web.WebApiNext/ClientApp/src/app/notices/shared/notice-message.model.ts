@@ -1,4 +1,4 @@
-import { BaseEntity } from '@domain/models';
+import { BaseEntity } from '@domain/models/base-entity.model';
 
 import { NoticeType } from '@notices/shared/notice-type.enum';
 

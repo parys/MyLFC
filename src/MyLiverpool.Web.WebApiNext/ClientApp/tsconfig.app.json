@@ -5,9 +5,13 @@
   },
   "files": [
     "src/main.browser.ts",
-    "src/polyfills/polyfills.ts"
+    "src/polyfills/polyfills.ts",
+    "src/app/editor/tiny-module/tiny.module.ts",
+    "src/app/lazy-modules/navbar-menu/navbar-menu.module.ts",
+    "src/app/lazy-modules/sidebar-left/sidebar-left.module.ts",
+    "src/app/lazy-modules/sidebar-right/sidebar-right.module.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.d.ts"
   ],
 }

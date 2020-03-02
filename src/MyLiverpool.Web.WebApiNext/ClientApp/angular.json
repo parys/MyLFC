@@ -10,7 +10,7 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "style": "scss"
         }
       },
       "architect": {
@@ -70,7 +70,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -94,7 +93,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -132,7 +130,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "bundleDependencies": "all",
+              "bundleDependencies": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -147,7 +145,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "bundleDependencies": "all",
+              "bundleDependencies": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

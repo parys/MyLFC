@@ -7,7 +7,7 @@ import localeRU from '@angular/common/locales/ru';
 import { NgxsModule } from '@ngxs/store';
 
 import { AppComponent } from './app.component';
-import { MaterialCoreModule } from '@materials/core';
+import { MaterialCoreModule } from '@materials/core/material-core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { PipesModule } from './base/pipes';

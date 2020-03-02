@@ -17,7 +17,7 @@ export declare type KeyType = string | number;
 @Injectable()
 export abstract class TableComponent<T> extends ObserverComponent implements AfterViewInit {
 
-    @ViewChild(MatSort, { static: false}) sort: MatSort;
+    @ViewChild(MatSort) sort: MatSort;
 
     public scrollerRef: ElementRef;
 

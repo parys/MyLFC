@@ -6,7 +6,7 @@ import { Store } from '@ngxs/store';
 
 import { GetMaterialDetailQuery } from '@network/shared/materials';
 
-import { GetMaterialById } from '@materials/lazy/store/materials.actions';
+import { GetMaterialById, AddView } from '@materials/lazy/store/materials.actions';
 
 
 @Injectable()
@@ -17,7 +17,7 @@ export class MaterialResolver implements Resolve<any> {
     public resolve(route: ActivatedRouteSnapshot): Observable<GetMaterialDetailQuery.Response> {
         const payload = new GetMaterialDetailQuery.Request({ id: route.params.id });
         return this.store.dispatch([
-            new GetMaterialById(payload)]);
+            new GetMaterialById(payload), new AddView(payload.id)]);
     }
 
 }
