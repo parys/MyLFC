@@ -11,14 +11,6 @@ if (environment.production) {
   //  require("zone.js/dist/long-stack-trace-zone");
 }
 
-// export function getBaseUrl() {
-//     return document.getElementsByTagName('base')[0].href;
-// }
-
-// const providers = [
-//     { provide: 'BASE_URL', useFactory: getBaseUrl, deps: <any[]>[] },
-// ];
-
 document.addEventListener('DOMContentLoaded', () => {
     platformBrowserDynamic().bootstrapModule(AppModule)
         .catch(err => console.log(err));

@@ -118,7 +118,7 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/server",
-            "main": "src/main.server.ts",
+            "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "progress": true
           },
@@ -153,6 +153,36 @@
                 }
               ]
             }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "angular2app:build",
+            "serverTarget": "angular2app:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular2app:build:production",
+              "serverTarget": "angular2app:server:production"
+            },
+            "test": {
+              "browserTarget": "angular2app:build:test",
+              "serverTarget": "angular2app:server:test"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "angular2app:build:production",
+            "serverTarget": "angular2app:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
