@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { Subscription, merge, of, Observable } from 'rxjs';
+import { merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Stadium, StadiumFilters, PagedList } from '@domain/models';
@@ -18,16 +18,13 @@ import { NotifierService } from '@notices/services';
     selector: 'stadium-list',
     templateUrl: './stadium-list.component.html'
 })
-export class StadiumListComponent extends ObserverComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-    private sub2: Subscription;
+export class StadiumListComponent extends ObserverComponent implements AfterViewInit, OnDestroy {
     public items: Stadium[];
     displayedColumns = ['name', 'city'];
 
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: true })
-    paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private service: StadiumService,
                 private route: ActivatedRoute,
@@ -36,12 +33,14 @@ export class StadiumListComponent extends ObserverComponent implements OnInit, O
                     super();
     }
 
-    public ngOnInit(): void {
-        this.sub = this.route.queryParams.subscribe(qParams => {
+    public ngAfterViewInit(): void {
+        const sub$ = this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = +qParams.itemsPerPage || 15;
 
             });
+
+        this.subscriptions.push(sub$);
 
         merge(this.sort.sortChange
            //     ,
@@ -71,11 +70,6 @@ export class StadiumListComponent extends ObserverComponent implements OnInit, O
                     this.items = data;
                     this.updateUrl();
                 });
-    }
-
-    public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
-        if (this.sub2) { this.sub2.unsubscribe(); }
     }
 
     public showDeleteModal(index: number): void {

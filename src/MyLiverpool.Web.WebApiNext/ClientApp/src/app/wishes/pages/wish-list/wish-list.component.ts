@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,10 +21,10 @@ import { NotifierService } from '@notices/services';
     templateUrl: './wish-list.component.html',
     styleUrls: ['./wish-list.component.scss']
 })
-export class WishListComponent extends ObserverComponent implements OnInit {
+export class WishListComponent extends ObserverComponent implements AfterViewInit {
     public items: Wish[];
     public stateId: number;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
 
@@ -36,7 +36,7 @@ export class WishListComponent extends ObserverComponent implements OnInit {
     }
 
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             this.paginator.pageSize = +qParams['itemsPerPage'] || 15;

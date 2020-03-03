@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,26 +21,26 @@ import { ObserverComponent } from '@domain/base';
     templateUrl: './injury-list.component.html'
 })
 
-export class InjuryListComponent extends ObserverComponent implements OnInit, OnDestroy {
+export class InjuryListComponent extends ObserverComponent implements AfterViewInit, OnDestroy {
     private sub: Subscription;
     public items: Injury[];
     displayedColumns = ['personName', 'startTime', 'endTime', 'description', 'tool'];
 
-    @ViewChild(MatSort, { static: true })sort: MatSort;
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
-    @ViewChild('nameInput', { static: true })nameInput: ElementRef;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('nameInput') nameInput: ElementRef;
 
     constructor(private injuryService: InjuryService,
-                private route: ActivatedRoute,
-                private location: Location,
-                private notifier: NotifierService) {
-                    super();
+        private route: ActivatedRoute,
+        private location: Location,
+        private notifier: NotifierService) {
+        super();
     }
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-            });
+        });
 
         merge(this.sort.sortChange,
             fromEvent(this.nameInput.nativeElement, KEYUP)
@@ -51,7 +51,7 @@ export class InjuryListComponent extends ObserverComponent implements OnInit, On
 
         merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, KEYUP)
             .pipe(debounceTime(DEBOUNCE_TIME),
-                    distinctUntilChanged()))
+                distinctUntilChanged()))
             .pipe(
                 startWith({}),
                 switchMap(() => {
@@ -68,9 +68,9 @@ export class InjuryListComponent extends ObserverComponent implements OnInit, On
                     return of([]);
                 })
             ).subscribe((data: Injury[]) => {
-                    this.items = data;
-                    this.updateUrl();
-                });
+                this.items = data;
+                this.updateUrl();
+            });
     }
 
     public ngOnDestroy(): void {
@@ -81,11 +81,11 @@ export class InjuryListComponent extends ObserverComponent implements OnInit, On
         const sub$ = this.notifier.confirm(new ConfirmationMessage({
             title: 'Удалить ?'
         }))
-        .subscribe(result => {
-            if (result) {
-                this.delete(injury.id);
-            }
-        });
+            .subscribe(result => {
+                if (result) {
+                    this.delete(injury.id);
+                }
+            });
         this.subscriptions.push(sub$);
     }
 
@@ -112,6 +112,7 @@ export class InjuryListComponent extends ObserverComponent implements OnInit, On
                 if (res) {
                     this.items.splice(index, 1);
                     this.paginator.length -= 1;
-                }});
+                }
+            });
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelect } from '@angular/material/select';
@@ -21,28 +21,31 @@ import { ConfirmationMessage } from '@notices/shared';
     selector: 'person-list',
     templateUrl: './person-list.component.html'
 })
-export class PersonListComponent extends ObserverComponent implements OnInit {
+export class PersonListComponent extends ObserverComponent implements OnInit, AfterViewInit {
     public items: Person[];
     public personTypes: PersonType[];
     displayedColumns = ['lastRussianName', 'firstRussianName', 'birthday', 'position', 'country'];
 
-    @ViewChild(MatSort, { static: true })sort: MatSort;
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
-    @ViewChild('typeSelect', { static: true })typeSelect: MatSelect;
-    @ViewChild('nameInput', { static: true })nameInput: ElementRef;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('typeSelect') typeSelect: MatSelect;
+    @ViewChild('nameInput') nameInput: ElementRef;
 
     constructor(private personService: PersonService,
                 private route: ActivatedRoute,
                 private location: Location,
                 private notifier: NotifierService) {
-                    super();
+        super();
     }
 
     public ngOnInit(): void {
-        this.parseQueryParams();
         this.personService.getTypes()
             .subscribe((data: PersonType[]) => this.personTypes = data);
+    }
 
+    public ngAfterViewInit(): void {
+        this.parseQueryParams();
+        
         merge(this.sort.sortChange,
             this.typeSelect.selectionChange,
             fromEvent(this.nameInput.nativeElement, KEYUP)
@@ -69,7 +72,7 @@ export class PersonListComponent extends ObserverComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-        ).subscribe((data: Person[]) => {
+            ).subscribe((data: Person[]) => {
                 this.items = data;
                 this.updateUrl();
             });
@@ -79,11 +82,11 @@ export class PersonListComponent extends ObserverComponent implements OnInit {
         const sub$ = this.notifier.confirm(new ConfirmationMessage({
             title: 'Удалить ?'
         }))
-        .subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        });
+            .subscribe(result => {
+                if (result) {
+                    this.delete(index);
+                }
+            });
         this.subscriptions.push(sub$);
     }
 
@@ -127,7 +130,8 @@ export class PersonListComponent extends ObserverComponent implements OnInit {
                 if (data) {
                     this.items.splice(index, 1);
                     this.paginator.length -= 1;
-                }});
+                }
+            });
     }
 
     private parseQueryParams(): void {

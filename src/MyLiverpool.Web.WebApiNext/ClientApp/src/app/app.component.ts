@@ -15,7 +15,7 @@ import { Store, Select } from '@ngxs/store';
 import { ChangeMobile, CoreState } from '@core/store';
 
 import { CustomTitleMetaService } from '@core/services';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ObserverComponent } from '@domain/base';
 
 
@@ -83,7 +83,7 @@ export class AppComponent extends ObserverComponent implements OnInit {
     private subscribeOnChangeLayout(): void {
         const subscription = this.breakpointObserver.observe(['screen and (max-width: 767px)'])
             .pipe(
-                map(x => x.matches),
+                map((x: BreakpointState) => x.matches),
                 distinctUntilChanged()
             )
             .subscribe((mobile: boolean) => {

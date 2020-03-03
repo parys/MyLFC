@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { Subscription, merge, of, Observable } from 'rxjs';
+import { merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Match, MatchFilters, PagedList } from '@domain/models';
@@ -20,12 +20,10 @@ import { ObserverComponent } from '@domain/base';
     templateUrl: './match-list.component.html',
     styleUrls: ['./match-list.component.scss']
 })
-export class MatchListComponent extends ObserverComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-    private sub2: Subscription;
+export class MatchListComponent extends ObserverComponent implements AfterViewInit {
+
     public items: Match[];
-    @ViewChild(MatPaginator, { static: true })
-    paginator: MatPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private matchService: MatchService,
                 private route: ActivatedRoute,
@@ -34,7 +32,7 @@ export class MatchListComponent extends ObserverComponent implements OnInit, OnD
                     super();
     }
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         this.route.queryParams.subscribe(qParams => {
                 this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = 15;
@@ -60,15 +58,6 @@ export class MatchListComponent extends ObserverComponent implements OnInit, OnD
                     this.items = data;
                     this.updateUrl();
                 });
-    }
-
-    public ngOnDestroy(): void {
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
-        if (this.sub2) {
-            this.sub2.unsubscribe();
-        }
     }
 
     public update(): Observable<PagedList<Match>> {

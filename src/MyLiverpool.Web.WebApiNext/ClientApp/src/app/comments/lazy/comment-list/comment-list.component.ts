@@ -1,10 +1,10 @@
-import { Component, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { merge, of, Observable, Subscription } from 'rxjs';
+import { merge, of, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import { Comment, CommentFilter, PagedList } from '@domain/models';
@@ -19,10 +19,10 @@ import { ConfirmationMessage } from '@notices/shared';
 
 @Component({
     selector: 'comment-list',
-    templateUrl: './comment-list.component.html'
+    templateUrl: './comment-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentListComponent extends ObserverComponent implements OnDestroy, AfterViewInit {
-    private sub: Subscription;
+export class CommentListComponent extends ObserverComponent implements AfterViewInit {
     public items: Comment[];
     public categoryId: number;
     public userName: string;
@@ -30,8 +30,8 @@ export class CommentListComponent extends ObserverComponent implements OnDestroy
 
     @Select(AuthState.isModerator) isModerator$: Observable<boolean>;
 
-    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
-    @ViewChild('onlyUnverified', { static: true })onlyUnverified: MatCheckbox;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('onlyUnverified') onlyUnverified: MatCheckbox;
 
     constructor(private materialCommentService: CommentService,
                 private route: ActivatedRoute,
@@ -75,10 +75,6 @@ export class CommentListComponent extends ObserverComponent implements OnDestroy
                     this.items = data;
                     this.updateUrl();
                 });
-    }
-
-    public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
     }
 
     public update(): Observable<PagedList<Comment>> {

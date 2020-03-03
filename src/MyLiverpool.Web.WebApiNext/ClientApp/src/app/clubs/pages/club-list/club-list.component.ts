@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,13 +21,13 @@ import { ConfirmationMessage } from '@notices/shared';
     templateUrl: './club-list.component.html',
     styleUrls: ['./club-list.component.scss']
 })
-export class ClubListComponent extends ObserverComponent implements OnInit {
+export class ClubListComponent extends ObserverComponent implements AfterViewInit {
     public items: Club[];
     displayedColumns = ['logo', 'name', 'englishName', 'stadiumName', 'tool'];
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild('nameInput', { static: true }) nameInput: ElementRef;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('nameInput') nameInput: ElementRef;
 
     constructor(private clubService: ClubService,
                 private route: ActivatedRoute,
@@ -36,7 +36,7 @@ export class ClubListComponent extends ObserverComponent implements OnInit {
         super();
     }
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         if (+this.route.snapshot.queryParams[PAGE]) {
             this.paginator.pageIndex = +this.route.snapshot.queryParams[PAGE] - 1;
         }
