@@ -10,7 +10,6 @@
     "build-ssr": "ng build --prod --project=server",
     "build-nohash": "ng build --prod --build-optimizer --output-hashing none",
     "serve:ssr": "node dist/server.js --port 4004",
-    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "build:prod:ssr": "npm run build:prod:client-and-server-bundles && npm run compile:server",
     "build:test:ssr": "npm run build:test:client-and-server-bundles && npm run compile:server",
     "build:prod:client-and-server-bundles": "ng build --prod --configuration=production && ng run angular2app:server:production",
@@ -20,7 +19,7 @@
     "banalyze-es5": "npm run build -- --stats-json && webpack-bundle-analyzer dist/browser/stats-es5.json",
     "analyze-es2015": "webpack-bundle-analyzer dist/browser/stats-es2015.json",
     "banalyze-es2015": "npm run build -- --stats-json && webpack-bundle-analyzer dist/browser/stats-es2015.json",
-    "source-map": "npm run build -- --sourceMap=true --outputHashing=none && source-map-explorer dist/browser/main-es2015.js dist/browser/main-es2015.js.map"
+    "sm": "npm run build -- --sourceMap=true --outputHashing=none && source-map-explorer dist/browser/main-es2015.js dist/browser/main-es2015.js.map"
   },
   "dependencies": {
     "@angular/animations": "9.0.4",
