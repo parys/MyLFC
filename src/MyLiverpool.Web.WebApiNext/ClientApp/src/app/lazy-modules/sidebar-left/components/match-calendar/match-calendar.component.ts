@@ -4,7 +4,7 @@ import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { Match, MatchCalendar } from '@domain/models';
-import { LayoutService } from '@layout/layout.service';
+import { SidebarLeftService } from '@lazy-modules/sidebar-left/sidebar-left.service';
 
 const MATCH_CALENDAR_KEY = makeStateKey<Match[]>('match-calendar');
 
@@ -19,7 +19,7 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
     public last: Match;
     public next: Match;
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarLeftService,
                 private transferState: TransferState,
                 private cd: ChangeDetectorRef) { }
 

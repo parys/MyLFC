@@ -72,6 +72,9 @@
       "@layout/*": [
         "./src/app/layout/*"
       ],
+      "@lazy-modules/*": [
+        "./src/app/lazy-modules/*"
+      ],
       "@matches/*": [
         "./src/app/matches/*"
       ],

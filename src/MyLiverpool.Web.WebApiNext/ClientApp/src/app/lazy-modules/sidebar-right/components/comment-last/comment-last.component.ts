@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { Comment } from '@domain/models';
 import { SignalRService } from '@base/signalr';
-
-import { LayoutService } from '@layout/layout.service';
+import { SidebarRightService } from '@lazy-modules/sidebar-right/sidebar-right.service';
 
 
 const COMMENT_LAST_KEY = makeStateKey<Comment[]>('comments-last');
@@ -21,7 +20,7 @@ export class CommentLastComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
     public items: Comment[];
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarRightService,
                 private cd: ChangeDetectorRef,
                 private transferState: TransferState,
                 private signalRService: SignalRService) {

@@ -4,7 +4,7 @@ import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { User } from '@domain/models';
-import { LayoutService } from '@layout/layout.service';
+import { SidebarRightService } from '@lazy-modules/sidebar-right/sidebar-right.service';
 
 const USER_BIRTHDAY_KEY = makeStateKey<User[]>('user-bday');
 
@@ -21,7 +21,7 @@ export class UserBirthdayComponent implements OnInit, OnDestroy {
 
     constructor(private transferState: TransferState,
                 private cd: ChangeDetectorRef,
-                private service: LayoutService) {
+                private service: SidebarRightService) {
     }
 
     public ngOnInit(): void {

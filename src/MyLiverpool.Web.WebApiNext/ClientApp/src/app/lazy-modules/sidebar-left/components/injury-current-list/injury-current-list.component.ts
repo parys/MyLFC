@@ -5,7 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 
 import { Injury } from '@domain/models';
 
-import { LayoutService } from '@layout/layout.service';
+import { SidebarLeftService } from '@lazy-modules/sidebar-left/sidebar-left.service';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 
@@ -23,7 +23,7 @@ export class InjuryCurrentListComponent implements OnInit, OnDestroy {
 
     @Select(AuthState.isAdminAssistant) isAdminAssistant$: Observable<boolean>;
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarLeftService,
                 private transferState: TransferState,
                 private cd: ChangeDetectorRef) {
     }

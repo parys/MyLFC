@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { IUserOnline, UsersOnline } from '@domain/models';
 import { SignalRService } from '@base/signalr';
 
-import { LayoutService } from '@layout/layout.service';
+import { SidebarRightService } from '@lazy-modules/sidebar-right/sidebar-right.service';
 
 const USER_ONLINE_KEY = makeStateKey<UsersOnline>('user-online');
 
@@ -21,7 +21,7 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     public guestCount = 0;
     public users: IUserOnline[] = new Array();
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarRightService,
                 private cd: ChangeDetectorRef,
                 private transferState: TransferState,
                 private signalRService: SignalRService) { }

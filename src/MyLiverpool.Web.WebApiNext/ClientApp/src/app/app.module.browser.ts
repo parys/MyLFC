@@ -1,5 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
     bootstrap: [AppComponent],
     imports: [
         AppModuleShared,
-        NoopAnimationsModule,
+        BrowserAnimationsModule,
         BrowserTransferStateModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         NgxsReduxDevtoolsPluginModule.forRoot({

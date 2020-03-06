@@ -3,7 +3,7 @@
 import { Subscription } from 'rxjs';
 
 import { Person } from '@domain/models';
-import { LayoutService } from '@layout/layout.service';
+import { SidebarLeftService } from '@lazy-modules/sidebar-left/sidebar-left.service';
 
 @Component({
     selector: 'person-birthday',
@@ -16,7 +16,7 @@ export class PersonBirthdayComponent implements OnInit, OnDestroy {
     public items: Person[];
     public currentPersonIndex: number = null;
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarLeftService,
                 private cd: ChangeDetectorRef) {
     }
 

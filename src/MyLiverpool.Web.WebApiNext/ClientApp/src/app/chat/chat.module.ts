@@ -5,9 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { EditorModule } from '@editor/index';
+import { EditorModule } from '@editor/editor.module';
 import { PipesModule } from '@base/pipes';
-import { LayoutModule } from '@layout/layout.module';
 
 import { MiniChatComponent } from '@chat/miniChat';
 import { MaxiChatComponent } from '@chat/maxiChat';
@@ -24,8 +23,7 @@ import { ChatMessageService } from '@chat/chat-message.service';
         RouterModule.forChild(chatRoutes),
         EditorModule,
         PipesModule,
-        LayoutModule // todo needed for users-online
-        , MatButtonModule,
+        MatButtonModule,
         MatTabsModule
     ],
     declarations: [

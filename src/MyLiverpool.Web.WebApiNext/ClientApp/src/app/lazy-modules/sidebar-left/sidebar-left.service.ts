@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
-import { MATCHES_ROUTE, PERSONS_ROUTE, USERS_ROUTE, COMMENTS_ROUTE, INJURIES_ROUTE, HELPERS_ROUTE } from '@constants/routes.constants';
-import { Comment, MatchCalendar, Person, User, UsersOnline, Injury } from '@domain/models';
+import { MATCHES_ROUTE, PERSONS_ROUTE, INJURIES_ROUTE, HELPERS_ROUTE } from '@constants/routes.constants';
+import { MatchCalendar, Person, Injury } from '@domain/models';
 
 @Injectable()
-export class LayoutService {
+export class SidebarLeftService {
     constructor(private http: HttpWrapper) {
     }
     public getForCalendar(): Observable<MatchCalendar> {
@@ -20,18 +20,6 @@ export class LayoutService {
 
     public getBirthdays(): Observable<Person[]> {
         return this.http.get<Person[]>(`${PERSONS_ROUTE}/birthdays`);
-    }
-
-    public getUsersBirthdays(): Observable<User[]> {
-        return this.http.get<User[]>(`${USERS_ROUTE}/birthdays`);
-    }
-
-    public getOnlineCount(): Observable<UsersOnline> {
-        return this.http.get<UsersOnline>(`${USERS_ROUTE}/online`);
-    }
-
-    public getLastComments(): Observable<Comment[]> {
-        return this.http.get<Comment[]>(COMMENTS_ROUTE + '/last');
     }
 
     public getCurrentInjuries(): Observable<Injury[]> {

@@ -14,7 +14,7 @@ import { CustomTitleMetaService } from '@core/services';
 
 import { GetMaterialsListQuery, GetMaterialDetailQuery } from '@network/shared/materials';
 import { MaterialService } from '@materials/core';
-import { MaterialsStateModel } from './materials.model';
+import { MaterialsStateModel } from './materials-state.model';
 import {
     SetMaterialsFilterOptions,
     GetMaterialsList,
@@ -57,9 +57,9 @@ export class MaterialsState {
     }
 
     constructor(protected network: MaterialService,
-        private storage: StorageService,
-        @Inject(PLATFORM_ID) private platformId: object,
-        protected titleService: CustomTitleMetaService ) { }
+                private storage: StorageService,
+                @Inject(PLATFORM_ID) private platformId: object,
+                protected titleService: CustomTitleMetaService ) { }
 
     @Action(ChangeSort)
     @Action(ChangePage)
@@ -87,7 +87,7 @@ export class MaterialsState {
     }
 
     @Action(GetMaterialById)
-    onGetMaterialById({ patchState }: StateContext<MaterialsStateModel>, { payload }: GetMaterialById) {
+    onGetMaterialById({ patchState, dispatch }: StateContext<MaterialsStateModel>, { payload }: GetMaterialById) {
         return (payload.id ? this.network.getSingle2(payload.id) : of(new GetMaterialDetailQuery.Response()))
             .pipe(
                 tap(material => {
@@ -98,7 +98,7 @@ export class MaterialsState {
                     this.titleService.updateKeywordsMetaTag(material.tags);
                     this.titleService.updateOgImageMetaTag(`https://mylfc.ru${material.photoPreview}`);
 
-
+                    dispatch(new AddView(payload.id));
                     if (isPlatformBrowser(this.platformId)) {
                         if (material.socialLinks) {
                             ssn();

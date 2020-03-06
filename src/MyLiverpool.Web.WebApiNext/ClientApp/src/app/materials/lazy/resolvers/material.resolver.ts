@@ -17,7 +17,7 @@ export class MaterialResolver implements Resolve<any> {
     public resolve(route: ActivatedRouteSnapshot): Observable<GetMaterialDetailQuery.Response> {
         const payload = new GetMaterialDetailQuery.Request({ id: route.params.id });
         return this.store.dispatch([
-            new GetMaterialById(payload), new AddView(payload.id)]);
+            new GetMaterialById(payload)]);
     }
 
 }

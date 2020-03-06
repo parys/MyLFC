@@ -3,7 +3,7 @@
 import { HelperType } from '@domain/models';
 import { ObserverComponent } from '@domain/base';
 
-import { LayoutService } from '@layout/layout.service';
+import { SidebarLeftService } from '@lazy-modules/sidebar-left/sidebar-left.service';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@auth/store';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ export class EplTableComponent extends ObserverComponent {
 
     @Select(AuthState.isInformer) isInformer$: Observable<boolean>;
 
-    constructor(private service: LayoutService,
+    constructor(private service: SidebarLeftService,
                 private cd: ChangeDetectorRef) {
         super();
     }
