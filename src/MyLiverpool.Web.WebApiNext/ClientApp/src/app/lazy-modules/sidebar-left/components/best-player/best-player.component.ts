@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Person } from '@domain/models';
 
-import { SidebarRightService } from '@lazy-modules/sidebar-right/sidebar-right.service';
+import { SidebarLeftService } from '@lazy-modules/sidebar-left/sidebar-left.service';
 
 @Component({
     selector: 'best-player',
@@ -15,7 +15,7 @@ export class BestPlayerComponent implements OnInit, OnDestroy {
     public item: Person;
     private sub: Subscription;
 
-    constructor(private service: SidebarRightService,
+    constructor(private service: SidebarLeftService,
                 private cd: ChangeDetectorRef
     ) { }
 

@@ -14,6 +14,7 @@ import {
     SidebarRightComponent
 } from './components/';
 import { PipesModule } from '@base/pipes';
+import { SidebarRightService } from './sidebar-right.service';
 
 @NgModule({
     imports: [
@@ -30,6 +31,9 @@ import { PipesModule } from '@base/pipes';
         UserOnlineCounterComponent,
         CommentLastComponent,
         SidebarRightComponent
+    ],
+    providers: [
+        SidebarRightService
     ],
     entryComponents: [
         SidebarRightComponent

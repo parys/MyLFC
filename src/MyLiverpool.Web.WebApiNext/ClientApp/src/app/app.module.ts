@@ -16,7 +16,7 @@ import { AuthModule } from '@base/auth';
 import { StorageModule } from '@base/storage';
 import { LoaderModule } from '@base/loader';
 import { BreadcrumbModule } from '@base/breadcrumbs';
-import { DynamicContentOutletModule } from '@layout/modules/dynamic-content-outlet/dynamic-content-outlet.module';
+import { DynamicContentOutletModule } from '@layout/dynamic-content-outlet/dynamic-content-outlet.module';
 import { getAccessToken } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { NoticesModule } from '@notices/notices.module';
