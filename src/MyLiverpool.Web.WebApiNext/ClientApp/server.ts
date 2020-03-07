@@ -19,6 +19,7 @@ import 'zone.js/dist/zone-node';
 
 import * as express from 'express';
 import { join } from 'path';
+import { environment } from './src/environments/environment';
 
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
@@ -61,7 +62,7 @@ export function app() {
 }
 
 function run() {
-  const port = process.env.PORT || 4001;
+  const port = process.env.PORT || environment.port;
 
   // Start up the Node server
   const server = app();
