@@ -25,6 +25,8 @@
 
         public const string MaterialsPinned = "MaterialsPinned";
 
+        public const string MaterialsOthers = "MaterialsOthers";
+
         public const string ChatName = "Chat";
 
         public const string LastComments = "LastComments";

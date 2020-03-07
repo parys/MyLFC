@@ -19,6 +19,7 @@
     }
 
     .material-info-panel {
+        margin-top: 10px;
         background-color: lightgray;
     }
 
@@ -32,6 +33,9 @@
         font-weight: bold;
         padding-left: 10px;
         text-transform: uppercase;
+        min-height: 0;
+        display: flex;
+        align-items: center;    
     }
 
     .material-header>a {
@@ -68,4 +72,13 @@
         width: auto;
     }
 
+}
+
+.others {
+    margin: 8px 0;
+    width: 100%;
+
+    > div:not(:first-child) {
+        margin-top: 4px;
+    }
 }

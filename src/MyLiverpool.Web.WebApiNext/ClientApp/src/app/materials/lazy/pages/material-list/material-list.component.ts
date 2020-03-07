@@ -13,7 +13,7 @@ import { MaterialService } from '@materials/core/material.service';
 import { PAGE } from '@constants/help.constants';
 import { AuthState } from '@auth/store';
 import { ObserverComponent } from '@domain/base';
-import { ActivateMaterial, DeleteMaterial } from '../store';
+import { ActivateMaterial, DeleteMaterial } from '@materials/lazy/store';
 
 @Component({
     selector: 'material-list',

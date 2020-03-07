@@ -74,7 +74,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.ShortLink, src => src.MapFrom(x => GetShortUrl(x.Source)))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
-                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => x.Tags));
 
@@ -111,6 +111,11 @@ namespace MyLfc.Application.Infrastructure.Profiles
                .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
+
+            CreateMap<Material, GetOtherMaterialsListQuery.OtherMaterialListDto>()
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+
         }
 
         private string GetShortUrl(string url)

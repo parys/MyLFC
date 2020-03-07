@@ -1,6 +1,6 @@
 ﻿<match-header></match-header>
 <div class="flex-space-around">
-    <div *ngFor="let item of pinned; trackBy: trackByFn"  class="material-container">
+    <div *ngFor="let item of pinned; trackBy: trackByFn" class="material-container">
         <material-item [item]="item"></material-item>
     </div>
     <div *ngFor="let item of latest; trackBy: trackByFn" class="material-container">

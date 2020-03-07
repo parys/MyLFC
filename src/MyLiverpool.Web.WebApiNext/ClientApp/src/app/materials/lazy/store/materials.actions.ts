@@ -39,3 +39,7 @@ export class AddView {
     static readonly type = '[Materials] Add material view';
     constructor(public readonly payload: number) { }
 }
+
+export class GetOtherMaterialsList {
+    static readonly type = '[Materials] Get other materials list';
+}

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { MaterialType, MaterialFilters, Material, PagedList } from '@domain/models';
 import { HttpWrapper } from '@base/httpWrapper';
 import { MATERIALS_ROUTE } from '@constants/routes.constants';
-import { GetMaterialsListQuery, GetMaterialDetailQuery } from '@network/shared/materials';
+import { GetMaterialsListQuery, GetMaterialDetailQuery, GetOtherMaterialsListQuery } from '@network/shared/materials';
 
 @Injectable()
 export class MaterialService {
@@ -17,6 +17,10 @@ export class MaterialService {
 
     public getAll(filters: MaterialFilters | any): Observable<PagedList<Material>> {
         return this.http.getWithParams<PagedList<Material>>(this.actionUrl, filters );
+    }
+
+    public getOthers(): Observable<GetOtherMaterialsListQuery.Response> {
+        return this.http.get<GetOtherMaterialsListQuery.Response>(this.actionUrl + 'others/' );
     }
 
     public getLatest(): Observable<PagedList<Material>> {

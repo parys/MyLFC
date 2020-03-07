@@ -25,7 +25,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(request);
 
             CacheManager.Remove(CacheKeysConstants.Material + request.Id);
-            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.MaterialsOthers);
             return Ok(result);
         }
 
@@ -38,7 +38,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> ActivateAsync([FromRoute]ActivateMaterialCommand.Request request)
         {
             var result = await Mediator.Send(request);
-            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, 
+                    CacheKeysConstants.MaterialsOthers
                     , CacheKeysConstants.Material + request.Id);
             
             return Ok(true);
@@ -64,7 +65,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(request);
             if (!result.Pending)
             {
-                CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
+                CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.MaterialsOthers);
             }
 
             return Ok(result);
@@ -96,7 +97,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await Mediator.Send(request);
-            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.Material + id);
+            CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest,
+                CacheKeysConstants.MaterialsOthers, CacheKeysConstants.Material + id);
             return Ok(result);
         }
 
@@ -110,36 +112,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var fileLinks = await Mediator.Send(request);
             return Ok(fileLinks);
-        }
-
-        private async void UpdateMaterialCacheAddViewAsync(int materialId)
-        {
-            var materialCache = await CacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
-            if (materialCache != null)
-            {
-                materialCache.Reads++;
-                CacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
-            }
-
-            var materialsCache =
-                await CacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
-
-            var matIndex = materialsCache?.Results.FindIndex(x => x.Id == materialId);
-            if (matIndex.HasValue && matIndex >= 0)
-            {
-                materialsCache.Results[matIndex.Value].Reads++;
-                CacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
-            }
-
-            var materialsPinnedCache =
-                await CacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
-
-            var matPinnedIndex = materialsPinnedCache?.Results.FindIndex(x => x.Id == materialId);
-            if (matPinnedIndex.HasValue && matPinnedIndex >= 0)
-            {
-                materialsPinnedCache.Results[matPinnedIndex.Value].Reads++;
-                CacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
-            }
         }
 
         /// <summary>
@@ -224,6 +196,46 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             await Mediator.Send(request);
             UpdateMaterialCacheAddViewAsync(request.Id);
             return Ok(true);
+        }
+
+        /// <summary>
+        /// Returns list of latest news with title and links to quick move to them from other materials.
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous, HttpGet("others")]
+        public async Task<IActionResult> GetOthers()
+        {
+            return Ok(await Mediator.Send(new GetOtherMaterialsListQuery.Request()));
+        }
+
+        private async void UpdateMaterialCacheAddViewAsync(int materialId)
+        {
+            var materialCache = await CacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
+            if (materialCache != null)
+            {
+                materialCache.Reads++;
+                CacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
+            }
+
+            var materialsCache =
+                await CacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
+
+            var matIndex = materialsCache?.Results.FindIndex(x => x.Id == materialId);
+            if (matIndex.HasValue && matIndex >= 0)
+            {
+                materialsCache.Results[matIndex.Value].Reads++;
+                CacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
+            }
+
+            var materialsPinnedCache =
+                await CacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
+
+            var matPinnedIndex = materialsPinnedCache?.Results.FindIndex(x => x.Id == materialId);
+            if (matPinnedIndex.HasValue && matPinnedIndex >= 0)
+            {
+                materialsPinnedCache.Results[matPinnedIndex.Value].Reads++;
+                CacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
+            }
         }
     }
 }

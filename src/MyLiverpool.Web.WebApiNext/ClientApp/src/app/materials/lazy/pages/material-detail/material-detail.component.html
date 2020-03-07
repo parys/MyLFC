@@ -1,13 +1,12 @@
-﻿<ng-container *ngIf="{ isEditor: isEditor$ | async, userId: userId$ | async, material: material$ | async } as data">
-    <div class="flex-v-c material-header">
+﻿<ng-container *ngIf="{ isEditor: isEditor$ | async, userId: userId$ | async, material: material$ | async,
+     others: others$ | async } as data">
+    <div class="material-header">
         <h3 class="full-width flex-space-between">
             <span class="beauty-font" [textContent]="data.material.title"></span>
             <span *ngIf="data.isEditor || data.userId === data.material.userId">
-                <material-tools [editLink]="'./edit'"
-                 [editor]="data.isEditor || data.userId === data.material.userId"
-                 [material]="data.material"
-                 (activate)="onActivate(data.material.id)"
-                 (delete)="onDelete(data.material.id)"></material-tools>                
+                <material-tools [editLink]="'./edit'" [editor]="data.isEditor || data.userId === data.material.userId"
+                    [material]="data.material" (activate)="onActivate(data.material.id)"
+                    (delete)="onDelete(data.material.id)"></material-tools>
             </span>
         </h3>
     </div>
@@ -20,7 +19,7 @@
             <b><i class="full-width" [innerHTML]="data.material.brief | safe: 'html'"></i></b>
         </div>
         <article class="material-body" [innerHTML]="data.material.message | safe: 'html'"></article>
-        <div class="full-width material-info-panel top10">
+        <div class="full-width material-info-panel">
             <ul class="list-inline small small-offset padding5">
                 <li><label>Просмотры:</label>&nbsp; <span [textContent]="data.material.reads"></span></li>
                 <li class="">|</li>
@@ -40,10 +39,12 @@
             </ul>
         </div>
     </div>
-    <!--div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
-        <a *ngIf="data.material.prevMaterialId" [routerLink]="['/', data.material.typeName, data.material.prevMaterialId]"><span [textContent]="data.material.prevMaterialTitle"></span>(назад)</a>
-        <a *ngIf="data.material.nextMaterialId" [routerLink]="['/', data.material.typeName, data.material.nextMaterialId]"><span [textContent]="data.material.nextMaterialTitle"></span>(вперед)</a>
-    </div> -->
+    <div class="others">
+        <div class="full-width">Другие новости:</div>
+        <div *ngFor="let other of data.others">
+            <a [routerLink]="['/', other.typeName, other.id]"> {{other.title}}</a>
+        </div>
+    </div>
     <div class="full-width flex">
         <comment-section [materialId]="data.material.id" [type]="data.material.type"
             [canCommentary]="data.material.canCommentary">

@@ -23,7 +23,8 @@ import {
     GetMaterialById,
     ActivateMaterial,
     DeleteMaterial,
-    AddView
+    AddView,
+    GetOtherMaterialsList
 } from './materials.actions';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -35,7 +36,7 @@ declare function ssn(): any;
         materials: [],
         material: null,
         request: new GetMaterialsListQuery.Request({ currentPage: 1, pageSize: 15, sortDirection: 'desc', sortOn: 'lastModified' }),
-
+        others: []
     },
 })
 @Injectable()
@@ -49,6 +50,11 @@ export class MaterialsState {
     @Selector()
     static materials(state: MaterialsStateModel) {
         return state.materials;
+    }
+
+    @Selector()
+    static others(state: MaterialsStateModel) {
+        return state.others.filter(x => x.id !== state.material?.id);
     }
 
     @Selector()
@@ -83,6 +89,15 @@ export class MaterialsState {
                             currentPage: response.currentPage, pageSize: response.pageSize
                         }
                     });
+                }));
+    }
+
+    @Action(GetOtherMaterialsList)
+    onGetOtherMaterialsList({ patchState }: StateContext<MaterialsStateModel>) {
+        return this.network.getOthers()
+            .pipe(
+                tap(response => {
+                    patchState({ others: response.results || [] });
                 }));
     }
 
@@ -153,9 +168,9 @@ export class MaterialsState {
 
         if (!this.storage.tryAddViewForMaterial(payload)) { return; }
 
-        const { material } = getState();
         return this.network.addView(payload).pipe(
             tap(result => {
+                const { material } = getState();
                 material.reads++;
                 if (result && material && payload === material.id) {
                     patchState({ material });
