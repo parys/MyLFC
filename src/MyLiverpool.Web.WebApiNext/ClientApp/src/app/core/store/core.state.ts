@@ -53,9 +53,9 @@ export class CoreState {
 
 
     constructor(private layoutService: MobileLayoutService,
-        private titleService: CustomTitleMetaService,
-        private router: Router,
-        private snackBar: MatSnackBar) { }
+                private titleService: CustomTitleMetaService,
+                private router: Router,
+                private snackBar: MatSnackBar) { }
 
     @Action(ChangeMobile)
     onChangeMobile({ patchState }: StateContext<CoreStateModel>, { payload }: ChangeMobile) {
@@ -71,7 +71,7 @@ export class CoreState {
                     this.titleService.addCount(count);
                     this.snackBar.open('Есть новые уведомления', 'Перейти')
                         .onAction()
-                        .pipe(tap(_ => this.router.navigate(['notifications'])));
+                        .subscribe(_ => this.router.navigate(['notifications']));
                 }
             }));
     }
@@ -83,7 +83,7 @@ export class CoreState {
         this.titleService.addCount(1);
         return this.snackBar.open('Новое сообщение', 'Перейти')
             .onAction()
-            .pipe(tap(_ => this.router.navigate(['pms', payload.id])));
+            .subscribe(_ => this.router.navigate(['pms', payload.id]));
     }
 
     @Action(ReadPms)
@@ -104,7 +104,7 @@ export class CoreState {
                         this.snackBar
                             .open('Есть новые сообщения', 'Перейти')
                             .onAction()
-                            .pipe(tap(() => this.router.navigate(['pms'])));
+                            .subscribe(() => this.router.navigate(['pms']));
                     }
                 }));
     }
@@ -116,11 +116,11 @@ export class CoreState {
         this.titleService.addCount(1);
         return this.snackBar.open('Новое уведомление', 'Перейти')
             .onAction()
-            .pipe(tap(_ => {
+            .subscribe(_ => {
                 this.layoutService.read([payload.id])
                     .pipe(tap(_ => this.router.navigate([`/${payload.typeName}/${payload.entityId}`], { fragment: payload.commentId ? `com${payload.commentId}` : '' })));
             }
-            ));
+            );
     }
 
     @Action(ReadNotifications)
