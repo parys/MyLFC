@@ -37,7 +37,7 @@
     "@ngxs/store": "3.6.2",
     "@nguniversal/common": "9.0.1",
     "@nguniversal/module-map-ngfactory-loader": "8.2.6",
-    "@nguniversal/express-engine": "9.0.1",
+    "@nguniversal/express-engine": "9.0.2",
     "express": "4.17.1",
     "angular2-recaptcha": "1.1.0",
     "core-js": "3.6.4",
