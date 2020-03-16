@@ -42,6 +42,9 @@
       "@clubs/*": [
         "./src/app/clubs/*"
       ],
+      "@contracts/*": [
+        "./src/app/contracts/*"
+      ],
       "@comments/*": [
         "./src/app/comments/*"
       ],

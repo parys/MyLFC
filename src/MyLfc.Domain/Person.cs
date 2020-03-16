@@ -39,6 +39,8 @@ namespace MyLfc.Domain
 
         public virtual ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
 
+        public ICollection<Contract> Contracts { get; set; } = new HashSet<Contract>();
+
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";
         [NotMapped]

@@ -1,0 +1,24 @@
+﻿<form class="form-horizontal full-width" role="form" [formGroup]="contractEditForm" (ngSubmit)="onSubmit()">
+    <select-person-form-field formControlName="personId">
+    </select-person-form-field>
+
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="startDate" placeholder="Дата подписания" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate startView="multi-year" touchUi="true"></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="endDate" placeholder="Дата окончания" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate startView="multi-year" touchUi="true"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width top10">
+        <input matInput placeholder="Зарплата (0 = неизвестно)" formControlName="salary" type="number">
+    </mat-form-field>
+
+    <div class="full-width">
+        <button mat-raised-button color="warn" class="full-width" type="submit">Сохранить</button>
+    </div>
+</form>

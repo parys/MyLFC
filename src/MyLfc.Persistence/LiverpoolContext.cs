@@ -6,13 +6,14 @@ using MyLfc.Domain.Polls;
 
 namespace MyLfc.Persistence
 {
-    public class LiverpoolContext : IdentityDbContext<User, Role, int>
+    public sealed class LiverpoolContext : IdentityDbContext<User, Role, int>
     {
-        private static bool _created = false;
+        private static bool _created;
         public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
         {
             if (!_created)
             {
+                Database.Migrate();
                 _created = true;
             }
         }
@@ -48,6 +49,8 @@ namespace MyLfc.Persistence
         public DbSet<PollAnswerUser> PollAnswerUsers { get; set; }
         public DbSet<FaqItem> FaqItems { get; set; }
         public DbSet<FaqCategory> FaqCategories { get; set; }
+
+        public DbSet<Contract> Contracts { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{

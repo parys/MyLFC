@@ -98,10 +98,11 @@ namespace MyLiverpool.Web.WebApiNext
                 options.AddPolicy("MyPolicy", builder =>
                 {
                     builder
-                        .WithOrigins("localhost:1669", "localhost:4200", "test.mylfc.ru", "mylfc.ru")
-                        .SetIsOriginAllowed(_ => true)
+                        .AllowCredentials()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        .WithOrigins("localhost:1669", "localhost:4200", "test.mylfc.ru", "mylfc.ru")
+                        .SetIsOriginAllowed(_ => true)
                         .Build();
                 });
             });

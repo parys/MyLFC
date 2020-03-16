@@ -20,10 +20,6 @@
     public type: number;
     public typeName: string;
     public socialLinks: string;
-    public nextMaterialId: number;
-    public nextMaterialTitle: string;
-    public prevMaterialId: number;
-    public prevMaterialTitle: string;
     public usePhotoInBody: boolean;
     public tags: string;
 }

@@ -6,7 +6,7 @@ import { Store } from '@ngxs/store';
 
 import { GetMaterialDetailQuery } from '@network/shared/materials';
 
-import { GetMaterialById, AddView } from '@materials/lazy/store/materials.actions';
+import { GetMaterialById } from '@materials/lazy/store/materials.actions';
 
 
 @Injectable()
