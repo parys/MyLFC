@@ -9,7 +9,6 @@ import { GetContractsListQuery } from '@network/shared/contracts';
 import { KeyMapper, TableComponent } from '@domain/tables/components';
 
 import { ContractsState, Actions } from '@contracts/store';
-import { ChangeSort, ChangePage } from '@users/store';
 import { NotifierService } from '@notices/services';
 import { ConfirmationMessage } from '@notices/shared';
 
@@ -65,7 +64,7 @@ export class ContractsListPageComponent extends TableComponent<GetContractsListQ
 
 
     public onPageChanged(event: any): void {
-        this.store.dispatch(new ChangePage({ currentPage: event.pageIndex, pageSize: event.pageSize}));
+        this.store.dispatch(new Actions.ChangePage({ currentPage: event.pageIndex, pageSize: event.pageSize}));
     }
 
     // public onFilterChange(filters: UserFilters): void {
@@ -73,7 +72,7 @@ export class ContractsListPageComponent extends TableComponent<GetContractsListQ
     // }
 
     protected onSortChange(event: { sortOn: string; sortDirection: string; }): void {
-        this.store.dispatch(new ChangeSort({ ...event, currentPage: 1}));
+        this.store.dispatch(new Actions.ChangeSort({ ...event, currentPage: 1}));
     }
 
     private subscribeOnChangeContracts(): void {

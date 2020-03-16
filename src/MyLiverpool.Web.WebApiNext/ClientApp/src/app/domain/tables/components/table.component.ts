@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, ViewChild, Injectable } from '@angular/core';
+import { AfterViewInit, ElementRef, ViewChild, Injectable, Component } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -14,7 +14,10 @@ export declare type KeyMapper<T = any> = (value?: T) => string | number;
 export declare type KeyType = string | number;
 
 
-@Injectable()
+@Component({
+    selector: 'table-component',
+    template: ''
+})
 export abstract class TableComponent<T> extends ObserverComponent implements AfterViewInit {
 
     @ViewChild(MatSort) sort: MatSort;
@@ -35,11 +38,12 @@ export abstract class TableComponent<T> extends ObserverComponent implements Aft
 
     protected scrollThreshold = 200;
 
+    protected abstract key: KeyMapper<T>;
+
     protected abstract onLoad(): Observable<any>;
 
     protected abstract onSortChange(event: { sortOn: string; sortDirection: string; }): void;
 
-    protected abstract key: KeyMapper<T>;
 
     public ngAfterViewInit(): void {
         if (this.scrollerRef) {

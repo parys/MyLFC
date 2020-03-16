@@ -55,8 +55,15 @@ namespace MyLfc.Application.Contracts
                     {
                         request.SortOn = nameof(Contract.EndDate);
                     }
-
-                    contracts = contracts.OrderByDescending(x => x.Id);
+                    else if (request.SortOn.Contains(nameof(Contract.Salary),
+                        StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        request.SortOn = nameof(Contract.Salary);
+                    }
+                    else
+                    {
+                        contracts = contracts.OrderByDescending(x => x.Id);
+                    }
                 }
                 return await contracts.GetPagedAsync<Response, Contract, ContractListDto>(request, _mapper);
 

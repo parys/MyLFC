@@ -42,7 +42,7 @@ export class ContractsState {
         return state.request;
     }
 
-    constructor(protected network: ContractsService, private store: Store) { }
+    constructor(protected network: ContractsService) { }
 
     @Action(Actions.ChangeSort)
     @Action(Actions.ChangePage)
