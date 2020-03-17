@@ -20,7 +20,11 @@ export function getAccessToken(injector: Injector): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
 
         const authService = injector.get(AuthService);
-        await authService.init();
+        if (await authService.init()) {
+            return resolve(true);
+        } else {
+            authService.logout();
+        }
         return resolve(true);
     });
 }

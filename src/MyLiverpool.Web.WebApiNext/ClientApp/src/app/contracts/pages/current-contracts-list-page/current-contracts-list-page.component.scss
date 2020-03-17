@@ -1,0 +1,29 @@
+﻿td.mat-cell {
+    text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+
+.table-container {
+    overflow: auto;
+    width: 100%;
+}
+
+.contracts-table {
+    width: 700px;
+}
+
+.note {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    width: 100%;
+}
+
+@media (min-width: 700px) {
+    .contracts-table {
+        width: 100%;
+    }
+}

@@ -83,9 +83,5 @@ export const personRoutes: Routes = [
                 }
             }
         ]
-    },
-    {
-        path: 'contracts',
-        loadChildren: () => import('../contracts/contracts.module').then(m => m.ContractsModule),
     }
 ];

@@ -10,6 +10,15 @@ export namespace Actions {
         constructor(public readonly payload: { sortOn: string; sortDirection: string; currentPage: number; }) { }
     }
 
+    export class GetCurrentContractsList {
+        static readonly type = '[Contracts] Get current contracts list';
+    }
+
+    export class ChangeCurrentSort {
+        static readonly type = '[Contracts] Change current contracts sort';
+        constructor(public readonly payload: { sortOn: string; sortDirection: string; }) { }
+    }
+
     export class ChangePage {
         static readonly type = '[Contracts] Change contracts page';
         constructor(public readonly payload: { currentPage: number; pageSize: number; }) { }

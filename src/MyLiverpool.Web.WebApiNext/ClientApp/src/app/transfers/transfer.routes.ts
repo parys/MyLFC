@@ -29,7 +29,9 @@ export const transferRoutes: Routes = [
         path: 'current',
         component: TransferCurrentListComponent,
         data: {
-            title: TRANSFERS_RU
+            title: TRANSFERS_RU,
+            keywords: 'Трансферы Ливерпуля, аренда, переход',
+            description: 'Трансферы Ливерпуля. Арендованные игроки. Переходы в другие клубы.'
         }
     }
 ];

@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { ContractEditPageComponent, ContractsListPageComponent } from '@contracts/pages';
+import { ContractEditPageComponent, ContractsListPageComponent, CurrentContractsListPageComponent } from '@contracts/pages';
 
 import { BreadcrumbService } from '@base/breadcrumbs';
 import { PaginationModule } from '@base/pagination/pagination.module';
@@ -40,7 +40,8 @@ import { ContractsState } from './store';
     ],
     declarations: [
         ContractEditPageComponent,
-        ContractsListPageComponent
+        ContractsListPageComponent,
+        CurrentContractsListPageComponent
     ],
     providers: [
         ContractsService
@@ -52,5 +53,6 @@ export class ContractsModule {
     ) {
         this.breadcrumbService.addFriendlyNameForRouteRegex(`/contracts`, 'Контракты');
         this.breadcrumbService.hideRouteRegex(`^/contracts/[0-9]+$`);
+        this.breadcrumbService.addFriendlyNameForRouteRegex(`/current`, 'Текущие');
     }
 }

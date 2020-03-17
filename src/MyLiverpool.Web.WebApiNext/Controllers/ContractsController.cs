@@ -74,16 +74,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(await Mediator.Send(request));
         }
 
-        ///// <summary>
-        ///// Returns injuries list for current moment.
-        ///// </summary>
-        ///// <returns>List with injuries.</returns>
-        //[AllowAnonymous, HttpGet("current")]
-        //public async Task<IActionResult> GetCurrentListAsync()
-        //{
-        //    var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.LastInjuries,
-        //        async () => await Mediator.Send(new GetCurrentInjuryListQuery.Request()));
-        //    return Ok(result.Results);
-        //}
+        /// <summary>
+        /// Returns contracts list for current moment.
+        /// </summary>
+        /// <returns>List with contracts.</returns>
+        [AllowAnonymous, HttpGet("current")]
+        public async Task<IActionResult> GetCurrentListAsync([FromQuery] GetCurrentContractListQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
     }
 }

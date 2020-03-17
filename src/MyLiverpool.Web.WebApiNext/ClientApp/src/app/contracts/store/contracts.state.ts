@@ -12,7 +12,7 @@ import { NoticeMessage } from '@notices/shared';
 
 import { ContractsStateModel } from './contracts-state.model';
 import { Actions } from './contracts.actions';
-import { GetContractsListQuery, GetContractDetailQuery } from '@network/shared/contracts';
+import { GetContractsListQuery, GetContractDetailQuery, GetCurrentContractsListQuery } from '@network/shared/contracts';
 import { ContractsService } from '@contracts/contracts.service';
 
 
@@ -20,8 +20,10 @@ import { ContractsService } from '@contracts/contracts.service';
     name: 'contracts',
     defaults: {
         contracts: [],
+        currentContracts: [],
         contract: null,
         request: new GetContractsListQuery.Request({ currentPage: 1, pageSize: 15, skipCount: 0, sortDirection: 'desc', sortOn: 'id' }),
+        currentRequest: new GetCurrentContractsListQuery.Request({ currentPage: 1, pageSize: 15, skipCount: 0, sortDirection: 'desc', sortOn: 'id' }),
     },
 })
 @Injectable()
@@ -38,8 +40,18 @@ export class ContractsState {
     }
 
     @Selector()
+    static currentContracts(state: ContractsStateModel) {
+        return state.currentContracts;
+    }
+
+    @Selector()
     static request(state: ContractsStateModel) {
         return state.request;
+    }
+
+    @Selector()
+    static currentRequest(state: ContractsStateModel) {
+        return state.currentRequest;
     }
 
     constructor(protected network: ContractsService) { }
@@ -64,6 +76,28 @@ export class ContractsState {
                             ...request,
                             currentPage: response.currentPage,
                             pageSize: response.pageSize
+                        }
+                    });
+                }));
+    }
+
+    @Action(Actions.ChangeCurrentSort)
+    onChangeCurrentSort({ patchState, getState, dispatch }: StateContext<ContractsStateModel>, { payload }: Actions.ChangeCurrentSort) {
+        const { currentRequest } = getState();
+        patchState({ currentRequest: { ...currentRequest, ...payload } });
+        dispatch(new Actions.GetCurrentContractsList());
+    }
+
+    @Action(Actions.GetCurrentContractsList)
+    onGetCurrentContractsList(ctx: StateContext<ContractsStateModel>) {
+        const { currentRequest } = ctx.getState();
+        return this.network.getCurrent(new GetCurrentContractsListQuery.Request(currentRequest))
+            .pipe(
+                tap(response => {
+                    ctx.patchState({ currentContracts: response.results || [] });
+                    ctx.patchState({
+                        currentRequest: {
+                            ...currentRequest
                         }
                     });
                 }));

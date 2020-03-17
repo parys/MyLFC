@@ -132,6 +132,10 @@ const routes: Routes = [
         loadChildren: () => import('./material-categories/lazy/materialCategory.module').then(m => m.MaterialCategoryModule)
     },
     {
+        path: 'contracts',
+        loadChildren: () => import('./contracts/contracts.module').then(m => m.ContractsModule),
+    },
+    {
         path: COMMENTS_ROUTE,
         loadChildren: () => import('./comments/lazy/comment.module').then(m => m.CommentModule)
     },

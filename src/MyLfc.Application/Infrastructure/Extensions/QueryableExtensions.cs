@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -10,34 +11,38 @@ namespace MyLfc.Application.Infrastructure.Extensions
 {
     public static class QueryableExtensions
     {
-        ///// <summary>
-        ///// Asynchronously does any sort and gets one page of results with model type.
-        ///// </summary>
-        ///// <typeparam name="TEntity">Type of source</typeparam>
-        ///// <typeparam name="TDto">Type of destination target results</typeparam>
-        ///// <param name="source">Data source</param>
-        ///// <param name="query">Paged query</param>
-        ///// <param name="mapper">AutoMapper instance</param>
-        ///// <returns></returns>
-        //public static async Task<PagedResult<TDto>> GetPagedAsync<TEntity, TDto>(this IQueryable<TEntity> source,
-        //                                    PagedQueryBase query,
-        //                                    IMapper mapper) where TDto : class
-        //{
+        public static async Task<List<TDto>> GetQueryableAsync<TEntity, TDto>(this IQueryable<TEntity> source,
+            PagedQueryBase query, IMapper mapper, Expression<Func<TEntity, object>> customSortBy = null,
+            Expression<Func<TEntity, object>> thenSortBy = null)
+            where TDto : class
+        {
+            if (!string.IsNullOrEmpty(query.SortDirection))
+            {
+                if (customSortBy != null)
+                {
+                    if (query.SortDirection.ToUpper() == "ASC")
+                    {
+                        source = thenSortBy != null
+                            ? source.OrderBy(customSortBy).ThenBy(thenSortBy)
+                            : source.OrderBy(customSortBy);
+                    }
+                    else
+                    {
+                        source = thenSortBy != null
+                            ? source.OrderByDescending(customSortBy).ThenByDescending(thenSortBy)
+                            : source.OrderByDescending(customSortBy);
+                    }
+                }
+                else if (!string.IsNullOrEmpty(query.SortOn))
+                {
+                    source = query.SortDirection.ToUpper() == "ASC"
+                        ? source.OrderBy(query.SortOn)
+                        : source.OrderByDescending(query.SortOn);
+                }
+            }
 
-        //    if (!string.IsNullOrEmpty(query.SortOn) && !string.IsNullOrEmpty(query.SortDirection))
-        //    {
-        //        source = query.SortDirection.ToUpper() == "ASC" ? source.OrderBy(query.SortOn) : source.OrderByDescending(query.SortOn);
-        //    }
-
-        //    return new PagedResult<TDto>
-        //    {
-        //        CurrentPage = query.CurrentPage,
-        //        PageSize = query.PageSize,
-        //        RowCount = await source.CountAsync(),
-        //        Results = await source.Skip(query.SkipCount()).Take(query.PageSize).ProjectTo<TDto>(mapper.ConfigurationProvider).ToListAsync()
-        //    };
-        //}
-
+            return await source.ProjectTo<TDto>(mapper.ConfigurationProvider).ToListAsync();
+        }
         /// <summary>
         /// Asynchronously does any sort and gets one page of results with model type.
         /// </summary>

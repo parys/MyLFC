@@ -3,7 +3,7 @@
 import { Observable } from 'rxjs';
 
 import { HttpWrapper } from '@base/httpWrapper';
-import { CreateContractCommand, UpdateContractCommand, GetContractDetailQuery, GetContractsListQuery } from '@network/shared/contracts';
+import { CreateContractCommand, UpdateContractCommand, GetContractDetailQuery, GetContractsListQuery, GetCurrentContractsListQuery } from '@network/shared/contracts';
 
 @Injectable()
 export class ContractsService {
@@ -14,6 +14,10 @@ export class ContractsService {
 
     public getAll(filters: GetContractsListQuery.Request): Observable<GetContractsListQuery.Response> {
         return this.http.getWithParams<GetContractsListQuery.Response>(this.actionUrl, filters);
+    }
+
+    public getCurrent(filters: GetCurrentContractsListQuery.Request): Observable<GetCurrentContractsListQuery.Response> {
+        return this.http.getWithParams<GetCurrentContractsListQuery.Response>(this.actionUrl + 'current', filters);
     }
 
     public getSingle(id: number): Observable<GetContractDetailQuery.Response> {

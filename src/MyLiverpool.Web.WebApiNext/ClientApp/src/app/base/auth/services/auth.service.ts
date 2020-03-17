@@ -113,7 +113,7 @@ export class AuthService {
         const data = this.storage.getUser();
         this.setUser(data);
 
-        await this.refreshTokens();
+        return await this.refreshTokens();
     }
 
     private scheduleRefresh(): void {
