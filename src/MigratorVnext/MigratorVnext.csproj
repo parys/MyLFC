@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>MigratorVnext</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>MigratorVnext</PackageId>
@@ -11,15 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLiverpool.Data.ResourceAccess.csproj" />
-    <ProjectReference Include="..\Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
+    <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
+    <ProjectReference Include="..\MyLfc.Persistence\MyLfc.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Drawing">
-      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Drawing.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
 </Project>

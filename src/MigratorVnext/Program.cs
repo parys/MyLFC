@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MyLfc.Domain;
+using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 
@@ -26,9 +26,7 @@ namespace MigratorVnext
         private static readonly IGenericRepository<ForumSection> ForumSectionRepository;
         private static readonly IForumSubsectionRepository ForumSubsectionRepository;
         private static readonly IForumThemeRepository ForumThemeRepository;
-        private static readonly IMaterialRepository MaterialRepository;
         private static readonly IGenericRepository<MaterialCategory> MaterialCategoryRepository;
-        private static readonly IMaterialCommentRepository MaterialCommentRepository;
         private static readonly IUserRepository UserRepository;
         private const string Path = @"D:\\downloads\11\_s1\";
         private const string DefaultPhotoPath = "/content/images/default.jpg";
@@ -63,9 +61,7 @@ namespace MigratorVnext
             ForumSectionRepository = new GenericRepository<ForumSection>(GetNewContext());
             ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
             ForumThemeRepository = new ForumThemeRepository(GetNewContext());
-            MaterialRepository = new MaterialRepository(GetNewContext());
             MaterialCategoryRepository = new GenericRepository<MaterialCategory>(GetNewContext());
-            MaterialCommentRepository = new MaterialCommentRepository(GetNewContext());
 
         }
 
@@ -575,7 +571,7 @@ namespace MigratorVnext
                     limit = MaxChars;
                 }
 
-                var categories = MaterialCategoryRepository.GetListAsync().Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
+                var categories = MaterialCategoryRepository.GetQueryableList().Where(x => x.MaterialType == MaterialType.Blogs).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -766,7 +762,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    blogItem.Rating = float.Parse(rating);
+                 //   blogItem.Rating = float.Parse(rating);
                     // rate_num
                     string ratingNumbers = null;
                     while (chars[i] != '|')
@@ -776,7 +772,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    blogItem.RatingNumbers = int.Parse(ratingNumbers);
+               //     blogItem.RatingNumbers = int.Parse(ratingNumbers);
                     // rate sum
                     string ratingSumm = null;
                     while (chars[i] != '|')
@@ -786,7 +782,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    blogItem.RatingSumm = int.Parse(ratingSumm);
+              //      blogItem.RatingSumm = int.Parse(ratingSumm);
                     //rate ip
                     while (chars[i] != '|')
                     {
@@ -884,7 +880,7 @@ namespace MigratorVnext
                         blogItem.PhotoPath = GetFirstImagePath(blogItem.Message);
                     }
                     //   category.BlogItems.Add(blogItem);
-                    var result = MaterialRepository.AddAsync(blogItem).Result;
+                    var result = _db.Materials.AddAsync(blogItem).Result;
                     //  }
                     // while (chars[i] != 10)
                     //  {
@@ -912,7 +908,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
                 
-                var categories = MaterialCategoryRepository.GetListAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
+                var categories = MaterialCategoryRepository.GetQueryableList().Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1127,7 +1123,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    newsItem.Rating = float.Parse(rating);
+                 //  newsItem.Rating = float.Parse(rating);
                     // rate_num
                     string ratingNumbers = null;
                     while (chars[i] != '|')
@@ -1137,7 +1133,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    newsItem.RatingNumbers = int.Parse(ratingNumbers);
+                //    newsItem.RatingNumbers = int.Parse(ratingNumbers);
                     // rate sum
                     string ratingSumm = null;
                     while (chars[i] != '|')
@@ -1147,7 +1143,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    newsItem.RatingSumm = int.Parse(ratingSumm);
+               //     newsItem.RatingSumm = int.Parse(ratingSumm);
                     //rate ip
                     while (chars[i] != '|')
                     {
@@ -1244,7 +1240,7 @@ namespace MigratorVnext
                         newsItem.PhotoPath = GetFirstImagePath(newsItem.Message);
                     }
                     //  category.Materials.Add(newsItem);
-                    var result = MaterialRepository.AddAsync(newsItem).Result;
+                    var result = _db.Materials.AddAsync(newsItem).Result;
                     // }
                     // while (chars[i] != 10)
                     //  {
@@ -1425,7 +1421,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
 
-                var news = MaterialRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
+                var news = _db.Materials;//n => n.NumberCommentaries > 0);
                                                                            //   var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
 
                 for (int i = 0; i < limit; i++)
@@ -1655,7 +1651,7 @@ namespace MigratorVnext
                     //}
                     //comment.ParentId = int.Parse(parentId);
 
-                    var result = MaterialCommentRepository.AddAsync(comment);
+                    var result = _db.MaterialComments.AddAsync(comment);
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             //    MaterialCommentRepository.SaveChangesAsync().Wait();
@@ -1801,7 +1797,7 @@ namespace MigratorVnext
         private static void UpdateForumSubsectionsFromList()
         {
             Console.WriteLine("Start UpdateForumSubsections");
-            var sections = ForumSectionRepository.GetListAsync().Result;
+            var sections = ForumSectionRepository.GetQueryableList();
 
             foreach (var subsection in Subsections)
             {
@@ -2007,7 +2003,7 @@ namespace MigratorVnext
                     i++;
                     //  var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
 
-                    var theme = ForumThemeRepository.GetListAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                    var theme = _db.ForumThemes.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
                     if (UseLimit || theme != null)
                     {
                         // theme.Messages = 
@@ -2123,10 +2119,10 @@ namespace MigratorVnext
         {
             var bag = new ConcurrentBag<MaterialComment>();
             Console.WriteLine("Start UpdateCommentsLinks");
-            var allComments = MaterialCommentRepository.GetListAsync().Result.ToList();
-            var commentsWithParent = MaterialCommentRepository.GetListAsync().Result.Where(c => c.OldParentId != null).ToList();
+            var allComments = _db.MaterialComments.ToList();
+            var commentsWithParent = _db.MaterialComments.Where(c => c.OldParentId != null).ToList();
             var counter = 0;
-            var count = commentsWithParent.Count;
+            var count = commentsWithParent.Count();
             Parallel.ForEach(commentsWithParent, comment =>
             {
                 var parentComment = allComments.FirstOrDefault(x => x.OldId == comment.OldParentId);
@@ -2135,7 +2131,7 @@ namespace MigratorVnext
              //   MaterialCommentRepository.Update(comment);
                 bag.Add(comment);
             });
-            MaterialCommentRepository.UpdateRange(bag.ToList());
+            _db.MaterialComments.UpdateRange(bag.ToList());
           //  MaterialCommentRepository.SaveChangesAsync().Wait();
         }
 
@@ -2198,8 +2194,8 @@ namespace MigratorVnext
         {
             Console.WriteLine("Start UpdateCommentsForum");
 
-            var posts = ForumMessageRepository.GetListAsync(null, 15, true).Result;
-            var themes = ForumThemeRepository.GetListAsync().Result;
+            var posts = ForumMessageRepository.GetQueryableList();
+            var themes = _db.ForumThemes;
             foreach (var theme in themes)
             {
                 foreach (var post in posts.Where(post => theme.Id == post.ThemeId))
@@ -2217,7 +2213,7 @@ namespace MigratorVnext
         public static void UpdateForumSectionAndSubsection()
         {
             Console.WriteLine("Start UpdateForumSectionAndSubsection");
-            var sections = ForumSectionRepository.GetListAsync().Result;
+            var sections = ForumSectionRepository.GetQueryableList();
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
             foreach (var section in sections)
             {
@@ -2241,7 +2237,7 @@ namespace MigratorVnext
         public static void UpdateForumSubSectionAndTheme()
         {
             Console.WriteLine("Start UpdateForumSubSectionAndTheme");
-            var themes = ForumThemeRepository.GetListAsync().Result;
+            var themes = _db.ForumThemes;
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
 
             foreach (var subSection in subSections)
@@ -2264,7 +2260,7 @@ namespace MigratorVnext
 
         private static LiverpoolContext GetNewContext()
         {
-            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
+            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>());
         }
 
         private static string GetFirstImagePath(string message)
