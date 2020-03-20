@@ -1,7 +1,6 @@
 interface RegistryItem {
     componentName: string;
-    modulePath: string;
-    moduleName: string;
+    module: any;
 }
 /** A registry array of Component Name to details
  * that must be updated with each new component
@@ -10,17 +9,14 @@ interface RegistryItem {
 export const DynamicContentOutletRegistry: RegistryItem[] = [
     {
         componentName: 'SidebarLeftComponent',
-        modulePath: 'src/app/lazy-modules/sidebar-left/sidebar-left.module',
-        moduleName: 'SidebarLeftModule'
+        module: import('src/app/lazy-modules/sidebar-left/sidebar-left.module').then(x => x.SidebarLeftModule)
       },
       {
         componentName: 'SidebarRightComponent',
-        modulePath: 'src/app/lazy-modules/sidebar-right/sidebar-right.module',
-        moduleName: 'SidebarRightModule'
+        module: import('src/app/lazy-modules/sidebar-right/sidebar-right.module').then(x => x.SidebarRightModule)
       },
       {
         componentName: 'NavbarMenuComponent',
-        modulePath: 'src/app/lazy-modules/navbar-menu/navbar-menu.module',
-        moduleName: 'NavbarMenuModule'
+        module: import('src/app/lazy-modules/navbar-menu/navbar-menu.module').then(x => x.NavbarMenuModule)
       },
 ];
