@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '@base/auth';
-import { User, RoleGroup} from '@domain/models';
+import { RoleGroup} from '@domain/models';
 import { CustomTitleMetaService } from '@core/services';
 
 import { UserService } from '@users/user.service';
@@ -22,7 +22,6 @@ import { ChangeRoleGroupDialogData, ChangeRoleGroupDialogComponent } from '@user
 })
 
 export class UserDetailComponent extends ObserverComponent implements OnInit {
-    public item: User;
     public roleGroups: RoleGroup[];
     public banForm: FormGroup;
     public selectedUserId: number;
@@ -59,13 +58,13 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
         this.authService.logout();
     }
 
-    public onSubmitBan(): void {
+    public onSubmitBan(userId: number): void {
         const banDaysCount = this.banForm.controls['banDaysCount'].value;
-        const sub = this.service.ban(this.item.id, banDaysCount)
+        const sub = this.service.ban(userId, banDaysCount)
             .subscribe((data: boolean) => {
                 if (data) {
                     const time = new Date();
-                    this.item.lockoutEnd = new Date(time.setHours(time.getHours() + banDaysCount * 24 * 60 * 60));
+                  // todo  this.item.lockoutEnd = new Date(time.setHours(time.getHours() + banDaysCount * 24 * 60 * 60));
                     this.banForm.controls['banDaysCount'].patchValue(null);
                 }
             });
@@ -81,29 +80,29 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
                 return;
             }
             const sub = this.service.updateAvatar(file)
-                .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`);
+                .subscribe((result: any) => {}/* todo this.item.photo = `${result.path}?${Math.random()}`*/);
             this.subscriptions.push(sub);
         }
     }
 
-    public resetAvatar(): void {
-        const sub = this.service.resetAvatar(this.item.id)
-            .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`);
+    public resetAvatar(userId: number): void {
+        const sub = this.service.resetAvatar(userId)
+            .subscribe((result: any) => {}/* todo this.item.photo = `${result.path}?${Math.random()}` */);
         this.subscriptions.push(sub);
     }
 
-    public unban(): void {
-        const sub = this.service.unban(this.item.id)
+    public unban(userId: number): void {
+        const sub = this.service.unban(userId)
             .subscribe((data: boolean) => {
                 if (data) {
-                    this.item.lockoutEnd = null;
+                 // todo   this.item.lockoutEnd = null;
                 }
             });
         this.subscriptions.push(sub);
     }
 
-    public writePm(): void {
-        this.selectedUserId = this.item.id;
+    public writePm(userId: number): void {
+        this.selectedUserId = userId;
     }
 
     public closePmWindow(event: any): void {

@@ -23,32 +23,22 @@ export class DynamicContentOutletService {
 
     async GetComponent(componentName: string): Promise<ComponentRef<any>> {
 
-
-        // if (!modulePath) {
-        //     return this.getDynamicContentErrorComponent(
-        //         `Unable to derive modulePath from component: ${componentName} in dynamic-content.registry.ts`
-        //     );
-        // }
-
         try {
             const lazyModule = await this.getModuleImport(componentName);
 
-            const ngModuleFactory = await this.compiler.compileModuleAndAllComponentsAsync(lazyModule); 
+            const ngModuleFactory = await this.compiler.compileModuleAndAllComponentsAsync(lazyModule);
 
             const moduleRef = ngModuleFactory.ngModuleFactory.create(this.injector);
 
             const componentType = (ngModuleFactory.ngModuleFactory.moduleType as ModuleWithDynamicComponents)
                 .dynamicComponentsMap[componentName];
-                console.warn(componentType);
 
             const componentFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(componentType);
-            console.warn(componentFactory);
             return componentFactory.create(this.injector);
-            // return componentFactory.create(this.injector);
         } catch (error) {
             return this.getDynamicContentErrorComponent(
-               // `Unable to load module ${modulePath}.
-                 ` Looked up using component: ${componentName}. Error Details: ${
+                // `Unable to load module ${modulePath}.
+                ` Looked up using component: ${componentName}. Error Details: ${
                 error.message
                 }`
             );
@@ -61,7 +51,6 @@ export class DynamicContentOutletService {
         );
 
         if (registryItem) {
-            // imported modules must be in the format 'path#moduleName'
             return registryItem.module;
         }
     }

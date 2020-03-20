@@ -7,7 +7,7 @@
         <h2>
             <span [textContent]="data.user.userName"></span>
             <span *ngIf="data.userId !== data.user.id">
-                <a role="button" (click)="writePm()"><i class="material-icons">email</i></a>
+                <a role="button" (click)="writePm(data.user.id)"><i class="material-icons">email</i></a>
             </span>
         </h2>
         <pm-reply *ngIf="selectedUserId" [userId]="selectedUserId" (close)="closePmWindow($event);"
@@ -22,7 +22,7 @@
                         matTooltip="Обновить фото" class=""><i class="material-icons">add_photo_alternate</i></label>
                     <input type="file" class="hidden" accept="image/*" (change)="onChangeAvatar($event)"
                         id="update-avatar-input" />
-                    <button mat-raised-button color="primary" (click)="resetAvatar()">
+                    <button mat-raised-button color="primary" (click)="resetAvatar(data.user.id)">
                         Удалить аватар
                     </button>
                     <button mat-raised-button color="warn" *ngIf="data.userId === data.user.id"
@@ -45,7 +45,7 @@
             <div class="flex-space-around flex-v-c">
                 <div  *ngIf="data.isModerator && data.userId !== data.user.id">
                     <form *ngIf="!data.user.lockoutEnd" class="form-inline" role="form" [formGroup]="banForm"
-                        (ngSubmit)="onSubmitBan()">
+                        (ngSubmit)="onSubmitBan(data.user.id)">
                         <mat-form-field>
                             <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount"
                                 min="1" type="number">
@@ -57,7 +57,7 @@
                         <mat-form-field>
                             <input matInput placeholder="Заблокирован до" [value]="data.user.lockoutEnd | customDate:true">
                         </mat-form-field>
-                        <button mat-raised-button color="primary" *ngIf="data.isMainModerator" (click)="unban()">Снять
+                        <button mat-raised-button color="primary" *ngIf="data.isMainModerator" (click)="unban(data.user.id)">Снять
                             бан</button>
                     </div>
                 </div>
