@@ -71,8 +71,6 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="services">IServiceCollection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<SsrSettings>(Configuration.GetSection("Settings"));
-
             if (Configuration.GetSection("Settings") != null &&
                 Convert.ToBoolean(Configuration.GetSection("Settings")["Compression"]))
             {
@@ -136,7 +134,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.RegisterServices();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-          //  services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
             services.AddCustomRedisCache(Configuration);
 
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
@@ -182,26 +179,7 @@ namespace MyLiverpool.Web.WebApiNext
             }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
-           // services.AddNodeServices(options =>
-          //  {
-                //      options.DebuggingPort = 9229;
-          //            options.LaunchWithDebugging = false;
-
-                //      //   options.InvocationTimeoutMilliseconds = 140000;
-         //   });
-            //todo using (var dbContext =
-            //    (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext)))
-            //{
-            //    dbContext.Database.Migrate();
-            //}
-            //if (Env.IsDevelopment())
-            //{
-            //    new DatabaseInitializer(context).Seed();
-            //}
-
-            // In production, the Angular files will be served from this directory
-        //    services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
-
+            
             services.AddScoped<RequestContext>();
         }
 
@@ -217,14 +195,16 @@ namespace MyLiverpool.Web.WebApiNext
             // app.UseXsrf();
             if (env.IsDevelopment())
             {
-                // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-                //               loggerFactory.AddDebug();
                 //  app.UseSwagger();
                 //  app.UseSwaggerUI(c =>
                 //  {
                 //      c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                 //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 //  });
+                var options = new RewriteOptions()
+                    .AddRewrite("^/small([0-9]+)(.*)", "$1", true);
+
+                app.UseRewriter(options);
             }
             else
             {
@@ -239,13 +219,6 @@ namespace MyLiverpool.Web.WebApiNext
                 }
             }
 
-            if (env.IsDevelopment())
-            {
-                var options = new RewriteOptions()
-                    .AddRewrite("^/small([0-9]+)(.*)", "$1", true);
-
-                app.UseRewriter(options);
-            }
             app.UseDefaultFiles();
 
             var cachePeriod = env.IsDevelopment() ? "600" : "6048000";
@@ -256,14 +229,10 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
                 }
             });
-            //if (!Env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
+
 
             app.UseRouting();
             app.UseCors("MyPolicy");
-            //   app.UseSignalRAuthentication();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -276,45 +245,6 @@ namespace MyLiverpool.Web.WebApiNext
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
-            //    if (!Env.IsDevelopment())
-            //{
-            //    var ssrEnabled = Configuration.GetSection("SSR") != null && Convert.ToBoolean(Configuration.GetSection("SSR")["Enabled"]);
-            //    app.UseSpa(spa =>
-            //    {
-            //        spa.Options.SourcePath = "ClientApp";
-
-            //        /*
-            //                 // If you want to enable server-side rendering (SSR),
-            //                 // [1] In AspNetCoreSpa.csproj, change the <BuildServerSideRenderer> property
-            //                 //     value to 'true', so that the SSR bundle is built during publish
-            //                 // [2] Uncomment this code block
-            //                 */
-
-            //        if (ssrEnabled)
-            //        {
-            //            spa.UseSpaPrerendering(options =>
-            //            {
-            //                options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
-            //                options.BootModuleBuilder =
-            //                    env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-            //                options.ExcludeUrls = new[] { "/api", "/sockjs-node", "/src", "/content", "/hubs", "/null", "/0", "/lite" };
-            //                options.SupplyData = (requestContext, obj) =>
-            //                {
-            //                    //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
-            //                    //         obj.Add("Cookies", requestContext.Request.Cookies);
-            //                };
-            //            });
-            //        }
-
-            //        if (env.IsDevelopment())
-            //        {
-            //            // spa.UseAngularCliServer(npmScript: "start");
-            //            //   OR
-            //            //  spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-            //        }
-            //    });
-            //}
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)
