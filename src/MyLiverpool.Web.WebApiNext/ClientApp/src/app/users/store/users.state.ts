@@ -7,6 +7,7 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 
 import { NoticeMessage } from '@notices/shared';
 import { ShowNotice } from '@notices/store';
+import { CustomTitleMetaService } from '@core/services';
 
 import { UsersStateModel } from './users.model';
 import {
@@ -73,7 +74,8 @@ export class UsersState {
         return state.request;
     }
 
-    constructor(protected network: RoleGroupService, protected usersNetwork: UserService) { }
+    constructor(protected network: RoleGroupService, protected usersNetwork: UserService,
+        private titleService: CustomTitleMetaService,) { }
 
     @Action(ChangeSort)
     @Action(ChangePage)
@@ -123,6 +125,7 @@ export class UsersState {
             .pipe(
                 tap(user => {
                     patchState({ user });
+                    this.titleService.setTitle('Пользователь ' + user.userName);
                 })
             );
     }

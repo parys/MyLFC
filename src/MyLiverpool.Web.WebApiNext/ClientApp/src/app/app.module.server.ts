@@ -10,10 +10,10 @@ import { AppModuleShared } from './app.module';
     bootstrap: [ AppComponent ],
     imports: [
         AppModuleShared,
-        ServerModule,
-        ModuleMapLoaderModule,
         NoopAnimationsModule,
+        ServerModule,
         ServerTransferStateModule,
+        ModuleMapLoaderModule,
     ]
 })
 export class AppServerModule {

@@ -26,12 +26,6 @@ export class AuthService {
                 private signalRService: SignalRService,
                 private store: Store
     ) {
-
-        //     this.state = new BehaviorSubject<IAuthStateModel>(this.initialState);
-
-        // this.tokens$ = this.state.pipe(
-        //     filter((state: IAuthStateModel) => state.authReady),
-        //     map((state: IAuthStateModel) => state.tokens));
     }
 
     // new one
@@ -122,7 +116,7 @@ export class AuthService {
         // refresh every half the total expiration time
         //  flatMap((tokens: IAuthTokenModel) => 
         if (this.tokens) {
-            interval(this.tokens.expires_in * 500).pipe(
+            this.refreshSubscription$ = interval(this.tokens.expires_in * 500).pipe(
                 flatMap(() => this.refreshTokens()))
                 .subscribe();
         }

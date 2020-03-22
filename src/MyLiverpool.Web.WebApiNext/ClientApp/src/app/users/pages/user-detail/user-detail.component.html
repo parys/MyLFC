@@ -6,7 +6,7 @@
     <div>
         <h2>
             <span [textContent]="data.user.userName"></span>
-            <span *ngIf="data.userId !== data.user.id">
+            <span *ngIf="data.userId && data.userId !== data.user.id">
                 <a role="button" (click)="writePm(data.user.id)"><i class="material-icons">email</i></a>
             </span>
         </h2>

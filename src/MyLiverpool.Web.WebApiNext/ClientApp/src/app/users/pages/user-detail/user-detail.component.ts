@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '@base/auth';
 import { RoleGroup} from '@domain/models';
-import { CustomTitleMetaService } from '@core/services';
 
 import { UserService } from '@users/user.service';
 import { ObserverComponent } from '@domain/base';
@@ -42,7 +41,6 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
         public dialog: MatDialog,
         private store: Store,
         private formBuilder: FormBuilder,
-        private titleService: CustomTitleMetaService,
         private cd: ChangeDetectorRef,
         private authService: AuthService) {
         super();
@@ -50,8 +48,6 @@ export class UserDetailComponent extends ObserverComponent implements OnInit {
 
     public ngOnInit(): void {
         this.initBanForm();
-        const usersState = this.store.selectSnapshot(UsersState);
-        this.titleService.setTitle(usersState.user.userName);
     }
 
     public logout(): void {

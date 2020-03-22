@@ -15,7 +15,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages Rss.
     /// </summary>
-    [AllowAnonymous, Route("Rss")]
+    [AllowAnonymous]
     public class RssController : BaseController
     {
         /// <summary>
@@ -42,7 +42,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     new SyndicationAttribute("xmlns:link", host)
                 };
                 var writer = new RssFeedWriter(xmlWriter);
-                await writer.WriteTitle("MyLFC.ru - новостная лента");
+                await writer.WriteTitle("MyLFC.ru - новостная лента о ФК Ливерпуль");
                 var formatter = new RssFormatter(attributes, xmlWriter.Settings);
 
                 foreach (var material in result.Results)
