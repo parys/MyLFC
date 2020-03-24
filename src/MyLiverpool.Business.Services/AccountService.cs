@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using MyLfc.Domain;
@@ -16,16 +15,14 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IEmailSender _messageService;
-        private readonly IHttpContextAccessor _accessor;
         private readonly IUserRepository _userRepository;
         private readonly IOptions<EmailSettings> _settings;
         private const string DefaultPhotoPath = "/content/avatars/default.png";
 
-        public AccountService(IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, IUserRepository userRepository, IOptions<EmailSettings> settings)
+        public AccountService(IMapper mapper, IEmailSender messageService, IUserRepository userRepository, IOptions<EmailSettings> settings)
         {
             _mapper = mapper;
             _messageService = messageService;
-            _accessor = accessor;
             _userRepository = userRepository;
             _settings = settings;
         }

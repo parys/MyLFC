@@ -65,7 +65,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                        ErrorDescription = "The username/password couple is invalid."
+                        ErrorDescription = "Пользователь с таким логином не зарегистрирован."
                     });
                 }
 
@@ -74,7 +74,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = "unconfirmed_email",
-                        ErrorDescription = "User should check his email."
+                        ErrorDescription = "Пользователь не подтвердил свой адрес электронной почты."
                     });
                 }
 
@@ -94,7 +94,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                        ErrorDescription = "The username/password couple is invalid."
+                        ErrorDescription = "Вы ввели неправильно логин и/или пароль."
                     });
 
                 }
@@ -213,8 +213,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var principal = await _signInManager.CreateUserPrincipalAsync(user);
 
             var ticket = new AuthenticationTicket(principal, properties,
-                OpenIdConnectServerDefaults.AuthenticationScheme);
-
+                OpenIdConnectServerDefaults.AuthenticationScheme); 
+            
+            ticket.SetResources("api1");
+            
             if (!request.IsAuthorizationCodeGrantType() && !request.IsRefreshTokenGrantType())
             {
                 // Set the list of scopes granted to the client application.
@@ -223,8 +225,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 ticket.SetScopes(new[]
                 {
                     OpenIdConnectConstants.Scopes.OpenId,
-                    OpenIdConnectConstants.Scopes.Email,
-                    OpenIdConnectConstants.Scopes.Profile,
                     OpenIdConnectConstants.Scopes.OfflineAccess,
                     OpenIddictConstants.Scopes.Roles
                 }.Intersect(request.GetScopes()));
@@ -234,7 +234,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             // To allow OpenIddict to serialize them, you must attach them a destination, that specifies
             // whether they should be included in access tokens, in identity tokens or in both.
 
-            foreach (var claim in principal.Claims)
+            foreach (var claim in ticket.Principal.Claims)
             {
                 if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
                 {
@@ -249,19 +249,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
                 if ((claim.Type == OpenIdConnectConstants.Claims.Name && ticket.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
                     (claim.Type == OpenIdConnectConstants.Claims.Email && ticket.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
-                    (claim.Type == OpenIdConnectConstants.Claims.Role && ticket.HasScope(OpenIddictConstants.Claims.Roles)))
+                    (claim.Type == OpenIdConnectConstants.Claims.Role && ticket.HasScope(OpenIddictConstants.Scopes.Roles)))
                 {
-                    destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
+                    // don't used destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
                 }
 
                 claim.SetDestinations(destinations);
             }
 
             ticket.Properties.AllowRefresh = true;
-         //   var roles = principal.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-       //     ticket.Properties.Items.Add(new KeyValuePair<string, string>("roles", string.Join(", ", roles.Select(r => r.Value))));
-            //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
-            //  ticket.Properties.IsPersistent = false;
+            ticket.Properties.IsPersistent = false;
 
             await UpdateIpAddressForUser(user.Id);
 

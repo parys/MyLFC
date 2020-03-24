@@ -15,7 +15,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class AccountController : Controller
     {
-        private const string LocalLoginProvider = "Local";
         private readonly IAccountService _accountService;
 
         /// <summary>

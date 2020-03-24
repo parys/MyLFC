@@ -18,7 +18,7 @@ import { RolesEnum } from '@auth/models';
 export class AuthState {
 
     private static isInRole(state: AuthStateModel, role: string): boolean {
-        const roles = state.user && state.user.roles ? state.user.roles : [];
+        const roles = state.user && state.user.role ? state.user.role : [];
         const updatedRoles = roles.map(x => x.toLowerCase);
         return updatedRoles.includes(role.toLowerCase)
     }
@@ -30,12 +30,12 @@ export class AuthState {
 
     @Selector()
     static userId(state: AuthStateModel) {
-        return state.user ? state.user.userId : null;
+        return state.user ? state.user.sub : null;
     }
 
     @Selector()
     static userName(state: AuthStateModel) {
-        return state.user ? state.user.userName : null;
+        return state.user ? state.user.name : null;
     }
 
     @Selector()
@@ -96,7 +96,7 @@ export class AuthState {
         return createSelector(
             [AuthState],
             (state: AuthStateModel) => {
-                return state.user.userId === userId;
+                return state.user.sub === userId;
             }
         );
     }

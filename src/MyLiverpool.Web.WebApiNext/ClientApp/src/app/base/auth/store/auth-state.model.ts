@@ -2,9 +2,9 @@ import { IAuthTokenModel } from '@auth/models';
 
 export interface AuthStateModel {
     user: {
-        userId: number,
-        userName: string,
-        roles: string[]
+        sub: number,
+        name: string,
+        role: string[]
     };
     tokens: IAuthTokenModel;
 }

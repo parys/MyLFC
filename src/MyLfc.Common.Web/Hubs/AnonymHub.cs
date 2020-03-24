@@ -34,7 +34,7 @@ namespace MyLfc.Common.Web.Hubs
                 var model = new OnlineCounterModel
                 {
                     Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub").Value),
-                    UserName = Context.User.Identity.Name,
+                    UserName = Context.User.Claims.First(x => x.Type == "name").Value,
                     ConnectionId = Context.ConnectionId
                 };
                 OnlineUsers.CurrentOnline.AddOrUpdate(Context.ConnectionId, model,
@@ -58,7 +58,7 @@ namespace MyLfc.Common.Web.Hubs
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                OnlineUsers.CurrentOnline.TryRemove(Context.ConnectionId, out var value);
+                OnlineUsers.CurrentOnline.TryRemove(Context.ConnectionId, out _);
             }
             else
             {

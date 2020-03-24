@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -112,16 +111,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddCustomIdentitySettings();
 
-            services.AddAuthentication()
-                .AddOAuthValidation(options =>
-                {
-                    options.Events.OnRetrieveToken = context =>
-                    {
-                        context.Token = context.Request.Query["access_token"];
-                        return Task.CompletedTask;
-                    };
-                });
-            services.ApplyCustomOpenIdDict(Env);
+
+            services.ApplyCustomOpenIdDict(Env, Configuration);
 
             services.AddSignalR()
                         // todo .AddMessagePackProtocol(options =>

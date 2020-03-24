@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { tap, catchError, flatMap } from 'rxjs/operators';
 import { Observable, Subscription, of, interval, throwError } from 'rxjs';
 
-import { HttpWrapper } from '@base/httpWrapper';
 import { StorageService } from '@base/storage';
 import { SignalRService } from '@base/signalr';
 
@@ -20,8 +19,7 @@ export class AuthService {
     private refreshSubscription$: Subscription;
     public tokens: IAuthTokenModel;
 
-    constructor(private http: HttpWrapper,
-                private http1: HttpClient,
+    constructor(private http1: HttpClient,
                 private storage: StorageService,
                 private signalRService: SignalRService,
                 private store: Store
@@ -62,7 +60,6 @@ export class AuthService {
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
 
-            //        console.warn("init hub from logout");
             this.signalRService.initializeHub();
         }
     }
@@ -86,14 +83,16 @@ export class AuthService {
 
                 tokens.expiration_date = new Date(new Date().getTime() + tokens.expires_in * 1000).getTime().toString();
 
+                const user = JSON.parse(atob(tokens.access_token.split('.')[1]));
+
                 this.storage.setAuthTokens(tokens);
                 if (tokens.refresh_token) {
                     this.storage.setRefreshToken(tokens.refresh_token);
                 }
-                //  this.updateState({ authReady: true, tokens });
+
                 this.tokens = tokens;
                 this.store.dispatch(new SetTokens(tokens));
-                this.getUserProfile();
+                this.setUserProfile(user);
             }));
     }
 
@@ -122,16 +121,10 @@ export class AuthService {
         }
     }
 
-    private getUserProfile(): void {
-        this.http.get<any>('users/roles') // bug make list request form service
-            .subscribe((data: any) => {
-                this.storage.setUser(data);
-
-                this.setUser(data);
-                //               console.warn("init hub from getUserProfile");
-                this.signalRService.initializeHub(); // WARNING---------------------------------------------------------
-            }
-            );
+    private setUserProfile(user: any): void {
+        this.storage.setUser(user);
+        this.setUser(user);
+        this.signalRService.initializeHub();
     }
 
     private setUser(data: any): void {
