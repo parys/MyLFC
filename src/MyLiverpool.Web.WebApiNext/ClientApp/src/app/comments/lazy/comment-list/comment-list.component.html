@@ -1,9 +1,0 @@
-﻿<ng-container *ngIf="{ isModerator: isModerator$ | async } as data">
-    <div class="flex-v-c flex-space-between">
-        <mat-checkbox #onlyUnverified color="warn" [hidden]="!data.isModerator">Только непроверенные</mat-checkbox>
-    </div>
-    <div *ngFor="let comment of items">
-        <comment-detail [item]="comment" [deep]="0" [canCommentary]="false"></comment-detail>
-    </div>
-    <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]"></mat-paginator>
-</ng-container>

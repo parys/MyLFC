@@ -1,1 +1,0 @@
-﻿export * from "./wal-main.component";

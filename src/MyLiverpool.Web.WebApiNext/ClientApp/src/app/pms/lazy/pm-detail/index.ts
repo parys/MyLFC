@@ -1,1 +1,0 @@
-﻿export * from "./pm-detail.component";

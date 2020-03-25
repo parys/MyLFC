@@ -1,4 +1,0 @@
-﻿User-agent: *
-Disallow: /connect/
-Disallow: /api/
-Host: https://mylfc.ru

@@ -1,1 +1,0 @@
-﻿export * from "./injury-current-list.component";

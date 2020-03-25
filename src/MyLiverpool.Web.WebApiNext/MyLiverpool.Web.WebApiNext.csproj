@@ -26,25 +26,16 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="ClientApp\node_modules\**" />
     <Content Remove="wwwroot\src\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
-    <EmbeddedResource Remove="ClientApp\node_modules\**" />
-    <EmbeddedResource Remove="ClientApp\src\**" />
     <EmbeddedResource Remove="wwwroot\content\**" />
     <EmbeddedResource Remove="wwwroot\src\**" />
-    <None Remove="ClientApp\node_modules\**" />
-    <None Remove="ClientApp\src\app\editor\langs\**" />
-    <None Remove="ClientApp\src\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
     <None Remove="wwwroot\src\lightgray\**" />
     <None Remove="wwwroot\src\plugins\**" />
     <None Remove="wwwroot\src\skins\**" />
-    <Content Include="ClientApp\src\index.html" />
-    <Content Include="ClientApp\src\tsconfig.cli.json" />
-    <Folder Include="ClientApp\.vscode\" />
     <Folder Include="wwwroot\src\" />
   </ItemGroup>
 
@@ -95,15 +86,6 @@
   </UsingTask>
 
   <ItemGroup>
-    <Content Include="ClientApp\src\assets\favicon.ico" />
-    <Content Include="ClientApp\src\assets\img\goal.png" />
-    <Content Include="ClientApp\src\assets\img\goal_own.png" />
-    <Content Include="ClientApp\src\assets\img\not_goal.png" />
-    <Content Include="ClientApp\src\assets\robots.txt" />
-    <Content Include="ClientApp\src\assets\sitemap.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
@@ -113,7 +95,5 @@
     <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
   </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties clientapp_4proxy_1conf_1json__JsonSchema="http://json.schemastore.org/proxies" clientapp_4package_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
