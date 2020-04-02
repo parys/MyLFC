@@ -26,7 +26,8 @@ namespace MyLiverpool.Common.Utilities
 
             var lastFolderName = int.Parse(directoryInfo.Split(Path.DirectorySeparatorChar).Last());
             var directoryName = lastFolderName.ToString();
-            if (Directory.GetFiles(directoryInfo).Length >= FilesPerFolder)
+            var filesCountInFolder = Directory.GetFiles(directoryInfo).Length;
+            if (filesCountInFolder >= FilesPerFolder)
             {
                 directoryName = (lastFolderName + 1).ToString() + Path.DirectorySeparatorChar;
                 directoryInfo = Path.Combine(fullPath, directoryName);

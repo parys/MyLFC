@@ -50,20 +50,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result.Id);
         }
 
-
-        /// <summary>
-        /// Returns match events by match id.
-        /// </summary>
-        /// <param name="request">The identifier of match.</param>
-        /// <returns>List of match events for match.</returns>
-        [Authorize, HttpGet("getForMatch/{matchId:int}")]
-        [Obsolete("Remove after 10 AUg 19")]
-        public async Task<IActionResult> GetForMatchAsync([FromRoute] GetMatchEventListQuery.Request request)
-        {
-            var result = await Mediator.Send(request);
-            return Ok(result.Results);
-        }
-
         /// <summary>
         /// Returns all types of match events.
         /// </summary>

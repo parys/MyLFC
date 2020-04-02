@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private const string PathContent = "content";
         private const string PathImages = "images";
-        private readonly string _pathFull = Path.Combine("content", "images");
+        private readonly string _pathFull = Path.Combine(PathContent, PathImages);
         private readonly IWebHostEnvironment _env;
         private readonly IUploadService _uploadService;
         

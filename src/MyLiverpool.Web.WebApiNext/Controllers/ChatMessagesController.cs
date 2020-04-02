@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.ChatMessages;
@@ -42,29 +41,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CleanChatCache();
             return Ok(result);
         }     
-        
-        /// <summary>
-        /// Returns chat messages list.
-        /// </summary>
-        /// <returns>Result of creation message.</returns>
-        [Obsolete("Remove after 1 Aug 19")]
-        [AllowAnonymous, HttpGet("list/{lastMessageId:int}/{typeId:int}")]
-        public async Task<IActionResult> GetOldListAsync([FromRoute]GetChatMessageListQuery.Request request)
-        {
-            GetChatMessageListQuery.Response result;
-            if (request.LastMessageId == 0)
-            {
-                result = await CacheManager.GetOrCreateAsync(
-                    CacheKeysConstants.ChatName + request.TypeId,
-                    async () => await Mediator.Send(request));
-            }
-            else
-            {
-                result = await Mediator.Send(request);
-            }
-            return Ok(result.Results);
-        }  
-        
+
         /// <summary>
         /// Returns chat messages list.
         /// </summary>

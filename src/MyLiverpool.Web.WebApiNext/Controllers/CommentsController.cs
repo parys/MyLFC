@@ -51,46 +51,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns pageable comments list for material.
-        /// </summary>
-        /// <param name="id">The identifier of material.</param>
-        /// <param name="page">The page of comments list.</param>
-        /// <returns>Selected page comments list for material.</returns>
-        [Obsolete("Remove after 1 Aug 19")]
-        [AllowAnonymous, HttpGet("material/{id:int}/list/{page:int}")]
-        public async Task<IActionResult> GetListForMaterialAsync(int id, int page = 1)
-        {
-            var request = new GetCommentListByEntityIdQuery.Request
-            {
-                MaterialId = id,
-                CurrentPage = 1,
-                PageSize = 500 //temporary
-
-            };
-            return Ok(await Mediator.Send(request));
-        }
-
-        /// <summary>
-        /// Returns pageable comments list for match.
-        /// </summary>
-        /// <param name="id">The identifier of match.</param>
-        /// <param name="page">The page of comments list.</param>
-        /// <returns>Selected page comments list for match.</returns>
-        [Obsolete("Remove after 1 Aug 19")]
-        [AllowAnonymous, HttpGet("match/{id:int}/list/{page:int}")]
-        public async Task<IActionResult> GetListForMatchAsync(int id, int page = 1)
-        {
-            var request = new GetCommentListByEntityIdQuery.Request
-            {
-                MatchId = id,
-                CurrentPage = 1,
-                PageSize = 500 //temporary
-
-            };
-            return Ok(await Mediator.Send(request));
-        }
-
-        /// <summary>
         /// Mark comment as verified by moderator.
         /// </summary>
         /// <param name="request">Id of verifiable comment.</param>

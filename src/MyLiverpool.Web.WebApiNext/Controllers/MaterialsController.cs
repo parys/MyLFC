@@ -52,8 +52,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">Contains material model.</param>
         /// <returns>Result of creation.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)),
-         HttpPost("{type}")] //todo add cutting absolute path to relative
-        public async Task<IActionResult> CreateAsync(string type, [FromBody] CreateMaterialCommand.Request request)
+         HttpPost("{type}")]
+        [Obsolete("Should remove after 1 May 20")]
+        public async Task<IActionResult> CreateOldAsync(string type, [FromBody] CreateMaterialCommand.Request request)
         {
             if (!ModelState.IsValid || !Enum.TryParse(type, true, out MaterialType materialType))
             {
@@ -62,6 +63,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             request.Type = materialType;
 
+            var result = await Mediator.Send(request);
+            if (!result.Pending)
+            {
+                CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.MaterialsOthers);
+            }
+
+            return Ok(result);
+        }
+
+        
+        /// <summary>
+        /// Creates new material.
+        /// </summary>
+        /// <param name="request">Contains material model.</param>
+        /// <returns>Result of creation.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)),
+         HttpPost("")] //todo add cutting absolute path to relative
+        public async Task<IActionResult> CreateAsync([FromBody] CreateMaterialCommand.Request request)
+        {
             var result = await Mediator.Send(request);
             if (!result.Pending)
             {
