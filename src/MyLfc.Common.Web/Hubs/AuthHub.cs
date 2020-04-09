@@ -1,4 +1,4 @@
-﻿using AspNet.Security.OAuth.Validation;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
 namespace MyLfc.Common.Web.Hubs
@@ -6,7 +6,7 @@ namespace MyLfc.Common.Web.Hubs
     /// <summary>
     /// Hub for authenticated users.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AuthHub : AnonymHub
     {
         /// <summary>

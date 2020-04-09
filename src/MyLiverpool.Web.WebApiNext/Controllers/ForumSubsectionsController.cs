@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -10,7 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages forum subsections.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class ForumSubsectionsController : Controller
     {
         private readonly IForumSubsectionService _forumSubsectionService;

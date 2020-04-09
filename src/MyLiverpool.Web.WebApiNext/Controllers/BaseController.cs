@@ -1,5 +1,5 @@
-﻿using AspNet.Security.OAuth.Validation;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +17,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/v1/[controller]")]
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BaseController : ControllerBase
     {
         private IMediator _mediator;
