@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -80,7 +81,7 @@ namespace MyLfc.Application.Comments
                 if (comment.ParentId.HasValue)
                 {
                     await SendNotificationsAsync(comment.ParentId.Value, comment.Id,
-                        _requestContext.User.Identity.Name, comment.Message);
+                        _requestContext.User.Claims.First(x => x.Type == "name").Value, comment.Message);
                 }
                 //todo mediatr
                 var addedComment = await _context.MaterialComments.AsNoTracking()
