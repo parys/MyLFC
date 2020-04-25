@@ -5,9 +5,36 @@ on:
     branches: [ master ]
 
 jobs:
+  build:
 
-  run-script:
-    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Publish
+      run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLiverpool.Web.WebApiNext/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.1.2
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          ARGS: "-avzr --delete --exclude=/wwwroot/ --exclude '*.xml' --exclude 'appsettings.Production.json'"
+          SOURCE: "/artifacts/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_DEPLOY_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }} 
+          TARGET: ${{ secrets.SERVER_TEST_API_FOLDER }}
+        
+  run-script:    
     runs-on: ubuntu-latest
     
     steps:
@@ -21,4 +48,3 @@ jobs:
         port: ${{ secrets.REMOTE_PORT }} 
         user: ${{ secrets.SSH_DEPLOY_USER }}
         key: ${{ secrets.SSH_DEPLOY_KEY }}
-     
