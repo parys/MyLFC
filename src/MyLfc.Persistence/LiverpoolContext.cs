@@ -13,7 +13,10 @@ namespace MyLfc.Persistence
         {
             if (!_created)
             {
-                Database.Migrate();
+                if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+                {
+                    Database.Migrate();
+                }
                 _created = true;
             }
         }

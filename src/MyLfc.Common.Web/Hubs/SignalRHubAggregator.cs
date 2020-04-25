@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.SignalR;
-using MyLfc.Common.Web.MessagePack;
 using MyLfc.Common.Web.OnlineCounting;
 
 namespace MyLfc.Common.Web.Hubs

@@ -1,6 +1,4 @@
-﻿using MyLfc.Common.Web.MessagePack;
-
-namespace MyLfc.Common.Web.Hubs
+﻿namespace MyLfc.Common.Web.Hubs
 {
     public class EmptyHubAggregator : ISignalRHubAggregator
     {
