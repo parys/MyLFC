@@ -27,8 +27,8 @@ jobs:
       uses: easingthemes/ssh-deploy@v2.1.2
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
-          ARGS: "-avzr --delete --exclude=/wwwrooot/"
-          SOURCE: "/"
+          ARGS: "-avzr --delete --exclude=/wwwroot/ --exclude '*.xml' --exclude 'appsettings.Production.json'"
+          SOURCE: "/artifacts/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.SSH_DEPLOY_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }} 
