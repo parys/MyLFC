@@ -106,7 +106,7 @@ namespace MyLiverpool.Web.Mvc
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseCustomResponseCompression();
+            app.UseResponseCompression();
 
             if (env.IsDevelopment())
             {

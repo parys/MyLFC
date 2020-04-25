@@ -206,7 +206,7 @@ namespace MyLiverpool.Web.WebApiNext
                 if (Configuration.GetSection("Settings") != null &&
                     Convert.ToBoolean(Configuration.GetSection("Settings")["Compression"]))
                 {
-                    app.UseCustomResponseCompression();
+                    app.UseResponseCompression();
                 }
             }
 
