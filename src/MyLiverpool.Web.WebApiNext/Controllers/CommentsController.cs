@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
@@ -47,7 +46,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
                 async () => await Mediator.Send(new GetLastCommentListQuery.Request()));
-            return Ok(result.Results);
+            return Ok(result);
         }
 
         /// <summary>
