@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 
@@ -15,10 +16,12 @@ namespace MyLiverpool.Business.Services
         public const string ContentPath = "content";
         public readonly string ImagesPath = Path.Combine(ContentPath, "images");
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly ILogger _logger;
 
-        public UploadService(IWebHostEnvironment appEnvironment)
+        public UploadService(IWebHostEnvironment appEnvironment, ILogger<UploadService> logger)
         {
             _appEnvironment = appEnvironment;
+            _logger = logger;
         }
         
         public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files)
@@ -27,7 +30,7 @@ namespace MyLiverpool.Business.Services
             foreach (var file in files)
             {
                 var newName = PathHelpers.GenerateNewName() + "." + file.FileName.Split('.').Last();
-                var newPath = PathHelpers.GenerateNewPath(ImagesPath, _appEnvironment.WebRootPath);
+                var newPath = PathHelpers.GenerateNewPath(ImagesPath, _appEnvironment.WebRootPath, _logger);
                 var relativePath = Path.Combine(newPath, newName);
                 var path = Path.Combine(_appEnvironment.WebRootPath, relativePath);
                 relativePath = Regex.Replace(relativePath, "\\\\", "/");

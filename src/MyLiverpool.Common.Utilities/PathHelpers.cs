@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace MyLiverpool.Common.Utilities
 {
     public static class PathHelpers
     {
-        public const int FilesPerFolder = 1200;
+        public const int FilesPerFolder = 1;
 
-        public static string GenerateNewPath(string path, string webRootPath)
+        public static string GenerateNewPath(string path, string webRootPath, ILogger logger = null)
         {
             var fullPath = Path.Combine(webRootPath, path);
             if (!Directory.Exists(fullPath))
@@ -27,11 +28,14 @@ namespace MyLiverpool.Common.Utilities
             var lastFolderName = int.Parse(directoryInfo.Split(Path.DirectorySeparatorChar).Last());
             var directoryName = lastFolderName.ToString();
             var filesCountInFolder = Directory.GetFiles(directoryInfo).Length;
+
+            logger?.LogWarning($"lastFolderName={lastFolderName} | directoryName={directoryName} | filesCount={filesCountInFolder}");
             if (filesCountInFolder >= FilesPerFolder)
             {
                 directoryName = (lastFolderName + 1).ToString() + Path.DirectorySeparatorChar;
                 directoryInfo = Path.Combine(fullPath, directoryName);
                 Directory.CreateDirectory(directoryInfo);
+                logger?.LogWarning($"inside new folder | directoryName={directoryName} | directoryInfo={directoryInfo}");
             }
 
             return Path.Combine(path, directoryName);
