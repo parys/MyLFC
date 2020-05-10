@@ -26,10 +26,11 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     config.AddConfiguration(builtConfig);
                 })
-                .ConfigureLogging(logging =>
-                {
-                    logging.AddSerilog();
-                })
+                .UseSerilog()
+                //.ConfigureLogging(logging =>
+                //{
+                //    logging.AddSerilog();
+                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

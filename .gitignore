@@ -225,3 +225,4 @@ ModelManifest.xml
 /src/MyLiverpool.Web.WebApiNext/wwwroot/content
 /src/MyLiverpool.Web.WebApiNext/ClientApp/dist-server
 /src/MyLiverpool.Web.WebApiNext/ClientApp/test
+/src/MyLiverpool.Web.WebApiNext/Logs

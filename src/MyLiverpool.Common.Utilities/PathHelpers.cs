@@ -29,13 +29,13 @@ namespace MyLiverpool.Common.Utilities
             var directoryName = lastFolderName.ToString();
             var filesCountInFolder = Directory.GetFiles(directoryInfo).Length;
 
-            logger?.LogWarning($"lastFolderName={lastFolderName} | directoryName={directoryName} | filesCount={filesCountInFolder}");
+            logger?.LogCritical($"lastFolderName={lastFolderName} | directoryName={directoryName} | filesCount={filesCountInFolder}");
             if (filesCountInFolder >= FilesPerFolder)
             {
                 directoryName = (lastFolderName + 1).ToString() + Path.DirectorySeparatorChar;
                 directoryInfo = Path.Combine(fullPath, directoryName);
                 Directory.CreateDirectory(directoryInfo);
-                logger?.LogWarning($"inside new folder | directoryName={directoryName} | directoryInfo={directoryInfo}");
+                logger?.LogCritical($"inside new folder | directoryName={directoryName} | directoryInfo={directoryInfo}");
             }
 
             return Path.Combine(path, directoryName);
