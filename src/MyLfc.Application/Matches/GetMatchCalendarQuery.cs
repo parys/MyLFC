@@ -69,8 +69,8 @@ namespace MyLfc.Application.Matches
                 }
                 var response = new Response
                 {
-                    Last = dtos[0],
-                    Next = dtos[1]
+                    Last = dtos.Any() ? dtos[0] : null,
+                    Next = dtos.Count > 1 ? dtos[1] : null
                 };
                 return response;
             }

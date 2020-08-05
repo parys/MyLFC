@@ -40,7 +40,7 @@ namespace MyLfc.Application.Materials
                     ? materialsQuery.Where(x => x.OnTop || x.Pending)
                     : materialsQuery.Where(x => x.OnTop && !x.Pending);
 
-                materialsQuery = materialsQuery.OrderByDescending(x => x.AdditionTime);
+                materialsQuery = materialsQuery.OrderByDescending(x => x.Id);
 
                 var result = await materialsQuery
                     .Take(10)
