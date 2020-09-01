@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Matches;
 using MyLfc.Application.MatchEvents;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -27,6 +27,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
+            SignalRHub.Send(HubEndpointConstants.AddMatchEvent, result);
+
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
@@ -45,6 +47,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await Mediator.Send(request);
+
+            SignalRHub.Send(HubEndpointConstants.AddMatchEvent, result);
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result.Id);
