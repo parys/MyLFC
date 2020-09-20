@@ -44,7 +44,9 @@ namespace MyLfc.Application.Persons
 
                 if (request.Type.HasValue)
                 {
-                    personsQuery = personsQuery.Where(x => x.Type == request.Type);
+                    personsQuery = request.Type.Value == PersonType.Rival
+                        ? personsQuery.Where(x => x.Type == request.Type || x.Type == PersonType.OldPlayer)
+                        : personsQuery.Where(x => x.Type == request.Type);
                 }
                 if (!string.IsNullOrWhiteSpace(request.Name))
                 {

@@ -34,7 +34,8 @@ namespace MyLfc.Application.Contracts
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var contracts = _context.Contracts.AsNoTracking();
+                var contracts = _context.Contracts.AsNoTracking()
+                    .Where(x => x.StartDate <= DateTimeOffset.UtcNow && DateTimeOffset.UtcNow <= x.EndDate);
 
                 if (!string.IsNullOrWhiteSpace(request.SortOn) && !string.IsNullOrWhiteSpace(request.SortDirection))
                 {
