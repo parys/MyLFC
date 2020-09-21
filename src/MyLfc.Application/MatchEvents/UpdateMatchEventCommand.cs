@@ -51,14 +51,13 @@ namespace MyLfc.Application.MatchEvents
                 matchEvent = _mapper.Map(request, matchEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = matchEvent.Id};
+                
+                return _mapper.Map<Response>(matchEvent);
             }
         }
 
-        public class Response
+        public class Response : UpsertMatchEventCommand.Response
         {
-            public int Id { get; set; }
         }
     }
 }

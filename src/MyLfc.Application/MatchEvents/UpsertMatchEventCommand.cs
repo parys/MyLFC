@@ -28,5 +28,26 @@ namespace MyLfc.Application.MatchEvents
      
             }
         }
+
+        public abstract class Response
+        {
+            public int Id { get; set; }
+
+            public int PersonId { get; set; }
+
+            public string PersonName { get; set; }
+
+            public MatchEventType Type { get; set; }
+
+            public string TypeName { get; set; }
+
+            public int MatchId { get; set; }
+
+            public bool IsOur { get; set; }
+
+            public byte? Minute { get; set; }
+
+            public bool Home { get; set; }
+        }
     }
 }

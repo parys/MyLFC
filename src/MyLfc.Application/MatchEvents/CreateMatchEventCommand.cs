@@ -41,14 +41,13 @@ namespace MyLfc.Application.MatchEvents
                 _context.MatchEvents.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = entity.Id};
+                return _mapper.Map<Response>(entity);
             }
         }
 
 
-        public class Response
+        public class Response : UpsertMatchEventCommand.Response
         {
-            public int Id { get; set; }
         }
     }
 }
