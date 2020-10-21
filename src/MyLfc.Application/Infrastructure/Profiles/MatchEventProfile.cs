@@ -18,7 +18,14 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
                 .ForMember(dest => dest.SeasonName, src => src.MapFrom(x => x.Season.StartSeasonYear));
-            
+
+            CreateMap<MatchEvent, CreateMatchEventCommand.Response>()
+                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
+                    ;
+            CreateMap<MatchEvent, UpdateMatchEventCommand.Response>().ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
+                ;
         }
     }
 }
