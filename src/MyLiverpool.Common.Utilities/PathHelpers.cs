@@ -7,7 +7,7 @@ namespace MyLiverpool.Common.Utilities
 {
     public static class PathHelpers
     {
-        public const int FilesPerFolder = 1;
+        public const int FilesPerFolder = 1000;
 
         public static string GenerateNewPath(string path, string webRootPath, ILogger logger = null)
         {
