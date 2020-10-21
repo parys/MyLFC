@@ -18,7 +18,8 @@ namespace MyLiverpool.Common.Utilities
             }
 
             //workaround for folders _nw and _bl to skip them
-            var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault(x => !x.Contains("_"));
+            var directoryInfo = Directory.EnumerateDirectories(fullPath).OrderBy(x => x)
+                .LastOrDefault(x => !x.Contains("_"));
             if (directoryInfo == null)
             {
                 directoryInfo = "0";
