@@ -28,7 +28,7 @@
         @if (Model[MatchPersonType.AdditionalReferee].Any())
         {
             <div class="text-center">
-                Дополнительные судьи:
+                Судьи ВАР:
                 @for (var i = 0; i < Model[MatchPersonType.AdditionalReferee].Count; i++)
                 {
                     <span *ngFor="let ref of assistantRef; let last = last;">

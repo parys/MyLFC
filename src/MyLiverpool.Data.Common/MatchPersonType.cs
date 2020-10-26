@@ -18,11 +18,11 @@ namespace MyLiverpool.Data.Common
         CompetitorCoach = 6,
         [Display(Name = "Главный судья")]
         MainReferee = 7,
-        [Display(Name = "Помощник судьи")]
+        [Display(Name = "Боковой судья")]
         SubReferee = 8,
         [Display(Name = "Резервный судья")]
         FourthReferee = 9,
-        [Display(Name = "Дополнительный судья")]
+        [Display(Name = "Судья ВАР")]
         AdditionalReferee = 10,
         [Display(Name = "Травма наша(до матча)")]
         Injury = 11,
