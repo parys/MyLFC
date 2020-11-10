@@ -34,7 +34,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>List of types.</returns>
         [Authorize, HttpGet("getTypes")]
-        [ResponseCache(Duration = 24*60)]
+        [ResponseCache(Duration = 60*60)]
         public async Task<IActionResult> GetTypes()
         {
             var list = new List<object>();

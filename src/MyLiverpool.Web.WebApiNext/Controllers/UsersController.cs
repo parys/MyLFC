@@ -199,5 +199,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             return Ok(await Mediator.Send(new GetUserRolesQuery.Request()));
         }
+
+
+        /// <summary>
+        /// Updates username.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="request"></param>
+        /// <returns>Result of updating username.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{userId:int}/changeUsername")]
+        public async Task<IActionResult> UpdateUsername([FromRoute] int userId, [FromBody] ChangeUsernameCommand.Request request)
+        {
+            request.UserId = userId;
+            return Ok(await Mediator.Send(request));
+        }
     }
 }
