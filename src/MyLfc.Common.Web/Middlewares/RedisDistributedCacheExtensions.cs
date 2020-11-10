@@ -11,7 +11,7 @@ namespace MyLfc.Common.Web.Middlewares
             var redisConfig = configuration.GetSection("Redis");
 
             DistributedCacheManager.KeyPrefix = redisConfig?["Prefix"] ?? "";
-            services.AddDistributedRedisCache(opts =>
+            services.AddStackExchangeRedisCache(opts =>
             {
                 opts.Configuration = redisConfig["Domain"] + ":" + redisConfig["Port"];
             });
