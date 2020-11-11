@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using MyLiverpool.Common.Utilities;
 using StackExchange.Redis;
 
 namespace MyLfc.Common.Web.DistributedCache
@@ -24,7 +24,7 @@ namespace MyLfc.Common.Web.DistributedCache
             }
             try
             {
-                await _distributedCache.SetAsync(KeyPrefix + key, await obj.SerializeAsync());
+                await _distributedCache.SetAsync(KeyPrefix + key, JsonSerializer.SerializeToUtf8Bytes(obj));
             }
             catch (RedisConnectionException)
             {
@@ -53,7 +53,7 @@ namespace MyLfc.Common.Web.DistributedCache
                 var cacheValue = await _distributedCache.GetAsync(KeyPrefix + key);
                 if (cacheValue != null)
                 {
-                    return await cacheValue.DeserializeAsync<T>();
+                    return JsonSerializer.Deserialize<T>(cacheValue);
                 }
             }
             catch (RedisConnectionException)
@@ -109,14 +109,14 @@ namespace MyLfc.Common.Web.DistributedCache
                 var cached = await _distributedCache.GetAsync(KeyPrefix + key);
                 if (cached != null)
                 {
-                    result = await cached.DeserializeAsync<T>();
+                    result = JsonSerializer.Deserialize<T>(cached);
                 }
                 else
                 {
                     result = await (Task<T>)method.DynamicInvoke();
                     if (result != null && !string.IsNullOrWhiteSpace(key))
                     {
-                        await _distributedCache.SetAsync(KeyPrefix + key, await result.SerializeAsync());
+                        await _distributedCache.SetAsync(KeyPrefix + key, JsonSerializer.SerializeToUtf8Bytes(result));
                     }
                 }
             }
