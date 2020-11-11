@@ -24,7 +24,7 @@ namespace MyLfc.Common.Web.DistributedCache
             }
             try
             {
-                await _distributedCache.SetAsync(KeyPrefix + key, obj.Serialize());
+                await _distributedCache.SetAsync(KeyPrefix + key, await obj.SerializeAsync());
             }
             catch (RedisConnectionException)
             {
@@ -53,7 +53,7 @@ namespace MyLfc.Common.Web.DistributedCache
                 var cacheValue = await _distributedCache.GetAsync(KeyPrefix + key);
                 if (cacheValue != null)
                 {
-                    return cacheValue.Deserialize<T>();
+                    return await cacheValue.DeserializeAsync<T>();
                 }
             }
             catch (RedisConnectionException)
@@ -109,14 +109,14 @@ namespace MyLfc.Common.Web.DistributedCache
                 var cached = await _distributedCache.GetAsync(KeyPrefix + key);
                 if (cached != null)
                 {
-                    result = cached.Deserialize<T>();
+                    result = await cached.DeserializeAsync<T>();
                 }
                 else
                 {
                     result = await (Task<T>)method.DynamicInvoke();
                     if (result != null && !string.IsNullOrWhiteSpace(key))
                     {
-                        await _distributedCache.SetAsync(KeyPrefix + key, result.Serialize());
+                        await _distributedCache.SetAsync(KeyPrefix + key, await result.SerializeAsync());
                     }
                 }
             }

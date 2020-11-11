@@ -1,33 +1,23 @@
 ﻿using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace MyLiverpool.Common.Utilities
 {
-    //todo think try protobuff?
     public static class BinarySerializerExtensions
     {
-        public static byte[] Serialize(this object obj)
+        public static async Task<byte[]> SerializeAsync<T>(this T obj)
         {
-            byte[] bytes;
-            using (var memoryStream = new MemoryStream())
-            {
-                IFormatter binaryFormatter = new BinaryFormatter();
-                binaryFormatter.Serialize(memoryStream, obj);
-                bytes = memoryStream.ToArray();
-            }
+            await using var memoryStream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(memoryStream, obj, typeof(T));
+            var bytes = memoryStream.ToArray();
             return bytes;
         }
 
-        public static T Deserialize<T>(this byte[] byteArray)
+        public static async Task<T> DeserializeAsync<T>(this byte[] byteArray)
         {
-            T returnValue;
-            using (var memoryStream = new MemoryStream(byteArray))
-            {
-                IFormatter binaryFormatter = new BinaryFormatter();
-                returnValue = (T)binaryFormatter.Deserialize(memoryStream);
-            }
-            return returnValue;
+            await using var memoryStream = new MemoryStream(byteArray);
+            return await JsonSerializer.DeserializeAsync<T>(memoryStream);
         }
     }
 }
