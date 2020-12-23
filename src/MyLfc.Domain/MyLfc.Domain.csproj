@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
-    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
