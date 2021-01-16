@@ -13,7 +13,7 @@
     <PackageReference Include="OpenIddict.Core" Version="3.0.0" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="OpenIddict.Server" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1"></PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2"></PackageReference>
     <PackageReference Include="OpenIddict.Server.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
