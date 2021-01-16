@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using AspNet.Security.OpenIdConnect.Extensions;
-using AspNet.Security.OpenIdConnect.Server;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 using Microsoft.Extensions.Options;
 using MyLfc.Application.Users;
 using MyLfc.Domain;
-using OpenIddict.Core;
+using OpenIddict.Abstractions;
+using OpenIddict.Server.AspNetCore;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
-    using OpenIddict.Abstractions;
-    using OpenIddict.EntityFrameworkCore.Models;
 
     /// <inheritdoc />
     /// <summary>
@@ -26,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [AllowAnonymous]
     public class AuthorizationController : BaseController
     {
-        private readonly OpenIddictApplicationManager<OpenIddictApplication<int>> _applicationManager;
+        private readonly IOpenIddictApplicationManager _applicationManager;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -39,7 +37,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userManager"></param>
         /// <param name="identityOptions"></param>
         public AuthorizationController(
-            OpenIddictApplicationManager<OpenIddictApplication<int>> applicationManager,
+            IOpenIddictApplicationManager applicationManager,
             SignInManager<User> signInManager,
             UserManager<User> userManager,
             IOptions<IdentityOptions> identityOptions)
@@ -55,8 +53,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Result of authentication.</returns>
         [HttpPost("~/connect/token")]
-        public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
+        public async Task<IActionResult> Exchange()
         {
+            var request = HttpContext.GetOpenIddictServerRequest() ??
+                          throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
+
             if (request.IsPasswordGrantType())
             {
                 var user = await _userManager.FindByNameAsync(request.Username);
@@ -106,13 +107,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 var ticket = await CreateTicketAsync(request, user);
 
-                return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+                return SignIn(ticket.Principal, ticket.Properties, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
             else if ( request.IsRefreshTokenGrantType()) //request.IsAuthorizationCodeGrantType() ||
             {
                 // Retrieve the claims principal stored in the authorization code/refresh token.
                 var info = await HttpContext.AuthenticateAsync(
-                    OpenIdConnectServerDefaults.AuthenticationScheme);      
+                    OpenIdConnectConstants.Schemes.Bearer);      
                 
                 // Retrieve the user profile corresponding to the authorization code/refresh token.
                 // Note: if you want to automatically invalidate the authorization code/refresh token
@@ -165,7 +166,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet, Route("~/connect/authorize")]
         public async Task<IActionResult> Authorize()
         {
-            var request = HttpContext.GetOpenIdConnectRequest();
+            var request = HttpContext.GetOpenIddictServerRequest();
             
             var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
             if (application == null)
@@ -203,26 +204,28 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             // Returning a SignOutResult will ask OpenIddict to redirect the user agent
             // to the post_logout_redirect_uri specified by the client application.
-            return SignOut(OpenIdConnectServerDefaults.AuthenticationScheme);
+            return SignOut(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
-        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, User user, AuthenticationProperties properties = null)
+        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIddictRequest request, User user, AuthenticationProperties properties = null)
         {
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.
             var principal = await _signInManager.CreateUserPrincipalAsync(user);
 
             var ticket = new AuthenticationTicket(principal, properties,
-                OpenIdConnectServerDefaults.AuthenticationScheme); 
-            
-            ticket.SetResources("api1");
+                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+
+
+            principal.SetScopes(request.GetScopes());
+            principal.SetResources("api1");
             
             if (!request.IsAuthorizationCodeGrantType() && !request.IsRefreshTokenGrantType())
             {
                 // Set the list of scopes granted to the client application.
                 // Note: the offline_access scope must be granted
                 // to allow OpenIddict to return a refresh token.
-                ticket.SetScopes(new[]
+                principal.SetScopes(new[]
                 {
                     OpenIdConnectConstants.Scopes.OpenId,
                     OpenIdConnectConstants.Scopes.OfflineAccess,
@@ -247,9 +250,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
-                if ((claim.Type == OpenIdConnectConstants.Claims.Name && ticket.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
-                    (claim.Type == OpenIdConnectConstants.Claims.Email && ticket.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
-                    (claim.Type == OpenIdConnectConstants.Claims.Role && ticket.HasScope(OpenIddictConstants.Scopes.Roles)))
+                if ((claim.Type == OpenIdConnectConstants.Claims.Name && principal.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Email && principal.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Role && principal.HasScope(OpenIddictConstants.Scopes.Roles)))
                 {
                     // don't used destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
                 }

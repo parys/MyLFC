@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MyLfc.Persistence;
+using static OpenIddict.Abstractions.OpenIddictConstants.Permissions;
 
 namespace MyLfc.Common.Web.Middlewares
 {
@@ -31,30 +32,34 @@ namespace MyLfc.Common.Web.Middlewares
                 .AddServer(options =>
                 {
                     options.UseMvc();
-                    options.EnableLogoutEndpoint("/connect/logout")
+                    options.SetLogoutEndpointUris("/connect/logout")
                         // Enable the token endpoint (required to use the password flow).
-                        .EnableTokenEndpoint("/connect/token")
-                        .AllowPasswordFlow()
+                        .SetTokenEndpointUris("/connect/token");
+
+                    options.AllowPasswordFlow()
                         .AllowRefreshTokenFlow()
+
                         .SetIdentityTokenLifetime(TimeSpan.FromDays(1))
                         //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
-                        .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-                        // During development, you can disable the HTTPS requirement.
-                        .DisableHttpsRequirement()
-                        .AcceptAnonymousClients() //todo fix needed
-                        .UseJsonWebTokens()
-                        // When request caching is enabled, authorization and logout requests
-                        // are stored in the distributed cache by OpenIddict and the user agent
-                        // is redirected to the same page with a single parameter (request_id).
-                        // This allows flowing large OpenID Connect requests even when using
-                        // an external authentication provider like Google, Facebook or Twitter.
-                        .EnableRequestCaching();
+                        .SetRefreshTokenLifetime(TimeSpan.FromDays(14));
+
+                    // Mark the "email", "profile", "roles" and "demo_api" scopes as supported scopes.
+                    options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, "api1");
+
+                    //to be able to get user at FE side
+                    options.DisableAccessTokenEncryption();
+
+                    // During development, you can disable the HTTPS requirement.
+                    options.AcceptAnonymousClients(); //todo fix needed
                     if (env.IsDevelopment())
                     {
                         // Register a new ephemeral key, that is discarded when the application
                         // shuts down. Tokens signed using this key are automatically invalidated.
                         // This method should only be used during development.
-                        options.AddEphemeralSigningKey();
+
+                        // Register the signing and encryption credentials.
+                        options.AddDevelopmentEncryptionCertificate()
+                            .AddDevelopmentSigningCertificate();
                     }
                     else
                     {
@@ -71,6 +76,25 @@ namespace MyLfc.Common.Web.Middlewares
                                 config.GetSection("Cert")["password"]);
                         }
                     }
+
+                    // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
+                    options.UseAspNetCore()
+                        .EnableStatusCodePagesIntegration()
+                        .EnableAuthorizationEndpointPassthrough()
+                        .EnableLogoutEndpointPassthrough()
+                        .EnableTokenEndpointPassthrough()
+                        .EnableUserinfoEndpointPassthrough()
+                        .EnableVerificationEndpointPassthrough()
+                        .DisableTransportSecurityRequirement()
+                        ; // During development, you can disable the HTTPS requirement
+
+                    // Note: if you don't want to use permissions, you can disable
+                    // permission enforcement by uncommenting the following lines:
+                    //
+                    // options.IgnoreEndpointPermissions()
+                    //        .IgnoreGrantTypePermissions()
+                    //        .IgnoreResponseTypePermissions()
+                    //        .IgnoreScopePermissions();
                 });
 
 
