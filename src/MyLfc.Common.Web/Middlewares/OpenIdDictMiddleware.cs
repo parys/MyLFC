@@ -64,15 +64,19 @@ namespace MyLfc.Common.Web.Middlewares
                     {
                         try
                         {
-                            options.AddSigningCertificate(
-                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"), FileMode.Open),
-                                config.GetSection("Cert")["password"]);
+                            var fileStream =
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
+                                    FileMode.Open);
+                            options.AddEncryptionCertificate(fileStream, config.GetSection("Cert")["password"]);
+                            options.AddSigningCertificate(fileStream, config.GetSection("Cert")["password"]);
                         }
                         catch
                         {
-                            options.AddSigningCertificate(
-                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert2.pfx"), FileMode.Open),
-                                config.GetSection("Cert")["password"]);
+                            var fileStream =
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
+                                    FileMode.Open);
+                            options.AddEncryptionCertificate(fileStream, config.GetSection("Cert")["password"]);
+                            options.AddSigningCertificate(fileStream, config.GetSection("Cert")["password"]);
                         }
                     }
 
