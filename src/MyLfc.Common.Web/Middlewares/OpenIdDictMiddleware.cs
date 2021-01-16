@@ -31,7 +31,6 @@ namespace MyLfc.Common.Web.Middlewares
                 })
                 .AddServer(options =>
                 {
-                    options.UseMvc();
                     options.SetLogoutEndpointUris("/connect/logout")
                         // Enable the token endpoint (required to use the password flow).
                         .SetTokenEndpointUris("/connect/token");
