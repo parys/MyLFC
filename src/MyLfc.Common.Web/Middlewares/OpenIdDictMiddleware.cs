@@ -49,12 +49,9 @@ namespace MyLfc.Common.Web.Middlewares
                     options.DisableAccessTokenEncryption();
 
                     // During development, you can disable the HTTPS requirement.
-                    options.AcceptAnonymousClients(); //todo fix needed
+                    options.AcceptAnonymousClients();
                     if (env.IsDevelopment())
                     {
-                        // Register a new ephemeral key, that is discarded when the application
-                        // shuts down. Tokens signed using this key are automatically invalidated.
-                        // This method should only be used during development.
 
                         // Register the signing and encryption credentials.
                         options.AddDevelopmentEncryptionCertificate()
@@ -64,19 +61,17 @@ namespace MyLfc.Common.Web.Middlewares
                     {
                         try
                         {
-                            var fileStream =
-                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
-                                    FileMode.Open);
-                            options.AddEncryptionCertificate(fileStream, config.GetSection("Cert")["password"]);
-                            options.AddSigningCertificate(fileStream, config.GetSection("Cert")["password"]);
+                            options.AddEncryptionCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
+                                FileMode.Open), config.GetSection("Cert")["password"]);
+                            options.AddSigningCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert2.pfx"),
+                                FileMode.Open), config.GetSection("Cert")["password"]);
                         }
                         catch
                         {
-                            var fileStream =
-                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
-                                    FileMode.Open);
-                            options.AddEncryptionCertificate(fileStream, config.GetSection("Cert")["password"]);
-                            options.AddSigningCertificate(fileStream, config.GetSection("Cert")["password"]);
+                            options.AddEncryptionCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert3.pfx"),
+                                FileMode.Open), config.GetSection("Cert")["password"]);
+                            options.AddSigningCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert4.pfx"),
+                                FileMode.Open), config.GetSection("Cert")["password"]);
                         }
                     }
 
