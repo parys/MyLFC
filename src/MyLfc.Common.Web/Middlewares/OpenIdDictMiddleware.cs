@@ -61,16 +61,21 @@ namespace MyLfc.Common.Web.Middlewares
                     {
                         try
                         {
-                            options.AddEncryptionCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert.pfx"),
+
+                            options.AddEncryptionCertificate(
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}.pfx"),
                                 FileMode.Open), config.GetSection("Cert")["password"]);
-                            options.AddSigningCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert2.pfx"),
+                            options.AddSigningCertificate(
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}2.pfx"),
                                 FileMode.Open), config.GetSection("Cert")["password"]);
                         }
                         catch
                         {
-                            options.AddEncryptionCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert3.pfx"),
+                            options.AddEncryptionCertificate(
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}3.pfx"),
                                 FileMode.Open), config.GetSection("Cert")["password"]);
-                            options.AddSigningCertificate(new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", "cert4.pfx"),
+                            options.AddSigningCertificate(
+                                new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}4.pfx"),
                                 FileMode.Open), config.GetSection("Cert")["password"]);
                         }
                     }
