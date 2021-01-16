@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.2" />
     <PackageReference Include="OpenIddict.Core" Version="3.0.0" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="OpenIddict.Server" Version="3.0.0" />
