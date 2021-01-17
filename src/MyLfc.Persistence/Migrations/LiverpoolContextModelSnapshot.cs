@@ -15,2075 +15,1827 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimType")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimValue")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                b.Property<int>("RoleId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
-                });
+                b.ToTable("AspNetRoleClaims");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimType")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimValue")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
-                });
+                b.ToTable("AspNetUserClaims");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("LoginProvider")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("ProviderKey")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ProviderDisplayName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+                b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
-                });
+                b.ToTable("AspNetUserLogins");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                b.Property<int>("RoleId")
+                    .HasColumnType("int");
 
-                    b.HasKey("UserId", "RoleId");
+                b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId");
+                b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
-                });
+                b.ToTable("AspNetUserRoles");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("LoginProvider")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Value")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
-                });
+                b.ToTable("AspNetUserTokens");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ChatMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("AdditionTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("AdditionTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Ip")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                b.Property<string>("Ip")
+                    .HasColumnType("nvarchar(15)")
+                    .HasMaxLength(15);
 
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Type")
-                        .HasColumnType("tinyint");
+                b.Property<byte>("Type")
+                    .HasColumnType("tinyint");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.ToTable("ChatMessages");
-                });
+                b.ToTable("ChatMessages");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Club", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("EnglishName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("EnglishName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Logo")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StadiumId")
-                        .HasColumnType("int");
+                b.Property<int>("StadiumId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("StadiumName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("StadiumName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("StadiumId");
+                b.HasIndex("StadiumId");
 
-                    b.ToTable("Clubs");
-                });
+                b.ToTable("Clubs");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.CommentVote", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                b.Property<int>("CommentId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("Positive")
-                        .HasColumnType("bit");
+                b.Property<bool>("Positive")
+                    .HasColumnType("bit");
 
-                    b.HasKey("UserId", "CommentId");
+                b.HasKey("UserId", "CommentId");
 
-                    b.HasIndex("CommentId");
+                b.HasIndex("CommentId");
 
-                    b.ToTable("CommentVotes");
-                });
+                b.ToTable("CommentVotes");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Contract", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("EndDate")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("EndDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
+                b.Property<int>("Salary")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("StartDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.ToTable("Contracts");
-                });
+                b.ToTable("Contracts");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.FaqCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("ForSiteTeam")
-                        .HasColumnType("bit");
+                b.Property<bool>("ForSiteTeam")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
 
-                    b.Property<byte>("Order")
-                        .HasColumnType("tinyint");
+                b.Property<byte>("Order")
+                    .HasColumnType("tinyint");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("FaqCategories");
-                });
+                b.ToTable("FaqCategories");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.FaqItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Answer")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                b.Property<string>("Answer")
+                    .HasColumnType("nvarchar(2000)")
+                    .HasMaxLength(2000);
 
-                    b.Property<int>("FaqCategoryId")
-                        .HasColumnType("int");
+                b.Property<int>("FaqCategoryId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("LastUpdated")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("LastUpdated")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<byte>("Order")
-                        .HasColumnType("tinyint");
+                b.Property<byte>("Order")
+                    .HasColumnType("tinyint");
 
-                    b.Property<string>("Question")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                b.Property<string>("Question")
+                    .HasColumnType("nvarchar(200)")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("FaqCategoryId");
+                b.HasIndex("FaqCategoryId");
 
-                    b.ToTable("FaqItems");
-                });
+                b.ToTable("FaqItems");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("AdditionTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("AdditionTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsFirstMessage")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsFirstMessage")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset>("LastModifiedTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("LastModifiedTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OldId")
-                        .HasColumnType("int");
+                b.Property<int>("OldId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("ThemeId")
-                        .HasColumnType("int");
+                b.Property<int>("ThemeId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.HasIndex("ThemeId");
+                b.HasIndex("ThemeId");
 
-                    b.ToTable("ForumMessages");
-                });
+                b.ToTable("ForumMessages");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumSection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdOld")
-                        .HasColumnType("int");
+                b.Property<int>("IdOld")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("ForumSections");
-                });
+                b.ToTable("ForumSections");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumSubsection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AnswersCount")
-                        .HasColumnType("int");
+                b.Property<int>("AnswersCount")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdOld")
-                        .HasColumnType("int");
+                b.Property<int>("IdOld")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SectionId")
-                        .HasColumnType("int");
+                b.Property<int>("SectionId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
+                b.Property<int>("Views")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("SectionId");
+                b.HasIndex("SectionId");
 
-                    b.ToTable("ForumSubsections");
-                });
+                b.ToTable("ForumSubsections");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumTheme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Answers")
-                        .HasColumnType("int");
+                b.Property<int>("Answers")
+                    .HasColumnType("int");
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdOld")
-                        .HasColumnType("int");
+                b.Property<int>("IdOld")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsClosed")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsClosed")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("IsPool")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsPool")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("LastAnswerUserId")
-                        .HasColumnType("int");
+                b.Property<int>("LastAnswerUserId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("LastMessageAdditionTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("LastMessageAdditionTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("OnTop")
-                        .HasColumnType("bit");
+                b.Property<bool>("OnTop")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("SubsectionId")
-                        .HasColumnType("int");
+                b.Property<int>("SubsectionId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
+                b.Property<int>("Views")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.HasIndex("LastAnswerUserId");
+                b.HasIndex("LastAnswerUserId");
 
-                    b.HasIndex("SubsectionId");
+                b.HasIndex("SubsectionId");
 
-                    b.ToTable("ForumThemes");
-                });
+                b.ToTable("ForumThemes");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.HelpEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Value")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("HelpEntities");
-                });
+                b.ToTable("HelpEntities");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Injury", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("EndTime")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("StartTime")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.ToTable("Injuries");
-                });
+                b.ToTable("Injuries");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Loan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Came")
-                        .HasColumnType("bit");
+                b.Property<bool>("Came")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("ClubId")
-                        .HasColumnType("int");
+                b.Property<int>("ClubId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("EndTime")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("StartTime")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClubId");
+                b.HasIndex("ClubId");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.ToTable("Loans");
-                });
+                b.ToTable("Loans");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Match", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClubId")
-                        .HasColumnType("int");
+                b.Property<int>("ClubId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("DateTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("IsHome")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsHome")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("MatchType")
-                        .HasColumnType("int");
+                b.Property<int>("MatchType")
+                    .HasColumnType("int");
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PhotoUrl")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PreviewId")
-                        .HasColumnType("int");
+                b.Property<int?>("PreviewId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("ReportId")
-                        .HasColumnType("int");
+                b.Property<int?>("ReportId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("ReportUrl")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ReportUrl")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Score")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Score")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SeasonId")
-                        .HasColumnType("int");
+                b.Property<int>("SeasonId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("StadiumId")
-                        .HasColumnType("int");
+                b.Property<int>("StadiumId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("VideoUrl")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("VideoUrl")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClubId");
+                b.HasIndex("ClubId");
 
-                    b.HasIndex("SeasonId");
+                b.HasIndex("SeasonId");
 
-                    b.HasIndex("StadiumId");
+                b.HasIndex("StadiumId");
 
-                    b.ToTable("Matches");
-                });
+                b.ToTable("Matches");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MatchEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Home")
-                        .HasColumnType("bit");
+                b.Property<bool>("Home")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("IsOur")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsOur")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
+                b.Property<int>("MatchId")
+                    .HasColumnType("int");
 
-                    b.Property<byte?>("Minute")
-                        .HasColumnType("tinyint");
+                b.Property<byte?>("Minute")
+                    .HasColumnType("tinyint");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("SeasonId")
-                        .HasColumnType("int");
+                b.Property<int>("SeasonId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("MatchId");
+                b.HasIndex("MatchId");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.HasIndex("SeasonId");
+                b.HasIndex("SeasonId");
 
-                    b.ToTable("MatchEvents");
-                });
+                b.ToTable("MatchEvents");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MatchPerson", b =>
-                {
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("MatchId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonType")
-                        .HasColumnType("int");
+                b.Property<int>("PersonType")
+                    .HasColumnType("int");
 
-                    b.HasKey("MatchId", "PersonId");
+                b.HasKey("MatchId", "PersonId");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.ToTable("MatchPersons");
-                });
+                b.ToTable("MatchPersons");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Material", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("AdditionTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("AdditionTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Brief")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                b.Property<string>("Brief")
+                    .HasColumnType("nvarchar(1000)")
+                    .HasMaxLength(1000);
 
-                    b.Property<bool>("CanCommentary")
-                        .HasColumnType("bit");
+                b.Property<bool>("CanCommentary")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                b.Property<int>("CategoryId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                b.Property<bool>("Deleted")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("LastModified")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OldId")
-                        .HasColumnType("int");
+                b.Property<int>("OldId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("OnTop")
-                        .HasColumnType("bit");
+                b.Property<bool>("OnTop")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("Pending")
-                        .HasColumnType("bit");
+                b.Property<bool>("Pending")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("PhotoPath")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                b.Property<string>("PhotoPath")
+                    .HasColumnType("nvarchar(400)")
+                    .HasMaxLength(400);
 
-                    b.Property<string>("PhotoPreview")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                b.Property<string>("PhotoPreview")
+                    .HasColumnType("nvarchar(400)")
+                    .HasMaxLength(400);
 
-                    b.Property<int>("Reads")
-                        .HasColumnType("int");
+                b.Property<int>("Reads")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Source")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                b.Property<string>("Source")
+                    .HasColumnType("nvarchar(300)")
+                    .HasMaxLength(300);
 
-                    b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Tags")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                b.Property<string>("Title")
+                    .HasColumnType("nvarchar(200)")
+                    .HasMaxLength(200);
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("UsePhotoInBody")
-                        .HasColumnType("bit");
+                b.Property<bool>("UsePhotoInBody")
+                    .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryId");
+                b.HasIndex("CategoryId");
 
-                    b.ToTable("Materials");
-                });
+                b.ToTable("Materials");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MaterialCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaterialType")
-                        .HasColumnType("int");
+                b.Property<int>("MaterialType")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OldId")
-                        .HasColumnType("int");
+                b.Property<int>("OldId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("MaterialCategories");
-                });
+                b.ToTable("MaterialCategories");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MaterialComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("AdditionTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("AdditionTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Answer")
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Answer")
+                    .HasColumnType("nvarchar(max)")
+                    .HasMaxLength(5000);
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                b.Property<bool>("Deleted")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsVerified")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("LastModified")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("MatchId")
-                        .HasColumnType("int");
+                b.Property<int?>("MatchId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
+                b.Property<int?>("MaterialId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Message")
-                        .HasMaxLength(40000)
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(max)")
+                    .HasMaxLength(40000);
 
-                    b.Property<int>("OldId")
-                        .HasColumnType("int");
+                b.Property<int>("OldId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("OldParentId")
-                        .HasColumnType("int");
+                b.Property<int?>("OldParentId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
+                b.Property<int?>("ParentId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("Pending")
-                        .HasColumnType("bit");
+                b.Property<bool>("Pending")
+                    .HasColumnType("bit");
 
-                    b.Property<int?>("PollId")
-                        .HasColumnType("int");
+                b.Property<int?>("PollId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.HasIndex("MatchId");
+                b.HasIndex("MatchId");
 
-                    b.HasIndex("MaterialId");
+                b.HasIndex("MaterialId");
 
-                    b.HasIndex("ParentId");
+                b.HasIndex("ParentId");
 
-                    b.HasIndex("PollId");
+                b.HasIndex("PollId");
 
-                    b.ToTable("MaterialComments");
-                });
+                b.ToTable("MaterialComments");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                b.Property<int>("CommentId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("DateTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("EntityId")
-                        .HasColumnType("int");
+                b.Property<int?>("EntityId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsRead")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Text")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("Notifications");
-                });
+                b.ToTable("Notifications");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset?>("Birthday")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("Birthday")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Country")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FirstName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstRussianName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FirstRussianName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastRussianName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastRussianName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte?>("Number")
-                        .HasColumnType("tinyint");
+                b.Property<byte?>("Number")
+                    .HasColumnType("tinyint");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Photo")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Position")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Position")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Persons");
-                });
+                b.ToTable("Persons");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Polls.Poll", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset?>("EndTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("EndTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Question")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<string>("Question")
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
 
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("StartTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Polls");
-                });
+                b.ToTable("Polls");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Polls.PollAnswer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PollId")
-                        .HasColumnType("int");
+                b.Property<int>("PollId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Text")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<string>("Text")
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("PollId");
+                b.HasIndex("PollId");
 
-                    b.ToTable("PollAnswers");
-                });
+                b.ToTable("PollAnswers");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Polls.PollAnswerUser", b =>
-                {
-                    b.Property<int>("PollAnswerId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("PollAnswerId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("PollId")
-                        .HasColumnType("int");
+                b.Property<int>("PollId")
+                    .HasColumnType("int");
 
-                    b.HasKey("PollAnswerId", "UserId");
+                b.HasKey("PollAnswerId", "UserId");
 
-                    b.HasIndex("PollId");
+                b.HasIndex("PollId");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("PollAnswerUsers");
-                });
+                b.ToTable("PollAnswerUsers");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.PrivateMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsRead")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Message")
-                        .HasMaxLength(2500)
-                        .HasColumnType("nvarchar(2500)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(2500)")
+                    .HasMaxLength(2500);
 
-                    b.Property<int>("ReceiverId")
-                        .HasColumnType("int");
+                b.Property<int>("ReceiverId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
+                b.Property<int>("SenderId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("SentTime")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("SentTime")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Title")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("Title")
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ReceiverId");
+                b.HasIndex("ReceiverId");
 
-                    b.HasIndex("SenderId");
+                b.HasIndex("SenderId");
 
-                    b.ToTable("PrivateMessages");
-                });
+                b.ToTable("PrivateMessages");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ConcurrencyStamp")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("NormalizedName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                b.HasIndex("NormalizedName")
+                    .IsUnique()
+                    .HasName("RoleNameIndex")
+                    .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
-                });
+                b.ToTable("AspNetRoles");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.RoleGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RussianName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("RussianName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("RoleGroups");
-                });
+                b.ToTable("RoleGroups");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.RoleRoleGroup", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("RoleId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("RoleGroupId")
-                        .HasColumnType("int");
+                b.Property<int>("RoleGroupId")
+                    .HasColumnType("int");
 
-                    b.HasKey("RoleId", "RoleGroupId");
+                b.HasKey("RoleId", "RoleGroupId");
 
-                    b.HasIndex("RoleGroupId");
+                b.HasIndex("RoleGroupId");
 
-                    b.ToTable("RoleRoleGroups");
-                });
+                b.ToTable("RoleRoleGroups");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Season", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("StartSeasonYear")
-                        .HasColumnType("int");
+                b.Property<int>("StartSeasonYear")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Seasons");
-                });
+                b.ToTable("Seasons");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Stadium", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("City")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Stadiums");
-                });
+                b.ToTable("Stadiums");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Transfer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Amount")
-                        .HasColumnType("int");
+                b.Property<int?>("Amount")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
+                b.Property<int?>("ClubId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("Coming")
-                        .HasColumnType("bit");
+                b.Property<bool>("Coming")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset?>("FinishDate")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("FinishDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("OnLoan")
-                        .HasColumnType("bit");
+                b.Property<bool>("OnLoan")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                b.Property<int>("PersonId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("SeasonId")
-                        .HasColumnType("int");
+                b.Property<int?>("SeasonId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("StartDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClubId");
+                b.HasIndex("ClubId");
 
-                    b.HasIndex("PersonId");
+                b.HasIndex("PersonId");
 
-                    b.HasIndex("SeasonId");
+                b.HasIndex("SeasonId");
 
-                    b.ToTable("Transfers");
-                });
+                b.ToTable("Transfers");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                b.Property<int>("AccessFailedCount")
+                    .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("Birthday")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("Birthday")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("City")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ConcurrencyStamp")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Country")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("Email")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                b.Property<bool>("EmailConfirmed")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FullName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("bit");
+                b.Property<bool>("Gender")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Homepage")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Homepage")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ip")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Ip")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("LastModified")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("LockoutEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("LockoutEnd")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("NormalizedEmail")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("NormalizedUserName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<int>("OldId")
-                        .HasColumnType("int");
+                b.Property<int>("OldId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PasswordHash")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PhoneNumber")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                b.Property<bool>("PhoneNumberConfirmed")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Photo")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("RegistrationDate")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset>("RegistrationDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("RoleGroupId")
-                        .HasColumnType("int");
+                b.Property<int>("RoleGroupId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("SecurityStamp")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Skype")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Skype")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Title")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("TwoFactorEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                b.Property<string>("UserName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
+                b.HasIndex("NormalizedEmail")
+                    .HasName("EmailIndex");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                b.HasIndex("NormalizedUserName")
+                    .IsUnique()
+                    .HasName("UserNameIndex")
+                    .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("RoleGroupId");
+                b.HasIndex("RoleGroupId");
 
-                    b.ToTable("AspNetUsers");
-                });
+                b.ToTable("AspNetUsers");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.UserConfig", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsPmToEmailNotifyEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsPmToEmailNotifyEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("IsReplyToEmailEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsReplyToEmailEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("IsReplyToPmEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsReplyToPmEnabled")
+                    .HasColumnType("bit");
 
-                    b.HasKey("UserId");
+                b.HasKey("UserId");
 
-                    b.ToTable("UserConfigs");
-                });
+                b.ToTable("UserConfigs");
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Wish", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Message")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                b.Property<int>("State")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                b.Property<string>("Title")
+                    .HasColumnType("nvarchar(30)")
+                    .HasMaxLength(30);
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                b.Property<int>("Type")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Wishes");
-                });
+                b.ToTable("Wishes");
+            });
 
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication<int>", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClientId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<string>("ClientId")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
 
-                    b.Property<string>("ClientSecret")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClientSecret")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("ConcurrencyToken")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                    b.Property<string>("ConsentType")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("ConsentType")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("DisplayName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DisplayNames")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Permissions")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Permissions")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PostLogoutRedirectUris")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostLogoutRedirectUris")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Properties")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Properties")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("RedirectUris")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RedirectUris")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(25)")
+                    .HasMaxLength(25);
 
-                    b.Property<string>("Requirements")
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("Id");
 
-                    b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.HasIndex("ClientId")
+                    .IsUnique();
 
-                    b.HasKey("Id");
+                b.ToTable("OpenIddictApplications");
+            });
 
-                    b.HasIndex("ClientId")
-                        .IsUnique()
-                        .HasFilter("[ClientId] IS NOT NULL");
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization<int>", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.ToTable("OpenIddictApplications");
-                });
+                b.Property<int?>("ApplicationId")
+                    .HasColumnType("int");
 
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreAuthorization<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                b.Property<string>("ConcurrencyToken")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                    b.Property<int?>("ApplicationId")
-                        .HasColumnType("int");
+                b.Property<string>("Properties")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("Scopes")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                b.Property<string>("Status")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(25)")
+                    .HasMaxLength(25);
 
-                    b.Property<string>("Properties")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Subject")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)")
+                    .HasMaxLength(450);
 
-                    b.Property<string>("Scopes")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(25)")
+                    .HasMaxLength(25);
 
-                    b.Property<string>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.HasKey("Id");
 
-                    b.Property<string>("Subject")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                b.HasIndex("ApplicationId", "Status", "Subject", "Type");
 
-                    b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.ToTable("OpenIddictAuthorizations");
+            });
 
-                    b.HasKey("Id");
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictScope<int>", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasIndex("ApplicationId", "Status", "Subject", "Type");
+                b.Property<string>("ConcurrencyToken")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                    b.ToTable("OpenIddictAuthorizations");
-                });
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreScope<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                b.Property<string>("DisplayName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(200)")
+                    .HasMaxLength(200);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Properties")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Descriptions")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Resources")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("Id");
 
-                    b.Property<string>("DisplayNames")
-                        .HasColumnType("nvarchar(max)");
+                b.HasIndex("Name")
+                    .IsUnique();
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                b.ToTable("OpenIddictScopes");
+            });
 
-                    b.Property<string>("Properties")
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictToken<int>", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Resources")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<int?>("ApplicationId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.Property<int?>("AuthorizationId")
+                    .HasColumnType("int");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                b.Property<string>("ConcurrencyToken")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                    b.ToTable("OpenIddictScopes");
-                });
+                b.Property<DateTimeOffset?>("CreationDate")
+                    .HasColumnType("datetimeoffset");
 
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreToken<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                b.Property<DateTimeOffset?>("ExpirationDate")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("ApplicationId")
-                        .HasColumnType("int");
+                b.Property<string>("Payload")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AuthorizationId")
-                        .HasColumnType("int");
+                b.Property<string>("Properties")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("ReferenceId")
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
 
-                    b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                b.Property<string>("Status")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(25)")
+                    .HasMaxLength(25);
 
-                    b.Property<DateTime?>("ExpirationDate")
-                        .HasColumnType("datetime2");
+                b.Property<string>("Subject")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)")
+                    .HasMaxLength(450);
 
-                    b.Property<string>("Payload")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(25)")
+                    .HasMaxLength(25);
 
-                    b.Property<string>("Properties")
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("Id");
 
-                    b.Property<DateTime?>("RedemptionDate")
-                        .HasColumnType("datetime2");
+                b.HasIndex("AuthorizationId");
 
-                    b.Property<string>("ReferenceId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.HasIndex("ReferenceId")
+                    .IsUnique()
+                    .HasFilter("[ReferenceId] IS NOT NULL");
 
-                    b.Property<string>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.HasIndex("ApplicationId", "Status", "Subject", "Type");
 
-                    b.Property<string>("Subject")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
-
-                    b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorizationId");
-
-                    b.HasIndex("ReferenceId")
-                        .IsUnique()
-                        .HasFilter("[ReferenceId] IS NOT NULL");
-
-                    b.HasIndex("ApplicationId", "Status", "Subject", "Type");
-
-                    b.ToTable("OpenIddictTokens");
-                });
+                b.ToTable("OpenIddictTokens");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("MyLfc.Domain.Role", null)
+                    .WithMany()
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", null)
-                        .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("MyLfc.Domain.User", null)
+                    .WithMany("Claims")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", null)
-                        .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("MyLfc.Domain.User", null)
+                    .WithMany("Logins")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Role", null)
+                    .WithMany()
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
+                b.HasOne("MyLfc.Domain.User", null)
+                    .WithMany("Roles")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("MyLfc.Domain.User", null)
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ChatMessage", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Author")
-                        .WithMany("ChatMessages")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-                });
+            {
+                b.HasOne("MyLfc.Domain.User", "Author")
+                    .WithMany("ChatMessages")
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Club", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Stadium", "Stadium")
-                        .WithMany("Clubs")
-                        .HasForeignKey("StadiumId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Stadium");
-                });
+            {
+                b.HasOne("MyLfc.Domain.Stadium", "Stadium")
+                    .WithMany("Clubs")
+                    .HasForeignKey("StadiumId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.CommentVote", b =>
-                {
-                    b.HasOne("MyLfc.Domain.MaterialComment", "Comment")
-                        .WithMany("CommentVotes")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.MaterialComment", "Comment")
+                    .WithMany("CommentVotes")
+                    .HasForeignKey("CommentId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.User", "User")
-                        .WithMany("CommentVotes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("User");
-                });
+                b.HasOne("MyLfc.Domain.User", "User")
+                    .WithMany("CommentVotes")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Contract", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Contracts")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
+            {
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Contracts")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.FaqItem", b =>
-                {
-                    b.HasOne("MyLfc.Domain.FaqCategory", "FaqCategory")
-                        .WithMany("Items")
-                        .HasForeignKey("FaqCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("FaqCategory");
-                });
+            {
+                b.HasOne("MyLfc.Domain.FaqCategory", "FaqCategory")
+                    .WithMany("Items")
+                    .HasForeignKey("FaqCategoryId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumMessage", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Author")
-                        .WithMany("ForumMessages")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "Author")
+                    .WithMany("ForumMessages")
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.ForumTheme", "Theme")
-                        .WithMany("Messages")
-                        .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Theme");
-                });
+                b.HasOne("MyLfc.Domain.ForumTheme", "Theme")
+                    .WithMany("Messages")
+                    .HasForeignKey("ThemeId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumSubsection", b =>
-                {
-                    b.HasOne("MyLfc.Domain.ForumSection", "Section")
-                        .WithMany("Subsections")
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Section");
-                });
+            {
+                b.HasOne("MyLfc.Domain.ForumSection", "Section")
+                    .WithMany("Subsections")
+                    .HasForeignKey("SectionId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.ForumTheme", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "Author")
+                    .WithMany()
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.User", "LastAnswerUser")
-                        .WithMany()
-                        .HasForeignKey("LastAnswerUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("MyLfc.Domain.User", "LastAnswerUser")
+                    .WithMany()
+                    .HasForeignKey("LastAnswerUserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.ForumSubsection", "Subsection")
-                        .WithMany("Themes")
-                        .HasForeignKey("SubsectionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("LastAnswerUser");
-
-                    b.Navigation("Subsection");
-                });
+                b.HasOne("MyLfc.Domain.ForumSubsection", "Subsection")
+                    .WithMany("Themes")
+                    .HasForeignKey("SubsectionId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Injury", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Injuries")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
+            {
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Injuries")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Loan", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Club", "Club")
-                        .WithMany("Loans")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Club", "Club")
+                    .WithMany("Loans")
+                    .HasForeignKey("ClubId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Loans")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Club");
-
-                    b.Navigation("Person");
-                });
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Loans")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Match", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Club", "Club")
-                        .WithMany("Matches")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Club", "Club")
+                    .WithMany("Matches")
+                    .HasForeignKey("ClubId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Season", "Season")
-                        .WithMany("Matches")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("MyLfc.Domain.Season", "Season")
+                    .WithMany("Matches")
+                    .HasForeignKey("SeasonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Stadium", "Stadium")
-                        .WithMany("Matches")
-                        .HasForeignKey("StadiumId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Club");
-
-                    b.Navigation("Season");
-
-                    b.Navigation("Stadium");
-                });
+                b.HasOne("MyLfc.Domain.Stadium", "Stadium")
+                    .WithMany("Matches")
+                    .HasForeignKey("StadiumId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MatchEvent", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Match", "Match")
-                        .WithMany("Events")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Match", "Match")
+                    .WithMany("Events")
+                    .HasForeignKey("MatchId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Events")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Events")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Season", "Season")
-                        .WithMany("Events")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Season");
-                });
+                b.HasOne("MyLfc.Domain.Season", "Season")
+                    .WithMany("Events")
+                    .HasForeignKey("SeasonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MatchPerson", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Match", "Match")
-                        .WithMany("Persons")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Match", "Match")
+                    .WithMany("Persons")
+                    .HasForeignKey("MatchId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Matches")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Person");
-                });
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Matches")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Material", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Author")
-                        .WithMany("Materials")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "Author")
+                    .WithMany("Materials")
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.MaterialCategory", "Category")
-                        .WithMany("Materials")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Category");
-                });
+                b.HasOne("MyLfc.Domain.MaterialCategory", "Category")
+                    .WithMany("Materials")
+                    .HasForeignKey("CategoryId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.MaterialComment", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Author")
-                        .WithMany("Comments")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "Author")
+                    .WithMany("Comments")
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Match", "Match")
-                        .WithMany("Comments")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne("MyLfc.Domain.Match", "Match")
+                    .WithMany("Comments")
+                    .HasForeignKey("MatchId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLfc.Domain.Material", "Material")
-                        .WithMany("Comments")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne("MyLfc.Domain.Material", "Material")
+                    .WithMany("Comments")
+                    .HasForeignKey("MaterialId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLfc.Domain.MaterialComment", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne("MyLfc.Domain.MaterialComment", "Parent")
+                    .WithMany("Children")
+                    .HasForeignKey("ParentId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
-                        .WithMany("Comments")
-                        .HasForeignKey("PollId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("Poll");
-                });
+                b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
+                    .WithMany("Comments")
+                    .HasForeignKey("PollId")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Notification", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "User")
-                        .WithMany("Notifications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
+            {
+                b.HasOne("MyLfc.Domain.User", "User")
+                    .WithMany("Notifications")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Polls.PollAnswer", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
-                        .WithMany("Answers")
-                        .HasForeignKey("PollId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Poll");
-                });
+            {
+                b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
+                    .WithMany("Answers")
+                    .HasForeignKey("PollId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Polls.PollAnswerUser", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Polls.PollAnswer", "PollAnswer")
-                        .WithMany()
-                        .HasForeignKey("PollAnswerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.Polls.PollAnswer", "PollAnswer")
+                    .WithMany()
+                    .HasForeignKey("PollAnswerId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
-                        .WithMany()
-                        .HasForeignKey("PollId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("MyLfc.Domain.Polls.Poll", "Poll")
+                    .WithMany()
+                    .HasForeignKey("PollId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Poll");
-
-                    b.Navigation("PollAnswer");
-
-                    b.Navigation("User");
-                });
+                b.HasOne("MyLfc.Domain.User", "User")
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.PrivateMessage", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "Receiver")
-                        .WithMany("ReceivedPrivateMessages")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "Receiver")
+                    .WithMany("ReceivedPrivateMessages")
+                    .HasForeignKey("ReceiverId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.User", "Sender")
-                        .WithMany("SentPrivateMessages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
+                b.HasOne("MyLfc.Domain.User", "Sender")
+                    .WithMany("SentPrivateMessages")
+                    .HasForeignKey("SenderId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.RoleRoleGroup", b =>
-                {
-                    b.HasOne("MyLfc.Domain.RoleGroup", "RoleGroup")
-                        .WithMany("RoleGroups")
-                        .HasForeignKey("RoleGroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.RoleGroup", "RoleGroup")
+                    .WithMany("RoleGroups")
+                    .HasForeignKey("RoleGroupId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Role", "Role")
-                        .WithMany("RoleRoleGroups")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("RoleGroup");
-                });
+                b.HasOne("MyLfc.Domain.Role", "Role")
+                    .WithMany("RoleRoleGroups")
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.Transfer", b =>
-                {
-                    b.HasOne("MyLfc.Domain.Club", "Club")
-                        .WithMany("Transfers")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Restrict);
+            {
+                b.HasOne("MyLfc.Domain.Club", "Club")
+                    .WithMany("Transfers")
+                    .HasForeignKey("ClubId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLfc.Domain.Person", "Person")
-                        .WithMany("Transfers")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("MyLfc.Domain.Person", "Person")
+                    .WithMany("Transfers")
+                    .HasForeignKey("PersonId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("MyLfc.Domain.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Club");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Season");
-                });
+                b.HasOne("MyLfc.Domain.Season", "Season")
+                    .WithMany()
+                    .HasForeignKey("SeasonId")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             modelBuilder.Entity("MyLfc.Domain.User", b =>
-                {
-                    b.HasOne("MyLfc.Domain.RoleGroup", "RoleGroup")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleGroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("RoleGroup");
-                });
+            {
+                b.HasOne("MyLfc.Domain.RoleGroup", "RoleGroup")
+                    .WithMany("Users")
+                    .HasForeignKey("RoleGroupId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("MyLfc.Domain.UserConfig", b =>
-                {
-                    b.HasOne("MyLfc.Domain.User", "User")
-                        .WithOne("UserConfig")
-                        .HasForeignKey("MyLfc.Domain.UserConfig", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("MyLfc.Domain.User", "User")
+                    .WithOne("UserConfig")
+                    .HasForeignKey("MyLfc.Domain.UserConfig", "UserId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+            });
 
-                    b.Navigation("User");
-                });
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization<int>", b =>
+            {
+                b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication<int>", "Application")
+                    .WithMany("Authorizations")
+                    .HasForeignKey("ApplicationId")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreAuthorization<int>", b =>
-                {
-                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication<int>", "Application")
-                        .WithMany("Authorizations")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictToken<int>", b =>
+            {
+                b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication<int>", "Application")
+                    .WithMany("Tokens")
+                    .HasForeignKey("ApplicationId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreToken<int>", b =>
-                {
-                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication<int>", "Application")
-                        .WithMany("Tokens")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreAuthorization<int>", "Authorization")
-                        .WithMany("Tokens")
-                        .HasForeignKey("AuthorizationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Application");
-
-                    b.Navigation("Authorization");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Club", b =>
-                {
-                    b.Navigation("Loans");
-
-                    b.Navigation("Matches");
-
-                    b.Navigation("Transfers");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.FaqCategory", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.ForumSection", b =>
-                {
-                    b.Navigation("Subsections");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.ForumSubsection", b =>
-                {
-                    b.Navigation("Themes");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.ForumTheme", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Match", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Events");
-
-                    b.Navigation("Persons");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Material", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.MaterialCategory", b =>
-                {
-                    b.Navigation("Materials");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.MaterialComment", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("CommentVotes");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Person", b =>
-                {
-                    b.Navigation("Contracts");
-
-                    b.Navigation("Events");
-
-                    b.Navigation("Injuries");
-
-                    b.Navigation("Loans");
-
-                    b.Navigation("Matches");
-
-                    b.Navigation("Transfers");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Polls.Poll", b =>
-                {
-                    b.Navigation("Answers");
-
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Role", b =>
-                {
-                    b.Navigation("RoleRoleGroups");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.RoleGroup", b =>
-                {
-                    b.Navigation("RoleGroups");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Season", b =>
-                {
-                    b.Navigation("Events");
-
-                    b.Navigation("Matches");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.Stadium", b =>
-                {
-                    b.Navigation("Clubs");
-
-                    b.Navigation("Matches");
-                });
-
-            modelBuilder.Entity("MyLfc.Domain.User", b =>
-                {
-                    b.Navigation("ChatMessages");
-
-                    b.Navigation("Claims");
-
-                    b.Navigation("Comments");
-
-                    b.Navigation("CommentVotes");
-
-                    b.Navigation("ForumMessages");
-
-                    b.Navigation("Logins");
-
-                    b.Navigation("Materials");
-
-                    b.Navigation("Notifications");
-
-                    b.Navigation("ReceivedPrivateMessages");
-
-                    b.Navigation("Roles");
-
-                    b.Navigation("SentPrivateMessages");
-
-                    b.Navigation("UserConfig");
-                });
-
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication<int>", b =>
-                {
-                    b.Navigation("Authorizations");
-
-                    b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreAuthorization<int>", b =>
-                {
-                    b.Navigation("Tokens");
-                });
+                b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization<int>", "Authorization")
+                    .WithMany("Tokens")
+                    .HasForeignKey("AuthorizationId")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 #pragma warning restore 612, 618
         }
     }
