@@ -7,10 +7,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM [OpenIddictTokens]", true);
-            migrationBuilder.Sql("DELETE FROM [OpenIddictScopes]", true);
-            migrationBuilder.Sql("DELETE FROM [OpenIddictAuthorizations]", true);
-            migrationBuilder.Sql("DELETE FROM [OpenIddictApplications]", true);
+            //migrationBuilder.Sql("DELETE FROM [OpenIddictTokens]", true);
+            //migrationBuilder.Sql("DELETE FROM [OpenIddictScopes]", true);
+            //migrationBuilder.Sql("DELETE FROM [OpenIddictAuthorizations]", true);
+            //migrationBuilder.Sql("DELETE FROM [OpenIddictApplications]", true);
 
             migrationBuilder.DropIndex(
                 name: "IX_OpenIddictScopes_Name",
@@ -49,16 +49,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(25)",
                 oldMaxLength: 25);
-
-            //migrationBuilder.DropColumn(
-            //    name: "Status",
-            //    table: "OpenIddictTokens");
-            //migrationBuilder.AddColumn<string>(
-            //    name: "Status",
-            //    table: "OpenIddictTokens",
-            //    type: "nvarchar(50)",
-            //    maxLength: 50,
-            //    nullable: true);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "ExpirationDate",
