@@ -8,9 +8,14 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public InjuryProfile()
         {
-            CreateMap<CreateInjuryCommand.Request, Injury>();
+            CreateMap<CreateInjuryCommand.Request, Injury>()
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description.Trim()))
+                ;
 
-            CreateMap<UpdateInjuryCommand.Request, Injury>();
+            CreateMap<UpdateInjuryCommand.Request, Injury>()
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description.Trim()))
+                ;
+
 
             CreateMap<Injury, GetInjuryDetailQuery.Response>()
                 .ForMember(dst => dst.PersonName, src => src.MapFrom(x => $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"));

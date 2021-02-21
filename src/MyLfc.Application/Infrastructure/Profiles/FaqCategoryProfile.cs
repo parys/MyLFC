@@ -12,10 +12,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<FaqCategory, GetFaqCategoryDetailQuery.Response>();
 
-            CreateMap<CreateFaqCategoryCommand.Request, FaqCategory>();
+            CreateMap<CreateFaqCategoryCommand.Request, FaqCategory>()
+                .ForMember(x => x.Name, src => src.MapFrom(x => x.Name.Trim()))
+                ;
 
-            CreateMap<UpdateFaqCategoryCommand.Request, FaqCategory>();
-
+            CreateMap<UpdateFaqCategoryCommand.Request, FaqCategory>()
+                .ForMember(x => x.Name, src => src.MapFrom(x => x.Name.Trim()))
+                ;
 
             CreateMap<FaqCategory, GetFaqQuery.FaqCategoryListDto>();
 

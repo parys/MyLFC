@@ -9,9 +9,16 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public WishProfile()
         {
-            CreateMap<CreateWishCommand.Request, Wish>();
+            CreateMap<CreateWishCommand.Request, Wish>()
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ;
 
-            CreateMap<UpdateWishCommand.Request, Wish>();
+            CreateMap<UpdateWishCommand.Request, Wish>()
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ;
+
 
             CreateMap<Wish, GetWishDetailQuery.Response>()
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))

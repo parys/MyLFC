@@ -33,9 +33,9 @@ namespace MyLfc.Application.Matches
 
             public string VideoUrl { get; set; }
 
-            public int? PreviewId { get; set; }
+            public string PreviewId { get; set; }
 
-            public int? ReportId { get; set; }
+            public string ReportId { get; set; }
         }
 
 

@@ -12,9 +12,15 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<FaqItem, GetFaqItemDetailQuery.Response>();
 
-            CreateMap<CreateFaqItemCommand.Request, FaqItem>();
+            CreateMap<CreateFaqItemCommand.Request, FaqItem>()
+                .ForMember(x => x.Answer, src => src.MapFrom(x => x.Answer.Trim()))
+                .ForMember(x => x.Question, src => src.MapFrom(x => x.Question.Trim()))
+                ;
 
-            CreateMap<UpdateFaqItemCommand.Request, FaqItem>();
+            CreateMap<UpdateFaqItemCommand.Request, FaqItem>()
+                .ForMember(x => x.Answer, src => src.MapFrom(x => x.Answer.Trim()))
+                .ForMember(x => x.Question, src => src.MapFrom(x => x.Question.Trim()))
+                ;
         }
     }
 }

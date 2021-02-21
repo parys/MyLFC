@@ -11,7 +11,9 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<ChatMessage, GetChatMessageListQuery.ChatMessageListDto>()
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName));
 
-            CreateMap<CreateChatMessageCommand.Request, ChatMessage>();
+            CreateMap<CreateChatMessageCommand.Request, ChatMessage>()
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ;
 
             CreateMap<ChatMessage, GetChatMessageDetailQuery.Response>()
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName));

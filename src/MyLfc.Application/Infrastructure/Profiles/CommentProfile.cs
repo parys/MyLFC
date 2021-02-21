@@ -42,9 +42,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName));
 
-            CreateMap<CreateCommentCommand.Request, MaterialComment>();
+            CreateMap<CreateCommentCommand.Request, MaterialComment>()
+                .ForMember(x => x.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ; ;
 
-            CreateMap<UpdateCommentCommand.Request, MaterialComment>();
+            CreateMap<UpdateCommentCommand.Request, MaterialComment>()
+                .ForMember(x => x.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ; ;
 
             //todo TEMPORARY
             CreateMap<MaterialComment, CreateCommentCommand.Response>()

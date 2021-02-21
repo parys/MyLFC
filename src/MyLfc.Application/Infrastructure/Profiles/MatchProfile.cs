@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using MyLfc.Application.Matches;
+using MyLfc.Application.Seasons;
 using MyLfc.Domain;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -63,9 +64,6 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(x => x.CommentCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(x => x.TypeId, src => src.MapFrom(x => x.MatchType));
 
-            CreateMap<CreateMatchCommand.Request, Match>()
-                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));
-
             CreateMap<Match, GetMatchCalendarQuery.CalendarMatchDto>()
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.StadiumCity, src => src.MapFrom(x => x.Stadium.City))
@@ -80,8 +78,17 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(x => x.ScorePenaltyHome,
                     src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)));
 
+            CreateMap<CreateMatchCommand.Request, Match>()
+                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId))
+                .ForMember(x => x.PreviewId, src => src.MapFrom(x => GetOnlyMaterialId(x.PreviewId)))
+                .ForMember(x => x.ReportId, src => src.MapFrom(x => GetOnlyMaterialId(x.ReportId)))
+                ;
+
             CreateMap<UpdateMatchCommand.Request, Match>()
-                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId));
+                .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId))
+                .ForMember(x => x.PreviewId, src => src.MapFrom(x => GetOnlyMaterialId(x.PreviewId)))
+                .ForMember(x => x.ReportId, src => src.MapFrom(x => GetOnlyMaterialId(x.ReportId)))
+                ;
         }
         
         private static string GetScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome, string score)
@@ -121,6 +128,11 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 x.Type == MatchEventType.GoalOwn);
 
             return matchEvents.Count(filter.Compile()).ToString();
+        }
+
+        private static string GetOnlyMaterialId(string value)
+        {
+            return string.IsNullOrEmpty(value) ? value : value.Trim().Split('/').Last();
         }
     }
 }

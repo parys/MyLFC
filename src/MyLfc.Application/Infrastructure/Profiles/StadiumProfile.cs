@@ -8,9 +8,15 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public StadiumProfile()
         {
-            CreateMap<CreateStadiumCommand.Request, Stadium>();
+            CreateMap<CreateStadiumCommand.Request, Stadium>()
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
+                .ForMember(dest => dest.City, src => src.MapFrom(x => x.City.Trim()))
+                ;
 
-            CreateMap<UpdateStadiumCommand.Request, Stadium>();
+            CreateMap<UpdateStadiumCommand.Request, Stadium>()
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
+                .ForMember(dest => dest.City, src => src.MapFrom(x => x.City.Trim()))
+                ;
 
             CreateMap<Stadium, GetStadiumListQuery.StadiumListDto>();
 

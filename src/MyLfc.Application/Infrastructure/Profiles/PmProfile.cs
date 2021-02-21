@@ -16,7 +16,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Receiver, src => src.MapFrom(x => x.Receiver.UserName))
                 .ForMember(dest => dest.Sender, src => src.MapFrom(x => x.Sender.UserName));
 
-            CreateMap<CreatePmCommand.Request, PrivateMessage>();
+            CreateMap<CreatePmCommand.Request, PrivateMessage>()
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
+                ;
         }
     }
 }

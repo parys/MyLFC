@@ -79,18 +79,18 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => x.Tags));
 
             CreateMap<CreateMaterialCommand.Request, Material>()
-                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
+                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief.Trim()))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments, src => src.Ignore())
-                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview))
-                .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
+                .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source.Trim()))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
-                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
            CreateMap<Material, CreateMaterialCommand.Response>()
@@ -99,17 +99,17 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
             CreateMap<UpdateMaterialCommand.Request, Material>()
-               .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
+               .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief.Trim()))
                .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                .ForMember(dest => dest.Comments, src => src.Ignore())
-               .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
+               .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
                .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo))
                .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview))
-               .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
-               .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
+               .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source.Trim()))
+               .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
             CreateMap<Material, GetOtherMaterialsListQuery.OtherMaterialListDto>()

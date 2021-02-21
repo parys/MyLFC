@@ -14,9 +14,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<MaterialCategory, GetMaterialCategoryListQuery.MaterialCategoryListDto>()
                 .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.Materials.Count()));
             
-            CreateMap<CreateMaterialCategoryCommand.Request, MaterialCategory>();
+            CreateMap<CreateMaterialCategoryCommand.Request, MaterialCategory>()
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
+                ;
 
-            CreateMap<UpdateMaterialCategoryCommand.Request, MaterialCategory>();
+            CreateMap<UpdateMaterialCategoryCommand.Request, MaterialCategory>()
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
+                ;
         }
     }
 }

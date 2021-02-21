@@ -13,7 +13,7 @@ namespace MyLfc.Common.Web.Middlewares
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 options.UseOpenIddict<int>();
-            });
+            }, ServiceLifetime.Transient); //todo try to avoid sql server 258 to instead of scope 
 
             return services;
         }
