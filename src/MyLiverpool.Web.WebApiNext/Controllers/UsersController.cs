@@ -117,7 +117,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
                 async () => await Mediator.Send(new GetUserBirthdaysQuery.Request()));
-            return Ok(result.Results);
+            return Ok(result);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpPost("avatar")]
         public async Task<ActionResult> UploadAvatarAsync()
         {
-            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            if (Request.Form.Files.Count > 0)
             {
                 var request = new UpdateUserAvatarCommand.Request
                 {
