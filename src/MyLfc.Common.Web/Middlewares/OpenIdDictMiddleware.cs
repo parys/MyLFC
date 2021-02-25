@@ -40,6 +40,8 @@ namespace MyLfc.Common.Web.Middlewares
 
                         .SetIdentityTokenLifetime(TimeSpan.FromDays(1))
                         //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
+
+                        .SetRefreshTokenReuseLeeway(TimeSpan.FromDays(14))                        
                         .SetRefreshTokenLifetime(TimeSpan.FromDays(14));
 
                     // Mark the "email", "profile", "roles" and "demo_api" scopes as supported scopes.

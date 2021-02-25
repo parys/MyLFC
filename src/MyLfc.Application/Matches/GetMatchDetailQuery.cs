@@ -129,6 +129,7 @@ namespace MyLfc.Application.Matches
 
             public string SeasonName { get; set; }
 
+            // todo move data in DB and remove after user ReportId
             public string ReportUrl { get; set; }
 
             public string PhotoUrl { get; set; }
