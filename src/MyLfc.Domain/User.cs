@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace MyLfc.Domain
@@ -96,14 +95,11 @@ namespace MyLfc.Domain
 
 
         public int RoleGroupId { get; set; }
-
-        [NotMapped]
+        
         public int NewsCount { get; set; }
-
-        [NotMapped]
+        
         public int BlogsCount { get; set; }
-
-        [NotMapped]
+        
         public int CommentsCount { get; set; }
     }
 }

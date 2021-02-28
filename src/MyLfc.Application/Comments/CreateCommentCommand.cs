@@ -76,6 +76,17 @@ namespace MyLfc.Application.Comments
                 comment.IsVerified = _requestContext.User.IsSiteTeamMember();
 
                 _context.MaterialComments.Add(comment);
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == comment.AuthorId, cancellationToken);
+                user.CommentsCount++;
+
+                if (comment.MaterialId.HasValue)
+                {
+                    var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == comment.MaterialId.Value,
+                        cancellationToken);
+                    material.CommentsCount++;
+                }
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 if (comment.ParentId.HasValue)

@@ -51,5 +51,7 @@ namespace MyLfc.Domain
         public bool UsePhotoInBody { get; set; }
 
         public string Tags { get; set; }
+
+        public int CommentsCount { get; set; }
     }
 }

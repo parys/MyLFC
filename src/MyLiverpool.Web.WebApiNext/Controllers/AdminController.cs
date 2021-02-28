@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Admin;
 using MyLfc.Application.HelpEntities;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
@@ -24,6 +25,26 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await Mediator.Send(new UpdateEplTableCommand.Request());
             CacheManager.SetString(GlobalConstants.HelperEntity + HelperEntityType.EplTable, result.Result);
             return Ok(result.Result);
+        }
+
+        /// <summary>
+        /// Recalculate comments count in materials.
+        /// </summary>
+        [HttpPut("RecalculateMaterialComments")]
+        public async Task<IActionResult> RecalculateMaterialComments()
+        {
+            await Mediator.Send(new RecalculateMaterialCommentsCommand.Request());
+            return Ok();
+        }
+
+        /// <summary>
+        /// Recalculate user numbers.
+        /// </summary>
+        [HttpPut("RecalculateUsersNumbers")]
+        public async Task<IActionResult> RecalculateUsersNumbers()
+        {
+            await Mediator.Send(new RecalculateUserNumbersCommand.Request());
+            return Ok();
         }
     }
 }

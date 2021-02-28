@@ -113,13 +113,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 // Retrieve the claims principal stored in the authorization code/refresh token.
                 var info = await HttpContext.AuthenticateAsync(
-                    OpenIdConnectConstants.Schemes.Bearer);      
-                
+                    OpenIdConnectConstants.Schemes.Bearer);
+
                 // Retrieve the user profile corresponding to the authorization code/refresh token.
                 // Note: if you want to automatically invalidate the authorization code/refresh token
                 // when the user password/roles change, use the following line instead:
                 // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
-                var user = await _userManager.GetUserAsync(info.Principal);
+                var user = info.Principal != null ? await _userManager.GetUserAsync(info.Principal) : null;
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -227,7 +227,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 // to allow OpenIddict to return a refresh token.
                 principal.SetScopes(new[]
                 {
-                    OpenIdConnectConstants.Scopes.OpenId,
+                //    OpenIdConnectConstants.Scopes.OpenId,
                     OpenIdConnectConstants.Scopes.OfflineAccess,
                     OpenIddictConstants.Scopes.Roles
                 }.Intersect(request.GetScopes()));
@@ -261,7 +261,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             ticket.Properties.AllowRefresh = true;
-            ticket.Properties.IsPersistent = false;
+            ticket.Properties.IsPersistent = true;
 
             await UpdateIpAddressForUser(user.Id);
 

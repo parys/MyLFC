@@ -17,7 +17,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
-                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.Comments.Count))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath)) //remove when cache will updated
@@ -32,7 +32,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
-                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.Comments.Count))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath)) //remove when cache will updated
@@ -48,7 +48,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
-                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.Comments.Count))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))

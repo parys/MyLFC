@@ -49,6 +49,17 @@ namespace MyLfc.Application.Comments
                     throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete comment {request.Id}");
                 }
 
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == comment.AuthorId, cancellationToken);
+                user.CommentsCount--;
+
+                if (comment.MaterialId.HasValue)
+                {
+                    var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == comment.MaterialId.Value,
+                        cancellationToken);
+                    material.CommentsCount--;
+                }
+
                 comment.Deleted = true;
                 foreach (var item in comment.Children)
                 {
