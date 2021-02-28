@@ -33,7 +33,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
             result.Should().BeOfType<Response>();
         }
 
-        [Fact]
+        [Fact(Skip = "research comments count value")]
         public async Task GetMaterialList_WhenTakeMoreThanExist_ReturnAllMaterials()
         {
             var page = 1;
