@@ -953,7 +953,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Message = "message " + i,
-                    Pending = (i + 3) % 5 == 0,
                     Type = CommentType.News,
                     LastModified = DateTime.Now,
                 };
@@ -964,7 +963,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         new MaterialComment()
                         {
                             ParentId = i + 1,
-                            Pending = false,
                             MaterialId = comment.MaterialId,
                             AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
@@ -983,7 +981,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
             var commentFirstNews = new MaterialComment()
             {
-                Pending = false,
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTime.Now,
                 AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
@@ -995,7 +992,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     new MaterialComment()
                     {
                         ParentId = CountNews + 1,
-                        Pending = false,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                         AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
@@ -1007,7 +1003,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             new MaterialComment()
                             {
                                 ParentId = CountNews + 2,
-                                Pending = false,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                                 AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
@@ -1118,7 +1113,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = random.Next(1, CountUsers),
                     Message = "message " + i,
-                    Pending = (i + 3) % 5 == 0,
                     Type = type,
                     LastModified = DateTime.Now,
                 };
@@ -1129,7 +1123,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         new MaterialComment()
                         {
                             ParentId = i + 1,
-                            Pending = false,
                             MaterialId = comment.MaterialId,
                             AdditionTime = DateTime.Now,
                             AuthorId = random.Next(1, CountUsers),
@@ -1148,7 +1141,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
             var commentFirstNews = new MaterialComment()
             {
-                Pending = false,
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTime.Now,
                 AuthorId = 1,
@@ -1160,7 +1152,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     new MaterialComment()
                     {
                         ParentId = CountNews + 1,
-                        Pending = false,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                         AdditionTime = DateTime.Now,
                         AuthorId = 2,
@@ -1172,7 +1163,6 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             new MaterialComment()
                             {
                                 ParentId = CountNews + 2,
-                                Pending = false,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                                 AdditionTime = DateTime.Now,
                                 AuthorId = 3,

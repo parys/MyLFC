@@ -69,7 +69,7 @@ namespace MyLfc.Application.Users
                     }
                     else if (request.SortOn.Contains("CommentsCount", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        sortBy = x => x.Comments.Count;
+                        sortBy = x => x.CommentsCount;
                     }
                     else if (request.SortOn.Contains("UserName", StringComparison.InvariantCultureIgnoreCase))
                     {

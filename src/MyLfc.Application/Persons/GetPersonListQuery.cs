@@ -52,6 +52,7 @@ namespace MyLfc.Application.Persons
                 {
                     personsQuery = personsQuery.Where(x => x.FirstName.Contains(request.Name) ||
                                              x.LastName.Contains(request.Name) ||
+                                             x.Nickname.Contains(request.Name) ||
                                              x.FirstRussianName.Contains(request.Name) ||
                                              x.LastRussianName.Contains(request.Name));
                 }
@@ -120,6 +121,8 @@ namespace MyLfc.Application.Persons
             public string LastName { get; set; }
 
             public string LastRussianName { get; set; }
+
+            public string Nickname { get; set; }
 
             public PersonType Type { get; set; }
 

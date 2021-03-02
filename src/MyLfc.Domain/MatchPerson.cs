@@ -13,6 +13,8 @@ namespace MyLfc.Domain
 
         public Person Person { get; set; }
 
+        public byte? Number { get; set; }
+
         public MatchPersonType PersonType { get; set; }
 
         public DateTime Created { get; set; }

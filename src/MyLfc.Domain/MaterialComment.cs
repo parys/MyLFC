@@ -12,9 +12,7 @@ namespace MyLfc.Domain
         public int Id { get; set; }
 
         public int OldId { get; set; }
-
-        public bool Pending { get; set; }
-
+        
         public DateTimeOffset AdditionTime { get; set; }
 
         public DateTimeOffset LastModified { get; set; }

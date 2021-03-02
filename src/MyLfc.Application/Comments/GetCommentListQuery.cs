@@ -35,9 +35,7 @@ namespace MyLfc.Application.Comments
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var comments = _context.MaterialComments.AsNoTracking()
-                    .Include(x => x.Author)
-                    .Include(x => x.CommentVotes)
-                    .Where(x => !x.Pending);
+                    ;
 
                 if (request.OnlyUnverified.GetValueOrDefault())
                 {
@@ -58,8 +56,8 @@ namespace MyLfc.Application.Comments
                         Answer = x.Answer,
                         AuthorId = x.AuthorId,
                         AuthorUserName = x.Author.UserName,
-                        CanNegativeVote = !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
-                        CanPositiveVote = !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                        CanNegativeVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
+                        CanPositiveVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
                         IsVerified = x.IsVerified,
                         MatchId = x.MatchId,
                         MaterialId = x.MaterialId,

@@ -49,9 +49,12 @@ namespace MyLiverpool.Common.Utilities
                 Directory.CreateDirectory(PersonPath);
             }
 
-            if (!relativePath.Replace("\\", "/").Contains(base64File))
+            if (!relativePath.Contains("jpeg") && !relativePath.Contains("jpg") && relativePath.Contains("png"))
             {
-                await File.WriteAllBytesAsync(personPath, Convert.FromBase64String(base64File));
+                if (!relativePath.Replace("\\", "/").Contains(base64File))
+                {
+                    await File.WriteAllBytesAsync(personPath, Convert.FromBase64String(base64File));
+                }
             }
 
             return Regex.Replace(relativePath, "\\\\", "/");

@@ -74,7 +74,7 @@ namespace MyLfc.Application.MatchPersons
                 return new Response {
                     PersonId = matchPerson.PersonId,
                     Number =  person.Number,
-                    PersonName = person.RussianName,
+                    PersonName = person.Nickname ?? person.RussianName,
                     Type = request.PersonType.GetMatchPlaceholderType(request.IsHome)
                 };
             }

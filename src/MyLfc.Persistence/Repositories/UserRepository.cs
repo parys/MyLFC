@@ -34,9 +34,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 Id = x.Id,
                 OldId = x.OldId,
                 Birthday = x.Birthday,
-                BlogsCount = x.Materials.Count(y => y.Type == MaterialType.Blogs),
-                NewsCount = x.Materials.Count(y => y.Type == MaterialType.News),
-                CommentsCount = x.Comments.Count(y => y.AuthorId == x.Id),
+                BlogsCount = x.BlogsCount,
+                NewsCount = x.NewsCount,
+                CommentsCount = x.CommentsCount,
                 ConcurrencyStamp = x.ConcurrencyStamp,
                 Email = x.Email,
                 EmailConfirmed = x.EmailConfirmed,
@@ -62,7 +62,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         
         public async Task UpdateAsync(User user)
         {
-          //  await _userManager.UpdateAsync(user);todo do
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }

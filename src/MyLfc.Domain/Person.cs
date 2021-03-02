@@ -17,6 +17,8 @@ namespace MyLfc.Domain
 
         public string LastRussianName { get; set; }
 
+        public string Nickname { get; set; }
+
         public PersonType Type { get; set; }
 
         public string Position { get; set; }

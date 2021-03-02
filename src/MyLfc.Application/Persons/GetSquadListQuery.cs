@@ -94,6 +94,8 @@ namespace MyLfc.Application.Persons
 
             public string LastRussianName { get; set; }
 
+            public string Nickname { get; set; }
+
             public PersonType Type { get; set; }
 
             public string TypeName { get; set; }

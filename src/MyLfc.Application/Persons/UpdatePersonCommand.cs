@@ -55,7 +55,7 @@ namespace MyLfc.Application.Persons
 
                 person = _mapper.Map(request, person);
 
-                var fileName = request.FirstName.Trim() + request.LastName.Trim();
+                var fileName = (request.FirstName.Trim() + request.LastName.Trim()).Replace(' ', '_');
 
                 if (request.Photo != null)
                 {
