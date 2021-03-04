@@ -1629,7 +1629,6 @@ namespace MigratorVnext
                         Message = message,
                         MaterialId = material.Id,
                         LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime)),
-                        Pending = false
 
                     };
                     
@@ -1638,8 +1637,8 @@ namespace MigratorVnext
                   //      comment.Material.Comments = new List<MaterialComment>();
                   //  }
                   //  comment.Material.Comments.Add(comment);
-                    if (pending == '1')
-                        comment.Pending = true;
+                   // if (pending == '1')
+                        //      comment.Pending = true;
 
                     var parId = int.Parse(parentId);
                     comment.OldParentId = parId;

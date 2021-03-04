@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MyLfc.Persistence;
-using static OpenIddict.Abstractions.OpenIddictConstants.Permissions;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace MyLfc.Common.Web.Middlewares
 {
@@ -37,9 +37,7 @@ namespace MyLfc.Common.Web.Middlewares
 
                     options.AllowPasswordFlow()
                         .AllowRefreshTokenFlow()
-
-                        .SetIdentityTokenLifetime(TimeSpan.FromDays(1))
-                        //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
+                        //.SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
 
                         .SetRefreshTokenReuseLeeway(TimeSpan.FromDays(14))                        
                         .SetRefreshTokenLifetime(TimeSpan.FromDays(14));
@@ -92,16 +90,7 @@ namespace MyLfc.Common.Web.Middlewares
                         .EnableVerificationEndpointPassthrough()
                         .DisableTransportSecurityRequirement()
                         ; // During development, you can disable the HTTPS requirement
-
-                    // Note: if you don't want to use permissions, you can disable
-                    // permission enforcement by uncommenting the following lines:
-                    //
-                    // options.IgnoreEndpointPermissions()
-                    //        .IgnoreGrantTypePermissions()
-                    //        .IgnoreResponseTypePermissions()
-                    //        .IgnoreScopePermissions();
                 });
-
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
