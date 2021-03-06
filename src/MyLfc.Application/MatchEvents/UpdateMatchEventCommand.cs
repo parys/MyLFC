@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -51,8 +52,12 @@ namespace MyLfc.Application.MatchEvents
                 matchEvent = _mapper.Map(request, matchEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);
-                
-                return _mapper.Map<Response>(matchEvent);
+
+                var result = await _context.MatchEvents
+                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                    .FirstAsync(x => x.Id == matchEvent.Id, cancellationToken);
+
+                return result;
             }
         }
 

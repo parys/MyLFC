@@ -62,6 +62,11 @@
                         <span>Травма @ev.PersonName - @ev.Minute' </span>
                         break;
                     }
+                    case MatchEventType.DisallowedGoal:
+                    {
+                        <span>Отмененный гол @ev.PersonName - @ev.Minute' </span>
+                        break;
+                    }
 
                     case MatchEventType.GoalPenaltySeries:
                         break;

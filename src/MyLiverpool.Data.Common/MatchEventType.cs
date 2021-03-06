@@ -27,6 +27,8 @@ namespace MyLiverpool.Data.Common
         [Display(Name = "Незабитый пенальти в серии")]
         NotGoalPenaltySeries = 11,
         [Display(Name = "Травма")]
-        Injury = 12
+        Injury = 12,
+        [Display(Name = "Гол отменён")]
+        DisallowedGoal = 13
     }
 }

@@ -27,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.AddMatchEvent, result);
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<CreateMatchEventCommand.Response> { Entity = result, Type = ActionType.Add});
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
@@ -48,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.AddMatchEvent, result);
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<UpdateMatchEventCommand.Response> { Entity = result, Type = ActionType.Update });
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result.Id);
@@ -77,6 +77,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute]DeleteMatchEventCommand.Request request)
         {
             var result = await Mediator.Send(request);
+
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<DeleteMatchEventCommand.Response> { Entity = result, Type = ActionType.Delete });
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);

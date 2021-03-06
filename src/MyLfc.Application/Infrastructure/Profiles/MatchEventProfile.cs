@@ -15,15 +15,24 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<UpdateMatchEventCommand.Request, MatchEvent>();
 
             CreateMap<MatchEvent, GetMatchEventListQuery.MatchEventListDto>()
-                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
-                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
-                .ForMember(dest => dest.SeasonName, src => src.MapFrom(x => x.Season.StartSeasonYear));
+                .ForMember(dest => dest.PersonName,
+                    src => src.MapFrom(x =>
+                        x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
+                .ForMember(dest => dest.TypeName, 
+                    src => src.MapFrom(x => x.Type.GetNameAttribute()))
+                .ForMember(dest => dest.SeasonName, 
+                    src => src.MapFrom(x => x.Season.StartSeasonYear))
+                ;
+
 
             CreateMap<MatchEvent, CreateMatchEventCommand.Response>()
-                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
+                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
+
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
                     ;
-            CreateMap<MatchEvent, UpdateMatchEventCommand.Response>().ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
+            CreateMap<MatchEvent, UpdateMatchEventCommand.Response>()
+                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
+
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
                 ;
         }

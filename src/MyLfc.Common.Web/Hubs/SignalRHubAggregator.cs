@@ -106,7 +106,7 @@ namespace MyLfc.Common.Web.Hubs
 
         public const string AddMatchPerson = "addMp";
 
-        public const string AddMatchEvent = "addMe";
+        public const string UpdateMatchEvent = "updateMe";
 
         public const string UpdateMatCommentsCount = "updateMatCommCount";
 

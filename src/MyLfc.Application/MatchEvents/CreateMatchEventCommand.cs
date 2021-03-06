@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
@@ -41,7 +43,11 @@ namespace MyLfc.Application.MatchEvents
                 _context.MatchEvents.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return _mapper.Map<Response>(entity);
+                var result = await _context.MatchEvents
+                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                    .FirstAsync(x => x.Id == entity.Id, cancellationToken);
+
+                return result;
             }
         }
 
