@@ -104,7 +104,7 @@ namespace MyLfc.Common.Web.Hubs
 
         public const string NewComment = "newComment";
 
-        public const string AddMatchPerson = "addMp";
+        public const string UpdateMatchPerson = "updateMp";
 
         public const string UpdateMatchEvent = "updateMe";
 

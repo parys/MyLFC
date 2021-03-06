@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Options;
@@ -13,6 +14,7 @@ using MyLfc.Application.Users;
 using MyLfc.Domain;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -104,22 +106,31 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }
+                
+                var principal = await _signInManager.CreateUserPrincipalAsync(user);
+                principal.SetScopes(request.GetScopes());
+                principal.SetResources("api1");
 
-                var ticket = await CreateTicketAsync(request, user);
+                foreach (var claim in principal.Claims)
+                {
+                    claim.SetDestinations(GetDestinations(claim, principal));
+                }
 
-                return SignIn(ticket.Principal, ticket.Properties, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+                return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
-            else if ( request.IsRefreshTokenGrantType()) //request.IsAuthorizationCodeGrantType() ||
+            else if (request.IsRefreshTokenGrantType()) //request.IsAuthorizationCodeGrantType() ||
             {
                 // Retrieve the claims principal stored in the authorization code/refresh token.
-                var info = await HttpContext.AuthenticateAsync(
-                    OpenIdConnectConstants.Schemes.Bearer);
+             //   var info = await HttpContext.AuthenticateAsync(
+             //       OpenIdConnectConstants.Schemes.Bearer);
+
+                var principal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
 
                 // Retrieve the user profile corresponding to the authorization code/refresh token.
                 // Note: if you want to automatically invalidate the authorization code/refresh token
                 // when the user password/roles change, use the following line instead:
                 // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
-                var user = info.Principal != null ? await _userManager.GetUserAsync(info.Principal) : null;
+                var user = await _userManager.GetUserAsync(principal);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -148,9 +159,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 // Create a new authentication ticket, but reuse the properties stored in the
                 // authorization code/refresh token, including the scopes originally granted.
-                var ticket = await CreateTicketAsync(request, user, info.Properties);
+               // var ticket = await CreateTicketAsync(request, user);
 
-                return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+
+                foreach (var claim in principal.Claims)
+                {
+                    claim.SetDestinations(GetDestinations(claim, principal));
+                }
+                await UpdateIpAddressForUser(user.Id);
+
+                return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
             return BadRequest(new OpenIdConnectResponse
             {
@@ -259,13 +277,51 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 claim.SetDestinations(destinations);
             }
-
-            ticket.Properties.AllowRefresh = true;
-            ticket.Properties.IsPersistent = true;
-
+            
             await UpdateIpAddressForUser(user.Id);
 
             return ticket;
+        }
+
+        private IEnumerable<string> GetDestinations(Claim claim, ClaimsPrincipal principal)
+        {
+            // Note: by default, claims are NOT automatically included in the access and identity tokens.
+            // To allow OpenIddict to serialize them, you must attach them a destination, that specifies
+            // whether they should be included in access tokens, in identity tokens or in both.
+
+            switch (claim.Type)
+            {
+                case Claims.Name:
+                    yield return Destinations.AccessToken;
+
+                    //  doesn't used  if (principal.HasScope(Scopes.Profile))
+                    //         yield return Destinations.IdentityToken;
+
+                    yield break;
+
+                case Claims.Email:
+                    yield return Destinations.AccessToken;
+
+                    // doesn't used  if (principal.HasScope(Scopes.Email))
+                    //       yield return Destinations.IdentityToken;
+
+                    yield break;
+
+                case Claims.Role:
+                    yield return Destinations.AccessToken;
+
+                   // doesn't used     if (principal.HasScope(Scopes.Roles))
+                   //         yield return Destinations.IdentityToken;
+
+                    yield break;
+
+                // Never include the security stamp in the access and identity tokens, as it's a secret value.
+                case "AspNet.Identity.SecurityStamp": yield break;
+
+                default:
+                    yield return Destinations.AccessToken;
+                    yield break;
+            }
         }
 
         private async Task UpdateIpAddressForUser(int userId)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.MatchPersons;
+using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -25,7 +26,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateAsync([FromBody]UpdateMatchPersonCommand.Request request)
         {
             var result = await Mediator.Send(request);
-            SignalRHub.Send(HubEndpointConstants.AddMatchPerson, result);
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson, 
+                new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = result.IsNew ? ActionType.Add : ActionType.Update });
+
             return Ok(result);
         }
 
@@ -52,7 +55,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{matchId:int}/{personId:int}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] DeleteMatchPersonCommand.Request request)
         {
-            return Ok(await Mediator.Send(request));
+            var result = await Mediator.Send(request);
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson,
+                new SignalrEntity<DeleteMatchPersonCommand.Response> { Entity = result, Type = ActionType.Delete });
+
+            return Ok(result);
         }
     }
 }

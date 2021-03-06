@@ -56,26 +56,28 @@ namespace MyLfc.Application.MatchPersons
                     .FirstOrDefaultAsync(x => x.MatchId == request.MatchId
                                               && x.PersonId == request.PersonId, cancellationToken);
 
-                if (matchPerson == null)
+                var isNew = matchPerson == null;
+                matchPerson = _mapper.Map(request, matchPerson);
+                if (isNew)
                 {
-                    matchPerson = _mapper.Map(request, matchPerson);
                     matchPerson.Created = DateTime.UtcNow;
                     _context.MatchPersons.Add(matchPerson);
                 }
                 else
                 {
-                    matchPerson = _mapper.Map(request, matchPerson);
                     _context.MatchPersons.Update(matchPerson);
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-
                 return new Response {
                     PersonId = matchPerson.PersonId,
+                    MatchId = matchPerson.MatchId,
                     Number =  person.Number,
                     PersonName = person.Nickname ?? person.RussianName,
-                    Type = request.PersonType.GetMatchPlaceholderType(request.IsHome)
+                    PlaceType = request.PersonType.GetMatchPlaceholderType(request.IsHome),
+                    PersonType = request.PersonType,
+                    IsNew = isNew
                 };
             }
         }
@@ -84,11 +86,17 @@ namespace MyLfc.Application.MatchPersons
         {
             public int PersonId { get; set; }
 
+            public int MatchId { get; set; }
+
             public byte? Number { get; set; }
 
             public string PersonName { get; set; }
 
-            public MatchPersonType Type { get; set; }
+            public MatchPersonType PlaceType { get; set; }
+
+            public MatchPersonType PersonType { get; set; }
+
+            public bool IsNew { get; set; }
         }
     }
 }
