@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
+using MyLfc.Application.Matches;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
@@ -19,10 +20,13 @@ namespace MyLfc.Application.MatchEvents
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly LiverpoolContext _context;
+
+            private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context)
+            public Handler(LiverpoolContext context, IMediator mediator)
             {
                 _context = context;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -38,14 +42,18 @@ namespace MyLfc.Application.MatchEvents
                 _context.MatchEvents.Remove(matchEvent);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = matchEvent.Id};
+                var match = await _mediator.Send(new GetMatchDetailQuery.Request { Id = matchEvent.MatchId }, cancellationToken);
+
+                return new Response
+                    {MatchEvent = new UpsertMatchEventCommand.Response {Id = matchEvent.Id}, Match = match};
             }
         }
 
 
         public class Response
         {
-            public int Id { get; set; }
+            public UpsertMatchEventCommand.Response MatchEvent { get; set; }
+            public GetMatchDetailQuery.Response Match { get; set; }
         }
     }
 }

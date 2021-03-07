@@ -108,6 +108,8 @@ namespace MyLfc.Common.Web.Hubs
 
         public const string UpdateMatchEvent = "updateMe";
 
+        public const string UpdateMatch = "updateMatch";
+
         public const string UpdateMatCommentsCount = "updateMatCommCount";
 
         public const string UpdateUserNumbers = "updateUserNumbers";

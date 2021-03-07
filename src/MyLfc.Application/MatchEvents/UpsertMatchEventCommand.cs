@@ -5,7 +5,7 @@ namespace MyLfc.Application.MatchEvents
 {
     public class UpsertMatchEventCommand
     {
-        public abstract class Request
+        public class Request
         {
             public int PersonId { get; set; }
 
@@ -29,7 +29,7 @@ namespace MyLfc.Application.MatchEvents
             }
         }
 
-        public abstract class Response
+        public class Response
         {
             public int Id { get; set; }
 

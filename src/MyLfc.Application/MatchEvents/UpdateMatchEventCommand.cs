@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
+using MyLfc.Application.Matches;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
@@ -32,11 +33,14 @@ namespace MyLfc.Application.MatchEvents
             private readonly LiverpoolContext _context;
 
             private readonly IMapper _mapper;
+
+            private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(LiverpoolContext context, IMapper mapper, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -54,15 +58,19 @@ namespace MyLfc.Application.MatchEvents
                 await _context.SaveChangesAsync(cancellationToken);
 
                 var result = await _context.MatchEvents
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                    .ProjectTo<UpsertMatchEventCommand.Response>(_mapper.ConfigurationProvider)
                     .FirstAsync(x => x.Id == matchEvent.Id, cancellationToken);
 
-                return result;
+                var match = await _mediator.Send(new GetMatchDetailQuery.Request { Id = matchEvent.MatchId }, cancellationToken);
+
+                return new Response { MatchEvent = result, Match = match };
             }
         }
 
-        public class Response : UpsertMatchEventCommand.Response
+        public class Response
         {
+            public UpsertMatchEventCommand.Response MatchEvent { get; set; }
+            public GetMatchDetailQuery.Response Match { get; set; }
         }
     }
 }

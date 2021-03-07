@@ -25,16 +25,16 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 ;
 
 
-            CreateMap<MatchEvent, CreateMatchEventCommand.Response>()
+            CreateMap<MatchEvent, UpsertMatchEventCommand.Response>()
                 .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
 
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
                     ;
-            CreateMap<MatchEvent, UpdateMatchEventCommand.Response>()
-                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
+            //CreateMap<MatchEvent, UpsertMatchEventCommand.Response>()
+            //    .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.Nickname ?? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"))
 
-                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
-                ;
+            //    .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.GetNameAttribute()))
+            //    ;
         }
     }
 }

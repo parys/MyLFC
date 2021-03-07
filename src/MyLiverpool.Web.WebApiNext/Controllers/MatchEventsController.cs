@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Matches;
 using MyLfc.Application.MatchEvents;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
@@ -27,8 +28,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<CreateMatchEventCommand.Response> { Entity = result, Type = ActionType.Add});
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<UpsertMatchEventCommand.Response> { Entity = result.MatchEvent, Type = ActionType.Add});
 
+            SignalRHub.Send(HubEndpointConstants.UpdateMatch, new SignalrEntity<GetMatchDetailQuery.Response> { Entity = result.Match, Type = ActionType.Update });
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
@@ -48,10 +50,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<UpdateMatchEventCommand.Response> { Entity = result, Type = ActionType.Update });
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<UpsertMatchEventCommand.Response> { Entity = result.MatchEvent, Type = ActionType.Update });
+
+            SignalRHub.Send(HubEndpointConstants.UpdateMatch, new SignalrEntity<GetMatchDetailQuery.Response> { Entity = result.Match, Type = ActionType.Update});
 
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
-            return Ok(result.Id);
+            return Ok(result.MatchEvent.Id);
         }
 
         /// <summary>
@@ -78,8 +82,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<DeleteMatchEventCommand.Response> { Entity = result, Type = ActionType.Delete });
-
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchEvent, new SignalrEntity<UpsertMatchEventCommand.Response> { Entity = result.MatchEvent, Type = ActionType.Delete });
+            SignalRHub.Send(HubEndpointConstants.UpdateMatch, new SignalrEntity<GetMatchDetailQuery.Response> { Entity = result.Match, Type = ActionType.Update });
+            
             CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
