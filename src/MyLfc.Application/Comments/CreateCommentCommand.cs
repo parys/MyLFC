@@ -173,6 +173,7 @@ namespace MyLfc.Application.Comments
             public string Photo { get; set; }
 
             public string Message { get; set; }
+            public string ClippedMessage { get; set; }
 
             public string Answer { get; set; }
             public int? ParentId { get; set; }

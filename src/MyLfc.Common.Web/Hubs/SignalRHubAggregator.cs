@@ -99,10 +99,8 @@ namespace MyLfc.Common.Web.Hubs
         /// Pn was read endpoint.
         /// </summary>
         public const string NotifyReadEndpoint = "ReadNotify";
-
-        public const string AddComment = "addComment";
-
-        public const string NewComment = "newComment";
+        
+        public const string Comment = "comment";
 
         public const string UpdateMatchPerson = "updateMp";
 

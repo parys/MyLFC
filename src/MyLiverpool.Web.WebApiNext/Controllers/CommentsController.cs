@@ -73,18 +73,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CacheManager.Remove(CacheKeysConstants.MaterialsLatest,
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
 
-            _signalRHubAggregator.Send(HubEndpointConstants.NewComment, result);
+            result.ClippedMessage = result.Message.SanitizeComment();
 
-            var oldMessage = result.Message.Substring(0);
-            result.Message = result.Message.SanitizeComment();
-
-            if (!string.IsNullOrWhiteSpace(result.Message))
-            {
-                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
-            }
-
-            result.Message = oldMessage;
-
+            _signalRHubAggregator.Send(HubEndpointConstants.Comment, new SignalrEntity<CreateCommentCommand.Response> { Entity = result, Type = ActionType.Add });
+            
             return Ok(result.Id);
         }
 
@@ -100,6 +92,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             CacheManager.Remove(CacheKeysConstants.MaterialsLatest, 
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
+
+            _signalRHubAggregator.Send(HubEndpointConstants.Comment, new SignalrEntity<DeleteCommentCommand.Response> { Entity = result, Type = ActionType.Delete });
+
 
             return Ok(result);
         }
@@ -119,17 +114,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await Mediator.Send(request);
-            _signalRHubAggregator.Send(HubEndpointConstants.NewComment, result);
-            var oldMessage = result.Message.Substring(0);
-            result.Message = result.Message.SanitizeComment();
 
-            if (!string.IsNullOrWhiteSpace(result.Message))
-            {
-                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
-            }
+            result.ClippedMessage = result.Message.SanitizeComment();
 
-            result.Message = oldMessage;
-
+            _signalRHubAggregator.Send(HubEndpointConstants.Comment, new SignalrEntity<UpdateCommentCommand.Response> { Entity = result, Type = ActionType.Update });
+            
             CacheManager.Remove(CacheKeysConstants.LastComments);
 
             return Ok(result);

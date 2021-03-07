@@ -46,8 +46,11 @@ namespace MyLfc.Application.Comments
                 {
                     comment.Message = Regex.Replace(Regex.Replace(comment.Message, "&.*?;", string.Empty), "<.*?>", string.Empty);
                     if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
-                        comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
-                                          "...";
+                    {
+                        comment.ClippedMessage = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
+                                                 "...";
+                        comment.Message = "";
+                    }
                 }
 
                 return new Response
@@ -75,6 +78,7 @@ namespace MyLfc.Application.Comments
             public int AuthorId { get; set; }
          
             public string Message { get; set; }
+            public string ClippedMessage { get; set; }
 
             public int? MaterialId { get; set; }
 
