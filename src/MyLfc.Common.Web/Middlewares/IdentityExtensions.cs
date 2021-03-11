@@ -1,9 +1,9 @@
 ﻿using System;
-using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Domain;
 using MyLfc.Persistence;
+using OpenIddict.Abstractions;
 
 namespace MyLfc.Common.Web.Middlewares
 {
@@ -32,9 +32,9 @@ namespace MyLfc.Common.Web.Middlewares
 
             services.Configure<IdentityOptions>(options =>
             {
-                options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
-                options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
-                options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
+                options.ClaimsIdentity.UserNameClaimType = OpenIddictConstants.Claims.Name;
+                options.ClaimsIdentity.UserIdClaimType = OpenIddictConstants.Claims.Subject;
+                options.ClaimsIdentity.RoleClaimType = OpenIddictConstants.Claims.Role;
             });
 
             return services;

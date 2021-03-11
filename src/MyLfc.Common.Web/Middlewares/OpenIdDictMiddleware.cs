@@ -2,7 +2,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Threading.Tasks;
-using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -102,8 +101,8 @@ namespace MyLfc.Common.Web.Middlewares
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        NameClaimType = OpenIdConnectConstants.Claims.Subject,
-                        RoleClaimType = OpenIdConnectConstants.Claims.Role,
+                        NameClaimType = Claims.Subject,
+                        RoleClaimType = Claims.Role,
                         ValidateAudience = false
                     };
                     options.Events = new JwtBearerEvents

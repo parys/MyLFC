@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
-using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Options;
 using MyLfc.Application.Users;
@@ -65,16 +64,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var user = await _userManager.FindByNameAsync(request.Username);
                 if (user == null)
                 {
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new 
                     {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        Error = Errors.InvalidGrant,
                         ErrorDescription = "Пользователь с таким логином не зарегистрирован."
                     });
                 }
 
                 if (!user.EmailConfirmed)
                 {
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new 
                     {
                         Error = "unconfirmed_email",
                         ErrorDescription = "Пользователь не подтвердил свой адрес электронной почты."
@@ -87,16 +86,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     if (result.IsLockedOut)
                     {
                         var lockDate = await _userManager.GetLockoutEndDateAsync(user);
-                        return BadRequest(new OpenIdConnectResponse
-                        {
-                            Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        return BadRequest(new {
+                            Error = Errors.AccessDenied,
                             ErrorDescription = "The user is locked out.",
                             ExpiresIn = lockDate.Value.ToUnixTimeMilliseconds()
                         });
                     }
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new 
                     {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        Error = Errors.InvalidGrant,
                         ErrorDescription = "Вы ввели неправильно логин и/или пароль."
                     });
 
@@ -133,9 +131,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var user = await _userManager.GetUserAsync(principal);
                 if (user == null)
                 {
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new
                     {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        Error = Errors.InvalidGrant,
                         ErrorDescription = "The token is no longer valid."
                     });
                 }
@@ -143,17 +141,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 // Ensure the user is still allowed to sign in.
                 if (!await _signInManager.CanSignInAsync(user))
                 {
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new
                     {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        Error = Errors.InvalidGrant,
                         ErrorDescription = "The user is no longer allowed to sign in."
                     });
                 }
                 if (_userManager.SupportsUserLockout && await _userManager.IsLockedOutAsync(user))
                 {
-                    return BadRequest(new OpenIdConnectResponse
+                    return BadRequest(new
                     {
-                        Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        Error = Errors.AccessDenied,
                         ErrorDescription = "The user is locked out."
                     });
                 }
@@ -170,9 +168,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
-            return BadRequest(new OpenIdConnectResponse
+            return BadRequest(new 
             {
-                Error = OpenIdConnectConstants.Errors.UnsupportedGrantType,
+                Error = Errors.UnsupportedGrantType,
                 ErrorDescription = "The specified grant type is not supported."
             });
         }
@@ -189,14 +187,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
             if (application == null)
             {
-                return BadRequest(OpenIdConnectConstants.Errors.InvalidClient);
+                return BadRequest(Errors.InvalidClient);
             }
             
             // Retrieve the profile of the logged in user.
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return BadRequest(OpenIdConnectConstants.Errors.ServerError);
+                return BadRequest(Errors.ServerError);
             }
 
             if (!user.EmailConfirmed)
@@ -246,8 +244,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 principal.SetScopes(new[]
                 {
                 //    OpenIdConnectConstants.Scopes.OpenId,
-                    OpenIdConnectConstants.Scopes.OfflineAccess,
-                    OpenIddictConstants.Scopes.Roles
+                    Scopes.OfflineAccess,
+                    Scopes.Roles
                 }.Intersect(request.GetScopes()));
             }
 
@@ -263,14 +261,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 var destinations = new List<string>
                 {
-                    OpenIdConnectConstants.Destinations.AccessToken
+                    Destinations.AccessToken
                 };
 
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
-                if ((claim.Type == OpenIdConnectConstants.Claims.Name && principal.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
-                    (claim.Type == OpenIdConnectConstants.Claims.Email && principal.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
-                    (claim.Type == OpenIdConnectConstants.Claims.Role && principal.HasScope(OpenIddictConstants.Scopes.Roles)))
+                if ((claim.Type == Claims.Name && principal.HasScope(Scopes.Profile)) ||
+                    (claim.Type == Claims.Email && principal.HasScope(Scopes.Email)) ||
+                    (claim.Type == Claims.Role && principal.HasScope(Scopes.Roles)))
                 {
                     // don't used destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
                 }
