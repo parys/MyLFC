@@ -76,7 +76,9 @@ namespace MyLfc.Application.Comments
                     Results = results,
                     CurrentPage = request.CurrentPage,
                     PageSize = request.PageSize,
-                    RowCount = await _context.MaterialComments.CountAsync(cancellationToken)
+                    RowCount = request.OnlyUnverified.GetValueOrDefault()
+                        ? await _context.MaterialComments.Where(x => !x.IsVerified).CountAsync(cancellationToken)
+                        : await _context.MaterialComments.CountAsync(cancellationToken)
                 };
             }
         }

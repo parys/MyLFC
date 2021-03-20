@@ -74,13 +74,13 @@ namespace MyLfc.Application.Comments
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
                 //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
-                var commentsCount = await commentsQuery.CountAsync(cancellationToken);
+                
                 return new Response
                 {
                     PageSize = request.PageSize,
                     CurrentPage = request.CurrentPage,
                     Results = unitedComments.ToList(),
-                    RowCount = commentsCount
+                    RowCount = comments.Count
                 };
             }
 
@@ -98,10 +98,7 @@ namespace MyLfc.Application.Comments
                     var parent = comments.FirstOrDefault(c => c.Id == comment.ParentId);
                     if (parent != null)
                     {
-                        if (parent.Children == null)
-                        {
-                            parent.Children = new List<CommentForEntityDto>();
-                        }
+                        parent.Children ??= new List<CommentForEntityDto>();
                         parent.Children.Add(comment);
                     }
                 }
