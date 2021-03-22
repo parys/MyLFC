@@ -5,6 +5,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
@@ -37,12 +38,15 @@ namespace MyLfc.Application.Comments
             private readonly RequestContext _requestContext;
 
             private readonly IMapper _mapper;
+
+            private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;
                 _requestContext = requestContext;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -56,12 +60,24 @@ namespace MyLfc.Application.Comments
                     throw new NotFoundException(nameof(MaterialComment), request.Id);
                 }
 
+                var oldUnverifiedValue = comment.IsVerified;
+
                 comment = _mapper.Map(request, comment);
                 comment.IsVerified = _requestContext.User.IsSiteTeamMember();
                 comment.LastModified = DateTimeOffset.UtcNow;
-                
+
+                var wasUnverifiedChanged = oldUnverifiedValue != comment.IsVerified;
+
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                if (wasUnverifiedChanged)
+                {
+                    await _mediator.Send(
+                        new UpdateCommentsNumberCommand.Request
+                            {DiffAllNumbers = 0, DiffUnverifiedNumbers = comment.IsVerified ? -1 : 1},
+                        cancellationToken);
+                }
 
                 return _mapper.Map<Response>(comment);
             }

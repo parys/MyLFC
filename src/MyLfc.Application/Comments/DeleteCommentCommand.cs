@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
@@ -24,11 +25,14 @@ namespace MyLfc.Application.Comments
             private readonly LiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
-            
-            public Handler(LiverpoolContext context, RequestContext requestContext)
+
+            private readonly IMediator _mediator;
+
+            public Handler(LiverpoolContext context, RequestContext requestContext, IMediator mediator)
             {
                 _context = context;
                 _requestContext = requestContext;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -67,6 +71,10 @@ namespace MyLfc.Application.Comments
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                await _mediator.Send(
+                    new UpdateCommentsNumberCommand.Request
+                        { DiffAllNumbers = -1, DiffUnverifiedNumbers = comment.IsVerified ? 0 : -1 }, cancellationToken);
                 return new Response { Id = request.Id };
             }
         }

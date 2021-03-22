@@ -13,7 +13,6 @@
         public const int PmsPerUser = 200;
         public const int CountLoginsForAutocomlete = 10;
         public const int CountStadiumsForAutocomlete = 10;
-        public const int TakingChatMessagesCount = 50;
         public const int MyLfcUserId = 559;
         public const string DefaultPhotoPath = "default.png";
         public const int NotificationsCount = 15;

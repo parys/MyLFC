@@ -36,13 +36,14 @@ namespace MyLfc.Application.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+                var user = await _userManager.FindByIdAsync(request.UserId.ToString());
                 if (user == null)
                 {
                     throw new NotFoundException(nameof(User), request.UserId);
                 }
 
                 var oldRoleGroup = await _context.RoleGroups
+                    .AsNoTracking()
                     .Include(x => x.RoleGroups)
                     .ThenInclude(x => x.Role)
                     .FirstOrDefaultAsync(x => x.Id == user.RoleGroupId, cancellationToken);
@@ -53,6 +54,7 @@ namespace MyLfc.Application.Users
                 }
 
                 var newRoleGroup = await _context.RoleGroups
+                    .AsNoTracking()
                     .Include(x => x.RoleGroups)
                     .ThenInclude(x => x.Role)
                     .FirstOrDefaultAsync(x => x.Id == request.RoleGroupId, cancellationToken);
@@ -66,16 +68,25 @@ namespace MyLfc.Application.Users
                 var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
 
                 user.RoleGroupId = request.RoleGroupId;
-                var resultRemove = await _userManager.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
-                if (!resultRemove.Succeeded)
+                if (rolesToDelete.Any())
                 {
-                    throw new Exception("Something went wrong. Can't update user group to new");
+                    var resultRemove =
+                        await _userManager.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
+                    if (!resultRemove.Succeeded)
+                    {
+                        throw new Exception("Something went wrong. Can't update user group to new");
+                    }
                 }
-                var resultAdd = await _userManager.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
-                if (!resultAdd.Succeeded)
+
+                if (rolesToAdd.Any())
                 {
-                    throw new Exception("Something went wrong. Can't update user group to new");
+                    var resultAdd = await _userManager.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
+                    if (!resultAdd.Succeeded)
+                    {
+                        throw new Exception("Something went wrong. Can't update user group to new");
+                    }
                 }
+
                 await _context.SaveChangesAsync(cancellationToken);
                 return new Response {Id = request.UserId};
             }

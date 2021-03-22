@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
@@ -25,11 +26,14 @@ namespace MyLfc.Application.Comments
             private readonly LiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
+
+            private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, RequestContext requestContext)
+            public Handler(LiverpoolContext context, RequestContext requestContext, IMediator mediator)
             {
                 _context = context;
                 _requestContext = requestContext;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -71,14 +75,16 @@ namespace MyLfc.Application.Comments
                         TypeName = x.Type.ToString()
                     }).ToListAsync(cancellationToken);
 
+                var commentsNumber = await _mediator.Send(new GetCommentsNumberQuery.Request(), cancellationToken);
+
                 return new Response
                 {
                     Results = results,
                     CurrentPage = request.CurrentPage,
                     PageSize = request.PageSize,
                     RowCount = request.OnlyUnverified.GetValueOrDefault()
-                        ? await _context.MaterialComments.Where(x => !x.IsVerified).CountAsync(cancellationToken)
-                        : await _context.MaterialComments.CountAsync(cancellationToken)
+                        ? commentsNumber.Result.UnverifiedNumber
+                        : commentsNumber.Result.AllNumber
                 };
             }
         }

@@ -6,6 +6,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Notifications;
 using MyLfc.Application.Users;
@@ -88,6 +89,10 @@ namespace MyLfc.Application.Comments
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                await _mediator.Send(
+                    new UpdateCommentsNumberCommand.Request
+                    { DiffAllNumbers = 1, DiffUnverifiedNumbers = comment.IsVerified ? 0 : 1 }, cancellationToken);
 
                 if (comment.ParentId.HasValue)
                 {

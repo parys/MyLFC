@@ -20,5 +20,6 @@
         CurrentSeason = 16,
         RudWords = 17,
         WalMainInfo = 18,
+        CommentsNumber = 19
     }
 }
