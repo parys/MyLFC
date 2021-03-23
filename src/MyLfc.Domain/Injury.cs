@@ -8,7 +8,7 @@ namespace MyLfc.Domain
 
         public int PersonId { get; set; }
 
-        public virtual Person Person { get; set; }
+        public Person Person { get; set; }
 
         public DateTime StartTime { get; set; }
 

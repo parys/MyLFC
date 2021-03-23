@@ -10,10 +10,10 @@ namespace MyLfc.Domain
         //public string ConcurrencyStamp { get; set; }
         //public string NormalizedName { get; set; }
 
-        //public virtual ICollection<User> Users { get; set; }
-        //public virtual ICollection<RoleClaim> Claims { get; set; }
+        //public ICollection<User> Users { get; set; }
+        //public ICollection<RoleClaim> Claims { get; set; }
 
-        public virtual ICollection<RoleRoleGroup> RoleRoleGroups { get; set; } = new HashSet<RoleRoleGroup>();
+        public ICollection<RoleRoleGroup> RoleRoleGroups { get; set; } = new HashSet<RoleRoleGroup>();
 
         //public int RoleGroupId { get; set; }
     }

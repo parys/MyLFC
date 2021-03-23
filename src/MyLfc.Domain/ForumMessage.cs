@@ -10,7 +10,7 @@ namespace MyLfc.Domain
 
         public int ThemeId { get; set; }
 
-        public virtual ForumTheme Theme { get; set; }
+        public ForumTheme Theme { get; set; }
 
         public DateTimeOffset AdditionTime { get; set; }
 
@@ -19,7 +19,7 @@ namespace MyLfc.Domain
        //todo [AllowHtml]
         public string Message { get; set; }
 
-        public virtual User Author { get; set; }
+        public User Author { get; set; }
         public int AuthorId { get; set; }
 
         //   public string Ip { get; set; }

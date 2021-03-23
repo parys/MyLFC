@@ -10,7 +10,7 @@ namespace MyLfc.Domain
 
         public int OldId { get; set; }
         
-        public virtual MaterialCategory Category { get; set; }
+        public MaterialCategory Category { get; set; }
 
         public bool Deleted { get; set; }
 
@@ -22,7 +22,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset AdditionTime { get; set; }
 
-        public virtual User Author { get; set; }
+        public User Author { get; set; }
 
         public string Title { get; set; }
 
@@ -40,7 +40,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset LastModified { get; set; }
 
-        public virtual ICollection<MaterialComment> Comments { get; set; } = new List<MaterialComment>();
+        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
 
         public int CategoryId { get; set; }
 

@@ -32,7 +32,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
             {
                 Id = x.Id,
-                OldId = x.OldId,
                 Birthday = x.Birthday,
                 BlogsCount = x.BlogsCount,
                 NewsCount = x.NewsCount,
@@ -68,7 +67,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         
         public async Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId)
         {
-            return await _userManager.GetLockoutEndDateAsync(new User(userId));
+            return await _userManager.GetLockoutEndDateAsync(new User{ Id = userId});
         }
         
         public async Task<User> FindByNameAsync(string username)

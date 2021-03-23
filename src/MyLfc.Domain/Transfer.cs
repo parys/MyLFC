@@ -18,14 +18,14 @@ namespace MyLfc.Domain
 
         public int? ClubId { get; set; }
 
-        public virtual Club Club { get; set; }
+        public Club Club { get; set; }
 
         public int PersonId { get; set; }
 
-        public virtual Person Person { get; set; }
+        public Person Person { get; set; }
 
         public int? SeasonId { get; set; }
 
-        public virtual Season Season { get; set; }
+        public Season Season { get; set; }
     }
 }

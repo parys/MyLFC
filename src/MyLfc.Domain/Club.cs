@@ -4,11 +4,6 @@ namespace MyLfc.Domain
 {
     public class Club : IEntity
     {
-        public Club()
-        {
-            Matches = new HashSet<Match>();
-            Transfers = new HashSet<Transfer>();
-        }
 
         public int Id { get; set; }
 
@@ -20,14 +15,14 @@ namespace MyLfc.Domain
 
         public int StadiumId { get; set; }
 
-        public virtual Stadium Stadium { get; set; }
+        public Stadium Stadium { get; set; }
 
         public string Logo { get; set; }
 
-        public virtual ICollection<Match> Matches { get; set; }
+        public ICollection<Match> Matches { get; set; } = new HashSet<Match>();
 
-        public virtual ICollection<Transfer> Transfers { get; set; }
+        public ICollection<Transfer> Transfers { get; set; } = new HashSet<Transfer>();
 
-        public virtual ICollection<Loan> Loans { get; set; }
+        public ICollection<Loan> Loans { get; set; } = new HashSet<Loan>();
     }
 }

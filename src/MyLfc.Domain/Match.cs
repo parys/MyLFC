@@ -12,13 +12,13 @@ namespace MyLfc.Domain
 
         public int ClubId { get; set; }
 
-        public virtual Club Club { get; set; }
+        public Club Club { get; set; }
 
         public DateTimeOffset DateTime { get; set; }
 
         public MatchTypeEnum MatchType { get; set; }
 
-        public virtual Season Season { get; set; }
+        public Season Season { get; set; }
 
         public int SeasonId { get; set; }
 
@@ -36,12 +36,12 @@ namespace MyLfc.Domain
 
         public int StadiumId { get; set; }
 
-        public virtual Stadium Stadium { get; set; }
+        public Stadium Stadium { get; set; }
 
-        public virtual ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
+        public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
 
-        public virtual ICollection<MatchPerson> Persons { get; set; } = new HashSet<MatchPerson>();
+        public ICollection<MatchPerson> Persons { get; set; } = new HashSet<MatchPerson>();
 
-        public virtual ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
     }
 }

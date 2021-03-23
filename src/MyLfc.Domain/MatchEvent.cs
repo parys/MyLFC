@@ -10,17 +10,17 @@ namespace MyLfc.Domain
 
         public int PersonId { get; set; }
 
-        public virtual Person Person { get; set; }
+        public Person Person { get; set; }
 
         public MatchEventType Type { get; set; }
 
         public int SeasonId { get; set; }//todo think does it need
 
-        public virtual Season Season { get; set; }
+        public Season Season { get; set; }
 
         public int MatchId { get; set; }
 
-        public virtual Match Match { get; set; }
+        public Match Match { get; set; }
 
         public byte? Minute { get; set; }
 

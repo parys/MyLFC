@@ -30,21 +30,22 @@ namespace MyLfc.Application.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
-
-                if (user == null)
-                {
-                    throw new NotFoundException(nameof(User), request.UserId);
-                }
-
                 if (!string.IsNullOrWhiteSpace(request.Ip))
                 {
+                    var user = await _context.Users
+                        .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+
+                    if (user == null)
+                    {
+                        throw new NotFoundException(nameof(User), request.UserId);
+                    }
+
                     user.Ip = request.Ip;
                     user.LastModified = DateTimeOffset.UtcNow;
-                }
 
-                await _context.SaveChangesAsync(cancellationToken);
+
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
 
                 return new Response();
             }

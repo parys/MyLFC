@@ -10,8 +10,8 @@ namespace MyLfc.Domain
 
         public string City { get; set; }
 
-        public virtual ICollection<Club> Clubs { get; set; } = new List<Club>();
+        public ICollection<Club> Clubs { get; set; } = new HashSet<Club>();
 
-        public virtual ICollection<Match> Matches { get; set; } = new HashSet<Match>();
+        public ICollection<Match> Matches { get; set; } = new HashSet<Match>();
     }
 }

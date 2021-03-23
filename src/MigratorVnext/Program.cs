@@ -343,7 +343,7 @@ namespace MigratorVnext
                     // homepage
                     while (chars[i] != '|')
                     {
-                        user.Homepage += chars[i];
+               //         user.Homepage += chars[i];
                         i++;
                     }
                     i++;
@@ -356,7 +356,7 @@ namespace MigratorVnext
                     // counry
                     while (chars[i] != '|')
                     {
-                        user.Country += chars[i];
+               //         user.Country += chars[i];
                         i++;
                     }
                     i++;
@@ -369,7 +369,7 @@ namespace MigratorVnext
                     // city
                     while (chars[i] != '|')
                     {
-                        user.City += chars[i];
+                 //       user.City += chars[i];
                         i++;
                     }
                     i++;
@@ -382,7 +382,7 @@ namespace MigratorVnext
                     // title
                     while (chars[i] != '|')
                     {
-                        user.Title += chars[i];
+                //        user.Title += chars[i];
                         i++;
                     }
                     i++;
@@ -542,7 +542,7 @@ namespace MigratorVnext
                     User user = UserRepository.FindByNameAsync(userLogin).Result;
                     if (user != null)
                     {
-                        user.OldId = int.Parse(id);
+             //           user.OldId = int.Parse(id);
                         UserRepository.UpdateAsync(user).Wait();
                     }
 

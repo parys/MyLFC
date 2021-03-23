@@ -17,7 +17,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset LastModified { get; set; }
 
-        public virtual User Author { get; set; }
+        public User Author { get; set; }
 
         public int AuthorId { get; set; }
 
@@ -27,25 +27,25 @@ namespace MyLfc.Domain
         [MaxLength(5000)]
         public string Answer { get; set; }
 
-        public virtual ICollection<MaterialComment> Children { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<MaterialComment> Children { get; set; } = new HashSet<MaterialComment>();
 
-        public virtual ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
+        public ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
         
         public int? ParentId { get; set; }
 
-        public virtual MaterialComment Parent { get; set; }
+        public MaterialComment Parent { get; set; }
 
         public int? OldParentId { get; set; }
 
-        public virtual Material Material { get; set; }
+        public Material Material { get; set; }
 
         public int? MaterialId { get; set; }
 
-        public virtual Match Match { get; set; }
+        public Match Match { get; set; }
 
         public int? MatchId { get; set; }
 
-        public virtual Poll Poll { get; set; }
+        public Poll Poll { get; set; }
 
         public int? PollId { get; set; }
 

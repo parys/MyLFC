@@ -31,15 +31,15 @@ namespace MyLfc.Domain
 
         public DateTimeOffset? Birthday { get; set; }
 
-        public virtual ICollection<Transfer> Transfers { get; set; } = new HashSet<Transfer>();
+        public ICollection<Transfer> Transfers { get; set; } = new HashSet<Transfer>();
 
-        public virtual ICollection<Injury> Injuries { get; set; } = new HashSet<Injury>();
+        public ICollection<Injury> Injuries { get; set; } = new HashSet<Injury>();
 
-        public virtual ICollection<Loan> Loans { get; set; } = new HashSet<Loan>();
+        public ICollection<Loan> Loans { get; set; } = new HashSet<Loan>();
 
-        public virtual ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
+        public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
 
-        public virtual ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
+        public ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
 
         public ICollection<Contract> Contracts { get; set; } = new HashSet<Contract>();
 

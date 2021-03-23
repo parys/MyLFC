@@ -9,7 +9,7 @@ namespace MyLfc.Domain
 
         public int UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
         public NotificationType Type { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Forums;
 
 namespace MyLiverpool.Business.Contracts
 {

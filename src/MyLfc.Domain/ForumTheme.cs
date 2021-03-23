@@ -12,7 +12,7 @@ namespace MyLfc.Domain
 
         public int SubsectionId { get; set; }
 
-        public virtual ForumSubsection Subsection { get; set; }
+        public ForumSubsection Subsection { get; set; }
 
         public bool IsPool { get; set; }
 
@@ -30,15 +30,15 @@ namespace MyLfc.Domain
 
         public string Description { get; set; }
 
-        public virtual User Author { get; set; }
+        public User Author { get; set; }
 
         public int AuthorId { get; set; }
 
-        public virtual User LastAnswerUser { get; set; }
+        public User LastAnswerUser { get; set; }
 
         public int LastAnswerUserId { get; set; }
 
-        public virtual ICollection<ForumMessage> Messages { get; set; } = new HashSet<ForumMessage>();
+        public ICollection<ForumMessage> Messages { get; set; } = new HashSet<ForumMessage>();
 
         [NotMapped]
         public int MessagesCount { get; set; }

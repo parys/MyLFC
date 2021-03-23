@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MyLfc.Domain;
-using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Forums;
 
 namespace MyLiverpool.Common.Mappings
 {

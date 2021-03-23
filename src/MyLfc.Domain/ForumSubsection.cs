@@ -11,7 +11,7 @@ namespace MyLfc.Domain
 
         public int SectionId { get; set; }
 
-        public virtual ForumSection Section { get; set; }
+        public ForumSection Section { get; set; }
 
         public string Name { get; set; }
 
@@ -24,7 +24,7 @@ namespace MyLfc.Domain
 
         public int Views { get; set; }
 
-        public virtual ICollection<ForumTheme> Themes { get; set; } = new HashSet<ForumTheme>();
+        public ICollection<ForumTheme> Themes { get; set; } = new HashSet<ForumTheme>();
 
         //  public long LastMessageAdditionTime { get; set; }
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Forums;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -30,7 +31,7 @@ namespace MyLiverpool.Business.Services
             {
                 return null;
             }
-            var model = new ForumSection(name);
+            var model = new ForumSection { Name = name };
             model = await _forumSectionRepository.CreateAsync(model);
             var result = _mapper.Map<ForumSectionDto>(model);
             return result;

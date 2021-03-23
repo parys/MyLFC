@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace MyLiverpool.Business.Dto
+namespace MyLiverpool.Business.Dto.Forums
 {
     public class ForumSectionDto : IDto
     {
-        public ForumSectionDto()
-        {
-            Subsections = new HashSet<ForumSubsectionMiniDto>();
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<ForumSubsectionMiniDto> Subsections { get; set; }
+        public ICollection<ForumSubsectionMiniDto> Subsections { get; set; } = new HashSet<ForumSubsectionMiniDto>();
     }
 }

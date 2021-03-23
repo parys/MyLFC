@@ -8,8 +8,8 @@
 
         public bool Positive { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
-        public virtual MaterialComment Comment { get; set; }
+        public MaterialComment Comment { get; set; }
     }
 }
