@@ -56,5 +56,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             await Mediator.Send(new CalculateCommentsNumberCommand.Request());
             return Ok();
         }
+
+        /// <summary>
+        /// Send test email.
+        /// </summary>
+        [HttpPut("SendTestEmail")]
+        public async Task<IActionResult> SendTestEmail(SendTestEmailCommand.Request request)
+        {
+            await Mediator.Send(request);
+            return Ok();
+        }
     }
 }
