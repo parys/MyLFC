@@ -38,6 +38,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Calculate comments votes.
+        /// </summary>
+        [HttpPut("CalculateCommentVotes")]
+        public async Task<IActionResult> CalculateCommentVotes()
+        {
+            await Mediator.Send(new CalculateCommentVotesCommand.Request());
+            return Ok();
+        }
+
+        /// <summary>
         /// Recalculate user numbers.
         /// </summary>
         [HttpPut("RecalculateUsersNumbers")]

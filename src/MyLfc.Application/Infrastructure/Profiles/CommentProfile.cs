@@ -20,8 +20,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()))
-                .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.CommentVotes.Count(y => y.Positive)))
-                .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.CommentVotes.Count(y => !y.Positive)))
+                .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.PositiveCount))
+                .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.NegativeCount))
                 .ForMember(dest => dest.CanPositiveVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, true)))
                 .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)))
            //     .ForMember(dest => dest.CanPositiveVote, 
@@ -33,8 +33,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
-                .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.CommentVotes.Count(y => y.Positive)))
-                .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.CommentVotes.Count(y => !y.Positive)))
+                .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.PositiveCount))
+                .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.NegativeCount))
                 .ForMember(dest => dest.CanPositiveVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, true)))
                 .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)));
 

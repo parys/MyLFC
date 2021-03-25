@@ -55,7 +55,7 @@ namespace MyLiverpool.Business.Services
                 _logger.LogCritical(ex.ToString());
                 //  await SendEmailAsync(email, subject, message); how to stop after some tries
                 var e = ex;
-                throw; //todo add private messate to admin?
+                throw; //todo add private message to admin?
             }
         }
 

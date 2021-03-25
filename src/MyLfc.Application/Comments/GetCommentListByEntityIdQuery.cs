@@ -56,16 +56,16 @@ namespace MyLfc.Application.Comments
                     Answer = x.Answer,
                     AuthorId = x.AuthorId,
                     AuthorUserName = x.Author.UserName,
-                    CanNegativeVote = !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
-                    CanPositiveVote = !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                    CanNegativeVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
+                    CanPositiveVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
                     IsVerified = x.IsVerified,
                     MatchId = x.MatchId,
                     MaterialId = x.MaterialId,
                     Id = x.Id,
                     LastModified = x.LastModified,
                     Message = x.Message,
-                    NegativeCount = x.CommentVotes.Count(v => !v.Positive),
-                    PositiveCount = x.CommentVotes.Count(v => v.Positive),
+                    NegativeCount = x.NegativeCount,
+                    PositiveCount = x.PositiveCount,
                     ParentId = x.ParentId,
                     Photo = x.Author.Photo,
                     Type = x.Type,
@@ -73,7 +73,7 @@ namespace MyLfc.Application.Comments
                 }).ToListAsync(cancellationToken);
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
-                //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
+                //  filter = filter.And(x => x.ParentId == null);//bug need to analyze how get all comments for material page but count only top-level for paging
                 
                 return new Response
                 {

@@ -8,7 +8,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Application.Admin
 {
-    public class RecalculateMaterialCommentsCommand
+    public class CalculateCommentVotesCommand
     {
         private static bool _started;
 
@@ -38,21 +38,25 @@ namespace MyLfc.Application.Admin
                     return Unit.Value;
                 }
                 _started = true;
-                var materialCount = await _context.Materials.CountAsync(cancellationToken);
-
+                var commentsCount = await _context.MaterialComments.CountAsync(cancellationToken);
+                
                 var count = 0;
 
-                foreach (var material in _context.Materials)
+                foreach (var comment in _context.MaterialComments)
                 {
-                    material.CommentsCount =
-                        await _context.MaterialComments.CountAsync(x => x.MaterialId == material.Id && !x.Deleted,
+                    comment.PositiveCount =
+                        await _context.CommentVotes.CountAsync(x => x.CommentId == comment.Id && x.Positive,
                             cancellationToken);
 
-                    _signalRHubAggregator.SendToUser(HubEndpointConstants.UpdateMatCommentsCount, (++count / 1.0 / materialCount).ToString("P"),
+                    comment.NegativeCount =
+                        await _context.CommentVotes.CountAsync(x => x.CommentId == comment.Id && !x.Positive,
+                            cancellationToken);
+
+                    _signalRHubAggregator.SendToUser(HubEndpointConstants.UpdateCommentVotes, (++count / 1.0 / commentsCount).ToString("P"),
                         _requestContext.UserId.GetValueOrDefault());
                 }
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken); 
                 _started = false;
                 return Unit.Value;
             }

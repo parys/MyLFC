@@ -111,5 +111,7 @@ namespace MyLfc.Common.Web.Hubs
         public const string UpdateMatCommentsCount = "updateMatCommCount";
 
         public const string UpdateUserNumbers = "updateUserNumbers";
+
+        public const string UpdateCommentVotes = "updateCommentVotes";
     }
 }

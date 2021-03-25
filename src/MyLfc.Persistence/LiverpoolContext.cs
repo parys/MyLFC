@@ -79,29 +79,50 @@ namespace MyLfc.Persistence
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
 
-            modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
-            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
-           
-             
-            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId).IsRequired(false);
-            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Match).WithMany(x => x.Comments).HasForeignKey(x => x.MatchId).IsRequired(false);
-            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Poll).WithMany(x => x.Comments).HasForeignKey(x => x.PollId).IsRequired(false);
-            
+            modelBuilder.Entity<MaterialComment>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<MaterialComment>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<MaterialComment>()
+                .HasOne(u => u.Material)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.MaterialId)
+                .IsRequired(false);
+            modelBuilder.Entity<MaterialComment>()
+                .HasOne(u => u.Match)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.MatchId)
+                .IsRequired(false);
+            modelBuilder.Entity<MaterialComment>()
+                .HasOne(u => u.Poll)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.PollId)
+                .IsRequired(false);
+            modelBuilder.Entity<MaterialComment>()
+                .HasMany(x => x.CommentVotes)
+                .WithOne(x => x.Comment)
+                .HasForeignKey(x => x.CommentId);
 
+            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumSubsection>().HasOne(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
             modelBuilder.Entity<ForumTheme>().HasOne(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
-            modelBuilder.Entity<User>().HasOne(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-
+       
             modelBuilder.Entity<UserConfig>().HasKey(x => x.UserId);
             modelBuilder.Entity<UserConfig>().Property(x => x.UserId).ValueGeneratedNever();
             modelBuilder.Entity<UserConfig>().HasOne(x => x.User).WithOne(x => x.UserConfig).IsRequired();
 
             modelBuilder.Entity<CommentVote>().HasKey(t => new { t.UserId, t.CommentId });
-            modelBuilder.Entity<MaterialComment>().HasMany(x => x.CommentVotes).WithOne(x => x.Comment)
-                .HasForeignKey(x => x.CommentId);
-            modelBuilder.Entity<User>().HasMany(x => x.CommentVotes).WithOne(x => x.User)
+            
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.RoleGroup)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.RoleGroupId);
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CommentVotes)
+                .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
 
             modelBuilder.Entity<User>().HasMany(x => x.Notifications).WithOne(x => x.User)
@@ -157,7 +178,6 @@ namespace MyLfc.Persistence
             modelBuilder.Entity<PollAnswerUser>().HasOne(x => x.Poll).WithMany().HasForeignKey(x => x.PollId);
             modelBuilder.Entity<PollAnswerUser>().HasKey(t => new {t.PollAnswerId, t.UserId});
 
-            //research todo maybe it doesn't need https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Claims)
                 .WithOne()
@@ -178,9 +198,7 @@ namespace MyLfc.Persistence
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            //end research
 
-            modelBuilder.Entity<MaterialComment>().HasQueryFilter(x => !x.Deleted);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

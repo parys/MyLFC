@@ -68,8 +68,8 @@ namespace MyLfc.Application.Comments
                         Id = x.Id,
                         LastModified = x.LastModified,
                         Message = x.Message,
-                        NegativeCount = x.CommentVotes.Count(v => !v.Positive),
-                        PositiveCount = x.CommentVotes.Count(v => v.Positive),
+                        NegativeCount = x.NegativeCount,
+                        PositiveCount = x.PositiveCount,
                         Photo = x.Author.Photo,
                         Type = x.Type,
                         TypeName = x.Type.ToString()

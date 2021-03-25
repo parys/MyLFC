@@ -36,17 +36,32 @@ namespace MyLfc.Application.Comments
                 var vote = await _context.CommentVotes
                     .FirstOrDefaultAsync(x => x.CommentId == request.CommentId
                                                                                 && x.UserId == _requestContext.UserId, cancellationToken);
+
+                var comment = await _context.MaterialComments
+                    .FirstOrDefaultAsync(x => x.Id == request.CommentId, cancellationToken);
                 if (vote != null)
                 {
                     vote.Positive = request.Positive;
+
+                    if (vote.Positive != request.Positive)
+                    {
+                        if (request.Positive)
+                        {
+                            comment.PositiveCount++;
+                            comment.NegativeCount--;
+                        }
+                        else
+                        {
+                            comment.PositiveCount--;
+                            comment.NegativeCount++;
+                        }
+                    }
                 }
                 else
                 {
-                    var comment = await _context.MaterialComments.AsNoTracking()
-                        .FirstOrDefaultAsync(x => x.Id == request.CommentId, cancellationToken);
                     if (comment.AuthorId == _requestContext.UserId)
                     {
-                        throw new UnauthorizedAccessException("User can't vote for himself agent.");
+                        throw new UnauthorizedAccessException("User can't vote for himself.");
                     }
                     vote = new CommentVote
                     {
@@ -54,6 +69,16 @@ namespace MyLfc.Application.Comments
                         CommentId = request.CommentId,
                         Positive = request.Positive
                     };
+
+                    if (request.Positive)
+                    {
+                        comment.PositiveCount++;
+                    }
+                    else
+                    {
+                        comment.NegativeCount++;
+                    }
+
                     _context.CommentVotes.Add(vote);
                 }
 

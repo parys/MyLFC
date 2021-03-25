@@ -55,6 +55,10 @@ namespace MyLfc.Domain
 
         public bool Deleted { get; set; }
 
+        public int PositiveCount { get; set; }
+
+        public int NegativeCount { get; set; }
+
         [NotMapped]
         public int Number { get; set; }
 

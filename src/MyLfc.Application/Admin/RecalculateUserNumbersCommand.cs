@@ -34,13 +34,13 @@ namespace MyLfc.Application.Admin
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                var usersCount = await _context.Users.CountAsync(cancellationToken);
                 if (_started)
                 {
                     return Unit.Value;
                 }
-
                 _started = true;
+                var usersCount = await _context.Users.CountAsync(cancellationToken);
+
                 var count = 0;
 
                 foreach (var user in _context.Users)
