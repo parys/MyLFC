@@ -168,7 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 };
                 var result = await Mediator.Send(request);
 
-                return Ok(result);
+                return Ok(result.Path);
             }
 
             return BadRequest();
@@ -187,7 +187,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
             var result = await Mediator.Send(request);
-            return Ok(new { path = result });
+            return Ok(result.AvatarPath);
         }
 
         /// <summary>

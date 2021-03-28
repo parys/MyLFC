@@ -49,7 +49,7 @@ namespace MyLfc.Application.Pms
                     throw new NotFoundException(nameof(PrivateMessage), request.Id);
                 }
 
-                if (!message.IsRead)
+                if (!message.IsRead && message.ReceiverId == _requestContext.UserId)
                 {
                     message.IsRead = true;
                     await _context.SaveChangesAsync(cancellationToken);
