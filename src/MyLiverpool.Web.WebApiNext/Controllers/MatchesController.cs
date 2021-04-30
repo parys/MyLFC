@@ -81,14 +81,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 async () => (await Mediator.Send(new GetEntityQuery.Request
                 {
                     Type = HelperEntityType.HeaderMatch
-                })).Value);
+                }))?.Value);
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await Mediator.Send(new GetMatchHeaderQuery.Request
+                if (int.TryParse(helpEntity, out var id))
                 {
-                    Id = int.Parse(helpEntity)
-                });//todo add cache?
-                return Ok(result);
+                    var result = await Mediator.Send(new GetMatchHeaderQuery.Request
+                    {
+                        Id = id
+                    });
+                    return Ok(result);
+                }
             }
             return Ok(null);
         }

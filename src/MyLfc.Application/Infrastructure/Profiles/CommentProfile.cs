@@ -39,7 +39,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)));
 
             CreateMap<MaterialComment, GetLastCommentListQuery.LastCommentDto>()
-                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
+                .ForMember(dest => dest.ClippedMessage, src => src.Ignore())
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName));
 
             CreateMap<CreateCommentCommand.Request, MaterialComment>()
