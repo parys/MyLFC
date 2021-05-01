@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
@@ -31,6 +32,7 @@ namespace MyLfc.Application.Users
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var model = await _context.UserConfigs
+                                .AsNoTracking()
                                 .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken)
                             ?? new UserConfig();
                 return _mapper.Map<Response>(model);
