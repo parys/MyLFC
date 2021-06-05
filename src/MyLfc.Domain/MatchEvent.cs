@@ -24,6 +24,8 @@ namespace MyLfc.Domain
 
         public byte? Minute { get; set; }
 
+        public byte? AddMinutes { get; set; }
+
         public bool Home { get; set; }
 
         public bool IsOur { get; set; }

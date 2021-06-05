@@ -20,6 +20,10 @@ namespace MyLfc.Persistence.Configurations
 
             builder.Property(x => x.Brief).HasMaxLength(1000);
 
+            builder.Property(x => x.Tags).HasMaxLength(200);
+
+            builder.Property(x => x.Message).HasMaxLength(60000);
+
             builder.HasOne(x => x.Author)
                 .WithMany(x => x.Materials)
                 .HasForeignKey(x => x.AuthorId);

@@ -6,6 +6,7 @@ using System.IO.Compression;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -27,6 +28,7 @@ using MyLfc.Common.Web.Middlewares;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Web.WebApiNext.Infrastructure.Filters;
 using Microsoft.Extensions.Hosting;
+using MyLiverpool.Web.WebApiNext.Middlewares;
 using Serilog;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -181,7 +183,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //  app.UseMiddleware<ExceptionHandlerMiddleware>();
+              app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             // app.UseXsrf();
             if (env.IsDevelopment())

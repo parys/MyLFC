@@ -17,6 +17,6 @@ namespace MyLfc.Domain
 
         public MatchPersonType PersonType { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
     }
 }

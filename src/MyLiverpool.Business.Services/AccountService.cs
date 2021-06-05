@@ -62,18 +62,12 @@ namespace MyLiverpool.Business.Services
             var foundUser = await _userRepository.FindByEmailAsync(email);
             return foundUser == null;
         }
-
-        public async Task<DateTime> GetLockOutEndDateAsync(int userId)
-        {
-            var dateTime = await _userRepository.GetLockoutEndDateAsync(userId);
-            return dateTime?.DateTime ?? DateTime.MinValue;
-        }
-
+        
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
         {
             var user = _mapper.Map<User>(model);
-            user.RegistrationDate = DateTime.Now;
-            user.LastModified = DateTime.Now;
+            user.RegistrationDate = DateTimeOffset.Now;
+            user.LastModified = DateTimeOffset.Now;
             user.LockoutEnabled = true;
             user.RoleGroupId = 6;
             user.Photo = DefaultPhotoPath;

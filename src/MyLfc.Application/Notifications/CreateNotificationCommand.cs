@@ -60,6 +60,10 @@ namespace MyLfc.Application.Notifications
             {
                 await RemoveOldNotificationsAsync(_requestContext.UserId.Value, cancellationToken);
                 var model = _mapper.Map<Notification>(request);
+                if (model.Text.Length > 5000)
+                {
+                    model.Text = model.Text[..4997] + "...";
+                }
 
                 _context.Notifications.Add(model);
                 await _context.SaveChangesAsync(cancellationToken);

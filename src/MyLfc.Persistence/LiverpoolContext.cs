@@ -20,7 +20,8 @@ namespace MyLfc.Persistence
                 _created = true;
             }
         }
-        
+
+        #region DbSets
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -55,6 +56,9 @@ namespace MyLfc.Persistence
 
         public DbSet<Contract> Contracts { get; set; }
 
+        #endregion
+
+        // for debug purposes
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
         //    var en = ChangeTracker.Entries();
@@ -79,155 +83,10 @@ namespace MyLfc.Persistence
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
 
-            modelBuilder.Entity<MaterialComment>().HasQueryFilter(x => !x.Deleted);
-            modelBuilder.Entity<MaterialComment>()
-                .HasOne(x => x.Author)
-                .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.AuthorId);
-            modelBuilder.Entity<MaterialComment>()
-                .HasOne(u => u.Material)
-                .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.MaterialId)
-                .IsRequired(false);
-            modelBuilder.Entity<MaterialComment>()
-                .HasOne(u => u.Match)
-                .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.MatchId)
-                .IsRequired(false);
-            modelBuilder.Entity<MaterialComment>()
-                .HasOne(u => u.Poll)
-                .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.PollId)
-                .IsRequired(false);
-            modelBuilder.Entity<MaterialComment>()
-                .HasMany(x => x.CommentVotes)
-                .WithOne(x => x.Comment)
-                .HasForeignKey(x => x.CommentId);
-
-            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
-            modelBuilder.Entity<ForumSubsection>().HasOne(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
-            modelBuilder.Entity<ForumTheme>().HasOne(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
-            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
-
-       
-            modelBuilder.Entity<UserConfig>().HasKey(x => x.UserId);
-            modelBuilder.Entity<UserConfig>().Property(x => x.UserId).ValueGeneratedNever();
-            modelBuilder.Entity<UserConfig>().HasOne(x => x.User).WithOne(x => x.UserConfig).IsRequired();
-
-            modelBuilder.Entity<CommentVote>().HasKey(t => new { t.UserId, t.CommentId });
-            
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.RoleGroup)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.RoleGroupId);
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.CommentVotes)
-                .WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId);
-
-            modelBuilder.Entity<User>().HasMany(x => x.Notifications).WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId);
-
-            modelBuilder.Entity<RoleRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
-            modelBuilder.Entity<RoleRoleGroup>()
-               .HasOne(pt => pt.Role)
-               .WithMany(p => p.RoleRoleGroups)
-               .HasForeignKey(pt => pt.RoleId);
-
-            modelBuilder.Entity<RoleRoleGroup>()
-                .HasOne(pt => pt.RoleGroup)
-                .WithMany(t => t.RoleGroups)
-                .HasForeignKey(pt => pt.RoleGroupId);
-
-
-            modelBuilder.Entity<MatchPerson>().HasKey(t => new { t.MatchId, t.PersonId });
-            modelBuilder.Entity<MatchPerson>()
-                .HasOne(pt => pt.Match)
-                .WithMany(p => p.Persons)
-                .HasForeignKey(pt => pt.MatchId);
-
-            modelBuilder.Entity<MatchPerson>()
-                .HasOne(pt => pt.Person)
-                .WithMany(t => t.Matches)
-                .HasForeignKey(pt => pt.PersonId);
-
-            modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
-            modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
-
-            modelBuilder.Entity<Match>().HasOne(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
-            modelBuilder.Entity<Club>().HasOne(x => x.Stadium).WithMany(x => x.Clubs).HasForeignKey(x => x.StadiumId);
-            modelBuilder.Entity<Match>().HasOne(x => x.Stadium).WithMany(x => x.Matches).HasForeignKey(x => x.StadiumId);
-
-            modelBuilder.Entity<ChatMessage>()
-                .HasOne(x => x.Author)
-                .WithMany(x => x.ChatMessages)
-                .HasForeignKey(x => x.AuthorId);
-
-            modelBuilder.Entity<Match>().HasOne(m => m.Season).WithMany(s => s.Matches).HasForeignKey(m => m.SeasonId);
-            modelBuilder.Entity<Transfer>().HasOne(x => x.Person).WithMany(x => x.Transfers).HasForeignKey(x => x.PersonId);
-            modelBuilder.Entity<Transfer>().HasOne(x => x.Club).WithMany(x => x.Transfers).HasForeignKey(x => x.ClubId).IsRequired(false);
-            modelBuilder.Entity<Loan>().HasOne(x => x.Person).WithMany(x => x.Loans).HasForeignKey(x => x.PersonId);
-            modelBuilder.Entity<Loan>().HasOne(x => x.Club).WithMany(x => x.Loans).HasForeignKey(x => x.ClubId);
-            modelBuilder.Entity<Injury>().HasOne(x => x.Person).WithMany(x => x.Injuries).HasForeignKey(x => x.PersonId);
-            
-            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
-            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId);
-            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
-
-            modelBuilder.Entity<PollAnswer>().HasOne(x => x.Poll).WithMany(x => x.Answers).HasForeignKey(x => x.PollId);
-            modelBuilder.Entity<PollAnswerUser>().HasOne(x => x.Poll).WithMany().HasForeignKey(x => x.PollId);
-            modelBuilder.Entity<PollAnswerUser>().HasKey(t => new {t.PollAnswerId, t.UserId});
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Claims)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Logins)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Roles)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
-
-
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-            modelBuilder.Entity<MaterialCategory>().ToTable("MaterialCategories");
-            modelBuilder.Entity<MaterialComment>().ToTable("MaterialComments");
-            modelBuilder.Entity<Wish>().ToTable("Wishes");
-            modelBuilder.Entity<ForumSection>().ToTable("ForumSections");
-            modelBuilder.Entity<ForumSubsection>().ToTable("ForumSubsections");
-            modelBuilder.Entity<ForumTheme>().ToTable("ForumThemes");
-            modelBuilder.Entity<ForumMessage>().ToTable("ForumMessages");
-            modelBuilder.Entity<RoleGroup>().ToTable("RoleGroups");
-            modelBuilder.Entity<RoleRoleGroup>().ToTable("RoleRoleGroups");
-            modelBuilder.Entity<PrivateMessage>().ToTable("PrivateMessages");
-            modelBuilder.Entity<Club>().ToTable("Clubs");
-            modelBuilder.Entity<ChatMessage>().ToTable("ChatMessages");
-            modelBuilder.Entity<Match>().ToTable("Matches");
-            modelBuilder.Entity<HelpEntity>().ToTable("HelpEntities");
-            modelBuilder.Entity<Person>().ToTable("Persons");
-            modelBuilder.Entity<Season>().ToTable("Seasons");
-            modelBuilder.Entity<Stadium>().ToTable("Stadiums");
-            modelBuilder.Entity<UserConfig>().ToTable("UserConfigs");
-            modelBuilder.Entity<Transfer>().ToTable("Transfers");
-            modelBuilder.Entity<CommentVote>().ToTable("CommentVotes");
-            modelBuilder.Entity<Injury>().ToTable("Injuries");
-            modelBuilder.Entity<Loan>().ToTable("Loans");
-            modelBuilder.Entity<MatchEvent>().ToTable("MatchEvents");
-            modelBuilder.Entity<Notification>().ToTable("Notifications");
 
         }
     }

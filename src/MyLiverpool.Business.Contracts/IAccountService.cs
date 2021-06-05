@@ -16,9 +16,7 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> IsUserNameUniqueAsync(string userName);
 
         Task<bool> IsEmailUniqueAsync(string email);
-
-        Task<DateTime> GetLockOutEndDateAsync(int userId);
-
+        
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
 
         Task<bool> ResendConfirmEmail(string email);
