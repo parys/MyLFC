@@ -183,7 +183,12 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-              app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+            if (Configuration["EnableResponseTimeMeasure"] != null && Configuration.GetValue<bool>("EnableResponseTimeMeasure"))
+            {
+                app.UseMiddleware<ResponseTimeMeasureMiddleware>();
+            }
+
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             // app.UseXsrf();
             if (env.IsDevelopment())
