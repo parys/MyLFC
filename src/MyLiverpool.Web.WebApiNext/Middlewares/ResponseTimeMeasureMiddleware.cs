@@ -11,6 +11,8 @@ namespace MyLiverpool.Web.WebApiNext.Middlewares
     /// </summary>
     public sealed class ResponseTimeMeasureMiddleware
     {
+        // Name of the Response Header, Custom Headers starts with "X-"  
+        private const string RESPONSE_HEADER_RESPONSE_TIME = "X-Response-Time-ms";
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
@@ -37,12 +39,17 @@ namespace MyLiverpool.Web.WebApiNext.Middlewares
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            await _next(context);
-            stopWatch.Stop();
-            context.Response.Headers.Add("X-Total-Count", stopWatch.ElapsedMilliseconds.ToString());
+            context.Response.OnStarting(() => {
+                // Stop the timer information and calculate the time   
+                stopWatch.Stop();
+                var responseTimeForCompleteRequest = stopWatch.ElapsedMilliseconds;
+                // Add the Response time information in the Response headers.   
+                context.Response.Headers[RESPONSE_HEADER_RESPONSE_TIME] = responseTimeForCompleteRequest.ToString();
+                _logger.LogError(11, $"{context.Request.Path} took {stopWatch.ElapsedMilliseconds}");
 
-            _logger.LogError(11, $"{context.Request.Path} takes {stopWatch.ElapsedMilliseconds}");
-                  
+                return Task.CompletedTask;
+            });
+            await _next(context);
         }
     }
 }
