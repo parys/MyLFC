@@ -39,6 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Middlewares
             stopWatch.Start();
             await _next(context);
             stopWatch.Stop();
+            context.Response.Headers.Add("X-Total-Count", stopWatch.ElapsedMilliseconds.ToString());
 
             _logger.LogError(11, $"{context.Request.Path} takes {stopWatch.ElapsedMilliseconds}");
                   
