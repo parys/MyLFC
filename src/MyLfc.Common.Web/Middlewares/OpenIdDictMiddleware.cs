@@ -33,7 +33,6 @@ namespace MyLfc.Common.Web.Middlewares
                     options.SetLogoutEndpointUris("/connect/logout")
                         // Enable the token endpoint (required to use the password flow).
                         .SetTokenEndpointUris("/connect/token");
-
                     options.AllowPasswordFlow()
                         .AllowRefreshTokenFlow()
                         //.SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
@@ -47,11 +46,13 @@ namespace MyLfc.Common.Web.Middlewares
                     //to be able to get user at FE side
                     options.DisableAccessTokenEncryption();
 
+                    options.DisableSlidingRefreshTokenExpiration();
+                    options.DisableTokenStorage();
+
                     // During development, you can disable the HTTPS requirement.
                     options.AcceptAnonymousClients();
                     if (env.IsDevelopment())
                     {
-
                         // Register the signing and encryption credentials.
                         options.AddDevelopmentEncryptionCertificate()
                             .AddDevelopmentSigningCertificate();

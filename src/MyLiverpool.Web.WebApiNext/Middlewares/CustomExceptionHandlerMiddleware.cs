@@ -43,7 +43,7 @@ namespace MyLiverpool.Web.WebApiNext.Middlewares
                 try
                 {
 
-                    _logger.LogError(0, ex, "An unhandled exception has occurred: " + ex.Message);
+                    _logger.LogError(0, ex, "An unhandled exception has occurred: " + ex.StackTrace);
                     // Do custom stuff
                     // Could be just as simple as calling _logger.LogError
 
