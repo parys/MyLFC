@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyLiverpool.Web.WebApiNext.BackgroundServices;
 using Serilog;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -27,13 +29,13 @@ namespace MyLiverpool.Web.WebApiNext
                     config.AddConfiguration(builtConfig);
                 })
                 .UseSerilog()
-                //.ConfigureLogging(logging =>
-                //{
-                //    logging.AddSerilog();
-                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<CleanExpiredTokensService>();
                 })
                 .Build();
 
