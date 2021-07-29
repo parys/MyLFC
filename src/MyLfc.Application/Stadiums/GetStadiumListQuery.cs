@@ -40,7 +40,7 @@ namespace MyLfc.Application.Stadiums
 
                 if (!string.IsNullOrWhiteSpace(request.Name))
                 {
-                    stadiumsQuery = stadiumsQuery.Where(x => x.Name.Contains(request.Name));
+                    stadiumsQuery = stadiumsQuery.Where(x => x.Name.Contains(request.Name) || x.City.Contains(request.Name));
                 }
                 
                 return await stadiumsQuery.GetPagedAsync<Response, Stadium, StadiumListDto>(request, _mapper);
