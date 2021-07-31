@@ -27,16 +27,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns existing or new mediator entity.
         /// </summary>
-        protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         
         /// <summary>
         /// Returns existing or new cache manager.
         /// </summary>
-        protected IDistributedCacheManager CacheManager => _cacheManager ?? (_cacheManager = HttpContext.RequestServices.GetService<IDistributedCacheManager>());
+        protected IDistributedCacheManager CacheManager => _cacheManager ??= HttpContext.RequestServices.GetService<IDistributedCacheManager>();
     
         /// <summary>
         /// Returns existing or new cache manager.
         /// </summary>
-        protected ISignalRHubAggregator SignalRHub => _signalR ?? (_signalR = HttpContext.RequestServices.GetService<ISignalRHubAggregator>());
+        protected ISignalRHubAggregator SignalRHub => _signalR ??= HttpContext.RequestServices.GetService<ISignalRHubAggregator>();
     }
 }

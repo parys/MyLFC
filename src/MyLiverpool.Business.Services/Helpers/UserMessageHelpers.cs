@@ -5,17 +5,16 @@ namespace MyLiverpool.Business.Services.Helpers
 {
     public static class UserMessageHelpers
     {
-        private static List<Regex> regexes = new List<Regex>();
+        private static readonly List<Regex> Regexes = new();
 
         static UserMessageHelpers()
         {
-            regexes.Add(new Regex("[нахуй|хуй|блять|бля|пизда|пиздец|охуеть|сука|сучара|гнида|мудак|нахер|хер|мудень|мудло|]",RegexOptions.Compiled));
+            Regexes.Add(new Regex("[нахуй|хуй|блять|бля|пизда|пиздец|охуеть|сука|сучара|гнида|мудак|нахер|хер|мудень|мудло|]", RegexOptions.Compiled));
         }
 
         public static string SanitizeCommentByRudeWords(this string message)
         {
-            var regex1 = new Regex("", RegexOptions.Compiled);
-            foreach (var regex in regexes)
+            foreach (var regex in Regexes)
             {
                 message = regex.Replace(message, "");
             }

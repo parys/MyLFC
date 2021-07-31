@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -54,7 +54,7 @@ namespace MyLiverpool.Business.Services
             {
                 _logger.LogCritical(ex.ToString());
                 //  await SendEmailAsync(email, subject, message); how to stop after some tries
-                var e = ex;
+                
                 throw; //todo add private message to admin?
             }
         }

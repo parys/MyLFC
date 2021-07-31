@@ -7,7 +7,6 @@ namespace MyLiverpool.Business.Services.Helpers
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<IForumMessageService, ForumMessageService>();
             services.AddTransient<IForumSectionService, ForumSectionService>();

@@ -33,19 +33,19 @@ namespace MigratorVnext
         private static readonly int MaxChars = 20000;
         private const bool UseLimit = false;
 
-        private static readonly List<ForumSubsection> Subsections = new List<ForumSubsection>();
-        private static readonly List<ForumTheme> Themes = new List<ForumTheme>();
+        private static readonly List<ForumSubsection> Subsections = new();
+        private static readonly List<ForumTheme> Themes = new();
 
         private static User _deleted;
-        private static LiverpoolContext _db;
+        private static readonly LiverpoolContext Db;
         static Program()
         {
           //  Database.SetInitializer(new DatabaseInitializer());
-             _db = GetNewContext();
-            _db.Database.Migrate();
+             Db = GetNewContext();
+            Db.Database.Migrate();
             new DatabaseInitializer(GetNewContext()).Seed(true);
 
-            var store = new UserStore<User, Role, LiverpoolContext, int>(_db);
+            var store = new UserStore<User, Role, LiverpoolContext, int>(Db);
            
             IPasswordHasher<User> hasher = new PasswordHasher<User>();
             //var provider = new MachineKeyProtectionProvider();
@@ -56,7 +56,7 @@ namespace MigratorVnext
             options.Value.Lockout.AllowedForNewUsers = true;
             var userManager = new UserManager<User>(store, options, hasher, null, null, normalizer, null, null, null);
 
-            UserRepository = new UserRepository(_db, userManager);
+            UserRepository = new UserRepository(Db, userManager);
             ForumMessageRepository = new GenericRepository<ForumMessage>(GetNewContext());
             ForumSectionRepository = new GenericRepository<ForumSection>(GetNewContext());
             ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
@@ -151,10 +151,10 @@ namespace MigratorVnext
             {
                 Directory.CreateDirectory(path);
             }
-            var count = _db.Materials.Count();
+            var count = Db.Materials.Count();
       //      for (int i = 0; i < count; i ++)
             {
-                var materials = _db.Materials.ToList();
+                var materials = Db.Materials.ToList();
                 //   Parallel.ForEach(materials, new ParallelOptions()
                 //{
                 //    MaxDegreeOfParallelism = 2
@@ -197,22 +197,17 @@ namespace MigratorVnext
                         }
                         //HttpContent content;
                       //  if (!File.Exists(pathForFile))
-                        {
-                            using (var client = new HttpClient())
-                            using (var request = new HttpRequestMessage(HttpMethod.Get, filename))
-                            {
-                                HttpResponseMessage msg = await client.SendAsync(request);
-                                HttpContent content = msg.Content;
-                                using (
-                                    Stream contentStream = await content.ReadAsStreamAsync(),
-                                        stream = new FileStream(pathForFile, FileMode.Create, FileAccess.Write,
-                                            FileShare.None,
-                                            4145728, true))
-                                {
-                                        contentStream.CopyTo(stream);
-                                }
-                            }
-                        }
+                      {
+                          using var client = new HttpClient();
+                          using var request = new HttpRequestMessage(HttpMethod.Get, filename);
+                          HttpResponseMessage msg = await client.SendAsync(request);
+                          HttpContent content = msg.Content;
+                          await using Stream contentStream = await content.ReadAsStreamAsync(),
+                              stream = new FileStream(pathForFile, FileMode.Create, FileAccess.Write,
+                                  FileShare.None,
+                                  4145728, true);
+                          await contentStream.CopyToAsync(stream);
+                      }
                     }
 
                     //      });
@@ -225,42 +220,40 @@ namespace MigratorVnext
         private static void Example()
         {
             Console.WriteLine("Start ");
-            using (FileStream fs = new FileStream(Path + Path + ".txt", FileMode.Open))
-            {
-                byte[] data = new byte[fs.Length];
-                fs.Read(data, 0, Convert.ToInt32(fs.Length));
+            using FileStream fs = new FileStream(Path + Path + ".txt", FileMode.Open);
+            byte[] data = new byte[fs.Length];
+            fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
-                for (int i = 0; i < chars.Length; i++)
+            char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                User user = new User();
+                // login
+                while (chars[i] != '|')
                 {
-                    User user = new User();
-                    // login
-                    while (chars[i] != '|')
-                    {
-                        user.UserName += chars[i];
-                        i++;
-                    }
-                    // gender
-                    while (chars[i] != '|')
-                    {
-                        if (chars[i] == 1)
-                            user.Gender = true;
-                        i++;
-                    }
+                    user.UserName += chars[i];
                     i++;
-                    // last modified
-                    string lastDate = null;
-                    while (chars[i] != '|')
-                    {
-                        lastDate += chars[i];
-                        i++;
-                    }
-                    user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    UserRepository.AddAsync(user).RunSynchronously();
-                    while (chars[i] != 10)
-                    {
-                        i++;
-                    }
+                }
+                // gender
+                while (chars[i] != '|')
+                {
+                    if (chars[i] == 1)
+                        user.Gender = true;
+                    i++;
+                }
+                i++;
+                // last modified
+                string lastDate = null;
+                while (chars[i] != '|')
+                {
+                    lastDate += chars[i];
+                    i++;
+                }
+                user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
+                UserRepository.AddAsync(user).RunSynchronously();
+                while (chars[i] != 10)
+                {
+                    i++;
                 }
             }
         }
@@ -268,7 +261,7 @@ namespace MigratorVnext
         private static void UpdateUsers()
         {
             Console.WriteLine("Start UpdateUsers");
-            using (FileStream fs = new FileStream(Path + @"users.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + @"users.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
@@ -483,7 +476,7 @@ namespace MigratorVnext
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    user.RoleGroupId = _db.RoleGroups.First(x => x.Name == RoleGroupsEnum.Simple.ToString()).Id;
+                    user.RoleGroupId = Db.RoleGroups.First(x => x.Name == RoleGroupsEnum.Simple.ToString()).Id;
                     user.Photo = "/content/avatars/default.png";
                     var result = UserRepository.AddAsync(user).Result;
                     //r.Wait();
@@ -880,7 +873,7 @@ namespace MigratorVnext
                         blogItem.PhotoPath = GetFirstImagePath(blogItem.Message);
                     }
                     //   category.BlogItems.Add(blogItem);
-                    var result = _db.Materials.AddAsync(blogItem).Result;
+                    var result = Db.Materials.AddAsync(blogItem).Result;
                     //  }
                     // while (chars[i] != 10)
                     //  {
@@ -1240,7 +1233,7 @@ namespace MigratorVnext
                         newsItem.PhotoPath = GetFirstImagePath(newsItem.Message);
                     }
                     //  category.Materials.Add(newsItem);
-                    var result = _db.Materials.AddAsync(newsItem).Result;
+                    var result = Db.Materials.AddAsync(newsItem).Result;
                     // }
                     // while (chars[i] != 10)
                     //  {
@@ -1421,7 +1414,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
 
-                var news = _db.Materials;//n => n.NumberCommentaries > 0);
+                var news = Db.Materials;//n => n.NumberCommentaries > 0);
                                                                            //   var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
 
                 for (int i = 0; i < limit; i++)
@@ -1650,7 +1643,7 @@ namespace MigratorVnext
                     //}
                     //comment.ParentId = int.Parse(parentId);
 
-                    var result = _db.MaterialComments.AddAsync(comment);
+                    var result = Db.MaterialComments.AddAsync(comment);
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             //    MaterialCommentRepository.SaveChangesAsync().Wait();
@@ -1950,7 +1943,7 @@ namespace MigratorVnext
 
 
                     Themes.Add(forumTheme);
-                    if (_db.ForumThemes.All(x => x.IdOld != forumTheme.IdOld))
+                    if (Db.ForumThemes.All(x => x.IdOld != forumTheme.IdOld))
                     {
                         var result = ForumThemeRepository.AddAsync(forumTheme).Result;
                     }
@@ -2002,7 +1995,7 @@ namespace MigratorVnext
                     i++;
                     //  var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
 
-                    var theme = _db.ForumThemes.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                    var theme = Db.ForumThemes.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
                     if (UseLimit || theme != null)
                     {
                         // theme.Messages = 
@@ -2118,10 +2111,10 @@ namespace MigratorVnext
         {
             var bag = new ConcurrentBag<MaterialComment>();
             Console.WriteLine("Start UpdateCommentsLinks");
-            var allComments = _db.MaterialComments.ToList();
-            var commentsWithParent = _db.MaterialComments.Where(c => c.OldParentId != null).ToList();
+            var allComments = Db.MaterialComments.ToList();
+            var commentsWithParent = Db.MaterialComments.Where(c => c.OldParentId != null).ToList();
             var counter = 0;
-            var count = commentsWithParent.Count();
+            var count = commentsWithParent.Count;
             Parallel.ForEach(commentsWithParent, comment =>
             {
                 var parentComment = allComments.FirstOrDefault(x => x.OldId == comment.OldParentId);
@@ -2130,7 +2123,7 @@ namespace MigratorVnext
              //   MaterialCommentRepository.Update(comment);
                 bag.Add(comment);
             });
-            _db.MaterialComments.UpdateRange(bag.ToList());
+            Db.MaterialComments.UpdateRange(bag.ToList());
           //  MaterialCommentRepository.SaveChangesAsync().Wait();
         }
 
@@ -2138,7 +2131,7 @@ namespace MigratorVnext
         {
             var bag = new ConcurrentBag<Material>();
             Console.WriteLine("Start UpdateMaterialLinks");
-            var allMaterials = _db.Materials.ToList();
+            var allMaterials = Db.Materials.ToList();
             var counter = 0;
             var count = allMaterials.Count;
             Parallel.ForEach(allMaterials, material =>
@@ -2185,8 +2178,8 @@ namespace MigratorVnext
              //   MaterialCommentRepository.Update(comment);
                 bag.Add(material);
             });
-            _db.Materials.UpdateRange(bag.ToList());
-            _db.SaveChanges();
+            Db.Materials.UpdateRange(bag.ToList());
+            Db.SaveChanges();
         }
 
         public static void UpdateCommentsForum()
@@ -2194,7 +2187,7 @@ namespace MigratorVnext
             Console.WriteLine("Start UpdateCommentsForum");
 
             var posts = ForumMessageRepository.GetQueryableList();
-            var themes = _db.ForumThemes;
+            var themes = Db.ForumThemes;
             foreach (var theme in themes)
             {
                 foreach (var post in posts.Where(post => theme.Id == post.ThemeId))
@@ -2236,7 +2229,7 @@ namespace MigratorVnext
         public static void UpdateForumSubSectionAndTheme()
         {
             Console.WriteLine("Start UpdateForumSubSectionAndTheme");
-            var themes = _db.ForumThemes;
+            var themes = Db.ForumThemes;
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
 
             foreach (var subSection in subSections)

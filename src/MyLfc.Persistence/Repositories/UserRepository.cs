@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Persistence;
-using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
@@ -21,12 +20,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
             _userManager = userManager;
         }
-
-        public async Task<User> GetByIdForUpdateAsync(int id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
-
+        
         public async Task<User> GetByIdAsync(int id)
         {
             var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
@@ -65,76 +59,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             await _context.SaveChangesAsync();
         }
         
-        public async Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId)
-        {
-            return await _userManager.GetLockoutEndDateAsync(new User{ Id = userId});
-        }
-        
         public async Task<User> FindByNameAsync(string username)
         {
             return await _userManager.FindByNameAsync(username);
         }
-
-        public async Task<User> FindByEmailAsync(string email)
-        {
-            return await _userManager.FindByEmailAsync(email);
-        }
-
-        public async Task<bool> CheckPasswordAsync(User user, string password)
-        {
-            return await _userManager.CheckPasswordAsync(user, password);
-        }
-
-        public async Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-            {
-                throw new NullReferenceException("User cannot be null");
-            }
-            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
-        }
-
-        public async Task<IdentityResult> ConfirmEmailAsync(int userId, string code)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError() { Description = "User is null"});
-            }
-            return await _userManager.ConfirmEmailAsync(user, code);
-        }
-
-        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
-        {
-            return await _userManager.ResetPasswordAsync(user, token, password);
-        }
-
-        public async Task<string> GenerateEmailConfirmationTokenAsync(int userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-            {
-                throw new NullReferenceException("User cannot be null");
-            }
-            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        }
-
-        public async Task<string> GeneratePasswordResetTokenAsync(int userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-            {
-                throw new NullReferenceException("User cannot be null");
-            }
-            return await _userManager.GeneratePasswordResetTokenAsync(user);
-        }
-
-        public async Task<IdentityResult> CreateAsync(User user, string password)
-        {
-            return await _userManager.CreateAsync(user, password);
-        }
-
+        
         public async Task<User> AddAsync(User entity)
         {
             var result =  await _userManager.CreateAsync(entity); //for migrator

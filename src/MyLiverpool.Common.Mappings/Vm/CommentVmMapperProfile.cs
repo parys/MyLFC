@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MyLfc.Application.Comments;
 using MyLfc.Business.ViewModels;
-using MyLiverpool.Business.Dto;
 
 namespace MyLiverpool.Common.Mappings.Vm
 {

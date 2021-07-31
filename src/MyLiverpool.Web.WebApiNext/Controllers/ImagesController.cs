@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -105,7 +106,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("")]
         public async Task<IActionResult> UploadImagesAsync()
         {
-            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            if (Request.Form.Files.Any())
             {
                 var files = Request.Form.Files;
                 var result = await _uploadService.UploadAsync(files);
