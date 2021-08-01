@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -47,13 +46,7 @@ namespace MyLfc.Persistence
             await _context.SaveChangesAsync();
             return entity;
         }
-
-        public async Task UpdateRangeAsync(IEnumerable<TEntity> entities)
-        {
-            _context.Set<TEntity>().UpdateRange(entities);
-            await _context.SaveChangesAsync();
-        }
-
+        
         public async Task<bool> DeleteAsync(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
@@ -75,16 +68,7 @@ namespace MyLfc.Persistence
 
             return false;
         }
-
-        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
-        {
-            if (entities.Any())
-            {
-                _context.Set<TEntity>().RemoveRange(entities);
-                await _context.SaveChangesAsync();
-            }
-        }
-
+        
         public async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>().AsNoTracking();

@@ -68,16 +68,7 @@ namespace MigratorVnext.Persistence
             var result =  await _userManager.CreateAsync(entity); //for migrator
             return result.Succeeded ? entity : null;
         }
-
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
         {

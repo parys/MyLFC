@@ -7,13 +7,14 @@ using Validator = MyLfc.Application.Materials.CreateMaterialCommand.Validator;
 namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
 {
     [Collection(nameof(CreateMaterialCommandCollection))]
-    public class ValidatorTests : UpsertMaterialCommandValidatorTests<Validator, Request>
+    public class ValidatorTests
     {
+        private readonly Validator _validator;
         #region Initialize
 
         public ValidatorTests()
         {
-            Validator = new Validator();
+            _validator = new Validator();
         }
 
         #endregion
@@ -26,7 +27,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
             {
                 Type = MaterialType.Both
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
             result.ShouldHaveValidationErrorFor(x => x.Type);
         }
 
@@ -39,7 +40,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
             {
                 Type = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
             result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
 

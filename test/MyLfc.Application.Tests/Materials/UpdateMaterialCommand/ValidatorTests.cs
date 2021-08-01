@@ -6,13 +6,14 @@ using Validator = MyLfc.Application.Materials.UpdateMaterialCommand.Validator;
 namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
 {
     [Collection(nameof(UpdateMaterialCommandCollection))]
-    public class ValidatorTests : UpsertMaterialCommandValidatorTests<Validator, Request>
+    public class ValidatorTests
     {
+        private readonly Validator _validator;
         #region Initialize
 
         public ValidatorTests()
         {
-            Validator = new Validator();
+            _validator = new Validator();
         }
 
         #endregion
@@ -25,7 +26,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Id = 0
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
             result.ShouldHaveValidationErrorFor(x => x.Id);
         }
 
@@ -38,7 +39,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Id = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
             result.ShouldNotHaveValidationErrorFor(x => x.Id);
         }
 
@@ -55,7 +56,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Title = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
             result.ShouldHaveValidationErrorFor(x => x.Title);
         }
 
@@ -67,7 +68,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Title = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
             result.ShouldNotHaveValidationErrorFor(x => x.Title);
         }
 
@@ -79,7 +80,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Title = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Title));
             result.ShouldHaveValidationErrorFor(x => x.Title);
         }
 
@@ -96,7 +97,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Brief = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
             result.ShouldHaveValidationErrorFor(x => x.Brief);
         }
 
@@ -108,7 +109,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Brief = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
             result.ShouldNotHaveValidationErrorFor(x => x.Brief);
         }
 
@@ -120,7 +121,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Brief = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Brief));
             result.ShouldHaveValidationErrorFor(x => x.Brief);
         }
 
@@ -137,7 +138,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Message = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
             result.ShouldHaveValidationErrorFor(x => x.Message);
         }
 
@@ -149,7 +150,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Message = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
             result.ShouldNotHaveValidationErrorFor(x => x.Message);
         }
 
@@ -161,7 +162,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Message = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Message));
             result.ShouldHaveValidationErrorFor(x => x.Message);
         }
         #endregion
@@ -177,7 +178,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Source = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
             result.ShouldNotHaveValidationErrorFor(x => x.Source);
         }
 
@@ -189,7 +190,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Source = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
             result.ShouldNotHaveValidationErrorFor(x => x.Source);
         }
 
@@ -201,7 +202,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Source = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Source));
             result.ShouldHaveValidationErrorFor(x => x.Source);
         }
 
@@ -218,7 +219,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Photo = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
             result.ShouldHaveValidationErrorFor(x => x.Photo);
         }
 
@@ -230,7 +231,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Photo = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
             result.ShouldNotHaveValidationErrorFor(x => x.Photo);
         }
 
@@ -242,7 +243,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 Photo = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Photo));
             result.ShouldHaveValidationErrorFor(x => x.Photo);
         }
 
@@ -259,7 +260,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 PhotoPreview = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
             result.ShouldHaveValidationErrorFor(x => x.PhotoPreview);
         }
 
@@ -271,7 +272,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 PhotoPreview = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
             result.ShouldNotHaveValidationErrorFor(x => x.PhotoPreview);
         }
 
@@ -283,7 +284,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             {
                 PhotoPreview = value
             };
-            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.PhotoPreview));
             result.ShouldHaveValidationErrorFor(x => x.PhotoPreview);
         }
 
