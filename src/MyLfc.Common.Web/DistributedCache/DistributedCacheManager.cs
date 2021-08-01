@@ -8,7 +8,7 @@ namespace MyLfc.Common.Web.DistributedCache
 {
     public class DistributedCacheManager : IDistributedCacheManager
     {
-        public static string KeyPrefix = "";
+        public static string KeyPrefix { get; set; } = "";
         private readonly IDistributedCache _distributedCache;
 
         public DistributedCacheManager(IDistributedCache distributedCache)

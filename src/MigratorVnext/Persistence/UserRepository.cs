@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Persistence;
-using MyLiverpool.Data.ResourceAccess.Interfaces;
 
-namespace MyLiverpool.Data.ResourceAccess.Repositories
+namespace MigratorVnext.Persistence
 {
     public class UserRepository: IUserRepository
     {

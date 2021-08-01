@@ -42,7 +42,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Get([FromQuery]string path)
         {
-            List<ImageDto> files = new List<ImageDto>();
+            var files = new List<ImageDto>();
             if (string.IsNullOrWhiteSpace(path) || path == "undefined")
             {
                 path = _pathFull;
@@ -76,8 +76,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
-                    Path = entry.Substring(index),
+                    Name = entry[(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1)..],
+                    Path = entry[index..],
                     IsFolder = true
                 });
             }
@@ -91,8 +91,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
-                    Path = entry.Substring(index),
+                    Name = entry[(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1)..],
+                    Path = entry[index..],
                     IsFolder = false
                 });
             }

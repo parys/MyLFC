@@ -22,15 +22,25 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
         [Fact]
         public void UpsertMaterial_RuleForType_WhenTypeIsBoth_ShouldHaveValidationError()
         {
-            Validator.ShouldHaveValidationErrorFor(x => x.Type, MaterialType.Both);
+            var model = new Request
+            {
+                Type = MaterialType.Both
+            };
+            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldHaveValidationErrorFor(x => x.Type);
         }
 
         [Theory]
         [InlineData(MaterialType.News)]
         [InlineData(MaterialType.Blogs)]
-        public void UpsertMaterial_RuleForType_WhenTypeIsNotBoth_ShouldNotHaveValidationError(MaterialType type)
+        public void UpsertMaterial_RuleForType_WhenTypeIsNotBoth_ShouldNotHaveValidationError(MaterialType value)
         {
-            Validator.ShouldNotHaveValidationErrorFor(x => x.Type, type);
+            var model = new Request
+            {
+                Type = value
+            };
+            var result = Validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
 
         #endregion

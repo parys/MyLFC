@@ -5,6 +5,7 @@ using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 using MyLiverpool.Data.Common;
 using Xunit;
 using Validator = MyLfc.Application.HelpEntities.GetEntityQuery.Validator;
+using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;
 
 namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery
 {
@@ -22,19 +23,29 @@ namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery
 
         #endregion
 
-        #region Exam Id Rules 
+        #region Type Rules 
 
         [Theory]
         [MemberData(nameof(ValidHelperEntityTypes))]
         public void RuleForType_WhenTypeIsInEnum_ShouldNotHaveValidationError(HelperEntityType type)
         {
-            _validator.ShouldNotHaveValidationErrorFor(x => x.Type, type);
+            var model = new Request
+            {
+                Type = type
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
 
         [Fact]
         public void RuleForType_WhenTypeIsNotInEnum_ShouldHaveValidationError()
         {
-            _validator.ShouldHaveValidationErrorFor(x => x.Type, (HelperEntityType) 111);
+            var model = new Request
+            {
+                Type = (HelperEntityType)111
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldHaveValidationErrorFor(x => x.Type);
         }
 
         public static IEnumerable<object[]> ValidHelperEntityTypes()

@@ -67,7 +67,7 @@ namespace MyLfc.Application.Materials
                 }
 
                 material = _mapper.Map(request, material);
-                material.LastModified = DateTime.Now;
+                material.LastModified = DateTimeOffset.UtcNow;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

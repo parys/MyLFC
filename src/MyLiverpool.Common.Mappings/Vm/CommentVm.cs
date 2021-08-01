@@ -1,6 +1,6 @@
 ﻿using MyLfc.Application.Comments;
 
-namespace MyLfc.Business.ViewModels
+namespace MyLiverpool.Common.Mappings.Vm
 {
     public class CommentVm : GetCommentListByEntityIdQuery.CommentForEntityDto
     {

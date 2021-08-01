@@ -61,8 +61,8 @@ namespace MyLfc.Application.Features.Account
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var user = _mapper.Map<User>(request);
-                user.RegistrationDate = DateTimeOffset.Now;
-                user.LastModified = DateTimeOffset.Now;
+                user.RegistrationDate = DateTimeOffset.UtcNow;
+                user.LastModified = DateTimeOffset.UtcNow;
                 user.LockoutEnabled = true;
                 user.RoleGroupId = 6;
                 user.Photo = DefaultPhotoPath;

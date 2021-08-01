@@ -62,6 +62,7 @@ namespace MyLfc.Application.Tests.Materials
 
             materials.ForEach(x => x.AuthorId = UserId);
             materials.ForEach(x => x.CategoryId = MaterialCategoryId);
+            materials.ForEach(x => x.CommentsCount = 3);
 
             materials[2].Deleted = true;
             materials[3].Pending = true;

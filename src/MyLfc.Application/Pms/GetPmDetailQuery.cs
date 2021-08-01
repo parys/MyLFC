@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
@@ -16,6 +17,14 @@ namespace MyLfc.Application.Pms
         public class Request : IRequest<Response>
         {
             public int Id { get; set; }
+        }
+
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Id).GreaterThan(0);
+            }
         }
 
 

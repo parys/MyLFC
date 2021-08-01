@@ -37,8 +37,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> CreateAsync([FromBody]ForumMessageDto dto)
         {
             dto.AuthorId = User.GetUserId();
-            dto.AdditionTime = DateTime.Now;//maybe move dates to frontend?
-            dto.LastModifiedTime = DateTime.Now;
+            dto.AdditionTime = DateTimeOffset.UtcNow;
+            dto.LastModifiedTime = DateTimeOffset.UtcNow;
             if (!ModelState.IsValid)
             {
                 return BadRequest();

@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
-    <ProjectReference Include="..\MyLfc.Business.ViewModels\MyLfc.Business.ViewModels.csproj" />
     <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
     <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />

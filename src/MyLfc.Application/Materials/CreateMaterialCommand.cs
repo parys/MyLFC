@@ -52,9 +52,9 @@ namespace MyLfc.Application.Materials
                 }
 
                 var material = _mapper.Map<Material>(request);
-                material.AdditionTime = DateTime.Now;
+                material.AdditionTime = DateTimeOffset.UtcNow;
                 material.AuthorId = _requestContext.UserId.Value;
-                material.LastModified = DateTime.Now;
+                material.LastModified = DateTimeOffset.UtcNow;
 
                 _context.Add(material);
                 await _context.SaveChangesAsync(cancellationToken);

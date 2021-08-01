@@ -33,7 +33,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
             result.Should().BeOfType<Response>();
         }
 
-        [Fact(Skip = "research comments count value")]
+        [Fact]
         public async Task GetMaterialList_WhenTakeMoreThanExist_ReturnAllMaterials()
         {
             var page = 1;
@@ -46,7 +46,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
             result.Should().NotBeNull();
             result.Should().BeOfType<Response>();
             result.Results.Count.Should().BeGreaterThan(0);
-//            result.Results.Count.Should().Be(expectedCount);
+            result.Results.Count.Should().Be(expectedCount - 1); //because of deleted
             result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).Should().BeTrue();
             result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).Should().BeTrue();
             var resultMaterial = result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments);

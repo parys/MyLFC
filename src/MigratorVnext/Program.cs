@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MigratorVnext.Persistence;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
@@ -220,14 +221,14 @@ namespace MigratorVnext
         private static void Example()
         {
             Console.WriteLine("Start ");
-            using FileStream fs = new FileStream(Path + Path + ".txt", FileMode.Open);
-            byte[] data = new byte[fs.Length];
+            using var fs = new FileStream(Path + Path + ".txt", FileMode.Open);
+            var data = new byte[fs.Length];
             fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-            char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
+            var chars = Encoding.UTF8.GetString(data).ToCharArray();
+            for (var i = 0; i < chars.Length; i++)
             {
-                User user = new User();
+                var user = new User();
                 // login
                 while (chars[i] != '|')
                 {
@@ -263,18 +264,18 @@ namespace MigratorVnext
             Console.WriteLine("Start UpdateUsers");
             using (var fs = new FileStream(Path + @"users.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
                     limit = MaxChars;
                 }
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
-                    User user = new User()
+                    var user = new User()
                     {
                         //Id = Guid.NewGuid().ToString(),
                     };
@@ -502,7 +503,7 @@ namespace MigratorVnext
         private static void UpdateUsersId()
         {
             Console.WriteLine("Start UpdateUsersId");
-            using (FileStream fs = new FileStream(Path + "ugen.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "ugen.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
@@ -552,12 +553,12 @@ namespace MigratorVnext
         private static void UpdateBlogItems()
         {
             Console.WriteLine("Start UpdateBlogItems");
-            using (FileStream fs = new FileStream(Path + "blog.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "blog.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
@@ -568,7 +569,7 @@ namespace MigratorVnext
 
                 for (int i = 0; i < limit; i++)
                 {
-                    Material blogItem = new Material()
+                    var blogItem = new Material()
                     {
                         Type = MaterialType.Blogs
                     };
@@ -889,12 +890,12 @@ namespace MigratorVnext
         private static void UpdateNewsItems()
         {
             Console.WriteLine("Start UpdateNewsItems");
-            using (FileStream fs = new FileStream(Path + "news.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "news.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
@@ -903,9 +904,9 @@ namespace MigratorVnext
                 
                 var categories = MaterialCategoryRepository.GetQueryableList().Where(x => x.MaterialType == MaterialType.News).ToList();
 
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
-                    Material newsItem = new Material()
+                    var newsItem = new Material()
                     {
                         Type = MaterialType.News
                     };
@@ -1249,12 +1250,12 @@ namespace MigratorVnext
         private static void UpdateBlogCategory()
         {
             Console.WriteLine("Start UpdateBlogCategory");
-            using (FileStream fs = new FileStream(Path + "bl_bl.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "bl_bl.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
@@ -1262,7 +1263,7 @@ namespace MigratorVnext
                 }
                 for (int i = 0; i < limit; i++)
                 {
-                    MaterialCategory blogCategory = new MaterialCategory()
+                    var blogCategory = new MaterialCategory()
                     {
                         MaterialType = MaterialType.Blogs
                     };
@@ -1326,25 +1327,25 @@ namespace MigratorVnext
         private static void UpdateNewsCategory()
         {
             Console.WriteLine("Start UpdateNewsCategory");
-            using (FileStream fs = new FileStream(Path + "nw_nw.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "nw_nw.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
                     limit = MaxChars;
                 }
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
-                    MaterialCategory newsCategory = new MaterialCategory()
+                    var newsCategory = new MaterialCategory()
                     {
                         MaterialType = MaterialType.News
                     };
                     // id
-                    string id = string.Empty;
+                    var id = string.Empty;
                     while (chars[i] != '|')
                     {
                         id += chars[i];
@@ -1353,7 +1354,7 @@ namespace MigratorVnext
                     i++;
                     newsCategory.OldId = int.Parse(id);
                     // position
-                    string position = string.Empty;
+                    var position = string.Empty;
                     while (chars[i] != '|')
                     {
                         position += chars[i];
@@ -1362,7 +1363,7 @@ namespace MigratorVnext
                     i++;
                     //   newsCategory.Position = int.Parse(position);
                     // count
-                    string count = string.Empty;
+                    var count = string.Empty;
                     while (chars[i] != '|')
                     {
                         count += chars[i];
@@ -1402,12 +1403,12 @@ namespace MigratorVnext
         private static void UpdateComments()
         {
             Console.WriteLine("Start UpdateComments");
-            using (FileStream fs = new FileStream(Path + "comments.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "comments.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
@@ -1417,7 +1418,7 @@ namespace MigratorVnext
                 var news = Db.Materials;//n => n.NumberCommentaries > 0);
                                                                            //   var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
 
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
                     // id
                     string id = null;
@@ -1610,7 +1611,7 @@ namespace MigratorVnext
                         continue;
                     }
 
-                    MaterialComment comment = new MaterialComment()
+                    var comment = new MaterialComment()
                     {
                         Type = materialType,
                    //     MaterialId = int.Parse(materialId),
@@ -1654,23 +1655,23 @@ namespace MigratorVnext
         private static void UpdateForumSectionsAndPopulateSubsectionList()
         {
             Console.WriteLine("Start UpdateForumSections");
-            using (FileStream fs = new FileStream(Path + "fr_fr.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "fr_fr.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 var forumSubsections = new List<ForumSubsection>();
                 if (UseLimit && MaxChars < chars.Length)
                 {
                     limit = MaxChars;
                 }
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
                     if (chars[i + 2] == '0' || chars[i + 3] == '0')
                     {
-                        ForumSection forumSection = new ForumSection();
+                        var forumSection = new ForumSection();
                         string id = null;
                         while (chars[i] != '|')
                         {
@@ -1717,7 +1718,7 @@ namespace MigratorVnext
                     }
                     else
                     {
-                        ForumSubsection forumSubsection = new ForumSubsection();
+                        var forumSubsection = new ForumSubsection();
                         // id
                         string id = null;
                         while (chars[i] != '|')
@@ -1806,20 +1807,20 @@ namespace MigratorVnext
         private static void UpdateForumThemes()
         {
             Console.WriteLine("Start UpdateForumThemes");
-            using (FileStream fs = new FileStream(Path + "forum.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "forum.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
                     limit = MaxChars;
                 }
-                for (int i = 0; i < limit; i++)
+                for (var i = 0; i < limit; i++)
                 {
-                    ForumTheme forumTheme = new ForumTheme();
+                    var forumTheme = new ForumTheme();
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -1961,12 +1962,12 @@ namespace MigratorVnext
         private static void UpdateForumComments()
         {
             Console.WriteLine("Start UpdateForumComments");
-            using (FileStream fs = new FileStream(Path + "forump.txt", FileMode.Open))
+            using (var fs = new FileStream(Path + "forump.txt", FileMode.Open))
             {
-                byte[] data = new byte[fs.Length];
+                var data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
                 if (UseLimit && MaxChars < chars.Length)
                 {
@@ -1974,7 +1975,7 @@ namespace MigratorVnext
                 }
                 for (int i = 0; i < limit; i++)
                 {
-                    ForumMessage forumMessage = new ForumMessage();
+                    var forumMessage = new ForumMessage();
                     // id
                     string id = null;
                     while (chars[i] != '|')

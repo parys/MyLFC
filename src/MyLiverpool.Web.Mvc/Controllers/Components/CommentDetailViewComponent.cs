@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments;
-using MyLfc.Business.ViewModels;
+using MyLiverpool.Common.Mappings.Vm;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {

@@ -4,6 +4,7 @@ using FluentValidation.TestHelper;
 using MyLiverpool.Data.Common;
 using Xunit;
 using Validator = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Validator;
+using Request = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Request;
 
 namespace MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand
 {
@@ -25,15 +26,25 @@ namespace MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand
 
         [Theory]
         [MemberData(nameof(ValidHelperEntityTypes))]
-        public void RuleForType_WhenTypeIsInEnum_ShouldNotHaveValidationError(HelperEntityType type)
+        public void RuleForType_WhenTypeIsInEnum_ShouldNotHaveValidationError(HelperEntityType value)
         {
-            _validator.ShouldNotHaveValidationErrorFor(x => x.Type, type);
+            var model = new Request
+            {
+                Type = value
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
 
         [Fact]
         public void RuleForType_WhenTypeIsNotInEnum_ShouldHaveValidationError()
         {
-            _validator.ShouldHaveValidationErrorFor(x => x.Type, (HelperEntityType) 111);
+            var model = new Request
+            {
+                Type = (HelperEntityType)111
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Type));
+            result.ShouldHaveValidationErrorFor(x => x.Type);
         }
 
         public static IEnumerable<object[]> ValidHelperEntityTypes()

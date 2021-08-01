@@ -1,30 +1,34 @@
 ﻿using FluentValidation.TestHelper;
-using MyLfc.Application.Tests.Materials.UpdateMaterialCommand;
 using Xunit;
-using Request = MyLfc.Application.Materials.UpdateMaterialCommand.Request;
-using Validator = MyLfc.Application.Materials.UpdateMaterialCommand.Validator;
+using Request = MyLfc.Application.Pms.GetPmDetailQuery.Request;
+using Validator = MyLfc.Application.Pms.GetPmDetailQuery.Validator;
 
-namespace MyLfc.Application.Tests.Pms.UpdateMaterialCommand
+namespace MyLfc.Application.Tests.Pms.GetPmDetailQuery
 {
     [Collection(nameof(PmQueryCollection))]
     public class ValidatorTests
     {
         #region Initialize
 
-        private Validator _validator;
+        private readonly Validator _validator;
 
-        public ValidatorTests(PmQueryTestFixture fixture)
+        public ValidatorTests()
         {
             _validator = new Validator();
         }
 
         #endregion
-        #region Material Id
+        #region Pm Id
 
         [Fact]
         public void UpdateMaterial_RuleForId_WhenIdIsEmpty_ShouldHaveValidationError()
         {
-            _validator.ShouldHaveValidationErrorFor(x => x.Id, 0);
+            var model = new Request
+            {
+                Id = 0
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
+            result.ShouldHaveValidationErrorFor(x => x.Id);
         }
 
         [Theory]
@@ -32,7 +36,12 @@ namespace MyLfc.Application.Tests.Pms.UpdateMaterialCommand
         [InlineData(100)]
         public void UpdateMaterial_RuleForId_WhenIdIsNotEmpty_ShouldNotHaveValidationError(int value)
         {
-            _validator.ShouldNotHaveValidationErrorFor(x => x.Id, value);
+            var model = new Request
+            {
+                Id = value
+            };
+            var result = _validator.TestValidate(model, opt => opt.IncludeProperties(x => x.Id));
+            result.ShouldNotHaveValidationErrorFor(x => x.Id);
         }
 
         #endregion

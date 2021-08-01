@@ -42,7 +42,7 @@ namespace MyLfc.Application.ChatMessages
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var chatMessage = _mapper.Map<ChatMessage>(request);
-                chatMessage.AdditionTime = DateTime.Now;
+                chatMessage.AdditionTime = DateTimeOffset.UtcNow;
                 chatMessage.AuthorId = _requestContext.UserId.Value;
 
                 _context.ChatMessages.Add(chatMessage);
