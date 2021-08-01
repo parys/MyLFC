@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Injuries
 {
@@ -22,11 +21,11 @@ namespace MyLfc.Application.Injuries
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

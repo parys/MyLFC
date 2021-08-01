@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-
-namespace MyLfc.Application.Infrastructure.Extensions
+﻿namespace MyLfc.Application.Infrastructure.Extensions
 {
     public static class AutoMapperExtensions
     {

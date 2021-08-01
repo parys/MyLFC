@@ -5,7 +5,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.RoleGroups
 {
@@ -19,10 +18,10 @@ namespace MyLfc.Application.RoleGroups
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

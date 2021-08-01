@@ -7,7 +7,6 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Persistence;
 using Xunit;
 using Handler = MyLfc.Application.Materials.AddMaterialReadCommand.Handler;
 using Request = MyLfc.Application.Materials.AddMaterialReadCommand.Request;
@@ -17,7 +16,7 @@ namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand
     [Collection(nameof(AddMaterialReadCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Unit> _handler;
 
         public HandlerTests(AddMaterialReadCommandTestFixture fixture)

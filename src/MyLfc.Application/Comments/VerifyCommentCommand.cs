@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Comments
 {
@@ -19,11 +18,11 @@ namespace MyLfc.Application.Comments
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, IMediator mediator)
+            public Handler(ILiverpoolContext context, IMediator mediator)
             {
                 _context = context;
                 _mediator = mediator;

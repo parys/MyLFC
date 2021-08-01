@@ -2,13 +2,12 @@
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
     public class UserSeeder
     {
-        public static void Seed(LiverpoolContext context)
+        public static void Seed(ILiverpoolContext context)
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())

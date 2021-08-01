@@ -46,7 +46,7 @@
 
 //        private static async Task Initialize()
 //        {
-//            LiverpoolContext db = GetNewContext();
+//            ILiverpoolContext db = GetNewContext();
 //            var initTask = Task.Run(() =>
 //            {
 //                db.Database.Migrate();
@@ -55,7 +55,7 @@
 //            await Task.WhenAll(initTask);
 
 //            var dbForUsers = GetNewContext();
-//            var store = new UserStore<User, Role, LiverpoolContext, int>(dbForUsers);
+//            var store = new UserStore<User, Role, ILiverpoolContext, int>(dbForUsers);
 
 //            IPasswordHasher<User> hasher = new PasswordHasher<User>();
 //            //var provider = new MachineKeyProtectionProvider();
@@ -2108,11 +2108,11 @@
 
 //        #endregion
 
-//        private static LiverpoolContext Context;
-//        private static LiverpoolContext GetNewContext()
+//        private static ILiverpoolContext Context;
+//        private static ILiverpoolContext GetNewContext()
 //        {
-//            // return Context ?? (Context = new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true));
-//            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
+//            // return Context ?? (Context = new ILiverpoolContext(new DbContextOptions<LiverpoolContext>(), true));
+//            return new ILiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
 //        }
 //    }
 //}

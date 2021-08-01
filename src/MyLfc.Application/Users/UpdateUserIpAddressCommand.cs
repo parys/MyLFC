@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Users
 {
@@ -21,9 +20,9 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
-            public Handler(LiverpoolContext context)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
             }

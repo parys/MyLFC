@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
@@ -23,7 +21,7 @@ namespace MyLfc.Application.ChatMessages
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
@@ -31,7 +29,7 @@ namespace MyLfc.Application.ChatMessages
 
             private readonly IMediator _mediator;
 
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext, ISignalRHubAggregator signalRHub, IMediator mediator)
+            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;

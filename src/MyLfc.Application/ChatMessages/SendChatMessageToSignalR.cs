@@ -6,7 +6,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Common.Web.Hubs;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
@@ -21,12 +20,12 @@ namespace MyLfc.Application.ChatMessages
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
             private readonly IMapper _mapper;
 
             private readonly ISignalRHubAggregator _signalRHub;
 
-            public Handler(LiverpoolContext context, IMapper mapper, ISignalRHubAggregator signalRHub)
+            public Handler(ILiverpoolContext context, IMapper mapper, ISignalRHubAggregator signalRHub)
             {
                 _context = context;
                 _mapper = mapper;

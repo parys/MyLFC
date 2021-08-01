@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 
@@ -44,7 +43,7 @@ namespace MyLfc.Application.Pms
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
@@ -54,7 +53,7 @@ namespace MyLfc.Application.Pms
 
             private readonly ISignalRHubAggregator _signalRHub;
 
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext,
+            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext,
                 IEmailSender messageService, ISignalRHubAggregator signalRHub)
             {
                 _context = context;

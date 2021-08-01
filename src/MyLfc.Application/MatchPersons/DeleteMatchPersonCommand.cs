@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.MatchPersons
@@ -22,9 +21,9 @@ namespace MyLfc.Application.MatchPersons
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
             
-            public Handler(LiverpoolContext context)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
             }

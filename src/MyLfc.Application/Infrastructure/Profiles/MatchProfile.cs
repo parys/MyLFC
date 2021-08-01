@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using MyLfc.Application.Matches;
-using MyLfc.Application.Seasons;
 using MyLfc.Domain;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;

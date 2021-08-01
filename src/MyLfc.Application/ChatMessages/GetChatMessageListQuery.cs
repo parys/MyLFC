@@ -7,8 +7,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Persistence;
-using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
@@ -25,10 +23,10 @@ namespace MyLfc.Application.ChatMessages
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

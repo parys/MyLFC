@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.FaqItems
 {
@@ -25,11 +24,11 @@ namespace MyLfc.Application.FaqItems
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

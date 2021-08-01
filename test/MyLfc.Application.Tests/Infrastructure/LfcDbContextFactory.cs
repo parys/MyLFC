@@ -6,7 +6,7 @@ namespace MyLfc.Application.Tests.Infrastructure
 {
     public class LfcDbContextFactory
     {
-        public static LiverpoolContext Create()
+        public static ILiverpoolContext Create()
         {
             var options = new DbContextOptionsBuilder<LiverpoolContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -19,7 +19,7 @@ namespace MyLfc.Application.Tests.Infrastructure
             return context;
         }
 
-        public static void Destroy(LiverpoolContext context)
+        public static void Destroy(ILiverpoolContext context)
         {
             context.Database.EnsureDeleted();
 

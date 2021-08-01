@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
-using MyLfc.Persistence;
 using Xunit;
 using Handler = MyLfc.Application.Materials.UpdateMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.UpdateMaterialCommand.Request;
@@ -18,7 +17,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
     [Collection(nameof(UpdateMaterialCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(UpdateMaterialCommandTestFixture fixture)

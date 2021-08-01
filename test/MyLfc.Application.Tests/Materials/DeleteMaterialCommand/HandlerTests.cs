@@ -5,7 +5,6 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Persistence;
 using Xunit;
 using Handler = MyLfc.Application.Materials.DeleteMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.DeleteMaterialCommand.Request;
@@ -16,7 +15,7 @@ namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
     [Collection(nameof(DeleteMaterialCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(DeleteMaterialCommandTestFixture fixture)

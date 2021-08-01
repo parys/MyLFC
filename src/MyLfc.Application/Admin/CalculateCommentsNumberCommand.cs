@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Common.Entities;
 
@@ -20,9 +19,9 @@ namespace MyLfc.Application.Admin
 
         public class Handler : IRequestHandler<Request>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
-            public Handler(LiverpoolContext context)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
             }

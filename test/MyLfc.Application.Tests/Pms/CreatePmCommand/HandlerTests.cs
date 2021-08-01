@@ -17,7 +17,7 @@ namespace MyLfc.Application.Tests.Pms.CreatePmCommand
     [Collection(nameof(CreatePmCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
         private readonly int adminId;
 

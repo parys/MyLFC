@@ -4,14 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using AutoMapper;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure
 {
     public abstract class BaseTestFixture : IDisposable
     {
-        public LiverpoolContext Context { get; }
+        public ILiverpoolContext Context { get; }
         public IMapper Mapper { get; }
         public RequestContext AdminRequestContext { get; }
 

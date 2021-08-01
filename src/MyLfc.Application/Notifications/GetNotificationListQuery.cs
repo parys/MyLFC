@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Notifications
@@ -22,13 +21,13 @@ namespace MyLfc.Application.Notifications
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
             private readonly RequestContext _requestContext;
             
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
             {
                 _context = context;
                 _mapper = mapper;

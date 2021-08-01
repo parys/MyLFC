@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -21,7 +20,7 @@ namespace MyLfc.Application.Materials
             public int Id { get; set; }
         }
 
-        public class Validator : UpsertMaterialCommand.Validator<UpdateMaterialCommand.Request>
+        public class Validator : UpsertMaterialCommand.Validator<Request>
         {
             public Validator() : base()
             {
@@ -32,13 +31,13 @@ namespace MyLfc.Application.Materials
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
             private readonly RequestContext _requestContext;
             
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
             {
                 _context = context;
                 _mapper = mapper;

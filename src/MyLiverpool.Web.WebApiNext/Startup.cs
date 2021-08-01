@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.ResourceAccess.Helpers;
 using Newtonsoft.Json.Serialization;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Profiles;
@@ -26,6 +25,7 @@ using MyLfc.Common.Web.Middlewares;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Web.WebApiNext.Infrastructure.Filters;
 using Microsoft.Extensions.Hosting;
+using MyLfc.Persistence;
 using MyLiverpool.Web.WebApiNext.Middlewares;
 using Serilog;
 
@@ -105,7 +105,7 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             });
 
-            services.AddCustomDbContext(Configuration);
+            services.AddPersistence(Configuration);
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
@@ -115,14 +115,9 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.ApplyCustomOpenIdDict(Env, Configuration);
 
-            services.AddSignalR()
-                        // todo .AddMessagePackProtocol(options =>
-                        //       options.FormatterResolvers = new List<IFormatterResolver>
-                        //           {MessagePack.Resolvers.ContractlessStandardResolver.Instance})
-                        ;
+            services.AddSignalR();
 
             RegisterCoreHelpers(services);
-            services.RegisterRepositories();
             services.RegisterServices();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));

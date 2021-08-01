@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLfc.Application.Persons
@@ -30,13 +29,13 @@ namespace MyLfc.Application.Persons
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
             private readonly IWebHostEnvironment _appEnvironment;
 
-            public Handler(LiverpoolContext context, IMapper mapper, IWebHostEnvironment appEnvironment)
+            public Handler(ILiverpoolContext context, IMapper mapper, IWebHostEnvironment appEnvironment)
             {
                 _context = context;
                 _mapper = mapper;

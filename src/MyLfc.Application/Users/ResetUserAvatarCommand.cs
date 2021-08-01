@@ -1,13 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLfc.Application.Users
@@ -23,14 +20,11 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
-            private readonly UserManager<User> _userManager;
-
-            public Handler(LiverpoolContext context, UserManager<User> userManager)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
-                _userManager = userManager;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)

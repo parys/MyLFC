@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Users
 {
@@ -24,11 +23,11 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly UserManager<User> _userManager;
 
-            public Handler(LiverpoolContext context, UserManager<User> userManager)
+            public Handler(ILiverpoolContext context, UserManager<User> userManager)
             {
                 _context = context;
                 _userManager = userManager;

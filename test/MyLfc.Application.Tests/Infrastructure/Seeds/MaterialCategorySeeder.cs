@@ -11,7 +11,7 @@ namespace MyLfc.Application.Tests.Infrastructure.Seeds
     {
         public static int DefaultCategoryId { get; set; }
 
-        public static void Seed(LiverpoolContext context)
+        public static void Seed(ILiverpoolContext context)
         {
             var newsCategories = new Fixture()
                 .Customize(new MaterialCategoryCustomization(MaterialType.News))

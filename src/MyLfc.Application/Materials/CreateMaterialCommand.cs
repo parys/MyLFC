@@ -6,7 +6,6 @@ using FluentValidation;
 using MediatR;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
@@ -30,13 +29,13 @@ namespace MyLfc.Application.Materials
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMapper mapper)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
             {
                 _context = context;
                 _requestContext = requestContext;
@@ -56,7 +55,7 @@ namespace MyLfc.Application.Materials
                 material.AuthorId = _requestContext.UserId.Value;
                 material.LastModified = DateTimeOffset.UtcNow;
 
-                _context.Add(material);
+                _context.Materials.Add(material);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return _mapper.Map<Response>(material);

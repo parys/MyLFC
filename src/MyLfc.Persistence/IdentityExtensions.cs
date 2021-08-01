@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using OpenIddict.Abstractions;
 
-namespace MyLfc.Common.Web.Middlewares
+namespace MyLfc.Persistence
 {
     public static class IdentityExtensions
     {

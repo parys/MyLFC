@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLfc.Application.Users
@@ -29,13 +28,13 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IWebHostEnvironment _appEnvironment;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, IWebHostEnvironment appEnvironment)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IWebHostEnvironment appEnvironment)
             {
                 _context = context;
                 _requestContext = requestContext;

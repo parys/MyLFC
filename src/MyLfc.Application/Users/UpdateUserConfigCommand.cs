@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Users
 {
@@ -23,13 +22,13 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
             {
                 _context = context;
                 _mapper = mapper;

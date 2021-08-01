@@ -8,7 +8,6 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Pms
 {
@@ -30,7 +29,7 @@ namespace MyLfc.Application.Pms
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
@@ -38,7 +37,7 @@ namespace MyLfc.Application.Pms
 
             private readonly ISignalRHubAggregator _signalRHub;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMapper mapper, ISignalRHubAggregator signalRHub)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper, ISignalRHubAggregator signalRHub)
             {
                 _context = context;
                 _requestContext = requestContext;

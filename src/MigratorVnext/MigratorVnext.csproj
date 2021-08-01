@@ -15,5 +15,9 @@
     <ProjectReference Include="..\MyLfc.Persistence\MyLfc.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
 
 </Project>

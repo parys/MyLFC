@@ -7,8 +7,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.FaqItems
 {
@@ -21,17 +19,14 @@ namespace MyLfc.Application.FaqItems
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
-
-            private readonly RequestContext _requestContext;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
-                _requestContext = requestContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)

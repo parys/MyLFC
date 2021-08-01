@@ -1,29 +1,18 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using MyLfc.Domain;
 using MyLfc.Domain.Polls;
 
-namespace MyLfc.Persistence
+namespace MyLfc.Application
 {
-    public sealed class LiverpoolContext : IdentityDbContext<User, Role, int>, ILiverpoolContext
+    public interface ILiverpoolContext
     {
-        private static bool _created;
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
-        {
-            if (!_created)
-            {
-                if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
-                {
-                    Database.Migrate();
-                }
-                _created = true;
-            }
-        }
+        public DatabaseFacade Database { get; }
+
 
         #region DbSets
-        
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -58,38 +47,16 @@ namespace MyLfc.Persistence
 
         public DbSet<Contract> Contracts { get; set; }
 
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
         #endregion
 
-        // for debug purposes
-        //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        //{
-        //    var en = ChangeTracker.Entries();
-        //    var entities = (from entry in ChangeTracker.Entries()
-        //                    where entry.State == EntityState.Modified || entry.State == EntityState.Added
-        //                    select entry.Entity);
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-        //    var validationResults = new List<ValidationResult>();
-        //    foreach (var entity in entities)
-        //    {
-        //        if (!Validator.TryValidateObject(entity, new ValidationContext(entity), validationResults))
-        //        {
-        //            // throw new ValidationException() or do whatever you want
-        //        }
-        //    }
-        //    return base.SaveChangesAsync(cancellationToken);
-        //}
+        public int SaveChanges();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
-
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
-
-        }
+        public void Dispose();
     }
 }

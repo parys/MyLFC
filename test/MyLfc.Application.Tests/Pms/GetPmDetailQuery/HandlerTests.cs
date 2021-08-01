@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Common.Web.Hubs;
-using MyLfc.Persistence;
 using Xunit;
 using Handler = MyLfc.Application.Pms.GetPmDetailQuery.Handler;
 using Request = MyLfc.Application.Pms.GetPmDetailQuery.Request;
@@ -19,7 +18,7 @@ namespace MyLfc.Application.Tests.Pms.GetPmDetailQuery
     [Collection(nameof(PmQueryCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(PmQueryTestFixture fixture)

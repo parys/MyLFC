@@ -17,7 +17,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery
     [Collection(nameof(MaterialQueryCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(MaterialQueryTestFixture fixture)

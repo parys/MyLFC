@@ -3,15 +3,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using MyLfc.Persistence;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace MyLfc.Common.Web.Middlewares
+namespace MyLfc.Persistence
 {
     public static class OpenIdDictMiddleware
     {

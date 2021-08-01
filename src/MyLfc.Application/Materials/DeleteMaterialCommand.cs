@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
@@ -21,11 +20,11 @@ namespace MyLfc.Application.Materials
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
             
-            public Handler(LiverpoolContext context, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, RequestContext requestContext)
             {
                 _context = context;
                 _requestContext = requestContext;

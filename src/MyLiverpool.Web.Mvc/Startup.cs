@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Text.Json;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,7 +20,6 @@ using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.ResourceAccess.Helpers;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Mappings;
@@ -67,24 +64,14 @@ namespace MyLiverpool.Web.Mvc
                 //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
             
-            services.AddCustomDbContext(Configuration);
+            services.AddPersistence(Configuration);
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
 
             services.AddCustomIdentitySettings();
-
-            //services.AddAuthentication()
-            //    .AddCookie(options =>
-            //    {
-            //        options.LoginPath = "/Account/Login/";
-            //        options.LogoutPath = "/Account/Logout/";
-            //    });
-
-          //  services.ApplyCustomOpenIdDict(Env);
-
+            
             RegisterCoreHelpers(services);
-            services.RegisterRepositories();
             services.RegisterServices();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));

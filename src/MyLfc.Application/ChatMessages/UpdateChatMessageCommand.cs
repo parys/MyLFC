@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
@@ -30,13 +29,13 @@ namespace MyLfc.Application.ChatMessages
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, IMediator mediator, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, IMediator mediator, RequestContext requestContext)
             {
                 _context = context;
                 _mediator = mediator;

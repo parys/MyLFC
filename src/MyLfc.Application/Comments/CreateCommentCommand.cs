@@ -12,7 +12,6 @@ using MyLfc.Application.Notifications;
 using MyLfc.Application.Users;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -45,7 +44,7 @@ namespace MyLfc.Application.Comments
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
@@ -57,7 +56,7 @@ namespace MyLfc.Application.Comments
             private readonly IHttpContextAccessor _accessor;
             private readonly ISignalRHubAggregator _signalRHubAggregator;
 
-            public Handler(LiverpoolContext context, IMapper mapper, IMediator mediator, RequestContext requestContext, IEmailSender messageService, IHttpContextAccessor accessor, ISignalRHubAggregator signalRHubAggregator)
+            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator, RequestContext requestContext, IEmailSender messageService, IHttpContextAccessor accessor, ISignalRHubAggregator signalRHubAggregator)
             {
                 _context = context;
                 _mapper = mapper;

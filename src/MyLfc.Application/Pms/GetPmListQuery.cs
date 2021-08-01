@@ -8,7 +8,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Pms
 {
@@ -21,13 +20,13 @@ namespace MyLfc.Application.Pms
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IMapper _mapper;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMapper mapper)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
             {
                 _context = context;
                 _requestContext = requestContext;

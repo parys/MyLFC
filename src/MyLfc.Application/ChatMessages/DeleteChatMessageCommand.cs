@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
-using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
 {
@@ -21,14 +17,11 @@ namespace MyLfc.Application.ChatMessages
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
-            private readonly RequestContext _requestContext;
-            
-            public Handler(LiverpoolContext context, RequestContext requestContext)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
-                _requestContext = requestContext;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)

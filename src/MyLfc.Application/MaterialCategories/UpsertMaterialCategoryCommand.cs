@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.MaterialCategories
 {

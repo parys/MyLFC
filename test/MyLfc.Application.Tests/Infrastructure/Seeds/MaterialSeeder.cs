@@ -3,14 +3,13 @@ using System.Linq;
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
     public class MaterialSeeder
     {
-        public static List<Material> Seed(LiverpoolContext context)
+        public static List<Material> Seed(ILiverpoolContext context)
         {
             var result = new List<Material>();
 

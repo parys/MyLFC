@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLfc.Application.Clubs
@@ -19,9 +18,9 @@ namespace MyLfc.Application.Clubs
 
         public class Handler : IRequestHandler<Request, Club>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
             
-            public Handler(LiverpoolContext context)
+            public Handler(ILiverpoolContext context)
             {
                 _context = context;
             }

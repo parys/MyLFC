@@ -15,7 +15,7 @@ namespace MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand
     [Collection(nameof(CreateOrUpdateEntityCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(CreateOrUpdateEntityCommandTestFixture fixture)

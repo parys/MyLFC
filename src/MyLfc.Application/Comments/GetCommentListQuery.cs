@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Comments
@@ -23,13 +22,13 @@ namespace MyLfc.Application.Comments
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly IMediator _mediator;
             
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMediator mediator)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMediator mediator)
             {
                 _context = context;
                 _requestContext = requestContext;

@@ -1,44 +1,53 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MyLfc.Application;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
 {
     public class ForumMessageService : IForumMessageService
     {
-        private readonly IGenericRepository<ForumMessage> _forumMessageRepository;
+        private readonly ILiverpoolContext _context;
         private readonly IMapper _mapper;
 
-        public ForumMessageService(IGenericRepository<ForumMessage> forumMessageRepository, IMapper mapper)
+        public ForumMessageService(ILiverpoolContext context, IMapper mapper)
         {
-            _forumMessageRepository = forumMessageRepository;
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<ForumMessageDto> CreateAsync(ForumMessageDto dto)
         {
             var model = _mapper.Map<ForumMessage>(dto);
-            model = await _forumMessageRepository.CreateAsync(model);
+            _context.ForumMessages.Add(model);
+            await _context.SaveChangesAsync();
             
             return _mapper.Map<ForumMessageDto>(model);
         }
 
         public async Task<ForumMessageDto> UpdateAsync(ForumMessageDto dto)
         {
-            var model = await _forumMessageRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
+            var model = await _context.ForumMessages.FirstOrDefaultAsync(x => x.Id == dto.Id);
             model.LastModifiedTime = DateTimeOffset.UtcNow;
             model.Message = dto.Message;
-            await _forumMessageRepository.UpdateAsync(model);
+            _context.ForumMessages.Update(model);
+            await _context.SaveChangesAsync();
             return _mapper.Map<ForumMessageDto>(model);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _forumMessageRepository.DeleteAsync(x => x.Id == id);
+            var entity = await _context.ForumMessages.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity != null)
+            {
+                _context.ForumMessages.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+
             return true;
         }
     }

@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Web.Hubs;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Notifications
 {
@@ -29,13 +28,13 @@ namespace MyLfc.Application.Notifications
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
 
             private readonly ISignalRHubAggregator _signalRHubAggregator;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, ISignalRHubAggregator signalRHubAggregator)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, ISignalRHubAggregator signalRHubAggregator)
             {
                 _context = context;
                 _requestContext = requestContext;

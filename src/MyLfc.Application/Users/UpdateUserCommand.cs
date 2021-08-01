@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 
 namespace MyLfc.Application.Users
 {
@@ -26,13 +25,13 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly LiverpoolContext _context;
+            private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
 
             private readonly RequestContext _requestContext;
 
-            public Handler(LiverpoolContext context, RequestContext requestContext, IMapper mapper)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
             {
                 _context = context;
                 _requestContext = requestContext;

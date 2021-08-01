@@ -45,7 +45,7 @@
 //            _db.Database.Migrate();
 //            new DatabaseInitializer(GetNewContext()).Seed(true);
 
-//            var store = new UserStore<User, Role, LiverpoolContext, int>(_db);
+//            var store = new UserStore<User, Role, ILiverpoolContext, int>(_db);
 
 //            IPasswordHasher<User> hasher = new PasswordHasher<User>();
 //            //var provider = new MachineKeyProtectionProvider();
@@ -2085,9 +2085,9 @@
 
 //        #endregion
 
-//        private static LiverpoolContext GetNewContext()
+//        private static ILiverpoolContext GetNewContext()
 //        {
-//            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
+//            return new ILiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
 //        }
 //    }
 //}

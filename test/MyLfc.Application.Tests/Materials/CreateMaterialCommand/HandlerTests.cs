@@ -16,7 +16,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
     [Collection(nameof(CreateMaterialCommandCollection))]
     public class HandlerTests
     {
-        private readonly LiverpoolContext _context;
+        private readonly ILiverpoolContext _context;
         private readonly IRequestHandler<Request, Response> _handler;
 
         public HandlerTests(CreateMaterialCommandTestFixture fixture)
