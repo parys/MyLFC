@@ -31,9 +31,9 @@ namespace MyLfc.Application.Users
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var users = await _context.Users.Where(x => x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
-                                                      x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
-                                                      x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date)
+                var users = await _context.Users.Where(x => x.Birthday.Value.Date.Day == DateTimeOffset.UtcNow.Day &&
+                                                      x.Birthday.Value.Date.Month == DateTimeOffset.UtcNow.Month &&
+                                                      x.LastModified.AddMonths(1).Date > DateTimeOffset.UtcNow.Date)
                     .OrderByDescending(x => x.LastModified)
                     .ProjectTo<UserBirthdayDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);

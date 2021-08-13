@@ -53,7 +53,7 @@ namespace MyLfc.Application.Transfers
             private async Task<int> GetCurrentSeasonIdAsync()
             {
                 return int.Parse((await _context.HelpEntities
-                    .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ?? DateTime.Today.Year.ToString());
+                    .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ?? DateTimeOffset.UtcNow.Year.ToString());
             }
     }
 

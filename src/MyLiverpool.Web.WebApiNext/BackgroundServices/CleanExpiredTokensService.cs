@@ -62,11 +62,9 @@ namespace MyLiverpool.Web.WebApiNext.BackgroundServices
 
         private async void RemoveExpiredTokensAsync(object param)
         {
-            using (var scope = _service.CreateScope())
-            {
-                var calStatRepo = scope.ServiceProvider.GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
-                await calStatRepo.PruneAsync(DateTimeOffset.Now.AddDays(-1));
-            }
+            using var scope = _service.CreateScope();
+            var calStatRepo = scope.ServiceProvider.GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
+            await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
         }
     }
 }

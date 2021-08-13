@@ -8,13 +8,13 @@ namespace MyLiverpool.Common.Utilities
 {
     public static class HtmlExtractorHelpers
     {
-        public static async Task<HtmlNodeCollection> GetHtmlRowsAsync(string url, string xpath)
+        public static async Task<HtmlNode> GetHtmlNodeAsync(string url)
         {
             using var handler = new HttpClientHandler
             {
                 ClientCertificateOptions = ClientCertificateOption.Manual, //todo https://github.com/parys/MyLFC/issues/382
                 ServerCertificateCustomValidationCallback =
-                    (httpRequestMessage, cert, cetChain, policyErrors) => true 
+                    (httpRequestMessage, cert, cetChain, policyErrors) => true
             };
             using var http = new HttpClient(handler);
             var response = await http.GetByteArrayAsync(url);
@@ -23,7 +23,13 @@ namespace MyLiverpool.Common.Utilities
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(source);
 
-            var trNodes = htmlDocument.DocumentNode.SelectNodes(xpath);
+            return htmlDocument.DocumentNode;
+        }
+
+        public static async Task<HtmlNodeCollection> GetHtmlRowsAsync(string url, string xpath)
+        {
+            var documentNode = await GetHtmlNodeAsync(url);
+            var trNodes = documentNode.SelectNodes(xpath);
             return trNodes;
         }
     }

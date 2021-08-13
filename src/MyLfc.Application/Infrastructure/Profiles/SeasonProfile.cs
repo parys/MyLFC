@@ -43,7 +43,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
         private static string GetScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome, string score)
         {
-            if (DateTimeOffset.Now >= dateTime)
+            if (DateTimeOffset.UtcNow >= dateTime)
             {
                 return events.Any()
                     ? CalculateScore(events, isHome)
@@ -58,7 +58,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
         private static int? GetPenaltyScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome)
         {
-            if (DateTimeOffset.Now >= dateTime)
+            if (DateTimeOffset.UtcNow >= dateTime)
             {
                 var filteredEvents = events.Where(x => x.Type == MatchEventType.GoalPenaltySeries);
                 if (filteredEvents.Any())

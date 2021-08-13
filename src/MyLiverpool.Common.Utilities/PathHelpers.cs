@@ -44,7 +44,7 @@ namespace MyLiverpool.Common.Utilities
 
         public static string GenerateNewName()
         {
-            var random = new Random((int)DateTime.Now.ToFileTimeUtc());
+            var random = new Random((int)DateTimeOffset.UtcNow.UtcTicks);
             string newName;
             do
             {

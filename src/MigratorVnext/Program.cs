@@ -425,7 +425,7 @@ namespace MigratorVnext
                     }
                     if (birthday != null)
                     {
-                        user.Birthday = DateTime.Parse(birthday);
+                        user.Birthday = DateTimeOffset.Parse(birthday);
                     }
                     i++;
                     // verify

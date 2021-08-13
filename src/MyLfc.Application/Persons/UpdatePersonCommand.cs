@@ -56,7 +56,7 @@ namespace MyLfc.Application.Persons
 
                 var fileName = (request.FirstName.Trim() + request.LastName.Trim()).Replace(' ', '_');
 
-                if (request.Photo != null)
+                if (request.Photo != null && FileHelper.IsBase64(request.Photo))
                 {
                     person.Photo =
                         await FileHelper.SavePersonPhotoAsync(request.Photo, fileName, _appEnvironment.WebRootPath);

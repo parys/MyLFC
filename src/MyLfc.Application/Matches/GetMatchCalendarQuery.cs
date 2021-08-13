@@ -90,7 +90,7 @@ namespace MyLfc.Application.Matches
                 .Include(m => m.Club)
                 .Include(m => m.Events)
                 .OrderBy(x => x.DateTime)
-                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(0.5));
+                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.UtcNow.AddHours(0.5));
             }
 
             private async Task<Match> GetNextMatchAsync()
@@ -100,7 +100,7 @@ namespace MyLfc.Application.Matches
                     .Include(m => m.Stadium)
                     .Include(m => m.Events)
                     .OrderBy(x => x.DateTime)
-                    .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(0.5));
+                    .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.UtcNow.AddHours(0.5));
             }
         }
 

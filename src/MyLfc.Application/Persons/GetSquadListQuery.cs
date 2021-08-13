@@ -38,19 +38,19 @@ namespace MyLfc.Application.Persons
                 Expression<Func<Person, bool>> filter = x => true;
                 if (request.Type == PersonType.Loan)
                 {
-                    filter = x => x.Transfers.Any(y => y.OnLoan && !y.Coming && y.FinishDate.Value.Date >= DateTime.Today.Date);
+                    filter = x => x.Transfers.Any(y => y.OnLoan && !y.Coming && y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
                 }
                 else if (request.Type == PersonType.First)
                 {
                     filter = x => x.Type == PersonType.First &&
                                   !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
-                                                        y.FinishDate.Value.Date >= DateTime.Today.Date);
+                                                        y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
                 }
                 else if (request.Type == PersonType.Academy)
                 {
                     filter = x => x.Type == PersonType.Academy &&
                                   !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
-                                                        y.FinishDate.Value.Date >= DateTime.Today.Date);
+                                                        y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
                 }
                 var squadList = await _context.Persons.AsNoTracking()
                     .Where(filter)

@@ -57,7 +57,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
             var label = CacheKeysConstants.Material + request.Id;
             if (string.IsNullOrWhiteSpace(Request.Cookies[label]))
             {
-                var options = new CookieOptions { Expires = DateTime.Now.AddMonths(1) };
+                var options = new CookieOptions { Expires = DateTimeOffset.UtcNow.AddMonths(1) };
                 Response.Cookies.Append(label, "1", options);
                 model.Reads++;
                 await Mediator.Send(new AddMaterialReadCommand.Request{Id = request.Id});

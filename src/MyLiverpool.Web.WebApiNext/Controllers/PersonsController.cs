@@ -25,7 +25,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> CreateAsync([FromBody]CreatePersonCommand.Request request)
         {
             var result = await Mediator.Send(request);
-            CacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
+            CacheManager.Remove(CacheKeysConstants.PersonBday + DateTimeOffset.UtcNow);
             return Ok(result);
         }
 
@@ -110,7 +110,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.PersonBday + DateTime.Today,
+            var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.PersonBday + DateTimeOffset.UtcNow,
                 async () => await Mediator.Send(new GetPersonBirthdaysQuery.Request()));
             return Ok(result.Results);
         }
@@ -129,7 +129,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await Mediator.Send(request);
-            CacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
+            CacheManager.Remove(CacheKeysConstants.PersonBday + DateTimeOffset.UtcNow);
             return Ok(result);
         }
 
@@ -143,6 +143,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
             return Ok(result.Id);
+        }
+
+        /// <summary>
+        /// Deletes person.
+        /// </summary>
+        /// <param name="request">The identifier of deleting person.</param>
+        /// <returns>Result of deleting.</returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpGet("parseAcademy")]
+        public async Task<IActionResult> ParseAcademy([FromQuery] ParseAcademyPlayerQuery.Request request)
+        {
+            var result = await Mediator.Send(request);
+            return Ok(result);
         }
 
         /// <summary>

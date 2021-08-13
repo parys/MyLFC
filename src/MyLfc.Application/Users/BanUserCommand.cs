@@ -39,8 +39,7 @@ namespace MyLfc.Application.Users
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                var result = await _userManager.SetLockoutEndDateAsync(user,
-                    new DateTimeOffset(DateTime.UtcNow.AddDays(request.Days)));
+                var result = await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddDays(request.Days));
 
                 await _context.SaveChangesAsync(cancellationToken);
                 if (!result.Succeeded)

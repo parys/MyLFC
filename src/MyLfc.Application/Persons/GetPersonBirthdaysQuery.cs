@@ -33,8 +33,8 @@ namespace MyLfc.Application.Persons
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var persons = await _context.Persons.Where(x => x.Birthday.HasValue &&
-                                                            x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
-                                                            x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
+                                                            x.Birthday.Value.Date.Day == DateTimeOffset.UtcNow.Day &&
+                                                            x.Birthday.Value.Date.Month == DateTimeOffset.UtcNow.Month &&
                                                             x.Type != PersonType.Rival &&
                                                             x.Type != PersonType.CompetitorCoach &&
                                                             x.Type != PersonType.Referee)

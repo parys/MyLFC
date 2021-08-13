@@ -25,8 +25,8 @@ namespace MyLiverpool.Business.Services
         //{
         //    var message = new ForumMessage()
         //    {
-        //        AdditionTime = DateTime.Now,
-        //        LastModifiedTime = DateTime.Now,
+        //        AdditionTime = DateTimeOffset.UtcNow,
+        //        LastModifiedTime = DateTimeOffset.UtcNow,
         //        AuthorId = userId,
         //        Message = comment,
         //        ThemeId = themeId

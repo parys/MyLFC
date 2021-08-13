@@ -585,8 +585,8 @@ namespace MyLfc.Persistence
                // Id = -1,
                 UserName = "deleted",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -608,8 +608,8 @@ namespace MyLfc.Persistence
             {
                 UserName = "user",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -631,9 +631,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "admin",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Admin,
                 Photo = "content/avatars/0/755939.jpeg",
                 EmailConfirmed = true,
@@ -657,9 +657,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "moderator",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Moderator,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -683,9 +683,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "author",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Author,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -708,9 +708,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "Intern",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Intern,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -735,9 +735,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "Editor",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Editor,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -765,9 +765,9 @@ namespace MyLfc.Persistence
             {
                 UserName = "newsmaker",
                 Email = email,
-                LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                Birthday = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
+                RegistrationDate = DateTimeOffset.UtcNow,
+                Birthday = DateTimeOffset.UtcNow,
                 RoleGroupId = (int)RoleGroupsEnum.Newsmaker,
                 LockoutEnabled = true,
                 Photo = DefaultPhotoPath,
@@ -834,9 +834,9 @@ namespace MyLfc.Persistence
                     var message = new ForumMessage()
                     {
                         Message = "message" + i,
-                        AdditionTime = DateTime.Now.AddHours(-20 + i),
+                        AdditionTime = DateTimeOffset.UtcNow.AddHours(-20 + i),
                         AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
-                        LastModifiedTime = DateTime.Now.AddHours(-20 + i),
+                        LastModifiedTime = DateTimeOffset.UtcNow.AddHours(-20 + i),
                         ThemeId = 1,
                     };
                     messages.Add(message);
@@ -847,7 +847,7 @@ namespace MyLfc.Persistence
                     Name = "theme " + i,
                     Description = "theme description " + i,
                     SubsectionId = 1,
-                    LastMessageAdditionTime = DateTime.Today,
+                    LastMessageAdditionTime = DateTimeOffset.UtcNow,
                     Messages = messages,
                     AuthorId = userId,
                     LastAnswerUserId = userId
@@ -900,12 +900,12 @@ namespace MyLfc.Persistence
                 news.Add(new Material()
                 {
                     CategoryId = i % 2 == 0 ? 1 : 2,
-                    AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
+                    AdditionTime = DateTimeOffset.UtcNow.AddHours(randomizer.NextDouble() * -CountNews),
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = NewsType,
-                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble() * -CountNews),
+                    LastModified = DateTimeOffset.UtcNow.AddDays(randomizer.NextDouble() * -CountNews),
                     Message = @"<div align='center'><img src='http://s4.hostingkartinok.com/uploads/images/2013/07/5513d5a371375d0047370d9727e4ecc2.jpg' border ='0' alt ='/></div>
 <br /><br /> <b>100 дней, которые потрясли Коп</b> - это список моментов из истории ""Ливерпуля"", которые оказали значительное влияние на клуб и его болельщиков составленный самими
 болельщиками клуба. <br /><br /> Фантастическая победа на ""Гудисон Парк"" в Раунде 4, Кубка Англии против ""Эвертона"" - 4:0. ""Ливерпуль"" выступает во втором дивизионе, ""Эвертон""
@@ -942,18 +942,18 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
         {
             if (_context.MaterialComments.Any()) return;
             var newsComments = new List<MaterialComment>();
-            var random = new Random((int)DateTime.UtcNow.Ticks);
+            var random = new Random((int)DateTimeOffset.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
                 var comment = new MaterialComment()
                 {
                     MaterialId = new Random().Next(_context.Materials.First(x => x.Type == NewsType).Id, _context.Materials.Last(x => x.Type == NewsType).Id),
-                    AdditionTime = DateTime.Now.AddDays(random.NextDouble() * 10),
+                    AdditionTime = DateTimeOffset.UtcNow.AddDays(random.NextDouble() * 10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Message = "message " + i,
                     Type = CommentType.News,
-                    LastModified = DateTime.Now,
+                    LastModified = DateTimeOffset.UtcNow,
                 };
                 if (i % 3 == 0)
                 {
@@ -963,11 +963,11 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         {
                             ParentId = i + 1,
                             MaterialId = comment.MaterialId,
-                            AdditionTime = DateTime.Now,
+                            AdditionTime = DateTimeOffset.UtcNow,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                             Message = "comment inside",
                             Type = CommentType.News,
-                            LastModified = DateTime.Now,
+                            LastModified = DateTimeOffset.UtcNow,
                         }
                     };
                     i += 1;
@@ -981,33 +981,33 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             var commentFirstNews = new MaterialComment()
             {
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                AdditionTime = DateTime.Now,
+                AdditionTime = DateTimeOffset.UtcNow,
                 AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                 Message = "comment first",
                 Type = CommentType.News,
-                LastModified = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
                 Children = new List<MaterialComment>()
                 {
                     new MaterialComment()
                     {
                         ParentId = CountNews + 1,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                        AdditionTime = DateTime.Now,
+                        AdditionTime = DateTimeOffset.UtcNow,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                         Message = "comment second inside",
                         Type = CommentType.News,
-                        LastModified = DateTime.Now,
+                        LastModified = DateTimeOffset.UtcNow,
                         Children = new List<MaterialComment>()
                         {
                             new MaterialComment()
                             {
                                 ParentId = CountNews + 2,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                                AdditionTime = DateTime.Now,
+                                AdditionTime = DateTimeOffset.UtcNow,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                                 Message = "comment three inside",
                                 Type = CommentType.News,
-                                LastModified = DateTime.Now,
+                                LastModified = DateTimeOffset.UtcNow,
                             }
                         }
                     }
@@ -1060,12 +1060,12 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 news.Add(new Material()
                 {
                     CategoryId = i % 2 == 0 ? 1 : 2,
-                    AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
+                    AdditionTime = DateTimeOffset.UtcNow.AddHours(randomizer.NextDouble() * -CountNews),
                     AuthorId =1,// i % 3 + 1,
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = type,
-                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble() * -CountNews),
+                    LastModified = DateTimeOffset.UtcNow.AddDays(randomizer.NextDouble() * -CountNews),
                     Message = @"<div align='center'><img src='http://s4.hostingkartinok.com/uploads/images/2013/07/5513d5a371375d0047370d9727e4ecc2.jpg' border ='0' alt ='/></div>
 <br /><br /> <b>100 дней, которые потрясли Коп</b> - это список моментов из истории ""Ливерпуля"", которые оказали значительное влияние на клуб и его болельщиков составленный самими
 болельщиками клуба. <br /><br /> Фантастическая победа на ""Гудисон Парк"" в Раунде 4, Кубка Англии против ""Эвертона"" - 4:0. ""Ливерпуль"" выступает во втором дивизионе, ""Эвертон""
@@ -1102,18 +1102,18 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
         {
             const CommentType type = CommentType.Blogs;
             var newsComments = new List<MaterialComment>();
-            var random = new Random((int)DateTime.UtcNow.Ticks);
+            var random = new Random((int)DateTimeOffset.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
                 var comment = new MaterialComment()
                 {
                     MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                    AdditionTime = DateTime.Now.AddDays(random.NextDouble() * 10),
+                    AdditionTime = DateTimeOffset.UtcNow.AddDays(random.NextDouble() * 10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = random.Next(1, CountUsers),
                     Message = "message " + i,
                     Type = type,
-                    LastModified = DateTime.Now,
+                    LastModified = DateTimeOffset.UtcNow,
                 };
                 if (i % 3 == 0)
                 {
@@ -1123,11 +1123,11 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         {
                             ParentId = i + 1,
                             MaterialId = comment.MaterialId,
-                            AdditionTime = DateTime.Now,
+                            AdditionTime = DateTimeOffset.UtcNow,
                             AuthorId = random.Next(1, CountUsers),
                             Message = "comment inside",
                             Type = type,
-                            LastModified = DateTime.Now,
+                            LastModified = DateTimeOffset.UtcNow,
                         }
                     };
                     i += 1;
@@ -1141,33 +1141,33 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             var commentFirstNews = new MaterialComment()
             {
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                AdditionTime = DateTime.Now,
+                AdditionTime = DateTimeOffset.UtcNow,
                 AuthorId = 1,
                 Message = "comment first",
                 Type = type,
-                LastModified = DateTime.Now,
+                LastModified = DateTimeOffset.UtcNow,
                 Children = new List<MaterialComment>()
                 {
                     new MaterialComment()
                     {
                         ParentId = CountNews + 1,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                        AdditionTime = DateTime.Now,
+                        AdditionTime = DateTimeOffset.UtcNow,
                         AuthorId = 2,
                         Message = "comment second inside",
                         Type = type,
-                        LastModified = DateTime.Now,
+                        LastModified = DateTimeOffset.UtcNow,
                         Children = new List<MaterialComment>()
                         {
                             new MaterialComment()
                             {
                                 ParentId = CountNews + 2,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
-                                AdditionTime = DateTime.Now,
+                                AdditionTime = DateTimeOffset.UtcNow,
                                 AuthorId = 3,
                                 Message = "comment three inside",
                                 Type = type,
-                                LastModified = DateTime.Now,
+                                LastModified = DateTimeOffset.UtcNow,
                             }
                         }
                     }
@@ -1189,7 +1189,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = false,
-                    SentTime = DateTime.Now.AddDays(-5),
+                    SentTime = DateTimeOffset.UtcNow.AddDays(-5),
                     Title = "title 1",
                     Message = "mess 1"
                 },
@@ -1198,7 +1198,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = true,
-                    SentTime = DateTime.Now.AddDays(-3),
+                    SentTime = DateTimeOffset.UtcNow.AddDays(-3),
                     Title = "title 2",
                     Message = "mess 2"
                 },
@@ -1207,7 +1207,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     ReceiverId =new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = false,
-                    SentTime = DateTime.Now.AddDays(-5),
+                    SentTime = DateTimeOffset.UtcNow.AddDays(-5),
                     Title = "title 3",
                     Message = "mess 3"
                 },
@@ -1216,7 +1216,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = true,
-                    SentTime = DateTime.Now.AddDays(-3),
+                    SentTime = DateTimeOffset.UtcNow.AddDays(-3),
                     Title = "title 4",
                     Message = "mess 4"
                 },
@@ -1232,7 +1232,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
         {
             var season = new Season()
             {
-                StartSeasonYear = DateTime.Today.AddYears(-1).Year
+                StartSeasonYear = DateTimeOffset.UtcNow.AddYears(-1).Year
             };
             await _context.Seasons.AddAsync(season);
             await _context.SaveChangesAsync();
@@ -1298,7 +1298,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             var match = new Match
             {
                 ClubId = 2,
-                DateTime = DateTimeOffset.Now,
+                DateTime = DateTimeOffset.UtcNow,
                 StadiumId = 1,
                 IsHome = false,
                 MatchType = MatchTypeEnum.Epl,
@@ -1309,7 +1309,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             var match2 = new Match
             {
                 ClubId = 2,
-                DateTime = DateTimeOffset.Now.AddDays(55),
+                DateTime = DateTimeOffset.UtcNow.AddDays(55),
                 StadiumId = 1,
                 IsHome = false,
                 MatchType = MatchTypeEnum.Epl,
@@ -1329,7 +1329,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
             var person = new Person
             {
-                Birthday = DateTimeOffset.Now,
+                Birthday = DateTimeOffset.UtcNow,
                 Country = "country",
                 FirstName = "first name 1",
                 FirstRussianName = "russian 1",
@@ -1340,7 +1340,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             };
             var person2 = new Person
             {
-                Birthday = DateTimeOffset.Now,
+                Birthday = DateTimeOffset.UtcNow,
                 Country = "country 2",
                 FirstName = "first name 2",
                 FirstRussianName = "russian 21",
@@ -1351,7 +1351,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             };
             var person3 = new Person
             {
-                Birthday = DateTimeOffset.Now,
+                Birthday = DateTimeOffset.UtcNow,
                 Country = "country 23",
                 FirstName = "first name 23",
                 FirstRussianName = "russian 213",

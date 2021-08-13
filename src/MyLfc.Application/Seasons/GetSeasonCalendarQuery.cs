@@ -94,11 +94,11 @@ namespace MyLfc.Application.Seasons
             {
                 return int.Parse((await _context.HelpEntities.AsNoTracking()
                                      .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ??
-                                 DateTime.Today.Year.ToString());
+                                 DateTimeOffset.UtcNow.Year.ToString());
             }
 
 
-            private List<SeasonCalendarMonthDto> GetMonthsWithMatches(IEnumerable<MatchCalendarDto> matches)
+            private static List<SeasonCalendarMonthDto> GetMonthsWithMatches(IEnumerable<MatchCalendarDto> matches)
             {
                 return new List<SeasonCalendarMonthDto>
                 {
@@ -117,14 +117,14 @@ namespace MyLfc.Application.Seasons
                 };
             }
 
-            private SeasonCalendarMonthDto GetMonth(string name, int monthCount, IEnumerable<MatchCalendarDto> matches)
+            private static SeasonCalendarMonthDto GetMonth(string name, int monthCount, IEnumerable<MatchCalendarDto> matches)
             {
                 var matchesForMonth = matches.Where(x => x.DateTime.Month == monthCount);
                 return new SeasonCalendarMonthDto
                 {
                     Name = name,
                     Matches = matchesForMonth,
-                    Collapsed = matchesForMonth.All(x => x.DateTime < DateTimeOffset.Now)
+                    Collapsed = matchesForMonth.All(x => x.DateTime < DateTimeOffset.UtcNow)
                 };
             }
         }

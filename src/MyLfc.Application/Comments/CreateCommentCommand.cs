@@ -129,7 +129,7 @@ namespace MyLfc.Application.Comments
             {
                 var notification = new CreateNotificationCommand.Request
                 {
-                    DateTime = DateTimeOffset.Now,
+                    DateTime = DateTimeOffset.UtcNow,
                     UserId = parentComment.AuthorId,
                     Type = (NotificationType)parentComment.Type,
                     EntityId = parentComment.MaterialId ?? parentComment.MatchId,

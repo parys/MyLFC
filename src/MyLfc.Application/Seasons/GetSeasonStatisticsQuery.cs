@@ -68,10 +68,10 @@ namespace MyLfc.Application.Seasons
             private async Task<int> GetCurrentSeasonIdAsync()
             {
                 return int.Parse((await _context.HelpEntities
-                                     .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ?? DateTime.Today.Year.ToString());
+                                     .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ?? DateTimeOffset.UtcNow.Year.ToString());
             }
 
-            private StatisticsDto Count(IEnumerable<MatchEvent> events)
+            private static StatisticsDto Count(IEnumerable<MatchEvent> events)
             {
                 return new StatisticsDto
                 {

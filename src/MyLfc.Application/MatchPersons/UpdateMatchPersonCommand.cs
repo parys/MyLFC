@@ -59,7 +59,7 @@ namespace MyLfc.Application.MatchPersons
                 matchPerson = _mapper.Map(request, matchPerson);
                 if (isNew)
                 {
-                    matchPerson.Created = DateTime.UtcNow;
+                    matchPerson.Created = DateTimeOffset.UtcNow;
                     _context.MatchPersons.Add(matchPerson);
                 }
                 else
@@ -73,7 +73,7 @@ namespace MyLfc.Application.MatchPersons
                     PersonId = matchPerson.PersonId,
                     MatchId = matchPerson.MatchId,
                     Number =  person.Number,
-                    PersonName = person.Nickname ?? person.RussianName,
+                    PersonName = string.IsNullOrWhiteSpace(person.Nickname) ? person.RussianName : person.Nickname,
                     PlaceType = request.PersonType.GetMatchPlaceholderType(request.IsHome),
                     PersonType = request.PersonType,
                     IsNew = isNew

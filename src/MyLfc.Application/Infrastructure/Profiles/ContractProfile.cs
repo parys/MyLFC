@@ -29,10 +29,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
         {
             if (birthday.HasValue)
             {
-                var years = DateTime.Now.Year - birthday.Value.Year;
+                var years = DateTimeOffset.UtcNow.Year - birthday.Value.Year;
 
-                if (birthday.Value.Month > DateTime.Now.Month
-                    || birthday.Value.Month == DateTime.Now.Month && birthday.Value.Day > DateTime.Now.Day)
+                if (birthday.Value.Month > DateTimeOffset.UtcNow.Month
+                    || birthday.Value.Month == DateTimeOffset.UtcNow.Month && birthday.Value.Day > DateTimeOffset.UtcNow.Day)
                 {
                     years--;
                 }

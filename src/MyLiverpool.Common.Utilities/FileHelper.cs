@@ -60,9 +60,12 @@ namespace MyLiverpool.Common.Utilities
             return Regex.Replace(relativePath, "\\\\", "/");
         }
 
+        public static bool IsBase64(string base64String) =>
+            !string.IsNullOrWhiteSpace(GetBase64Type(base64String).Item1);
+
         private static (string, string) GetBase64Type(string base64File)
         {
-            string extension = "jpeg";
+            string extension = "";
             if (base64File.Contains(jpegBase64))
             {
                 extension = "jpeg";
