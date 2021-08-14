@@ -43,6 +43,7 @@ namespace MyLfc.Application.Comments
 
                 foreach (var comment in comments)
                 {
+                    comment.ClippedMessage = comment.Message;
                     comment.Message = Regex.Replace(Regex.Replace(comment.Message, "&.*?;", string.Empty), "<.*?>", string.Empty);
                     if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
                     {
