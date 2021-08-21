@@ -26,17 +26,14 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="wwwroot\src\**" />
     <Content Remove="wwwroot\src\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
-    <Content Remove="wwwroot\swagger\**" />
     <EmbeddedResource Remove="wwwroot\content\**" />
     <EmbeddedResource Remove="wwwroot\src\**" />
     <None Remove="wwwroot\content\persons\**" />
-    <None Remove="wwwroot\src\lightgray\**" />
-    <None Remove="wwwroot\src\plugins\**" />
-    <None Remove="wwwroot\src\skins\**" />
-    <Folder Include="wwwroot\src\" />
+    <None Remove="wwwroot\src\**" />
   </ItemGroup>
 
   <ItemGroup>
