@@ -55,7 +55,7 @@ namespace MyLfc.Application.Matches
                     dict[(int)person.PersonType.GetMatchPlaceholderType(isHome)].Add(person);
                 }
 
-                return new Response {Results = dict};
+                return new Response { Results = dict, FlatListResults = persons };
             }
 
         }
@@ -65,6 +65,8 @@ namespace MyLfc.Application.Matches
         public class Response
         {
             public Dictionary<int, List<MatchPersonListDto>> Results = new();
+
+            public List<MatchPersonListDto> FlatListResults = new();
         }
 
         [Serializable]

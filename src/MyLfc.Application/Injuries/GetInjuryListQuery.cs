@@ -45,14 +45,9 @@ namespace MyLfc.Application.Injuries
                 {
                     if (request.SortOn.Contains("PersonName", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (request.SortDirection.ToLower() == "asc")
-                        {
-                            injuries = injuries.OrderBy(x => x.Person.LastName);
-                        }
-                        else
-                        {
-                            injuries = injuries.OrderByDescending(x => x.Person.LastName);
-                        }
+                        injuries = request.SortDirection.ToLower() == "asc"
+                            ? injuries.OrderBy(x => x.Person.LastName)
+                            : injuries.OrderByDescending(x => x.Person.LastName);
                         request.SortOn = null;
                     }
                     else if (request.SortOn.Contains(nameof(Injury.StartTime),

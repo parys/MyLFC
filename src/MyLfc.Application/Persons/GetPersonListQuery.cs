@@ -49,11 +49,12 @@ namespace MyLfc.Application.Persons
                 }
                 if (!string.IsNullOrWhiteSpace(request.Name))
                 {
-                    personsQuery = personsQuery.Where(x => x.FirstName.Contains(request.Name) ||
-                                             x.LastName.Contains(request.Name) ||
-                                             x.Nickname.Contains(request.Name) ||
-                                             x.FirstRussianName.Contains(request.Name) ||
-                                             x.LastRussianName.Contains(request.Name));
+                    personsQuery = personsQuery.Where(x =>
+                        x.FirstRussianName.Contains(request.Name)
+                        || x.LastRussianName.Contains(request.Name)
+                        || x.Nickname.Contains(request.Name)
+                        || x.FirstName.Contains(request.Name)
+                        || x.LastName.Contains(request.Name));
                 }
 
                 if (request.MatchId.HasValue)
