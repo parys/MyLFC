@@ -57,7 +57,7 @@ namespace MyLfc.Application.Features.Account
                 code = code.Base64ForUrlEncode();
 
                 var callbackUrl = $"{_settings.Value.UiUrl}/account/resetPassword?code={code}";
-                return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href=\"{callbackUrl}\"> здесь </a>.";
+                return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href=\"{callbackUrl}\"> здесь</a>.";
             }
 
 

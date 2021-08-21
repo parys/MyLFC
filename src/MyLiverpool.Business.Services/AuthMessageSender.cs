@@ -1,7 +1,7 @@
-﻿ using System;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
-using MailKit.Security;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -39,23 +39,20 @@ namespace MyLiverpool.Business.Services
             emailMessage.From.Add(new MailboxAddress(_settings.Value.Author, _settings.Value.Email));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart("html") { Text = message };
+            emailMessage.Body = new TextPart("html") { Text = await LoadTemplatesSync(message) };
             try
             {
                 using var client = new SmtpClient();
 
-                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
+                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }
-            catch (Exception ex) //todo add another try to send email
+            catch (Exception ex)
             {
-                _logger.LogCritical(ex.ToString());
-                //  await SendEmailAsync(email, subject, message); how to stop after some tries
-                
-                throw; //todo add private message to admin?
+                _logger.LogError(ex, "Error happened when try to send email");
             }
         }
 
@@ -78,6 +75,13 @@ namespace MyLiverpool.Business.Services
         public async Task SendEmailAsync(string subject, string message)
         {
             await SendEmailAsync(_settings.Value.EmailForWishCreationNotification, subject, message);
+        }
+
+        private async Task<string> LoadTemplatesSync(string message)
+        {
+            var template = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "HtmlTemplates", "EmailTemplate.html"));
+            template = template.Replace("%messageText%", message);
+            return template;
         }
     }
 }

@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HtmlTemplates\EmailTemplate.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="HtmlTemplates\EmailTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />

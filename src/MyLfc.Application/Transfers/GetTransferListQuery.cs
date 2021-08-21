@@ -32,7 +32,9 @@ namespace MyLfc.Application.Transfers
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var transfersQuery = _context.Transfers.AsNoTracking().OrderByDescending(x => x.Id);
+                var transfersQuery = _context.Transfers
+                    .AsNoTracking()
+                    .OrderByDescending(x => x.Id);
                 
                 return await transfersQuery.GetPagedAsync<Response, Transfer, TransferListDto>(request, _mapper);
             }

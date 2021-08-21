@@ -62,8 +62,8 @@ namespace MyLfc.Application.Persons
                     personsQuery = personsQuery.Where(x => x.Matches.Any(m => m.MatchId == request.MatchId.Value));
                 }
 
-                Expression<Func<Person, object>> sortBy = x => x.FirstRussianName;
-                Expression<Func<Person, object>> thenBy = x => x.LastRussianName;
+                Expression<Func<Person, object>> sortBy = x => x.LastRussianName;
+                Expression<Func<Person, object>> thenBy = x => x.FirstRussianName;
                 if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
                     if (request.SortOn.Contains(nameof(Person.LastRussianName),
@@ -96,6 +96,10 @@ namespace MyLfc.Application.Persons
                         sortBy = x => x.Country;
                         thenBy = null;
                     }
+                }
+                if (string.IsNullOrWhiteSpace(request.SortDirection))
+                {
+                    request.SortDirection = "ASC";
                 }
                  
                 return await personsQuery.GetPagedAsync<Response, Person, PersonListDto>(request, _mapper, sortBy, thenBy);

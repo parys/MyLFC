@@ -66,8 +66,15 @@ namespace MyLfc.Application.Injuries
                         request.SortOn = nameof(Injury.Description);
                     }
                 }
+                else
+                {
+                    injuries = injuries.OrderByDescending(x => x.Id);
+                }
+                if (string.IsNullOrWhiteSpace(request.SortDirection))
+                {
+                    request.SortDirection = "ASC";
+                }
 
-                injuries = injuries.OrderByDescending(x => x.Id);
                 return await injuries.GetPagedAsync<Response, Injury, InjuryListDto>(request, _mapper);
             }
         }
