@@ -26,9 +26,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateAsync([FromBody]UpdateMatchPersonCommand.Request request)
         {
             var result = await Mediator.Send(request);
-            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson, 
-                new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = result.IsNew ? ActionType.Add : ActionType.Update });
 
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson, 
+                new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = ActionType.Add });
+
+            if (!result.IsNew && result.OldPlaceType.HasValue)
+            {
+                var newValue = result.PlaceType;
+                result.PlaceType = result.OldPlaceType.Value;
+                SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson,
+                    new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = ActionType.Delete });
+                result.PlaceType = newValue;
+            }
             return Ok(result);
         }
 

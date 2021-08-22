@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -54,7 +55,8 @@ namespace MyLfc.Application.MatchPersons
                     .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.MatchId == request.MatchId
                                               && x.PersonId == request.PersonId, cancellationToken);
-
+                
+                var oldPlaceType = matchPerson?.PersonType;
                 var isNew = matchPerson == null;
                 matchPerson = _mapper.Map(request, matchPerson);
                 if (isNew)
@@ -76,7 +78,8 @@ namespace MyLfc.Application.MatchPersons
                     PersonName = string.IsNullOrWhiteSpace(person.Nickname) ? person.RussianName : person.Nickname,
                     PlaceType = request.PersonType.GetMatchPlaceholderType(request.IsHome),
                     PersonType = request.PersonType,
-                    IsNew = isNew
+                    IsNew = isNew,
+                    OldPlaceType = oldPlaceType
                 };
             }
         }
@@ -95,7 +98,10 @@ namespace MyLfc.Application.MatchPersons
 
             public MatchPersonType PersonType { get; set; }
 
+            [JsonIgnore]
             public bool IsNew { get; set; }
+            [JsonIgnore]
+            public MatchPersonType? OldPlaceType { get; set; }
         }
     }
 }

@@ -59,11 +59,11 @@ namespace MyLfc.Application.Persons
 
                 if (request.MatchId.HasValue)
                 {
-                    personsQuery = personsQuery.Where(x => x.Matches.Any(m => m.MatchId == request.MatchId.Value));
+                    personsQuery = personsQuery.Where(x => x.Matches.All(m => m.MatchId != request.MatchId.Value));
                 }
 
-                Expression<Func<Person, object>> sortBy = x => x.LastRussianName;
-                Expression<Func<Person, object>> thenBy = x => x.FirstRussianName;
+                Expression<Func<Person, object>> sortBy = x => x.Id;
+                Expression<Func<Person, object>> thenBy = null;
                 if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
                     if (request.SortOn.Contains(nameof(Person.LastRussianName),
