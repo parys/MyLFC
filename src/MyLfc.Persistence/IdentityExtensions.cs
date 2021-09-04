@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Domain;
@@ -6,6 +7,7 @@ using OpenIddict.Abstractions;
 
 namespace MyLfc.Persistence
 {
+    [ExcludeFromCodeCoverage]
     public static class IdentityExtensions
     {
         public static IServiceCollection AddCustomIdentitySettings(this IServiceCollection services)

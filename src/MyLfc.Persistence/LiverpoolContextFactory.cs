@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using MyLfc.Application;
 
 namespace MyLfc.Persistence
 {
+    [ExcludeFromCodeCoverage]
     public class LiverpoolContextFactory : IDesignTimeDbContextFactory<LiverpoolContext>
     {
         private const string connectionString =

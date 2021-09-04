@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Application;
 
 namespace MyLfc.Persistence
 {
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjection
     {
         public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)

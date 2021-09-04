@@ -52,7 +52,7 @@ namespace MyLiverpool.Business.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error happened when try to send email");
+                _logger.LogError(ex, $"Error happened when try to send email {email} with subject {subject}");
             }
         }
 
@@ -77,7 +77,7 @@ namespace MyLiverpool.Business.Services
             await SendEmailAsync(_settings.Value.EmailForWishCreationNotification, subject, message);
         }
 
-        private async Task<string> LoadTemplatesSync(string message)
+        private static async Task<string> LoadTemplatesSync(string message)
         {
             var template = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "HtmlTemplates", "EmailTemplate.html"));
             template = template.Replace("%messageText%", message);

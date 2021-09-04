@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLfc.Persistence
 {
+    [ExcludeFromCodeCoverage]
     public class DatabaseInitializer
     {
         private readonly LiverpoolContext _context;

@@ -32,7 +32,7 @@ namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            result.Should().ThrowAsync<NotFoundException>();
         }
 
         [Fact]

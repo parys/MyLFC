@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace MyLfc.Persistence
 {
+    [ExcludeFromCodeCoverage]
     public static class OpenIdDictMiddleware
     {
         public static IServiceCollection ApplyCustomOpenIdDict(this IServiceCollection services, IWebHostEnvironment env, IConfiguration config)

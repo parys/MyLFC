@@ -32,7 +32,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            result.Should().ThrowAsync<NotFoundException>();
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Id = MaterialQueryTestFixture.DeletedMaterial }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            await result.Should().ThrowAsync<NotFoundException>();
 
             var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.Id == MaterialQueryTestFixture.DeletedMaterial);
@@ -53,7 +53,7 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Id = MaterialQueryTestFixture.PendingMaterial }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            await result.Should().ThrowAsync<NotFoundException>();
 
             var pendingMaterial = await _context.Materials.IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.Id == MaterialQueryTestFixture.PendingMaterial);

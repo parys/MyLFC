@@ -39,7 +39,7 @@ namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Type = (HelperEntityType) 144 }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            result.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             Func<Task> result = async () =>
                 await _handler.Handle(new Request { Id = 111111 }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            result.Should().ThrowAsync<NotFoundException>();
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             Func<Task> result = async () =>
                 await _handler.Handle(new Request { Id = UpdateMaterialCommandTestFixture.DeletedMaterialId }, CancellationToken.None);
 
-            result.Should().Throw<NotFoundException>();
+            await result.Should().ThrowAsync<NotFoundException>();
 
             var deletedExam = await _context.Materials.IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.Id == UpdateMaterialCommandTestFixture.DeletedMaterialId);
