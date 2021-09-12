@@ -50,6 +50,7 @@ namespace MyLfc.Application.Matches
                 {
                     dict.Add(value, new List<MatchPersonListDto>());
                 }
+
                 foreach (var person in persons)
                 {
                     dict[(int)person.PersonType.GetMatchPlaceholderType(isHome)].Add(person);

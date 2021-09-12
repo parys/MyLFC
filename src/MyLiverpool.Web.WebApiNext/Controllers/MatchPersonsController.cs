@@ -27,9 +27,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await Mediator.Send(request);
 
-            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson, 
-                new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = ActionType.Add });
-
             if (!result.IsNew && result.OldPlaceType.HasValue)
             {
                 var newValue = result.PlaceType;
@@ -38,6 +35,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = ActionType.Delete });
                 result.PlaceType = newValue;
             }
+
+            SignalRHub.Send(HubEndpointConstants.UpdateMatchPerson,
+                new SignalrEntity<UpdateMatchPersonCommand.Response> { Entity = result, Type = ActionType.Add });
+
             return Ok(result);
         }
 

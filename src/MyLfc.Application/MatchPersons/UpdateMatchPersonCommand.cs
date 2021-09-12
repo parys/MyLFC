@@ -22,6 +22,8 @@ namespace MyLfc.Application.MatchPersons
             public MatchPersonType PersonType { get; set; }
 
             public bool IsHome { get; set; }
+
+            public byte? Number { get; set; }
         }
 
 
@@ -59,6 +61,9 @@ namespace MyLfc.Application.MatchPersons
                 var oldPlaceType = matchPerson?.PersonType;
                 var isNew = matchPerson == null;
                 matchPerson = _mapper.Map(request, matchPerson);
+
+                matchPerson.Number ??= person.Number;
+
                 if (isNew)
                 {
                     matchPerson.Created = DateTimeOffset.UtcNow;
@@ -74,12 +79,12 @@ namespace MyLfc.Application.MatchPersons
                 return new Response {
                     PersonId = matchPerson.PersonId,
                     MatchId = matchPerson.MatchId,
-                    Number =  person.Number,
+                    Number = matchPerson.Number,
                     PersonName = string.IsNullOrWhiteSpace(person.Nickname) ? person.RussianName : person.Nickname,
                     PlaceType = request.PersonType.GetMatchPlaceholderType(request.IsHome),
                     PersonType = request.PersonType,
                     IsNew = isNew,
-                    OldPlaceType = oldPlaceType
+                    OldPlaceType = oldPlaceType?.GetMatchPlaceholderType(request.IsHome)
                 };
             }
         }

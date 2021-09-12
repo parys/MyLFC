@@ -14,7 +14,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<MatchPerson, GetMatchPersonListQuery.MatchPersonListDto>()
                 .ForMember(dest => dest.PersonName, src => src.MapFrom(x => string.IsNullOrWhiteSpace(x.Person.Nickname) ? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}" : x.Person.Nickname))
                 .ForMember(dest => dest.PersonId, src => src.MapFrom(x => x.Person.Id))
-                .ForMember(dest => dest.Number, src => src.MapFrom(x => x.Person.Number));
+                .ForMember(dest => dest.Number, src => src.MapFrom(x => x.Number ?? x.Person.Number));
         }
     }
 }

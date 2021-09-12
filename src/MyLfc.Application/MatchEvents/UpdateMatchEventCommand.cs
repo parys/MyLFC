@@ -59,7 +59,7 @@ namespace MyLfc.Application.MatchEvents
                 var result = await _context.MatchEvents
                     .ProjectTo<UpsertMatchEventCommand.Response>(_mapper.ConfigurationProvider)
                     .FirstAsync(x => x.Id == matchEvent.Id, cancellationToken);
-
+                    //TODO add check whether it impacts on scores or no
                 var match = await _mediator.Send(new GetMatchDetailQuery.Request { Id = matchEvent.MatchId }, cancellationToken);
 
                 return new Response { MatchEvent = result, Match = match };
