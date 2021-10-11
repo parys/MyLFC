@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
+using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Users
 {
@@ -66,6 +67,7 @@ namespace MyLfc.Application.Users
                 var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
                 var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
 
+                rolesToDelete = rolesToDelete.Where(x => x.Name != RolesEnum.Simple.ToString());
                 user.RoleGroupId = request.RoleGroupId;
                 if (rolesToDelete.Any())
                 {
