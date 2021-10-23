@@ -9,8 +9,7 @@ namespace MyLiverpool.Common.Utilities.Extensions
             message = Regex.Replace(Regex.Replace(message, "&.*?;", string.Empty), "<.*?>", string.Empty);
             if (message.Length > GlobalConstants.LastCommentMessageSymbolCount)
             {
-                message = message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
-                          "...";
+                message = message[..GlobalConstants.LastCommentMessageSymbolCount] + "...";
             }
 
             return message;

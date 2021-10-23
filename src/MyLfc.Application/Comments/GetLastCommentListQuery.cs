@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,6 +8,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Comments
@@ -43,14 +43,8 @@ namespace MyLfc.Application.Comments
 
                 foreach (var comment in comments)
                 {
-                    comment.ClippedMessage = comment.Message;
-                    comment.Message = Regex.Replace(Regex.Replace(comment.Message, "&.*?;", string.Empty), "<.*?>", string.Empty);
-                    if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
-                    {
-                        comment.ClippedMessage = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
-                                                 "...";
-                        comment.Message = "";
-                    }
+                    comment.ClippedMessage = comment.Message.SanitizeComment();
+                    comment.Message = string.Empty;
                 }
 
                 return new Response

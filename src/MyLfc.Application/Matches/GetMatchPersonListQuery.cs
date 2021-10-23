@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
@@ -19,6 +20,13 @@ namespace MyLfc.Application.Matches
             public int MatchId { get; set; }
         }
 
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.MatchId).GreaterThan(0);
+            }
+        }
 
         public class Handler : IRequestHandler<Request, Response>
         {
