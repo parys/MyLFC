@@ -72,7 +72,9 @@ namespace MyLfc.Application.Matches
 
             public bool IsOur { get; set; }
 
-            public byte? Minute { get; set; }
+            public byte Minute { get; set; }
+
+            public byte? AddMinutes { get; set; }
 
             public bool Home { get; set; }
         }

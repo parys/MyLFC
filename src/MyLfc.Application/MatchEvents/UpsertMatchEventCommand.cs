@@ -15,7 +15,9 @@ namespace MyLfc.Application.MatchEvents
 
             public int MatchId { get; set; }
 
-            public byte? Minute { get; set; }
+            public byte Minute { get; set; }
+
+            public byte? AddMinutes { get; set; }
 
             public bool IsOur { get; set; }
         }
@@ -45,7 +47,9 @@ namespace MyLfc.Application.MatchEvents
 
             public bool IsOur { get; set; }
 
-            public byte? Minute { get; set; }
+            public byte Minute { get; set; }
+
+            public byte? AddMinutes { get; set; }
 
             public bool Home { get; set; }
         }
