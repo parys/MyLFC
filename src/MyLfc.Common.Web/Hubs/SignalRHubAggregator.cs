@@ -113,5 +113,7 @@ namespace MyLfc.Common.Web.Hubs
         public const string UpdateUserNumbers = "updateUserNumbers";
 
         public const string UpdateCommentVotes = "updateCommentVotes";
+
+        public const string ToggleHideTeams = "toggleHideTeams";
     }
 }

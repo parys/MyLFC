@@ -36,6 +36,8 @@ namespace MyLfc.Domain
 
         public int StadiumId { get; set; }
 
+        public bool HideTeams { get; set; }
+
         public Stadium Stadium { get; set; }
 
         public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();

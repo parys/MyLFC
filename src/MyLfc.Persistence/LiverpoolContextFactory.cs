@@ -1,20 +1,24 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using MyLfc.Application;
+using Microsoft.Extensions.Configuration;
 
 namespace MyLfc.Persistence
 {
     [ExcludeFromCodeCoverage]
     public class LiverpoolContextFactory : IDesignTimeDbContextFactory<LiverpoolContext>
     {
-        private const string connectionString =
-            "Server=USER-PC\\MSSQLSERVER02;Database=DB_lfc;Trusted_Connection=True;MultipleActiveResultSets=true";
+        IConfiguration config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.local.json", true)
+            .Build();
+
         public LiverpoolContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();
             optionsBuilder.UseOpenIddict<int>();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("MyLfc.Persistence"));
 
             return new LiverpoolContext(optionsBuilder.Options);
         }

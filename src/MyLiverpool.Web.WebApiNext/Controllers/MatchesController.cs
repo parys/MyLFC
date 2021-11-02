@@ -7,6 +7,7 @@ using MyLfc.Application.Comments;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Matches;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -183,6 +184,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetForMatchAsync([FromRoute] GetMatchEventListQuery.Request request)
         {
             return Ok((await Mediator.Send(request)).Results);
+        }
+        
+        /// <summary>
+        /// Toggle hide teams switcher for match.
+        /// </summary>
+        /// <returns>List of types.</returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{MatchId:int}/hideTeams")]
+        public async Task<IActionResult> ToggleHideTeamsAsync([FromRoute] ToggleHideTeamsCommand.Request request)
+        {
+            var result = await Mediator.Send(request);
+
+            SignalRHub.Send(HubEndpointConstants.ToggleHideTeams, new { matchId = request.MatchId, result = result.Result} );
+
+            return Ok(result);
         }
     }
 }

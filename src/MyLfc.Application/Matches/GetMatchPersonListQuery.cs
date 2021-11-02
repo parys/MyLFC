@@ -59,6 +59,8 @@ namespace MyLfc.Application.Matches
                     dict.Add(value, new List<MatchPersonListDto>());
                 }
 
+                persons = persons.OrderBy(x => x.Order).ToList();
+
                 foreach (var person in persons)
                 {
                     dict[(int)person.PersonType.GetMatchPlaceholderType(isHome)].Add(person);
@@ -84,6 +86,8 @@ namespace MyLfc.Application.Matches
             public int PersonId { get; set; }
 
             public byte? Number { get; set; }
+
+            public byte Order { get; set; }
 
             public MatchPersonType PersonType { get; set; }
 

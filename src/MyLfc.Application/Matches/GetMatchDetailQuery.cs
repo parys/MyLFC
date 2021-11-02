@@ -42,15 +42,16 @@ namespace MyLfc.Application.Matches
                     .Include(x => x.Season)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
+                if (match == null)
+                {
+                    throw new NotFoundException(nameof(Match), request.Id);
+                }
                 var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request(), cancellationToken);
                 if (liverpoolClub == null)
                 {
                     return null;
                 }
-                if (match == null)
-                {
-                    return null;
-                }
+
                 var response = _mapper.Map<Response>(match);
                 if (match.IsHome)
                 {
@@ -59,11 +60,6 @@ namespace MyLfc.Application.Matches
                 else
                 {
                     FillClubsFields(response, match.Club, liverpoolClub);
-                }
-
-                if (match == null)
-                {
-                    throw new NotFoundException(nameof(Match), request.Id);
                 }
 
                 return response;
@@ -128,7 +124,7 @@ namespace MyLfc.Application.Matches
 
             public string SeasonName { get; set; }
 
-            // todo move data in DB and remove after user ReportId
+            // todo migrate data in DB and remove after user ReportId
             public string ReportUrl { get; set; }
 
             public string PhotoUrl { get; set; }
@@ -138,6 +134,8 @@ namespace MyLfc.Application.Matches
             public int? PreviewId { get; set; }
 
             public int? ReportId { get; set; }
+
+            public bool HideTeams { get; set; }
         }
     }
 }

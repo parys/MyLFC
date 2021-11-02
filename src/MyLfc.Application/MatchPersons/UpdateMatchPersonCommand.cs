@@ -24,6 +24,8 @@ namespace MyLfc.Application.MatchPersons
             public bool IsHome { get; set; }
 
             public byte? Number { get; set; }
+
+            public byte Order { get; set; }
         }
 
 

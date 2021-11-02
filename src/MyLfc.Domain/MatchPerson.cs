@@ -15,6 +15,8 @@ namespace MyLfc.Domain
 
         public byte? Number { get; set; }
 
+        public byte Order { get; set; }
+
         public MatchPersonType PersonType { get; set; }
 
         public DateTimeOffset Created { get; set; }
