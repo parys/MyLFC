@@ -7,10 +7,10 @@
       <IsPackable>false</IsPackable>
       <OutputType>Exe</OutputType>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-    <PublishTrimmed>true</PublishTrimmed>
+    <PublishTrimmed>false</PublishTrimmed>
 
     <RemoveHashFromTiny>false</RemoveHashFromTiny>
     <ApplicationIcon />
