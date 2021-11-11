@@ -88,8 +88,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddControllersWithViews(options => { options.Filters.Add(typeof(RequestDecorator)); })
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ContractResolver =
-                        new CamelCasePropertyNamesContractResolver())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                        new CamelCasePropertyNamesContractResolver());
 
             services.AddCors(options =>
             {
