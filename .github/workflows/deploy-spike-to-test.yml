@@ -1,0 +1,45 @@
+name: Deploy Spike To Test
+
+on:
+  push:
+    branches: 
+      - spike/**
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Publish
+      run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLiverpool.Web.WebApiNext/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.2.11
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          ARGS: "-avzr --delete --exclude=/wwwroot/ --exclude=/Logs/ --exclude '*.xml' --exclude 'appsettings.Production.json'"
+          SOURCE: "/artifacts/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_DEPLOY_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }} 
+          TARGET: ${{ secrets.SERVER_TEST_API_FOLDER }}
+    - name: restart test servuice
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          systemctl restart t
+        host: ${{ secrets.REMOTE_HOST }}
+        port: ${{ secrets.REMOTE_PORT }} 
+        user: ${{ secrets.SSH_DEPLOY_USER }}
+        key: ${{ secrets.SSH_DEPLOY_KEY }}
