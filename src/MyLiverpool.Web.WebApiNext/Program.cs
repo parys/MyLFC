@@ -9,7 +9,7 @@ using Serilog;
 namespace MyLiverpool.Web.WebApiNext
 {
     /// <summary>
-    /// Runs kestrel.
+    /// Runs kestrel
     /// </summary>
     public class Program
     {
