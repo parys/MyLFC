@@ -33,6 +33,7 @@ namespace MyLfc.Application.MatchPersons
         {
             public Validator()
             {
+                RuleFor(x => x.MatchId).NotEmpty();
             }
         }
 
@@ -84,6 +85,7 @@ namespace MyLfc.Application.MatchPersons
                     Number = matchPerson.Number,
                     PersonName = string.IsNullOrWhiteSpace(person.Nickname) ? person.RussianName : person.Nickname,
                     PlaceType = request.PersonType.GetMatchPlaceholderType(request.IsHome),
+                    Order = request.Order,
                     PersonType = request.PersonType,
                     IsNew = isNew,
                     OldPlaceType = oldPlaceType?.GetMatchPlaceholderType(request.IsHome)
@@ -104,6 +106,8 @@ namespace MyLfc.Application.MatchPersons
             public MatchPersonType PlaceType { get; set; }
 
             public MatchPersonType PersonType { get; set; }
+
+            public byte Order { get; set; }
 
             [JsonIgnore]
             public bool IsNew { get; set; }

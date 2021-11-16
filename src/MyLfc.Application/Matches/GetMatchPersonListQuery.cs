@@ -44,9 +44,10 @@ namespace MyLfc.Application.Matches
             {
                 var persons = await _context.MatchPersons.AsNoTracking()
                     .Where(x => x.MatchId == request.MatchId)
-                    .OrderBy(x => x.Created)
                     .ProjectTo<MatchPersonListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
+
+                persons = persons.OrderBy(x => x.Order).ToList();
 
                 var isHome = await _context.Matches.AsNoTracking()
                     .Where(x => x.Id == request.MatchId)

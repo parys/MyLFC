@@ -36,7 +36,6 @@ namespace MyLfc.Persistence
                         .SetTokenEndpointUris("/connect/token");
                     options.AllowPasswordFlow()
                         .AllowRefreshTokenFlow()
-                        //.SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
 
                         .SetRefreshTokenReuseLeeway(TimeSpan.FromDays(14))                        
                         .SetRefreshTokenLifetime(TimeSpan.FromDays(14));
@@ -46,8 +45,7 @@ namespace MyLfc.Persistence
 
                     //to be able to get user at FE side
                     options.DisableAccessTokenEncryption();
-
-                    options.DisableSlidingRefreshTokenExpiration();
+                    
                     options.DisableTokenStorage();
 
                     // During development, you can disable the HTTPS requirement.
