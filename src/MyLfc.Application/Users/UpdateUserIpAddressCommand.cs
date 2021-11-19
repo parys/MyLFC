@@ -10,7 +10,7 @@ namespace MyLfc.Application.Users
 {
     public class UpdateUserIpAddressCommand
     {
-        public class Request : IRequest<Response>
+        public class Request : IRequest<Unit>
         {
             public string Ip { get; set; }
 
@@ -18,7 +18,7 @@ namespace MyLfc.Application.Users
         }
 
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Unit>
         {
             private readonly ILiverpoolContext _context;
 
@@ -27,32 +27,16 @@ namespace MyLfc.Application.Users
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
                 if (!string.IsNullOrWhiteSpace(request.Ip))
                 {
-                    var user = await _context.Users
-                        .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
-
-                    if (user == null)
-                    {
-                        throw new NotFoundException(nameof(User), request.UserId);
-                    }
-
-                    user.Ip = request.Ip;
-                    user.LastModified = DateTimeOffset.UtcNow;
-
-
-                    await _context.SaveChangesAsync(cancellationToken);
+                    await _context.Database.ExecuteSqlInterpolatedAsync(
+                        $"UPDATE AspNetUsers SET Ip={request.Ip}, LastModified={DateTimeOffset.UtcNow} WHERE Id={request.UserId}", cancellationToken);
                 }
 
-                return new Response();
+                return Unit.Value;
             }
-        }
-
-        public class Response
-        {
-            
         }
     }
 }
