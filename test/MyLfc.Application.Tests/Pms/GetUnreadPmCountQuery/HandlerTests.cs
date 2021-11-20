@@ -9,12 +9,12 @@ using Response = MyLfc.Application.Pms.GetUnreadPmCountQuery.Response;
 
 namespace MyLfc.Application.Tests.Pms.GetUnreadPmCountQuery
 {
-    [Collection(nameof(PmQueryCollection))]
+    [Collection(nameof(GetUnreadPmQueryCollection))]
     public class HandlerTests
     {
         private readonly IRequestHandler<Request, Response> _handler;
 
-        public HandlerTests(PmQueryTestFixture fixture)
+        public HandlerTests(GetUnreadPmQueryTestFixture fixture)
         {
             _handler = new Handler(fixture.Context, fixture.AdminRequestContext);
         }
