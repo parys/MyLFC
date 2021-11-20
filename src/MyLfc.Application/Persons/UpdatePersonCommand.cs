@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -52,10 +53,19 @@ namespace MyLfc.Application.Persons
                     throw new NotFoundException(nameof(Person), request.Id);
                 }
 
+                if (!string.IsNullOrWhiteSpace(person.Photo) && string.IsNullOrWhiteSpace(request.Photo))
+                {
+                    var path = Path.Combine(_appEnvironment.WebRootPath, person.Photo);
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                }
+
                 person = _mapper.Map(request, person);
 
                 var fileName = (request.FirstName.Trim() + request.LastName.Trim()).Replace(' ', '_');
-
+                
                 if (request.Photo != null && FileHelper.IsBase64(request.Photo))
                 {
                     person.Photo =

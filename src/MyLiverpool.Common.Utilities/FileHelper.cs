@@ -49,7 +49,7 @@ namespace MyLiverpool.Common.Utilities
                 Directory.CreateDirectory(PersonPath);
             }
 
-            if (!relativePath.Contains("jpeg") && !relativePath.Contains("jpg") && relativePath.Contains("png"))
+            if (relativePath.Contains("jpeg") || relativePath.Contains("jpg") || relativePath.Contains("png"))
             {
                 if (!relativePath.Replace("\\", "/").Contains(base64File))
                 {
