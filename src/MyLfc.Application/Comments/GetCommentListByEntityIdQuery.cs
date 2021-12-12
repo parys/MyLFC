@@ -55,8 +55,8 @@ namespace MyLfc.Application.Comments
                     Answer = x.Answer,
                     AuthorId = x.AuthorId,
                     AuthorUserName = x.Author.UserName,
-                    CanNegativeVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
-                    CanPositiveVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                    CanNegativeVote = true,
+                    CanPositiveVote = true,
                     IsVerified = x.IsVerified,
                     MatchId = x.MatchId,
                     MaterialId = x.MaterialId,
@@ -70,7 +70,33 @@ namespace MyLfc.Application.Comments
                     Type = x.Type,
                     TypeName = x.Type.ToString().ToLower()
                 }).ToListAsync(cancellationToken);
+
+                if (_requestContext.UserId.HasValue)
+                {
+                    var entityId = request.MatchId ?? request.MaterialId ?? 0;
+                    var commentVotes = await _context.CommentVotes.AsNoTracking()
+                        .Where(x => x.EntityId == entityId && x.UserId == _requestContext.UserId.Value)
+                        .ToListAsync(cancellationToken);
+                    foreach (var commentVote in commentVotes)
+                    {
+                        var comment = comments.FirstOrDefault(x => x.Id == commentVote.CommentId);
+                        if (comment == null)
+                        {
+                            continue;
+                        }
+                        if (commentVote.Positive)
+                        {
+                            comment.CanPositiveVote = false;
+                        }
+                        else
+                        {
+                            comment.CanNegativeVote = false;
+                        }
+                    }
+                }
+
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
+
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
                 //  filter = filter.And(x => x.ParentId == null);//bug need to analyze how get all comments for material page but count only top-level for paging
                 

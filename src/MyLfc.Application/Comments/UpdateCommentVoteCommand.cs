@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
 namespace MyLfc.Application.Comments
@@ -32,27 +33,35 @@ namespace MyLfc.Application.Comments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var vote = await _context.CommentVotes
-                    .FirstOrDefaultAsync(x => x.CommentId == request.CommentId
-                                                                                && x.UserId == _requestContext.UserId, cancellationToken);
-
                 var comment = await _context.MaterialComments
                     .FirstOrDefaultAsync(x => x.Id == request.CommentId, cancellationToken);
+                if (comment == null)
+                {
+                    throw new NotFoundException(nameof(MaterialComment), request.CommentId);
+                }
+
+                var vote = await _context.CommentVotes
+                    .FirstOrDefaultAsync(x => x.CommentId == request.CommentId
+                                              && x.UserId == _requestContext.UserId, cancellationToken);
+
                 if (vote != null)
                 {
-                    vote.Positive = request.Positive;
-
                     if (vote.Positive != request.Positive)
                     {
-                        if (request.Positive)
+                        vote.Positive = request.Positive;
+
+                        if (vote.Positive != request.Positive)
                         {
-                            comment.PositiveCount++;
-                            comment.NegativeCount--;
-                        }
-                        else
-                        {
-                            comment.PositiveCount--;
-                            comment.NegativeCount++;
+                            if (request.Positive)
+                            {
+                                comment.PositiveCount++;
+                                comment.NegativeCount--;
+                            }
+                            else
+                            {
+                                comment.PositiveCount--;
+                                comment.NegativeCount++;
+                            }
                         }
                     }
                 }
@@ -66,7 +75,8 @@ namespace MyLfc.Application.Comments
                     {
                         UserId = _requestContext.UserId.Value,
                         CommentId = request.CommentId,
-                        Positive = request.Positive
+                        Positive = request.Positive,
+                        EntityId = comment.MaterialId ?? comment.MatchId ?? 0 //TODO switch to entityId ?
                     };
 
                     if (request.Positive)
