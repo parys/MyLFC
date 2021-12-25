@@ -47,5 +47,14 @@ namespace MyLfc.Domain
         public string Name => $"{FirstName} {LastName}";
         [NotMapped]
         public string RussianName => $"{FirstRussianName} {LastRussianName}";
+
+        public const int CountryLength = 50;
+        public const int FirstNameLength = 35;
+        public const int LastNameLength = 35;
+        public const int FirstRussianNameLength = 35;
+        public const int LastRussianNameLength = 35;
+        public const int NicknameLength = 20;
+        public const int PositionLength = 100;
+        public const int PhotoLength = 100;
     }
 }
