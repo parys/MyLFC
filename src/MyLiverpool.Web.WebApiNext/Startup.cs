@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
@@ -88,8 +87,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddControllersWithViews(options => { options.Filters.Add(typeof(RequestDecorator)); })
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ContractResolver =
-                        new CamelCasePropertyNamesContractResolver())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                        new CamelCasePropertyNamesContractResolver());
 
             services.AddCors(options =>
             {
