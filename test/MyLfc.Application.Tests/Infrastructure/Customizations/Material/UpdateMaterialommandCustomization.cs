@@ -1,6 +1,5 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Materials;
-using MyLfc.Shared.Tests.Customizations.Exams;
 
 namespace MyLfc.Application.Tests.Infrastructure.Customizations.Material
 {

@@ -1,7 +1,6 @@
 ﻿using MyLfc.Application.Materials;
-using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
 
-namespace MyLfc.Shared.Tests.Customizations.Exams
+namespace MyLfc.Application.Tests.Infrastructure.Customizations.Material
 {
     public class CreateMaterialCommandCustomization : UpsertMaterialCommandCustomization<CreateMaterialCommand.Request>
     {
