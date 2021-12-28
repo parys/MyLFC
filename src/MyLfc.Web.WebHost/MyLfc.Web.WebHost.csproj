@@ -97,4 +97,10 @@
     <ProjectReference Include="..\MyLfc.Data.Common\MyLfc.Data.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TrimmingRoot.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
