@@ -24,7 +24,7 @@
   </ItemGroup>-->
 
 	<ItemGroup>
-		<TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+		<TrimmerRootDescriptor Include="TrimmingRoot.xml" />
 	</ItemGroup>
 
   <ItemGroup>
