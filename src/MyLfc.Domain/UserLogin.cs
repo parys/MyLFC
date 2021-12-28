@@ -1,6 +1,6 @@
 ﻿//using Microsoft.AspNet.Identity.EntityFramework;
 
-//namespace MyLiverpoolSite.Data.Entities
+//namespace MyLfcSite.Data.Entities
 //{
 //    public partial class UserLogin : IdentityUserLogin<int>
 //    {

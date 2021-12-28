@@ -1,0 +1,770 @@
+﻿@font-face {
+    font-family: "Beauty";
+    src:  url('../fonts/10427.ttf') format('truetype');
+}
+@font-face {
+    font-family: "AnotherFont";
+    src: url('../fonts/Cuprum-Regular.ttf');
+}
+
+/* override theme material */
+.mat-ink-bar {
+    background-color: maroon;
+}
+
+/* material override */
+
+/* temporary bug*/
+.mce-container.mce-panel.mce-floatpanel.mce-popover.mce-bottom.mce-start {
+    width: 250px !important;
+    height: 290px !important;
+    overflow: auto;
+}
+
+.width200 {
+    width: 200px;
+}
+
+.flex-center-h {
+    justify-content: center;
+}
+
+a:hover {
+    text-decoration: none;
+    color: red;
+}
+
+body {
+    background-color: #f5f5f5;
+    /*color: #6e6e6e;'*/
+}
+
+blockquote {
+    background-color: rgba(128, 0, 0, .1);
+    border-color: maroon;
+    font-size: 14px;
+}
+
+button.no-style {
+    border: 0;
+    background-color: transparent;
+}
+
+button.no-style:hover {
+    border: 0;
+    background-color: transparent;
+}
+
+iframe {
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+iframe .body-wrapper{
+    background-color: #f5f5f5;
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+hr {
+    border-top-width: 3px;
+    border-top-color: maroon;
+}
+
+  .news-mini {
+        height: 140px;
+        width: 300px;
+    }
+
+textarea {
+    resize: vertical;
+}
+
+.avatar {
+    width: 100px;
+}
+
+.avatar-medium {
+    min-width: 30px;
+    width: 100px;
+}
+
+.beauty-font {
+    font-family: "Beauty";
+}
+
+.best-player {
+    height: 150px;
+    width: 150px;
+}
+
+.bg-maroon {
+    background-color: #731010;
+}
+
+.bg-gray {
+    background-color: #f5f5f5;
+}
+
+.bg-header::before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 0;
+    opacity: 0.2;
+    background-repeat: no-repeat;
+    background-image: url('/content/header4.png');
+    background-position: 50% 100%;
+    background-size: 30%;
+}
+
+.bg-light-blue {
+    background-color: lightblue;
+}
+.border-blue {
+    border-color: lightskyblue;
+}
+
+.border-gray {
+    border-color: gray;
+}
+
+.border-lgray {
+    border-color: lightgray;
+}
+
+.border-maroon {
+    border-color: #731010;
+}
+
+.border-yellow {
+    border-color: wheat;
+}
+
+.btn-violet {
+    background-color: #3f51b5;
+    color: white;
+}
+
+    .btn-violet:hover {
+        color: red;
+    }
+    
+    .border-panel {
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border-width: 5px;
+        border-style: solid;
+    }
+
+.block-minichat {
+    background-color: #731010;
+    border-radius: 10px;
+}
+
+.blockcontent-inside {
+    margin-left: 0;
+    padding: 1px 7px;
+}
+
+.blocktitle {
+    text-transform: uppercase;
+    color: orange;
+}
+
+.border-left-maroon {
+    border-left: 5px solid #731010;
+}
+
+.bottom10 {
+    margin-bottom: 10px;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+@media(max-width: 767px) {
+#goToTop {
+    display: none;
+}
+}
+
+.top {
+    left: 0;
+    position: fixed;
+    bottom: 10%;
+    height: 6%;
+    text-align: center;
+    width: 25%;
+}
+
+
+.chat-message {
+    padding: 0 5px 5px 5px;
+    margin-bottom: 3px;
+    background: #e5e5e5;
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    overflow-x: auto;
+} 
+
+.chat-message img {
+    max-width: 100%;
+    height: auto;
+}
+
+.club-logo {
+    max-width: 45px;
+}
+
+.com-offset-0 {
+    margin-left: 0;
+}
+.com-offset-1, .com-offset-2, .com-offset-3, .com-offset-4, .com-offset-5, .com-offset-6, .com-offset-7 {
+    margin-left: 3%;
+}
+/*.com-offset-2 {
+    margin-left: 6%;
+}
+.com-offset-3 {
+    margin-left: 9%;
+}
+.com-offset-4 {
+    margin-left: 12%;
+}
+.com-offset-5 {
+    margin-left: 15%;
+}
+.com-offset-6 {
+    margin-left: 18%;
+}
+.com-offset-7 {
+    margin-left: 21%;
+}*/
+.center {
+    margin: auto;
+}
+
+.chatMessage-block {
+    height: 350px;
+    overflow-y: auto;
+}
+
+.chatMessage-block.maxi {
+    height: 500px;
+}
+
+.chatUpdate {
+    background-color: white;
+    padding-left: 5px;
+    width: 100px;
+}
+
+.chatUpdate .mat-select-placeholder {
+    color: goldenrod;
+}
+
+.color-gold {
+    color: gold !important;
+}
+
+.color-tomato {
+    color: #FF6347;
+}
+
+.color-back-gold {
+    background-color: gold;
+}
+
+.color-back-maroon {
+    background-color: maroon;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-red {
+    color: red;
+}
+
+.comment-container.nested {
+    border-left: #6e6e6e dotted 1px;
+    padding-left: 1px;
+}
+    .comment-container.nested:hover {
+        border-left: #6e6e6e dashed 2px;
+        padding-left: 0;
+    }
+
+.comment {
+    background-color: #e5e5e5;
+    border: gray solid thin;
+    border-radius: 0 0 10px 10px;
+    min-height: 80px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+    .comment img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .comment.active {
+        border-color: #731010;
+        border-width: 3px;
+    }
+
+.dropdown-menu {
+    min-width: 140px;
+    border: 5px solid #731010;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.dropdown-toggle:hover{
+    background-color: white;
+    color: red;
+}
+
+.eplTable {
+    overflow-y: auto;
+}
+
+.eplTable > .table {
+    margin-bottom: 0;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.flex-space-around {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-vertical-center {
+    min-height: 0;
+    display: flex;
+    align-items: center;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.forum-message {
+    min-height: 120px;
+}
+
+.font-size13 {
+    font-size: 13px;
+}
+
+.font-size20 {
+    font-size: 20px;
+}
+
+.font-size30 {
+    font-size: 30px;
+}
+
+.font-size40 {
+    font-size: 40px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.infodate {
+    text-align: center;
+    color: #000000;
+}
+
+.injuries {
+    background-color: antiquewhite;    
+}
+
+.injury-item {
+    border-left: maroon solid 3px;
+    margin-bottom: 5px;
+}
+
+.injury-item img {
+        max-width: 40px;
+    }
+
+
+.inline {
+    display:inline;
+}
+
+.img-medium {
+    min-width: 40px;
+    max-width: 100px;
+}
+
+.list-inline.small-offset > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 0;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .chat-button {
+        min-width: 80px !important;
+        max-width: 80px;
+        padding: 0 !important;
+    }
+}
+
+@media(max-width: 1209px) { /* should based on menu length? todo*/
+    .liverbird-navbar {
+        display: none;
+    }
+}
+@media(min-width: 1210px) {
+    .liverbird-navbar { margin-left: auto; }
+
+    .liverbird-navbar > img { max-height: 65px; }
+}
+
+.login-list-panel {
+    list-style: none;
+}
+.match-header-logo-club {
+    width: 70px;
+}
+/* background image*/
+/*
+.main {
+    overflow: hidden;
+}
+    .main:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+        opacity: 0.2;
+        background-image: url('/content/logo22.jpg');
+        background-repeat: repeat;
+        background-position: 50% 0;
+        
+        background-size: 100%;
+    }*/
+.match-calendar img {
+    display: block;
+    width: 45px;
+}
+
+img.material-preview {
+    border: lightgray solid 5px;
+    display: flex;
+    height: auto;
+    margin: auto;
+    max-width: 100%;
+    width: auto;
+}
+
+    .material-body img {
+        border: lightgray solid 5px;
+        display: flex;
+        height: auto;
+        margin: auto;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .material-header {
+        color: #731010;
+        font-weight: bold;
+        padding-left: 10px;
+        text-transform: uppercase;
+    }
+
+        .material-header > a {
+            color: #731010;
+        }
+
+            .material-header > a > h4 {
+                font-weight: bold;
+            }
+
+.material-pending {
+    background-color: #e07676;
+}
+
+    .mainContent {
+        margin-top: 60px;
+    }
+
+    .material-info-panel {
+        background-color: lightgray;
+    }
+
+        .material-info-panel > ul {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+    .margin-auto {
+        margin: auto;
+    }
+
+    .nav-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .navbar {
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: #FFF;
+        font-family: "Beauty";
+    }
+
+        .navbar-default .navbar-nav > li > a:hover {
+            color: #6e6e6e;
+        }
+
+    .maroon-panel {
+        background-color: #731010;
+    }
+
+    .overflowable {
+        overflow-y: auto;
+    }
+
+    .padding0 {
+        padding: 0;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    /*@media (min-width: 768px) {
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: -15px;
+        }
+
+        .navbar-nav > li > a.padding0 {
+            padding: 0;
+        }
+    }*/
+
+    .stuff-card {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    .table > tbody > tr > td {
+        vertical-align: middle;
+        align-content: center;
+    }
+
+    .text-white {
+        color: white;
+    }
+
+    .text-yellow {
+        color: yellow;
+    }
+
+    .text-darkgold {
+        color: darkgoldenrod;
+    }
+
+    .text-underline {
+        text-decoration: underline;
+    }
+
+    .top10 {
+        margin-top: 10px;
+    }
+
+    .top20 {
+        margin-top: 20px;
+    }
+
+    .top50 {
+        margin-top: 50px;
+    }
+
+    .userAvatar {
+        max-width: 90px;
+        max-height: 90px;
+    }
+
+    /* AngularJS Form validation styling */
+    .validation.help-block {
+        color: #E07676;
+        font-style: italic;
+    }
+
+    .va-top {
+        vertical-align: top;
+    }
+
+    /* error display font italic, text-danger is red in BS */
+    .validation.text-danger {
+        font-style: italic;
+    }
+
+    .width20px {
+        width: 20px;
+    }
+
+
+    .width50p {
+        width: 50%;
+    }
+
+    .vertical-center {
+        vertical-align: middle;
+    }
+
+    .container-row {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .margin-top-middle {
+        margin-top: 30px;
+    }
+
+    .mini-avatar {
+        height: 20px;
+        width: 20px;
+    }
+
+.mini-logo {
+    height: 20px;
+}
+
+    /* old site start*/
+
+    .left1 {
+        display: block;
+        float: left;
+        width: 205px;
+        height: 160px;
+        background: url(http://MyLfc.ru/desighn/img/inform.png) no-repeat;
+    }
+
+    .blocktitle2 {
+        line-height: 16px;
+        font: 11px 'Tahoma';
+        color: #ffffff;
+        padding-right: 70px;
+        padding-top: 5px;
+        text-transform: uppercase;
+    }
+
+    .score {
+        font-size: 20px;
+    }
+
+    .stadium {
+        font-size: 15px;
+    }
+
+    .infopic {
+        color: #000000;
+        font-family: Verdana;
+        font-size: 14px;
+        padding-top: 15px;
+        padding-left: 0;
+    }
+
+    .embl {
+        text-align: center;
+        font-family: Verdana;
+        font-size: 12px;
+        color: #000000;
+    }
+
+
+    /* old site end*/
+    .spoiler {
+        border: 1px solid #ff0000;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .spoiler-toggle {
+        font-weight: bold;
+        cursor: default;
+        padding: 5px;
+        font-size: 12px;
+        color: #ff0000;
+    }
+
+    .spoiler-text {
+        padding: 5px;
+    }
+
+
+
+@media (min-width: 768px) {
+    .navbar-collapse.collapse {
+        display: flex !important;
+        height: auto !important;
+    }
+}
+
+.flex-space-around {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.flex-v-c {
+    min-height: 0;
+    display: flex;
+    align-items: center;
+}

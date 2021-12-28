@@ -4,7 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities;
+using MyLfc.Common.Utilities;
 
 namespace MyLfc.Application.Features.Account
 {

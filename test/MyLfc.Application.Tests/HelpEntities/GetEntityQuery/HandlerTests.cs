@@ -5,7 +5,7 @@ using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 using Handler = MyLfc.Application.HelpEntities.GetEntityQuery.Handler;
 using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;

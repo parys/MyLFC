@@ -6,7 +6,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Common.Web.Hubs;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.ChatMessages
 {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 using Validator = MyLfc.Application.Persons.CreatePersonCommand.Validator;
 using Request = MyLfc.Application.Persons.CreatePersonCommand.Request;

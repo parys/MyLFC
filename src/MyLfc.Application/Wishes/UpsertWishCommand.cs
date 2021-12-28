@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Wishes
 {

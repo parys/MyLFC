@@ -1,5 +1,5 @@
 ﻿using System;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Infrastructure
 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLfc.Persistence;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     partial class LiverpoolContextModelSnapshot : ModelSnapshot

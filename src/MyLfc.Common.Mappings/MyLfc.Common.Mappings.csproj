@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
+    <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
+    <ProjectReference Include="..\MyLfc.Business.DtoNext\MyLfc.Business.Dto.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Utilities\MyLfc.Common.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

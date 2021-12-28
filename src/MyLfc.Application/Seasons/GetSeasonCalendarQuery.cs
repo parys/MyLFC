@@ -8,8 +8,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Seasons
 {

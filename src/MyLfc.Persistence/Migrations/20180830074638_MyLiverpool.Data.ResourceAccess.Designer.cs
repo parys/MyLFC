@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLfc.Persistence;
-using MyLiverpool.Data.ResourceAccess;
+using MyLfc.Data.ResourceAccess;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    [Migration("20180830074638_MyLiverpool.Data.ResourceAccess")]
-    partial class MyLiverpoolDataResourceAccess
+    [Migration("20180830074638_MyLfc.Data.ResourceAccess")]
+    partial class MyLfcDataResourceAccess
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,7 +105,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ChatMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ChatMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,7 +129,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ChatMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Club", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Club", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Clubs");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.CommentVote", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.CommentVote", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -167,7 +167,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("CommentVotes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,7 +211,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumSections");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSubsection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSubsection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +236,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumSubsections");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -277,7 +277,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumThemes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.HelpEntity", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.HelpEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,7 +292,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("HelpEntities");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Injury", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Injury", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,7 +313,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Injuries");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Loan", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Loan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -338,7 +338,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Loans");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Match", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -379,7 +379,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchEvent", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MatchEvent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -410,7 +410,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MatchEvents");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchPerson", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MatchPerson", b =>
                 {
                     b.Property<int>("MatchId");
 
@@ -427,7 +427,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MatchPersons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -488,7 +488,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialCategory", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -507,7 +507,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MaterialCategories");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialComment", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialComment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -558,7 +558,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MaterialComments");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Notification", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Notification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -585,7 +585,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Person", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -616,7 +616,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Polls.Poll", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Polls.Poll", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -634,7 +634,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Polls");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Polls.PollAnswer", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Polls.PollAnswer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -652,7 +652,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("PollAnswers");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Polls.PollAnswerUser", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Polls.PollAnswerUser", b =>
                 {
                     b.Property<int>("PollAnswerId");
 
@@ -669,7 +669,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("PollAnswerUsers");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -698,7 +698,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("PrivateMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Role", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -723,7 +723,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -738,7 +738,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("RoleGroups");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleRoleGroup", b =>
                 {
                     b.Property<int>("RoleId");
 
@@ -751,7 +751,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("RoleRoleGroups");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Season", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Season", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -764,7 +764,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadium", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Stadium", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -779,7 +779,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Stadiums");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Transfer", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Transfer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -812,7 +812,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Transfers");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -894,7 +894,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.UserConfig", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.UserConfig", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -909,7 +909,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("UserConfigs");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Wish", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Wish", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1071,7 +1071,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Role")
+                    b.HasOne("MyLfc.Data.Entities.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1079,7 +1079,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1087,7 +1087,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1095,12 +1095,12 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Role")
+                    b.HasOne("MyLfc.Data.Entities.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1108,282 +1108,282 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ChatMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ChatMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("ChatMessages")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Club", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Club", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Stadium", "Stadium")
+                    b.HasOne("MyLfc.Data.Entities.Stadium", "Stadium")
                         .WithMany("Clubs")
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.CommentVote", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.CommentVote", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.MaterialComment", "Comment")
+                    b.HasOne("MyLfc.Data.Entities.MaterialComment", "Comment")
                         .WithMany("CommentVotes")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "User")
+                    b.HasOne("MyLfc.Data.Entities.User", "User")
                         .WithMany("CommentVotes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("ForumMessages")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.ForumTheme", "Theme")
+                    b.HasOne("MyLfc.Data.Entities.ForumTheme", "Theme")
                         .WithMany("Messages")
                         .HasForeignKey("ThemeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSubsection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSubsection", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.ForumSection", "Section")
+                    b.HasOne("MyLfc.Data.Entities.ForumSection", "Section")
                         .WithMany("Subsections")
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "LastAnswerUser")
+                    b.HasOne("MyLfc.Data.Entities.User", "LastAnswerUser")
                         .WithMany()
                         .HasForeignKey("LastAnswerUserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.ForumSubsection", "Subsection")
+                    b.HasOne("MyLfc.Data.Entities.ForumSubsection", "Subsection")
                         .WithMany("Themes")
                         .HasForeignKey("SubsectionId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Injury", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Injury", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                    b.HasOne("MyLfc.Data.Entities.Person", "Person")
                         .WithMany("Injuries")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Loan", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Loan", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Loans")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                    b.HasOne("MyLfc.Data.Entities.Person", "Person")
                         .WithMany("Loans")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Match", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Match", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Matches")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany("Matches")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Stadium", "Stadium")
+                    b.HasOne("MyLfc.Data.Entities.Stadium", "Stadium")
                         .WithMany("Matches")
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchEvent", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MatchEvent", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Match", "Match")
+                    b.HasOne("MyLfc.Data.Entities.Match", "Match")
                         .WithMany("Events")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                    b.HasOne("MyLfc.Data.Entities.Person", "Person")
                         .WithMany("Events")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany("Events")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchPerson", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MatchPerson", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Match", "Match")
+                    b.HasOne("MyLfc.Data.Entities.Match", "Match")
                         .WithMany("Persons")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                    b.HasOne("MyLfc.Data.Entities.Person", "Person")
                         .WithMany("Matches")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Material", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("Materials")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.MaterialCategory", "Category")
+                    b.HasOne("MyLfc.Data.Entities.MaterialCategory", "Category")
                         .WithMany("Materials")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialComment", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialComment", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Match", "Match")
+                    b.HasOne("MyLfc.Data.Entities.Match", "Match")
                         .WithMany("Comments")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Material", "Material")
+                    b.HasOne("MyLfc.Data.Entities.Material", "Material")
                         .WithMany("Comments")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.MaterialComment", "Parent")
+                    b.HasOne("MyLfc.Data.Entities.MaterialComment", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Polls.Poll", "Poll")
+                    b.HasOne("MyLfc.Data.Entities.Polls.Poll", "Poll")
                         .WithMany("Comments")
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Notification", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Notification", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "User")
+                    b.HasOne("MyLfc.Data.Entities.User", "User")
                         .WithMany("Notifications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Polls.PollAnswer", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Polls.PollAnswer", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Polls.Poll", "Poll")
+                    b.HasOne("MyLfc.Data.Entities.Polls.Poll", "Poll")
                         .WithMany("Answers")
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Polls.PollAnswerUser", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Polls.PollAnswerUser", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Polls.PollAnswer", "PollAnswer")
+                    b.HasOne("MyLfc.Data.Entities.Polls.PollAnswer", "PollAnswer")
                         .WithMany()
                         .HasForeignKey("PollAnswerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Polls.Poll", "Poll")
+                    b.HasOne("MyLfc.Data.Entities.Polls.Poll", "Poll")
                         .WithMany()
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "User")
+                    b.HasOne("MyLfc.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Receiver")
+                    b.HasOne("MyLfc.Data.Entities.User", "Receiver")
                         .WithMany("ReceivedPrivateMessages")
                         .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Sender")
+                    b.HasOne("MyLfc.Data.Entities.User", "Sender")
                         .WithMany("SentPrivateMessages")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleRoleGroup", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("RoleGroups")
                         .HasForeignKey("RoleGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Role", "Role")
+                    b.HasOne("MyLfc.Data.Entities.Role", "Role")
                         .WithMany("RoleRoleGroups")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Transfer", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Transfer", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Transfers")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                    b.HasOne("MyLfc.Data.Entities.Person", "Person")
                         .WithMany("Transfers")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany()
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.User", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("Users")
                         .HasForeignKey("RoleGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.UserConfig", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.UserConfig", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "User")
+                    b.HasOne("MyLfc.Data.Entities.User", "User")
                         .WithOne("UserConfig")
-                        .HasForeignKey("MyLiverpool.Data.Entities.UserConfig", "UserId")
+                        .HasForeignKey("MyLfc.Data.Entities.UserConfig", "UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

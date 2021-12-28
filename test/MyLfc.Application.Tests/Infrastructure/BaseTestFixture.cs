@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Moq;
 using MyLfc.Application.Infrastructure;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure
 {

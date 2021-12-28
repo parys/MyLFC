@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    public partial class MyLiverpoolDataResourceAccess : Migration
+    public partial class MyLfcDataResourceAccess : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

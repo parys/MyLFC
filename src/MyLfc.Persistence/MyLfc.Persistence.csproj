@@ -2,11 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>MyLfc.Persistence</AssemblyName>
-    <PackageId>MyLfc.Persistence</PackageId>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,8 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
     <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
-    <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
-    <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Utilities\MyLfc.Common.Utilities.csproj" />
+    <ProjectReference Include="..\MyLfc.Data.Common\MyLfc.Data.Common.csproj" />
   </ItemGroup>
 
 </Project>

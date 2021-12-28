@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using MyLiverpool.Common.Utilities;
+using MyLfc.Common.Utilities;
 
 namespace MyLfc.Application.Clubs
 {

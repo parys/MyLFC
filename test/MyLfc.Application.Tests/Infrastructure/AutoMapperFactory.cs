@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MyLfc.Application.Infrastructure.Profiles;
-using MyLiverpool.Common.Mappings;
+using MyLfc.Common.Mappings;
 
 namespace MyLfc.Application.Tests.Infrastructure
 {

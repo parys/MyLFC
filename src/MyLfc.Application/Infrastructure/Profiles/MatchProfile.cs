@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using AutoMapper;
 using MyLfc.Application.Matches;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities.Extensions;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Infrastructure.Profiles
 {

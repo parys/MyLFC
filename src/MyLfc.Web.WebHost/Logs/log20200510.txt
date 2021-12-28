@@ -1,0 +1,2 @@
+2020-05-10 12:49:50.856 +03:00 [Fatal] [MachineName=USER-PC] [ProcessId=212] [ThreadId=4] [MyLfc.Business.Services.UploadService] [EventId=] lastFolderName=4 | directoryName=4 | filesCount=1
+2020-05-10 12:49:50.926 +03:00 [Fatal] [MachineName=USER-PC] [ProcessId=212] [ThreadId=4] [MyLfc.Business.Services.UploadService] [EventId=] inside new folder | directoryName=5\ | directoryInfo=C:\Projects\MyLfc\src\MyLfc.Web.WebApiNext\wwwroot\content\images\5\

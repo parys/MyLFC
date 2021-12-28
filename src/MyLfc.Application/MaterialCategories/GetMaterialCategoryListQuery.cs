@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.MaterialCategories
 {

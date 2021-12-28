@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentValidation.TestHelper;
 using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 using Validator = MyLfc.Application.HelpEntities.GetEntityQuery.Validator;
 using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;

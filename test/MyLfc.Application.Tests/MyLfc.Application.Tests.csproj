@@ -25,8 +25,8 @@
     <ProjectReference Include="..\..\src\MyLfc.Application\MyLfc.Application.csproj" />
     <ProjectReference Include="..\..\src\MyLfc.Domain\MyLfc.Domain.csproj" />
     <ProjectReference Include="..\..\src\MyLfc.Persistence\MyLfc.Persistence.csproj" />
-    <ProjectReference Include="..\..\src\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
-    <ProjectReference Include="..\..\src\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
+    <ProjectReference Include="..\..\src\MyLfc.Common.Mappings\MyLfc.Common.Mappings.csproj" />
+    <ProjectReference Include="..\..\src\MyLfc.Data.Common\MyLfc.Data.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

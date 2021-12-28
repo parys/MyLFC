@@ -1,4 +1,4 @@
-﻿//namespace MyLiverpool.Data.Entities
+﻿//namespace MyLfc.Data.Entities
 //{
 //    public partial class UserClaim : IdentityUserClaim<int>,IEntity
 //    {

@@ -6,7 +6,7 @@ using MediatR;
 using Moq;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Persistence;
-using MyLiverpool.Business.Contracts;
+using MyLfc.Business.Contracts;
 using Xunit;
 using Handler = MyLfc.Application.Pms.CreatePmCommand.Handler;
 using Request = MyLfc.Application.Pms.CreatePmCommand.Request;

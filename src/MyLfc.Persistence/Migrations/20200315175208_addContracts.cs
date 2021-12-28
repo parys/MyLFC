@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     public partial class addContracts : Migration
     {

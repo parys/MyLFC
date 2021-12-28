@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using MyLfc.Persistence;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 using Handler = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Handler;
 using Request = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Request;

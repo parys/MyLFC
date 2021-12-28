@@ -7,7 +7,7 @@ using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Comments
 {

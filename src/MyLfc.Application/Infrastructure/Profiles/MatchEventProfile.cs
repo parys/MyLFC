@@ -2,7 +2,7 @@
 using MyLfc.Application.Matches;
 using MyLfc.Application.MatchEvents;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities.Extensions;
+using MyLfc.Common.Utilities.Extensions;
 
 namespace MyLfc.Application.Infrastructure.Profiles
 {

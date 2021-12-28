@@ -4,7 +4,7 @@ using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 
 namespace MyLfc.Application.Tests.Materials

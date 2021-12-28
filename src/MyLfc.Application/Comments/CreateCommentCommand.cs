@@ -12,9 +12,9 @@ using MyLfc.Application.Notifications;
 using MyLfc.Application.Users;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
+using MyLfc.Business.Contracts;
+using MyLfc.Common.Utilities.Extensions;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Comments
 {

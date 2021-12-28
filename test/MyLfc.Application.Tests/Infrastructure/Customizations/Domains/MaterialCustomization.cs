@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
 {

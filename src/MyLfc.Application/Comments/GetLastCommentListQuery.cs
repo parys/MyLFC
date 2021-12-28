@@ -7,9 +7,9 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Common.Utilities.Extensions;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Comments
 {
