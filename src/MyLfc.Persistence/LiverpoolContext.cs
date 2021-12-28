@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application;
@@ -19,6 +20,11 @@ namespace MyLfc.Persistence
                     Database.Migrate();
                 }
                 _created = true;
+
+                //temporary until .net resolve issue with binding for trimmed library
+                const double v = Math.E;
+                var c = v;
+
             }
         }
 

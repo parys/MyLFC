@@ -2,19 +2,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>MyLfc.Web.WebHost</AssemblyName>
-    <PackageId>MyLfc.Web.WebHost</PackageId>
-      <IsPackable>false</IsPackable>
-      <OutputType>Exe</OutputType>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <ServerGarbageCollection>false</ServerGarbageCollection>
+	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
     <PublishTrimmed>false</PublishTrimmed>
 
     <RemoveHashFromTiny>false</RemoveHashFromTiny>
 
-    </PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile />
   </PropertyGroup>
@@ -41,7 +37,6 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
