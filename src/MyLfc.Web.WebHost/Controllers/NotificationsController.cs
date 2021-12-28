@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Notifications;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>

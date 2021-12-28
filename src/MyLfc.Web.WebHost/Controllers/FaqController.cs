@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.FaqCategories;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages faq.

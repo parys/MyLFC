@@ -7,7 +7,7 @@ using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages materials.

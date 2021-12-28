@@ -7,7 +7,7 @@ using MyLfc.Application.Wishes;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>

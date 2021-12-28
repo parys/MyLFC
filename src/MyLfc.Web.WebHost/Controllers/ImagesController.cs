@@ -11,7 +11,7 @@ using MyLfc.Business.Contracts;
 using MyLfc.Business.Dto;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages images.

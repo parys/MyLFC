@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-namespace MyLfc.Business.Dto
+
+namespace MyLfc.Business.Dto.Forums
 {
     public class ForumMessageDto : IDto
     {

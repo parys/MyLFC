@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 
-namespace MyLfc.Web.WebApiNext.Middlewares
+namespace MyLfc.Web.WebHost.Middlewares
 {
     /// <summary>
     /// SignalR extensions.

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace MyLfc.Web.WebApiNext.Extensions
+namespace MyLfc.Web.WebHost.Extensions
 {
     /// <summary>
     /// Helpers for HttpContext

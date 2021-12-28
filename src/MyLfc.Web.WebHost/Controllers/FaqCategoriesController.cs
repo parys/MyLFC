@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.FaqCategories;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>

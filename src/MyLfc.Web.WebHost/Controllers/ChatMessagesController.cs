@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.ChatMessages;
 using MyLfc.Common.Web;
 using MyLfc.Data.Common;
-using MyLfc.Web.WebApiNext.Extensions;
+using MyLfc.Web.WebHost.Extensions;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages chat entities.

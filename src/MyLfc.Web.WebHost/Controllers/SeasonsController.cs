@@ -5,7 +5,7 @@ using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Seasons;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>

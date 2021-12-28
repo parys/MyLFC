@@ -1,4 +1,4 @@
-﻿namespace MyLfc.Business.Dto
+﻿namespace MyLfc.Business.Dto.Forums
 {
     public class ForumSubsectionMiniDto : IDto
     {

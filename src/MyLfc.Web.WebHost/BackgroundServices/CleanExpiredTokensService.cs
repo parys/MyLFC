@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using OpenIddict.Core;
 using OpenIddict.EntityFrameworkCore.Models;
 
-namespace MyLfc.Web.WebApiNext.BackgroundServices
+namespace MyLfc.Web.WebHost.BackgroundServices
 {
     /// <summary>
     /// Cleans up database expired tokens.

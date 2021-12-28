@@ -8,6 +8,7 @@ using MyLfc.Application;
 using MyLfc.Domain;
 using MyLfc.Business.Contracts;
 using MyLfc.Business.Dto;
+using MyLfc.Business.Dto.Forums;
 
 namespace MyLfc.Business.Services
 {

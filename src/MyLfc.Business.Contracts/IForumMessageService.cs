@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MyLfc.Business.Dto;
+using MyLfc.Business.Dto.Forums;
 
 namespace MyLfc.Business.Contracts
 {

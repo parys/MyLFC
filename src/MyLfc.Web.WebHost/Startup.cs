@@ -13,22 +13,22 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyLfc.Business.Services.Helpers;
-using MyLfc.Common.Utilities;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Hosting;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Profiles;
+using MyLfc.Business.Services.Helpers;
+using MyLfc.Common.Mappings;
+using MyLfc.Common.Utilities;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
-using MyLfc.Common.Mappings;
-using MyLfc.Web.WebApiNext.Infrastructure.Filters;
-using Microsoft.Extensions.Hosting;
 using MyLfc.Persistence;
-using MyLfc.Web.WebApiNext.Middlewares;
+using MyLfc.Web.WebHost.Infrastructure.Filters;
+using MyLfc.Web.WebHost.Middlewares;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 
-namespace MyLfc.Web.WebApiNext
+namespace MyLfc.Web.WebHost
 {
     /// <summary>
     /// Startup class.

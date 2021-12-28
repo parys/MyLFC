@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MyLfc.Web.WebApiNext.Extensions
+namespace MyLfc.Web.WebHost.Extensions
 {
     /// <summary>
     /// Contains help extensions for appBuilder.

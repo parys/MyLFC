@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Business.Contracts;
-using MyLfc.Business.Dto;
+using MyLfc.Business.Dto.Forums;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages forum messages.

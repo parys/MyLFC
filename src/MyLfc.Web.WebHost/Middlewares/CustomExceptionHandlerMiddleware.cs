@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace MyLfc.Web.WebApiNext.Middlewares
+namespace MyLfc.Web.WebHost.Middlewares
 {
     /// <summary>
     /// 

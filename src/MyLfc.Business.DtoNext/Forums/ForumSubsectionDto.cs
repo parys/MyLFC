@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MyLfc.Data.Common;
 
-namespace MyLfc.Business.Dto
+namespace MyLfc.Business.Dto.Forums
 {
     public class ForumSubsectionDto : IDto
     {

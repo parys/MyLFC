@@ -2,7 +2,7 @@
 //using Swashbuckle.AspNetCore.Swagger;
 //using Swashbuckle.AspNetCore.SwaggerGen;
 
-//namespace MyLfc.Web.WebApiNext.Extensions
+//namespace MyLfc.Web.WebHost.Extensions
 //{
 //    /// <summary>
 //    /// Fix for https://github.com/domaindrivendev/Ahoy/issues/47

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyLfc.Domain;
 using MyLfc.Business.Dto;
+using MyLfc.Business.Dto.Forums;
 
 namespace MyLfc.Common.Mappings
 {

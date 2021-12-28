@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Transfers;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages transfers.

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <response code="400">Bad input parameter, i.e. entityID has not valid GUID format</response>            
     /// <response code="401">Missing or invalid authentication, user not authenticated</response>            

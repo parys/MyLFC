@@ -5,7 +5,7 @@
 //using Swashbuckle.Swagger.Model;
 //using Swashbuckle.SwaggerGen.Generator;
 
-//namespace MyLfc.Web.WebApiNext.Extensions
+//namespace MyLfc.Web.WebHost.Extensions
 //{
 //    public class AssignSecurityRequirements : IOperationFilter
 //    {
@@ -51,7 +51,7 @@
 //            //}
 //            //catch (Exception ex)
 //            //{
-                
+
 //            //}
 //        }
 //    }

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.MatchPersons;
+using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
-using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>

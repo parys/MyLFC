@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Business.Contracts;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages forum sections.

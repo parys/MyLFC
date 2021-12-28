@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.MaterialCategories;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <summary>
     /// Manages news categories.

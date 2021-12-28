@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyLfc.Web.WebApiNext.BackgroundServices;
+using MyLfc.Web.WebHost.BackgroundServices;
 using Serilog;
 
-namespace MyLfc.Web.WebApiNext
+namespace MyLfc.Web.WebHost
 {
     /// <summary>
     /// Runs kestrel

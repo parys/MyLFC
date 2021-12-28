@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Contracts;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebApiNext.Controllers
+namespace MyLfc.Web.WebHost.Controllers
 {
     /// <inheritdoc />
     /// <summary>
