@@ -19,9 +19,13 @@
     <DocumentationFile />
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <TrimmerRootAssembly Include="mscorlib" />
-  </ItemGroup>
+  </ItemGroup>-->
+
+	<ItemGroup>
+		<TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+	</ItemGroup>
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
