@@ -6,6 +6,7 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+	<UserSecretsId>aspnet-WebApplication3-9643E977-9F2E-4B14-B534-9CDA8556F93E</UserSecretsId>
     <PublishTrimmed>false</PublishTrimmed>
 
     <RemoveHashFromTiny>false</RemoveHashFromTiny>
