@@ -9,7 +9,7 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Injuries.Queries
 {
     public class GetInjuryListQuery
     {

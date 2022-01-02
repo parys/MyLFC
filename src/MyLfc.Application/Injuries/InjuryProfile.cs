@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using MyLfc.Application.Injuries;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Injuries
 {
     public class InjuryProfile : Profile
     {
@@ -22,10 +21,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<Injury, GetCurrentInjuryListQuery.InjuryListDto>()
                 .ForMember(dest => dest.PersonPhoto, src => src.MapFrom(x => x.Person.Photo))
-                .ForMember(dst => dst.PersonName, src => src.MapFrom(x => $"{x.Person.FirstRussianName} {x.Person.LastRussianName}" ));
+                .ForMember(dst => dst.PersonName, src => src.MapFrom(x => string.IsNullOrWhiteSpace(x.Person.Nickname) ? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}" : x.Person.Nickname));
 
             CreateMap<Injury, GetInjuryListQuery.InjuryListDto>().ForMember(dest => dest.PersonPhoto, src => src.MapFrom(x => x.Person.Photo))
-                .ForMember(dst => dst.PersonName, src => src.MapFrom(x => $"{x.Person.FirstRussianName} {x.Person.LastRussianName}"));
+                .ForMember(dst => dst.PersonName, src => src.MapFrom(x => string.IsNullOrWhiteSpace(x.Person.Nickname) ? $"{x.Person.FirstRussianName} {x.Person.LastRussianName}" : x.Person.Nickname));
         }
     }
 }

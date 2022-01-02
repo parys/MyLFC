@@ -4,7 +4,7 @@ using AutoMapper;
 using MediatR;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Injuries.Commands
 {
     public class CreateInjuryCommand
     {

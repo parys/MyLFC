@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Injuries.Commands
 {
     public class DeleteInjuryCommand
     {

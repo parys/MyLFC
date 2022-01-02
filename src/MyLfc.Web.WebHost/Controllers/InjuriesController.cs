@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Injuries;
+using MyLfc.Application.Injuries.Commands;
+using MyLfc.Application.Injuries.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Data.Common;
 

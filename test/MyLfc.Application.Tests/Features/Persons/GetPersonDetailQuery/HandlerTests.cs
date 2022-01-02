@@ -7,6 +7,7 @@ using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
 using Handler = MyLfc.Application.Persons.GetPersonDetailQuery.Handler;
 using Request = MyLfc.Application.Persons.GetPersonDetailQuery.Request;
@@ -32,7 +33,7 @@ namespace MyLfc.Application.Tests.Features.Persons.GetPersonDetailQuery
             var request = new Fixture()
                 .Create<Request>();
 
-            request.Id = PersonQueryTestFixture.Persons[0].Id;
+            request.Id = PersonsSeeder.PersonIdWithNickname;
 
             var result = await _handler.Handle(request, CancellationToken.None);
             

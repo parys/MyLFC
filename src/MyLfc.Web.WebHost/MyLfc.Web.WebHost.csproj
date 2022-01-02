@@ -37,6 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="MyLfc.Web.WebHost.csproj.DotSettings" />
+    <None Remove="MyLiverpool.Web.WebApiNext.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />

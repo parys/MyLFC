@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
+using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Injuries.Queries
 {
-    public class GetCurrentInjuryListQuery
+    public class GetInjuryDetailQuery
     {
         public class Request : IRequest<Response>
         {
+            public int Id { get; set; }
         }
 
 
@@ -31,16 +32,16 @@ namespace MyLfc.Application.Injuries
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var injuries = await _context.Injuries.AsNoTracking()
-                    .Where(x => !x.EndTime.HasValue)
-                    .OrderByDescending(i => i.StartTime)
-                    .ProjectTo<InjuryListDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                var injury = await _context.Injuries.AsNoTracking()
+                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                return new Response
+                if (injury == null)
                 {
-                    Results = injuries
-                };
+                    throw new NotFoundException(nameof(Injury), request.Id);
+                }
+
+                return injury;
             }
         }
 
@@ -48,17 +49,15 @@ namespace MyLfc.Application.Injuries
         [Serializable]
         public class Response
         {
-            public List<InjuryListDto> Results { get; set; } = new List<InjuryListDto>();
-        }
-
-        [Serializable]
-        public class InjuryListDto
-        {
             public int Id { get; set; }
+
+            public int PersonId { get; set; }
 
             public string PersonName { get; set; }
 
-            public string PersonPhoto { get; set; }
+            public DateTimeOffset StartTime { get; set; }
+
+            public DateTimeOffset? EndTime { get; set; }
 
             public string Description { get; set; }
         }
