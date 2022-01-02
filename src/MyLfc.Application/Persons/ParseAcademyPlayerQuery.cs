@@ -5,8 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using MyLfc.Application.HelpEntities;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Persons
 {

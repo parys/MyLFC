@@ -7,7 +7,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
-using MyLiverpool.Common.Utilities.Extensions;
+using MyLfc.Common.Utilities.Extensions;
 
 namespace MyLfc.Application.FaqCategories
 {

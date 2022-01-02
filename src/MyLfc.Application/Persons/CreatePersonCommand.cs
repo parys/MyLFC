@@ -3,8 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Persons
 {
@@ -17,9 +19,6 @@ namespace MyLfc.Application.Persons
 
         public class Validator : UpsertPersonCommand.Validator<Request>
         {
-            public Validator()
-            {
-            }
         }
 
 
@@ -28,16 +27,28 @@ namespace MyLfc.Application.Persons
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
+
+            private readonly IWebHostEnvironment _appEnvironment;
+
+            public Handler(ILiverpoolContext context, IMapper mapper, IWebHostEnvironment appEnvironment)
             {
                 _context = context;
                 _mapper = mapper;
+                _appEnvironment = appEnvironment;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var entity = _mapper.Map<Person>(request);
+
+                var fileName = (request.FirstName.Trim() + request.LastName.Trim()).Replace(' ', '_');
+
+                if (request.Photo != null && FileHelper.IsBase64(request.Photo))
+                {
+                    entity.Photo =
+                        await FileHelper.SavePersonPhotoAsync(request.Photo, fileName, _appEnvironment.WebRootPath);
+                }
+
 
                 _context.Persons.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -11,14 +12,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MyLfc.Application;
 using MyLfc.Domain;
 using MyLfc.Persistence;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Data.Common;
 
 namespace MigratorVnext
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         private const string Path = @"D:\\downloads\11\_s1\";
@@ -131,8 +132,8 @@ namespace MigratorVnext
 
         private static async void DownloadAllImages()
         {
-            var prefix = "http://myliverpool.ru";
-     //       var prefix2 = "http://www.myliverpool.ru";
+            var prefix = "http://MyLfc.ru";
+     //       var prefix2 = "http://www.MyLfc.ru";
             var path = "D:\\images1123\\";
             if (!Directory.Exists(path))
             {
@@ -157,10 +158,10 @@ namespace MigratorVnext
                         var pathForFile = path + image.Value;
                         if (filename.Contains("http"))
                         {
-                            if (filename.Contains("myliverpool"))
+                            if (filename.Contains("MyLfc"))
                             {
-                                pathForFile = pathForFile.Replace("http://www.myliverpool.ru/", "")
-                                    .Replace("http://myliverpool.ru/", "");
+                                pathForFile = pathForFile.Replace("http://www.MyLfc.ru/", "")
+                                    .Replace("http://MyLfc.ru/", "");
                             }
                             else
                             {
@@ -2135,13 +2136,13 @@ namespace MigratorVnext
                 {
                     if (DefaultPhotoPath != material.PhotoPath)
                     {
-                        material.PhotoPath = material.PhotoPath.Replace("http://www.myliverpool.ru", "").Replace("/_nw/", "/content/images/_nw/").Replace("/_bl/", "/content/images/_bl/");
+                        material.PhotoPath = material.PhotoPath.Replace("http://www.MyLfc.ru", "").Replace("/_nw/", "/content/images/_nw/").Replace("/_bl/", "/content/images/_bl/");
                     }
                 }
                 if (material.Message != null)
                 {
                     material.Message = material.Message
-                        .Replace("http://www.myliverpool.ru", "")
+                        .Replace("http://www.MyLfc.ru", "")
                         .Replace("<!--IMG1-->", "")
                         .Replace("<!--IMG2-->", "")
                         .Replace("<!--IMG3-->", "")
@@ -2153,7 +2154,7 @@ namespace MigratorVnext
                 if (material.Brief != null)
                 {
                     material.Brief = material?.Brief
-                        .Replace("http://www.myliverpool.ru", "")
+                        .Replace("http://www.MyLfc.ru", "")
                         .Replace("<i>", "")
                         .Replace("</i>", "")
                         .Replace("<!--IMG1-->", "")

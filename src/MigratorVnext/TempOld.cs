@@ -10,12 +10,12 @@
 //using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore;
 //using Microsoft.Extensions.Options;
-//using MyLiverpool.Common.Utilities;
-//using MyLiverpool.Data.Common;
-//using MyLiverpool.Data.Entities;
-//using MyLiverpool.Data.ResourceAccess;
-//using MyLiverpool.Data.ResourceAccess.Interfaces;
-//using MyLiverpool.Data.ResourceAccess.Repositories;
+//using MyLfc.Common.Utilities;
+//using MyLfc.Data.Common;
+//using MyLfc.Data.Entities;
+//using MyLfc.Data.ResourceAccess;
+//using MyLfc.Data.ResourceAccess.Interfaces;
+//using MyLfc.Data.ResourceAccess.Repositories;
 
 //namespace MigratorVnext
 //{

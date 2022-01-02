@@ -1,6 +1,6 @@
 ﻿//using Microsoft.AspNetCore.Identity;
 
-//namespace MyLiverpool.Data.Entities
+//namespace MyLfc.Data.Entities
 //{
 //    public class UserRole : IdentityUserRole<int>// //IEntity
 //    {

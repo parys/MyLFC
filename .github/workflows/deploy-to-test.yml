@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
@@ -23,7 +23,7 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Publish
-      run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLiverpool.Web.WebApiNext/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true
+      run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLfc.Web.WebHost/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=false -p:TrimMode=Link
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@v2.2.11
       env:
@@ -34,7 +34,7 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_DEPLOY_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }} 
           TARGET: ${{ secrets.SERVER_TEST_API_FOLDER }}
-    - name: restart test servuice
+    - name: restart test service
       uses: fifsky/ssh-action@master
       with:
         command: |

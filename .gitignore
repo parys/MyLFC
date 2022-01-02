@@ -214,16 +214,16 @@ ModelManifest.xml
 *.user
 *.ps1
 *.psm1
-/src/MyLiverpool.Web.WebApiNext/package-lock.json
-/src/MyLiverpool.Web.WebApiNext/wwwroot/src
+/src/MyLfc.Web.WebHost/package-lock.json
+/src/MyLfc.Web.WebHost/wwwroot/src
 
-/src/MyLiverpool.Web.Mvc/*.xml
-/src/MyLiverpool.Web.WebApiNext/*.xml
+/src/MyLfc.Web.Mvc/*.xml
+/src/MyLfc.Web.WebHost/*.xml
 
-/src/MyLiverpool.Web.WebApiNext/.vscode/angular2app
-/src/MyLiverpool.Web.WebApiNext/ClientApp/package-lock.json
-/src/MyLiverpool.Web.WebApiNext/wwwroot/content
-/src/MyLiverpool.Web.WebApiNext/ClientApp/dist-server
-/src/MyLiverpool.Web.WebApiNext/ClientApp/test
-/src/MyLiverpool.Web.WebApiNext/Logs
-/src/MyLiverpool.Web.WebApiNext/appsettings.local.json
+/src/MyLfc.Web.WebHost/.vscode/angular2app
+/src/MyLfc.Web.WebHost/ClientApp/package-lock.json
+/src/MyLfc.Web.WebHost/wwwroot/content
+/src/MyLfc.Web.WebHost/ClientApp/dist-server
+/src/MyLfc.Web.WebHost/ClientApp/test
+/src/MyLfc.Web.WebHost/Logs
+appsettings.local.json

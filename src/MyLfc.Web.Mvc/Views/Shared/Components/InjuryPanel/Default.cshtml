@@ -1,0 +1,19 @@
+﻿@model MyLfc.Application.Injuries.Queries.GetCurrentInjuryListQuery.Response
+@if (Model.Results.Any())
+{
+    <div class="col-xs-12 injuries">
+        <h4><b>Травмированные:</b></h4>
+        @foreach (var injury in Model.Results)
+        {
+            <div class="col-xs-12 container-row injury-item">
+                <div class="col-xs-12 container-row">
+                    <img src="@injury.PersonPhoto" alt="@injury.PersonName"/>
+                    <b>@injury.PersonName</b>
+                </div>
+                <div class="col-xs-12 container-row">
+                    <span class="col-xs-12"[textContent]="injury.description">@injury.Description</span>
+                </div>
+            </div>
+        }
+    </div>
+}

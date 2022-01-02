@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Common.Entities;
+using MyLfc.Data.Common;
+using MyLfc.Data.Common.Entities;
 
 namespace MyLfc.Application.HelpEntities
 {

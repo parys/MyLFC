@@ -12,8 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyLfc.Application;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities.Extensions;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Persistence
 {

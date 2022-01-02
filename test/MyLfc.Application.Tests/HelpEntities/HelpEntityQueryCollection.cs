@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 using Xunit;
 
 namespace MyLfc.Application.Tests.HelpEntities

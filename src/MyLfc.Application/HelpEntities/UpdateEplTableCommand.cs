@@ -3,8 +3,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
+using MyLfc.Common.Utilities;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.HelpEntities
 {

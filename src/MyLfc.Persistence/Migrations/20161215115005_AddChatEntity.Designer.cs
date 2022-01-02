@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyLfc.Persistence;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     [Migration("20161215115005_AddChatEntity")]
@@ -98,7 +98,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ChatMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ChatMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -119,7 +119,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ChatMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Club", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Club", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -137,7 +137,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Clubs");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -165,7 +165,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -179,7 +179,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumSections");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSubsection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSubsection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -203,7 +203,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumSubsections");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -243,7 +243,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumThemes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Match", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -265,7 +265,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -315,7 +315,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialCategory", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -333,7 +333,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MaterialCategories");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialComment", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialComment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -371,7 +371,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("MaterialComments");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -399,7 +399,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("PrivateMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Role", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -422,7 +422,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -436,7 +436,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("RoleGroups");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleRoleGroup", b =>
                 {
                     b.Property<int>("RoleId");
 
@@ -449,7 +449,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("RoleRoleGroups");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -529,7 +529,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Wish", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Wish", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -618,134 +618,134 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Role")
+                    b.HasOne("MyLfc.Data.Entities.Role")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Role")
+                    b.HasOne("MyLfc.Data.Entities.Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.User")
+                    b.HasOne("MyLfc.Data.Entities.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ChatMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ChatMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("ChatMessages")
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("ForumMessages")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.ForumTheme", "Theme")
+                    b.HasOne("MyLfc.Data.Entities.ForumTheme", "Theme")
                         .WithMany("Messages")
                         .HasForeignKey("ThemeId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSubsection", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumSubsection", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.ForumSection", "Section")
+                    b.HasOne("MyLfc.Data.Entities.ForumSection", "Section")
                         .WithMany("Subsections")
                         .HasForeignKey("SectionId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "LastAnswerUser")
+                    b.HasOne("MyLfc.Data.Entities.User", "LastAnswerUser")
                         .WithMany()
                         .HasForeignKey("LastAnswerUserId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.ForumSubsection", "Subsection")
+                    b.HasOne("MyLfc.Data.Entities.ForumSubsection", "Subsection")
                         .WithMany("Themes")
                         .HasForeignKey("SubsectionId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Match", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Match", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Matches")
                         .HasForeignKey("ClubId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Material", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("Materials")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.MaterialCategory", "Category")
+                    b.HasOne("MyLfc.Data.Entities.MaterialCategory", "Category")
                         .WithMany("Materials")
                         .HasForeignKey("CategoryId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialComment", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.MaterialComment", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Author")
+                    b.HasOne("MyLfc.Data.Entities.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.Material", "Material")
+                    b.HasOne("MyLfc.Data.Entities.Material", "Material")
                         .WithMany("Comments")
                         .HasForeignKey("MaterialId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.MaterialComment", "Parent")
+                    b.HasOne("MyLfc.Data.Entities.MaterialComment", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Receiver")
+                    b.HasOne("MyLfc.Data.Entities.User", "Receiver")
                         .WithMany("ReceivedPrivateMessages")
                         .HasForeignKey("ReceiverId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.User", "Sender")
+                    b.HasOne("MyLfc.Data.Entities.User", "Sender")
                         .WithMany("SentPrivateMessages")
                         .HasForeignKey("SenderId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleRoleGroup", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("RoleGroups")
                         .HasForeignKey("RoleGroupId");
 
-                    b.HasOne("MyLiverpool.Data.Entities.Role", "Role")
+                    b.HasOne("MyLfc.Data.Entities.Role", "Role")
                         .WithMany("RoleRoleGroups")
                         .HasForeignKey("RoleId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.User", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("Users")
                         .HasForeignKey("RoleGroupId");
                 });

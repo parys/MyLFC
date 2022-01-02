@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Moq;
 using MyLfc.Application.Infrastructure;
-using MyLiverpool.Data.Common;
+using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure
 {
@@ -13,12 +15,16 @@ namespace MyLfc.Application.Tests.Infrastructure
         public const int AdminUserId = 1;
         public ILiverpoolContext Context { get; }
         public IMapper Mapper { get; }
+
+        public IWebHostEnvironment Environment { get; }
         public RequestContext AdminRequestContext { get; }
 
         protected BaseTestFixture()
         {
             Context = LfcDbContextFactory.Create();
             Mapper = AutoMapperFactory.Create();
+
+            Environment = new Mock<IWebHostEnvironment>().Object;
             
             AdminRequestContext = new RequestContext
             {
@@ -33,19 +39,13 @@ namespace MyLfc.Application.Tests.Infrastructure
             LfcDbContextFactory.Destroy(Context);
         }
 
-        private List<Claim> GetClaims()
+        private static IEnumerable<Claim> GetClaims()
         {
             var result = Enum.GetNames(typeof(RolesEnum))
-                .Select(name => new Claim("role", name, "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY") { })
+                .Select(name => new Claim("role", name, "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"))
                 .ToList();
-            result.Add(new Claim("sub", "1", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY")
-                {
-
-                });
-                result.Add(new Claim("name", "admin", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY")
-                {
-
-                });
+            result.Add(new Claim("sub", "1", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
+            result.Add(new Claim("name", "admin", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
 
             return result;
         }

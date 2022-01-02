@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     public partial class MigrateToCore2 : Migration
     {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities;
+using MyLfc.Common.Utilities;
 
 namespace MyLfc.Application.Persons
 {

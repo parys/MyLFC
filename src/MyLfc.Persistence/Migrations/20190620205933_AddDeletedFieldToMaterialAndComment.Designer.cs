@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLfc.Persistence;
 
-namespace MyLiverpool.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     [Migration("20190620205933_AddDeletedFieldToMaterialAndComment")]
@@ -762,7 +762,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Wishes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Club", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Club", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -785,7 +785,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Clubs");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.CommentVote", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.CommentVote", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -800,7 +800,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("CommentVotes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -841,7 +841,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("ForumThemes");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -870,7 +870,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("PrivateMessages");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleGroup", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.RoleGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -885,7 +885,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("RoleGroups");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Season", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Season", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -898,7 +898,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadium", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Stadium", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -913,7 +913,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Stadiums");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.UserConfig", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.UserConfig", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -1143,7 +1143,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.ForumTheme", "Theme")
+                    b.HasOne("MyLfc.Data.Entities.ForumTheme", "Theme")
                         .WithMany("Messages")
                         .HasForeignKey("ThemeId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1167,7 +1167,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("MyLfc.Domain.Loan", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Loans")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1180,17 +1180,17 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("MyLfc.Domain.Match", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Matches")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany("Matches")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Stadium", "Stadium")
+                    b.HasOne("MyLfc.Data.Entities.Stadium", "Stadium")
                         .WithMany("Matches")
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1208,7 +1208,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany("Events")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1304,7 +1304,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("MyLfc.Domain.RoleRoleGroup", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("RoleGroups")
                         .HasForeignKey("RoleGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1317,7 +1317,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("MyLfc.Domain.Transfer", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
+                    b.HasOne("MyLfc.Data.Entities.Club", "Club")
                         .WithMany("Transfers")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1327,7 +1327,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyLiverpool.Data.Entities.Season", "Season")
+                    b.HasOne("MyLfc.Data.Entities.Season", "Season")
                         .WithMany()
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1335,21 +1335,21 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
             modelBuilder.Entity("MyLfc.Domain.User", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
+                    b.HasOne("MyLfc.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("Users")
                         .HasForeignKey("RoleGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Club", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.Club", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.Stadium", "Stadium")
+                    b.HasOne("MyLfc.Data.Entities.Stadium", "Stadium")
                         .WithMany("Clubs")
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.CommentVote", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.CommentVote", b =>
                 {
                     b.HasOne("MyLfc.Domain.MaterialComment", "Comment")
                         .WithMany("CommentVotes")
@@ -1362,7 +1362,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.ForumTheme", b =>
                 {
                     b.HasOne("MyLfc.Domain.User", "Author")
                         .WithMany()
@@ -1380,7 +1380,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.PrivateMessage", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.PrivateMessage", b =>
                 {
                     b.HasOne("MyLfc.Domain.User", "Receiver")
                         .WithMany("ReceivedPrivateMessages")
@@ -1393,11 +1393,11 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.UserConfig", b =>
+            modelBuilder.Entity("MyLfc.Data.Entities.UserConfig", b =>
                 {
                     b.HasOne("MyLfc.Domain.User", "User")
                         .WithOne("UserConfig")
-                        .HasForeignKey("MyLiverpool.Data.Entities.UserConfig", "UserId")
+                        .HasForeignKey("MyLfc.Data.Entities.UserConfig", "UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

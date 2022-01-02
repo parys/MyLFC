@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="HtmlTemplates\EmailTemplate.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="HtmlTemplates\EmailTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MailKit" Version="3.0.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
+    <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
+    <ProjectReference Include="..\MyLfc.Business.Contracts\MyLfc.Business.Contracts.csproj" />
+    <ProjectReference Include="..\MyLfc.Business.DtoNext\MyLfc.Business.Dto.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Utilities\MyLfc.Common.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

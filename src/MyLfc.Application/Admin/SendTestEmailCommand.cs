@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MyLiverpool.Business.Contracts;
+using MyLfc.Business.Contracts;
 
 namespace MyLfc.Application.Admin
 {

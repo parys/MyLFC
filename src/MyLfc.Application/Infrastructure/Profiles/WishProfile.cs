@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MyLfc.Application.Wishes;
 using MyLfc.Domain;
-using MyLiverpool.Common.Utilities.Extensions;
+using MyLfc.Common.Utilities.Extensions;
 
 namespace MyLfc.Application.Infrastructure.Profiles
 {

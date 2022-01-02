@@ -7,8 +7,8 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using MyLfc.Domain;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Common.Utilities;
+using MyLfc.Business.Contracts;
+using MyLfc.Common.Utilities;
 
 namespace MyLfc.Application.Features.Account
 {

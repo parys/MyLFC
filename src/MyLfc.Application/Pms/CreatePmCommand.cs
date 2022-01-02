@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Common.Utilities;
+using MyLfc.Business.Contracts;
+using MyLfc.Common.Utilities;
 
 namespace MyLfc.Application.Pms
 {
