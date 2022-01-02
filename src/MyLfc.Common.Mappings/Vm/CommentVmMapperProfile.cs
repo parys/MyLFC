@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MyLfc.Application.Comments;
+using MyLfc.Application.Comments.Queries;
 
 namespace MyLfc.Common.Mappings.Vm
 {

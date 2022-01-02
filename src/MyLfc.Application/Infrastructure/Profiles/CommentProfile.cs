@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using MyLfc.Application.Comments;
+using MyLfc.Application.Comments.Queries;
 using MyLfc.Domain;
 
 namespace MyLfc.Application.Infrastructure.Profiles
@@ -35,8 +36,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
                 .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.PositiveCount))
                 .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.NegativeCount))
-                .ForMember(dest => dest.CanPositiveVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, true)))
-                .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)));
+;
 
             CreateMap<MaterialComment, GetLastCommentListQuery.LastCommentDto>()
                 .ForMember(dest => dest.ClippedMessage, src => src.Ignore())
