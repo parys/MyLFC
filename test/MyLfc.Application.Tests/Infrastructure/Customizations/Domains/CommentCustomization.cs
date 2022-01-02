@@ -16,16 +16,16 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
         public void Customize(IFixture fixture)
         {
             fixture.Customizations.Add(new IgnoreMembers(new[] {
-                nameof(MaterialComment.Author),
-                nameof(MaterialComment.Children),
-                nameof(MaterialComment.CommentVotes),
-                nameof(MaterialComment.Match),
-                nameof(MaterialComment.Material),
-                nameof(MaterialComment.Parent),
-                nameof(MaterialComment.Poll),
+                nameof(Comment.Author),
+                nameof(Comment.Children),
+                nameof(Comment.CommentVotes),
+                nameof(Comment.Match),
+                nameof(Comment.Material),
+                nameof(Comment.Parent),
+                nameof(Comment.Poll),
             }));
 
-            fixture.Customize<MaterialComment>(
+            fixture.Customize<Comment>(
                 o => o
                     .With(x => x.Deleted, Deleted));
         }

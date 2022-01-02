@@ -28,7 +28,7 @@ namespace MyLfc.Application.Tests.Users
         public static List<Material> Materials { get; private set; }
 
         public static List<MaterialCategory> MaterialCategories { get; private set; }
-        public static List<MaterialComment> Comments { get; private set; }
+        public static List<Comment> Comments { get; private set; }
 
 
         public UserQueryTestFixture()
@@ -90,7 +90,7 @@ namespace MyLfc.Application.Tests.Users
         {
             var comments = new Fixture()
                 .Customize(new CommentCustomization())
-                .CreateMany<MaterialComment>(3).ToList();
+                .CreateMany<Comment>(3).ToList();
 
             comments.ForEach(x => x.MaterialId = MaterialWithComments);
             comments.ForEach(x => x.AuthorId = UserId);

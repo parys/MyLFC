@@ -17,6 +17,6 @@ namespace MyLfc.Domain.Polls
 
         public ICollection<PollAnswer> Answers { get; set; } = new HashSet<PollAnswer>();
 
-        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

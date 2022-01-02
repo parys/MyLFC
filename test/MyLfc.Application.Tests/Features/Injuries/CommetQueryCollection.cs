@@ -15,7 +15,7 @@ namespace MyLfc.Application.Tests.Features.Injuries
 
     public class CommentQueryTestFixture : BaseTestFixture
     {
-        public static List<MaterialComment> Comments { get; private set; }
+        public static List<Comment> Comments { get; private set; }
 
 
         public CommentQueryTestFixture()
@@ -28,7 +28,7 @@ namespace MyLfc.Application.Tests.Features.Injuries
         {
             var comments = new Fixture()
                 .Customize(new CommentCustomization())
-                .CreateMany<MaterialComment>(5).ToList();
+                .CreateMany<Comment>(5).ToList();
             
             Context.MaterialComments.AddRange(comments);
             Context.SaveChanges();

@@ -12,6 +12,6 @@
 
         public User User { get; set; }
 
-        public MaterialComment Comment { get; set; }
+        public Comment Comment { get; set; }
     }
 }

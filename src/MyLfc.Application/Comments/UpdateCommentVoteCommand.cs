@@ -37,7 +37,7 @@ namespace MyLfc.Application.Comments
                     .FirstOrDefaultAsync(x => x.Id == request.CommentId, cancellationToken);
                 if (comment == null)
                 {
-                    throw new NotFoundException(nameof(MaterialComment), request.CommentId);
+                    throw new NotFoundException(nameof(Comment), request.CommentId);
                 }
 
                 var vote = await _context.CommentVotes

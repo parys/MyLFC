@@ -16,7 +16,7 @@ namespace MyLfc.Application
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
-        public DbSet<MaterialComment> MaterialComments { get; set; }
+        public DbSet<Comment> MaterialComments { get; set; }
         public DbSet<ForumSection> ForumSections { get; set; }
         public DbSet<ForumSubsection> ForumSubsections { get; set; }
         public DbSet<ForumTheme> ForumThemes { get; set; }

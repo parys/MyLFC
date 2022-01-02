@@ -11,7 +11,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public CommentProfile()
         {
-            CreateMap<MaterialComment, GetCommentListQuery.CommentListDto>()
+            CreateMap<Comment, GetCommentListQuery.CommentListDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
@@ -30,7 +30,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
              //   .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            CreateMap<MaterialComment, GetCommentListByEntityIdQuery.CommentForEntityDto>()
+            CreateMap<Comment, GetCommentListByEntityIdQuery.CommentForEntityDto>()
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
@@ -38,21 +38,21 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1 * x.NegativeCount))
 ;
 
-            CreateMap<MaterialComment, GetLastCommentListQuery.LastCommentDto>()
+            CreateMap<Comment, GetLastCommentListQuery.LastCommentDto>()
                 .ForMember(dest => dest.ClippedMessage, src => src.Ignore())
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLower()))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName));
 
-            CreateMap<CreateCommentCommand.Request, MaterialComment>()
+            CreateMap<CreateCommentCommand.Request, Comment>()
                 .ForMember(x => x.Message, src => src.MapFrom(x => x.Message.Trim()))
                 ; ;
 
-            CreateMap<UpdateCommentCommand.Request, MaterialComment>()
+            CreateMap<UpdateCommentCommand.Request, Comment>()
                 .ForMember(x => x.Message, src => src.MapFrom(x => x.Message.Trim()))
                 ; ;
 
             //todo TEMPORARY
-            CreateMap<MaterialComment, CreateCommentCommand.Response>()
+            CreateMap<Comment, CreateCommentCommand.Response>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
@@ -65,7 +65,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
 
             //todo TEMPORARY
-            CreateMap<MaterialComment, UpdateCommentCommand.Response>()
+            CreateMap<Comment, UpdateCommentCommand.Response>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))

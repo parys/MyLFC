@@ -69,7 +69,7 @@ namespace MyLfc.Application.Comments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var comment = _mapper.Map<MaterialComment>(request);
+                var comment = _mapper.Map<Comment>(request);
 
                 comment.AdditionTime = comment.LastModified = DateTimeOffset.UtcNow;
                 comment.AuthorId = _requestContext.UserId.Value;
@@ -125,7 +125,7 @@ namespace MyLfc.Application.Comments
                 }
             }
 
-            private async Task SendNotificationAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
+            private async Task SendNotificationAsync(Comment parentComment, int commentId, string authorUserName, string commentText)
             {
                 var notification = new CreateNotificationCommand.Request
                 {
@@ -140,7 +140,7 @@ namespace MyLfc.Application.Comments
                 _signalRHubAggregator.SendToUser(HubEndpointConstants.NewNotifyEndpoint, notificationDto, parentComment.AuthorId);
             }
 
-            private async Task SendNotificationToEmailAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
+            private async Task SendNotificationToEmailAsync(Comment parentComment, int commentId, string authorUserName, string commentText)
             {
                 const string newAnswer = "Новый ответ на ваш комментарий";
                 var user = await _mediator.Send(new GetUserDetailQuery.Request { Id = parentComment.AuthorId });
@@ -150,7 +150,7 @@ namespace MyLfc.Application.Comments
                 }
             }
 
-            private string GetNotificationEmailBody(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
+            private string GetNotificationEmailBody(Comment parentComment, int commentId, string authorUserName, string commentText)
             {
                 var host = _accessor.HttpContext.Request.Host;
 

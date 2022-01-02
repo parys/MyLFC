@@ -34,7 +34,7 @@ namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
         {
             var comments = new Fixture()
                 .Customize(new CommentCustomization())
-                .CreateMany<MaterialComment>(10)
+                .CreateMany<Comment>(10)
                 .Select(x =>
                 {
                     x.AuthorId = AdminUserId;
