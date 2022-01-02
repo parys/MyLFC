@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Comments
+namespace MyLfc.Application.Comments.Queries
 {
     public class GetCommentListByEntityIdQuery
     {
@@ -19,23 +22,34 @@ namespace MyLfc.Application.Comments
             public int? MaterialId { get; set; }
         }
 
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(x => x)
+                    .Must(x => x.MatchId is > 0 || x.MaterialId is > 0);
+            }
+        }
+
 
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ILiverpoolContext _context;
+            private readonly IMapper _mapper;
             private readonly RequestContext _requestContext;
 
-            public Handler(ILiverpoolContext context, RequestContext requestContext)
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
             {
                 _context = context;
                 _requestContext = requestContext;
+                _mapper = mapper;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var commentsQuery = _context.MaterialComments
                     .Include(x => x.Author)
-                    .Include(x => x.CommentVotes)
+                 //   .Include(x => x.CommentVotes)
                     .AsNoTracking();
 
                 if (request.MatchId.HasValue)
@@ -49,14 +63,17 @@ namespace MyLfc.Application.Comments
 
                 commentsQuery = commentsQuery.OrderBy(x => x.AdditionTime);
 
-                var comments = await commentsQuery.Select(x=> new CommentForEntityDto
+                var comments = await commentsQuery 
+                    
+                /* maybe can be removed, research
+                    .Select(x=> new CommentForEntityDto
                 {
                     AdditionTime = x.AdditionTime,
                     Answer = x.Answer,
                     AuthorId = x.AuthorId,
                     AuthorUserName = x.Author.UserName,
-                    CanNegativeVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => !v.Positive && v.UserId == _requestContext.UserId),
-                    CanPositiveVote = _requestContext.UserId.HasValue && !x.CommentVotes.Any(v => v.Positive && v.UserId == _requestContext.UserId),
+                    CanNegativeVote = true,
+                    CanPositiveVote = true,
                     IsVerified = x.IsVerified,
                     MatchId = x.MatchId,
                     MaterialId = x.MaterialId,
@@ -69,8 +86,45 @@ namespace MyLfc.Application.Comments
                     Photo = x.Author.Photo,
                     Type = x.Type,
                     TypeName = x.Type.ToString().ToLower()
-                }).ToListAsync(cancellationToken);
+                }) */
+                    .ProjectTo<CommentForEntityDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                if (_requestContext.UserId.HasValue)
+                {
+                    comments.ForEach(x =>
+                    {
+                        x.CanNegativeVote = true;
+                        x.CanPositiveVote = true;
+                    });
+                    var entityId = request.MatchId ?? request.MaterialId ?? 0;
+                    if (entityId != 0)
+                    {
+                        var commentVotes = await _context.CommentVotes.AsNoTracking()
+                            .Where(x => x.EntityId == entityId && x.UserId == _requestContext.UserId.Value)
+                            .ToListAsync(cancellationToken);
+                        foreach (var commentVote in commentVotes)
+                        {
+                            var comment = comments.FirstOrDefault(x => x.Id == commentVote.CommentId);
+                            if (comment == null)
+                            {
+                                continue;
+                            }
+
+                            if (commentVote.Positive)
+                            {
+                                comment.CanPositiveVote = false;
+                            }
+                            else
+                            {
+                                comment.CanNegativeVote = false;
+                            }
+                        }
+                    }
+                }
+
                 var unitedComments = UniteComments(comments, request.CurrentPage, request.PageSize);
+
             //    var commentDtos = _mapper.Map<List<CommentForEntityDto>>(unitedComments);
                 //  filter = filter.And(x => x.ParentId == null);//bug need to analyze how get all comments for material page but count only top-level for paging
                 
@@ -103,17 +157,6 @@ namespace MyLfc.Application.Comments
                 }
                 return comments.Where(c => c.ParentId == null);
             }
-
-            //private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
-            //{
-            //    if (_requestContext.UserId.HasValue)
-            //    {
-            //        foreach (var materialComment in comments)
-            //        {
-            //            materialComment.CurrentUserId = _requestContext.UserId.Value; //todo need more elegant solution
-            //        }
-            //    }
-            //}
         }
 
 

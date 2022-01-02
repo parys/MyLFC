@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Comments;
+using MyLfc.Application.Comments.Queries;
 using MyLfc.Common.Mappings.Vm;
 
 namespace MyLfc.Web.Mvc.Controllers.Components

@@ -943,11 +943,11 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
         private async Task InitializeNewsComments()
         {
             if (_context.MaterialComments.Any()) return;
-            var newsComments = new List<MaterialComment>();
+            var newsComments = new List<Comment>();
             var random = new Random((int)DateTimeOffset.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
-                var comment = new MaterialComment()
+                var comment = new Comment()
                 {
                     MaterialId = new Random().Next(_context.Materials.First(x => x.Type == NewsType).Id, _context.Materials.Last(x => x.Type == NewsType).Id),
                     AdditionTime = DateTimeOffset.UtcNow.AddDays(random.NextDouble() * 10),
@@ -959,9 +959,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 };
                 if (i % 3 == 0)
                 {
-                    comment.Children = new List<MaterialComment>()
+                    comment.Children = new List<Comment>()
                     {
-                        new MaterialComment()
+                        new Comment()
                         {
                             ParentId = i + 1,
                             MaterialId = comment.MaterialId,
@@ -980,7 +980,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             newsComments.ForEach(x => _context.MaterialComments.Add(x));
             await _context.SaveChangesAsync();
 
-            var commentFirstNews = new MaterialComment()
+            var commentFirstNews = new Comment()
             {
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTimeOffset.UtcNow,
@@ -988,9 +988,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 Message = "comment first",
                 Type = CommentType.News,
                 LastModified = DateTimeOffset.UtcNow,
-                Children = new List<MaterialComment>()
+                Children = new List<Comment>()
                 {
-                    new MaterialComment()
+                    new Comment()
                     {
                         ParentId = CountNews + 1,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
@@ -999,9 +999,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         Message = "comment second inside",
                         Type = CommentType.News,
                         LastModified = DateTimeOffset.UtcNow,
-                        Children = new List<MaterialComment>()
+                        Children = new List<Comment>()
                         {
-                            new MaterialComment()
+                            new Comment()
                             {
                                 ParentId = CountNews + 2,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
@@ -1103,11 +1103,11 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
         private async Task InitializeBlogComments()
         {
             const CommentType type = CommentType.Blogs;
-            var newsComments = new List<MaterialComment>();
+            var newsComments = new List<Comment>();
             var random = new Random((int)DateTimeOffset.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
-                var comment = new MaterialComment()
+                var comment = new Comment()
                 {
                     MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                     AdditionTime = DateTimeOffset.UtcNow.AddDays(random.NextDouble() * 10),
@@ -1119,9 +1119,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 };
                 if (i % 3 == 0)
                 {
-                    comment.Children = new List<MaterialComment>()
+                    comment.Children = new List<Comment>()
                     {
-                        new MaterialComment()
+                        new Comment()
                         {
                             ParentId = i + 1,
                             MaterialId = comment.MaterialId,
@@ -1140,7 +1140,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             newsComments.ForEach(x => _context.MaterialComments.Add(x));
             await _context.SaveChangesAsync();
 
-            var commentFirstNews = new MaterialComment()
+            var commentFirstNews = new Comment()
             {
                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTimeOffset.UtcNow,
@@ -1148,9 +1148,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 Message = "comment first",
                 Type = type,
                 LastModified = DateTimeOffset.UtcNow,
-                Children = new List<MaterialComment>()
+                Children = new List<Comment>()
                 {
-                    new MaterialComment()
+                    new Comment()
                     {
                         ParentId = CountNews + 1,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
@@ -1159,9 +1159,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         Message = "comment second inside",
                         Type = type,
                         LastModified = DateTimeOffset.UtcNow,
-                        Children = new List<MaterialComment>()
+                        Children = new List<Comment>()
                         {
-                            new MaterialComment()
+                            new Comment()
                             {
                                 ParentId = CountNews + 2,
                                 MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,

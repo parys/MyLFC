@@ -42,7 +42,7 @@ namespace MyLfc.Domain
 
         public ICollection<ForumMessage> ForumMessages { get; set; } = new HashSet<ForumMessage>();
 
-        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public ICollection<Material> Materials { get; set; } = new HashSet<Material>();
 

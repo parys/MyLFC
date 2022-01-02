@@ -32,7 +32,7 @@ namespace MyLfc.Application.Tests.Pms.CreatePmCommand
         }
 
         [Fact]
-        public async Task WhenUpdateMaterialContainsNonExistMaterialId_ThrowsNotFoundException()
+        public async Task CreatePm_WhenModelIsValid_ReturnsNewMessageId()
         {
             var request = new Request
             {

@@ -44,6 +44,6 @@ namespace MyLfc.Domain
 
         public ICollection<MatchPerson> Persons { get; set; } = new HashSet<MatchPerson>();
 
-        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

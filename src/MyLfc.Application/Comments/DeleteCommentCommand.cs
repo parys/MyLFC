@@ -42,7 +42,7 @@ namespace MyLfc.Application.Comments
                 
                 if (comment == null)
                 {
-                    throw new NotFoundException(nameof(MaterialComment), request.Id);
+                    throw new NotFoundException(nameof(Comment), request.Id);
                 }
 
                 if(!_requestContext.UserId.HasValue

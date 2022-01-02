@@ -1600,7 +1600,7 @@ namespace MigratorVnext
                         continue;
                     }
 
-                    var comment = new MaterialComment()
+                    var comment = new Comment()
                     {
                         Type = materialType,
                    //     MaterialId = int.Parse(materialId),
@@ -2101,7 +2101,7 @@ namespace MigratorVnext
 
         public static void UpdateCommentsLinks()
         {
-            var bag = new ConcurrentBag<MaterialComment>();
+            var bag = new ConcurrentBag<Comment>();
             Console.WriteLine("Start UpdateCommentsLinks");
             var allComments = Db.MaterialComments.ToList();
             var commentsWithParent = Db.MaterialComments.Where(c => c.OldParentId != null).ToList();

@@ -7,7 +7,7 @@ using MyLfc.Data.Common;
 
 namespace MyLfc.Domain
 {
-    public class MaterialComment : IEntity
+    public class Comment : IEntity
     {
         public int Id { get; set; }
 
@@ -27,13 +27,13 @@ namespace MyLfc.Domain
         [MaxLength(5000)]
         public string Answer { get; set; }
 
-        public ICollection<MaterialComment> Children { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<Comment> Children { get; set; } = new HashSet<Comment>();
 
         public ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
         
         public int? ParentId { get; set; }
 
-        public MaterialComment Parent { get; set; }
+        public Comment Parent { get; set; }
 
         public int? OldParentId { get; set; }
 

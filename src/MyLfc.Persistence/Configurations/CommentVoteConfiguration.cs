@@ -11,6 +11,8 @@ namespace MyLfc.Persistence.Configurations
             builder.ToTable("CommentVotes");
 
             builder.HasKey(t => new { t.UserId, t.CommentId });
+
+            builder.HasQueryFilter(x => !x.Comment.Deleted);
         }
     }
 }

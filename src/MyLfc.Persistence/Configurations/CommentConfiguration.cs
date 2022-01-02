@@ -4,9 +4,9 @@ using MyLfc.Domain;
 
 namespace MyLfc.Persistence.Configurations
 {
-    public class CommentConfiguration : IEntityTypeConfiguration<MaterialComment>
+    public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {
-        public void Configure(EntityTypeBuilder<MaterialComment> builder)
+        public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.ToTable("MaterialComments");
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Comments;
+using MyLfc.Application.Comments.Queries;
 using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Matches;
 using MyLfc.Common.Utilities.Extensions;

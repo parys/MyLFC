@@ -40,7 +40,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset LastModified { get; set; }
 
-        public ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public int CategoryId { get; set; }
 
