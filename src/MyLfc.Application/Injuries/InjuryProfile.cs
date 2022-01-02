@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MyLfc.Application.Injuries.Commands;
+using MyLfc.Application.Injuries.Queries;
 using MyLfc.Domain;
 
 namespace MyLfc.Application.Injuries

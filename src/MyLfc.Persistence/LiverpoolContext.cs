@@ -20,11 +20,6 @@ namespace MyLfc.Persistence
                     Database.Migrate();
                 }
                 _created = true;
-
-                //temporary until .net resolve issue with binding for trimmed library
-                const double v = Math.E;
-                var c = v;
-
             }
         }
 
