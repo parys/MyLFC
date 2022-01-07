@@ -57,10 +57,6 @@
     <Folder Include="wwwroot\content\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
@@ -73,10 +69,6 @@
     <ProjectReference Include="..\MyLfc.Common.Mappings\MyLfc.Common.Mappings.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Utilities\MyLfc.Common.Utilities.csproj" />
     <ProjectReference Include="..\MyLfc.Data.Common\MyLfc.Data.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
