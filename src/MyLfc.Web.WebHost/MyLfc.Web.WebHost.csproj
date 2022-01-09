@@ -38,7 +38,6 @@
 
   <ItemGroup>
     <None Remove="MyLfc.Web.WebHost.csproj.DotSettings" />
-    <None Remove="MyLiverpool.Web.WebApiNext.csproj.DotSettings" />
   </ItemGroup>
 
   <ItemGroup>
