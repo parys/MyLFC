@@ -62,9 +62,17 @@ namespace MyLfc.Web.WebHost.BackgroundServices
 
         private async void RemoveExpiredTokensAsync(object param)
         {
-            using var scope = _service.CreateScope();
-            var calStatRepo = scope.ServiceProvider.GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
-            await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
+            try
+            {
+                using var scope = _service.CreateScope();
+                var calStatRepo = scope.ServiceProvider
+                    .GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
+                await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Error in background job");
+            }
         }
     }
 }
