@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using MyLfc.Application.Comments;
 using MyLfc.Application.Comments.Queries;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Comments
 {
     public class CommentProfile : Profile
     {
@@ -31,6 +30,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
             CreateMap<Comment, GetCommentListByEntityIdQuery.CommentForEntityDto>()
+                .ForMember(dest => dest.Children, src => src.Ignore())
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))

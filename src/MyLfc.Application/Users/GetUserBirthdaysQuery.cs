@@ -33,7 +33,7 @@ namespace MyLfc.Application.Users
             {
                 var users = await _context.Users.Where(x => x.Birthday.Value.Date.Day == DateTimeOffset.UtcNow.Day &&
                                                       x.Birthday.Value.Date.Month == DateTimeOffset.UtcNow.Month &&
-                                                      x.LastModified.AddMonths(1).Date > DateTimeOffset.UtcNow.Date)
+                                                      x.LastModified.AddMonths(2).Date > DateTimeOffset.UtcNow.Date)
                     .OrderByDescending(x => x.LastModified)
                     .ProjectTo<UserBirthdayDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);

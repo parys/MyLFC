@@ -50,6 +50,7 @@ namespace MyLfc.Application.Tests.Users
                     return x;
                 }).ToList();
 
+            users.ForEach(x => x.Birthday = DateTimeOffset.UtcNow.AddDays(1));
             users[0].Birthday = DateTimeOffset.UtcNow;
             users[0].LastModified = DateTimeOffset.UtcNow;
 
