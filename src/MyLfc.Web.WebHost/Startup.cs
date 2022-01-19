@@ -23,7 +23,7 @@ using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
-using MyLfc.Web.WebHost.Infrastructure.Filters;
+using MyLfc.Web.WebHost.Filters;
 using MyLfc.Web.WebHost.Middlewares;
 using Newtonsoft.Json.Serialization;
 using Serilog;
@@ -84,7 +84,12 @@ namespace MyLfc.Web.WebHost
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllersWithViews(options => { options.Filters.Add(typeof(RequestDecorator)); })
+            services.AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(typeof(RequestDecorator));
+                    options.Filters.Add(typeof(CustomExceptionFilterAttribute));
+                })
+
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ContractResolver =
                         new CamelCasePropertyNamesContractResolver());
@@ -179,9 +184,7 @@ namespace MyLfc.Web.WebHost
             {
                 app.UseMiddleware<ResponseTimeMeasureMiddleware>();
             }
-
-            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
-
+            
             // app.UseXsrf();
             if (env.IsDevelopment())
             {

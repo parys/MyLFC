@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Utilities.Extensions;
 
-namespace MyLfc.Web.WebHost.Infrastructure.Filters
+namespace MyLfc.Web.WebHost.Filters
 {
     /// <summary>
     /// Parses params to RequestContext.
