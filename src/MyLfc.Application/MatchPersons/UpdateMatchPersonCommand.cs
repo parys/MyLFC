@@ -53,7 +53,6 @@ namespace MyLfc.Application.MatchPersons
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var person = await _context.Persons
-                    .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == request.PersonId, cancellationToken);
                 
                 var matchPerson = await _context.MatchPersons
@@ -65,7 +64,14 @@ namespace MyLfc.Application.MatchPersons
                 var isNew = matchPerson == null;
                 matchPerson = _mapper.Map(request, matchPerson);
 
-                matchPerson.Number ??= person.Number;
+                if (matchPerson?.Number != null)
+                {
+                    person.Number = matchPerson.Number;
+                }
+                else
+                {
+                    matchPerson.Number = person.Number;
+                }
 
                 if (isNew)
                 {
