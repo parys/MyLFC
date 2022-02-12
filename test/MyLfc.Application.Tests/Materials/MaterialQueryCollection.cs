@@ -24,7 +24,7 @@ namespace MyLfc.Application.Tests.Materials
         public static int DeletedMaterial => Materials[2].Id;
         public static int PendingMaterial => Materials[3].Id;
 
-        public static List<User> Users { get; private set; }
+        public static List<FullUser> Users { get; private set; }
 
         public static List<Material> Materials { get; private set; }
 
@@ -46,7 +46,7 @@ namespace MyLfc.Application.Tests.Materials
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(5).ToList();
+                .CreateMany<FullUser>(5).ToList();
             
             Context.Users.AddRange(users);
             Context.SaveChanges();

@@ -48,7 +48,7 @@ namespace MyLfc.Application.Users
                 var path = user.Photo;
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), _requestContext.UserId.Value);
+                    throw new NotFoundException(nameof(FullUser), _requestContext.UserId.Value);
                 }
 
                 var relativePath = path.Contains(GlobalConstants.DefaultPhotoPath)

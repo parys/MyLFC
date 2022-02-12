@@ -54,7 +54,7 @@ namespace MyLfc.Application.Users
                     users = users.Where(x => x.Ip.Contains(request.Ip));
                 }
 
-                Expression<Func<User, object>> sortBy = x => x.LastModified;
+                Expression<Func<FullUser, object>> sortBy = x => x.LastModified;
                 request.SortDirection ??= "Desc";
                 if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
@@ -76,7 +76,7 @@ namespace MyLfc.Application.Users
                     }
                 }
 
-                return await users.GetPagedAsync<Response, User, UserListDto>(request, _mapper, sortBy);
+                return await users.GetPagedAsync<Response, FullUser, UserListDto>(request, _mapper, sortBy);
             }
         }
 

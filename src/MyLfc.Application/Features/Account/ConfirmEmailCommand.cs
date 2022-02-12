@@ -30,9 +30,9 @@ namespace MyLfc.Application.Features.Account
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
 
-            public Handler(UserManager<User> userManager)
+            public Handler(UserManager<FullUser> userManager)
             {
                 _userManager = userManager;;
             }

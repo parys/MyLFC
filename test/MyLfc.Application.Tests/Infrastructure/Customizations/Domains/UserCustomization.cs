@@ -9,19 +9,19 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
         public void Customize(IFixture fixture)
         {
             fixture.Customizations.Add(new IgnoreMembers(new[] {
-                nameof(User.Materials),
-                nameof(User.ChatMessages),
-                nameof(User.Claims),
-                nameof(User.CommentVotes),
-                nameof(User.Comments),
-                nameof(User.ForumMessages),
-                nameof(User.Logins),
-                nameof(User.Notifications),
-                nameof(User.ReceivedPrivateMessages),
-                nameof(User.SentPrivateMessages),
-                nameof(User.Roles),
-                nameof(User.UserConfig),
-                nameof(User.RoleGroup)
+                nameof(FullUser.Materials),
+                nameof(FullUser.ChatMessages),
+                nameof(FullUser.Claims),
+                nameof(FullUser.CommentVotes),
+                nameof(FullUser.Comments),
+                nameof(FullUser.ForumMessages),
+                nameof(FullUser.Logins),
+                nameof(FullUser.Notifications),
+                nameof(FullUser.ReceivedPrivateMessages),
+                nameof(FullUser.SentPrivateMessages),
+                nameof(FullUser.Roles),
+                nameof(FullUser.UserConfig),
+                nameof(FullUser.RoleGroup)
 
             }));
         }

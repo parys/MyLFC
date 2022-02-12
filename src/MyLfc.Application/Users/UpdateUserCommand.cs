@@ -45,7 +45,7 @@ namespace MyLfc.Application.Users
 
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), _requestContext.UserId);
+                    throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
                 }
 
                 user = _mapper.Map(request, user);

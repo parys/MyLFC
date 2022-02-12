@@ -4,9 +4,9 @@ using MyLfc.Domain;
 
 namespace MyLfc.Persistence.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class FullUserConfiguration : IEntityTypeConfiguration<FullUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<FullUser> builder)
         {
             builder.ToTable("AspNetUsers");
 

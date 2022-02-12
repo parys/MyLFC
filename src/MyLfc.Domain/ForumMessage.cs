@@ -19,7 +19,7 @@ namespace MyLfc.Domain
        //todo [AllowHtml]
         public string Message { get; set; }
 
-        public User Author { get; set; }
+        public FullUser Author { get; set; }
         public int AuthorId { get; set; }
 
         //   public string Ip { get; set; }

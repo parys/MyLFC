@@ -26,7 +26,7 @@ namespace MyLfc.Persistence
                     options.UseEntityFrameworkCore(opts =>
                     {
                         opts.ReplaceDefaultEntities<int>();
-                        opts.UseDbContext<LiverpoolContext>();
+                        opts.UseDbContext<AuthLiverpoolContext>();
                     });
                 })
                 .AddServer(options =>

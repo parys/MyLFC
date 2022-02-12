@@ -26,12 +26,12 @@ namespace MigratorVnext
         private const string DefaultPhotoPath = "/content/images/default.jpg";
         private static readonly int MaxChars = 20000;
         private const bool UseLimit = false;
-        private static readonly UserManager<User> UserManager;
+        private static readonly UserManager<FullUser> UserManager;
 
         private static readonly List<ForumSubsection> Subsections = new();
         private static readonly List<ForumTheme> Themes = new();
 
-        private static User _deleted;
+        private static FullUser _deleted;
         private static readonly LiverpoolContext Db;
         static Program()
         {
@@ -40,16 +40,16 @@ namespace MigratorVnext
             Db.Database.Migrate();
             new DatabaseInitializer(GetNewContext()).Seed(true);
 
-            var store = new UserStore<User, Role, LiverpoolContext, int>(Db);
+            var store = new UserStore<FullUser, Role, LiverpoolContext, int>(Db);
            
-            IPasswordHasher<User> hasher = new PasswordHasher<User>();
+            IPasswordHasher<FullUser> hasher = new PasswordHasher<FullUser>();
             //var provider = new MachineKeyProtectionProvider();
             //var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             IOptions<IdentityOptions> options = Options.Create(new IdentityOptions());
             ILookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
             options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
             options.Value.Lockout.AllowedForNewUsers = true;
-            UserManager = new UserManager<User>(store, options, hasher, null, null, normalizer, null, null, null);
+            UserManager = new UserManager<FullUser>(store, options, hasher, null, null, normalizer, null, null, null);
 
         }
 
@@ -215,7 +215,7 @@ namespace MigratorVnext
             var chars = Encoding.UTF8.GetString(data).ToCharArray();
             for (var i = 0; i < chars.Length; i++)
             {
-                var user = new User();
+                var user = new FullUser();
                 // login
                 while (chars[i] != '|')
                 {
@@ -262,7 +262,7 @@ namespace MigratorVnext
                 }
                 for (var i = 0; i < limit; i++)
                 {
-                    var user = new User()
+                    var user = new FullUser()
                     {
                         //Id = Guid.NewGuid().ToString(),
                     };
@@ -520,7 +520,7 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    User user = UserManager.FindByNameAsync(userLogin).Result;
+                    FullUser user = UserManager.FindByNameAsync(userLogin).Result;
                     if (user != null)
                     {
                         //           user.OldId = int.Parse(id);
@@ -1589,7 +1589,7 @@ namespace MigratorVnext
                     {
                         materialType = CommentType.Blogs;
                     }
-                    User author = null;
+                    FullUser author = null;
                     if (!string.IsNullOrEmpty(userName))
                     {
                         author = UserManager.FindByNameAsync(userName).Result;

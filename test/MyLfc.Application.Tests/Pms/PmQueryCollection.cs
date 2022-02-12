@@ -62,7 +62,7 @@ namespace MyLfc.Application.Tests.Pms
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(2).ToList();
+                .CreateMany<FullUser>(2).ToList();
 
             Context.Users.AddRange(users);
             Context.SaveChanges();

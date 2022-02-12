@@ -46,7 +46,7 @@ namespace MyLfc.Application.Users
 
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), request.Id);
+                    throw new NotFoundException(nameof(FullUser), request.Id);
                 }
 
                 if (_requestContext.User == null ||

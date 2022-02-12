@@ -9,7 +9,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, GetUserDetailQuery.Response>()
+            CreateMap<FullUser, GetUserDetailQuery.Response>()
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.BlogsCount, src => src.MapFrom(x => x.BlogsCount))
@@ -17,13 +17,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.NewsCount, src => src.MapFrom(x => x.NewsCount))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName));
 
-            CreateMap<User, GetUserListQuery.UserListDto>()
+            CreateMap<FullUser, GetUserListQuery.UserListDto>()
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName));
 
-            CreateMap<User, GetUserBirthdaysQuery.UserBirthdayDto>();
+            CreateMap<FullUser, GetUserBirthdaysQuery.UserBirthdayDto>();
 
-            CreateMap<UpdateUserCommand.Request, User>()
+            CreateMap<UpdateUserCommand.Request, FullUser>()
                 .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName.Trim()));
                 ;
 

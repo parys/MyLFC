@@ -27,8 +27,8 @@ namespace MyLfc.Web.WebHost.Controllers
     {
         private readonly IOpenIddictApplicationManager _applicationManager;
         private readonly IOptions<IdentityOptions> _identityOptions;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<FullUser> _signInManager;
+        private readonly UserManager<FullUser> _userManager;
 
         /// <summary>
         /// Constructor.
@@ -39,8 +39,8 @@ namespace MyLfc.Web.WebHost.Controllers
         /// <param name="identityOptions"></param>
         public AuthorizationController(
             IOpenIddictApplicationManager applicationManager,
-            SignInManager<User> signInManager,
-            UserManager<User> userManager,
+            SignInManager<FullUser> signInManager,
+            UserManager<FullUser> userManager,
             IOptions<IdentityOptions> identityOptions)
         {
             _applicationManager = applicationManager;
@@ -223,7 +223,7 @@ namespace MyLfc.Web.WebHost.Controllers
             return SignOut(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
-        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIddictRequest request, User user, AuthenticationProperties properties = null)
+        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIddictRequest request, FullUser user, AuthenticationProperties properties = null)
         {
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.

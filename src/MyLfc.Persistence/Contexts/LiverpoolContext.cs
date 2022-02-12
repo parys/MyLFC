@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application;
@@ -8,7 +7,7 @@ using MyLfc.Domain.Polls;
 
 namespace MyLfc.Persistence
 {
-    public sealed class LiverpoolContext : IdentityDbContext<User, Role, int>, ILiverpoolContext
+    public sealed class LiverpoolContext : IdentityDbContext<FullUser, Role, int>, ILiverpoolContext
     {
         private static bool _created;
         public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
@@ -24,7 +23,6 @@ namespace MyLfc.Persistence
         }
 
         #region DbSets
-        
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }

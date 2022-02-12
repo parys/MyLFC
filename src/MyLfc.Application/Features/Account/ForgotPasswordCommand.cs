@@ -29,11 +29,11 @@ namespace MyLfc.Application.Features.Account
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
             private readonly IEmailSender _messageService;
             private readonly IOptions<EmailSettings> _settings;
 
-            public Handler(UserManager<User> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
+            public Handler(UserManager<FullUser> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
             {
                 _userManager = userManager;
                 _settings = settings;
@@ -51,7 +51,7 @@ namespace MyLfc.Application.Features.Account
                 return new Response {Result = true};
             }
 
-            private async Task<string> GetForgotPasswordBody(User user)
+            private async Task<string> GetForgotPasswordBody(FullUser user)
             {
                 string code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = code.Base64ForUrlEncode();
@@ -61,7 +61,7 @@ namespace MyLfc.Application.Features.Account
             }
 
 
-            private async Task SendForgotPasswordEmailAsync(User user)
+            private async Task SendForgotPasswordEmailAsync(FullUser user)
             {
                 const string forgotPassword = "Восстановление забытого пароля";
                 await _messageService.SendEmailAsync(user.Email, forgotPassword, await GetForgotPasswordBody(user));

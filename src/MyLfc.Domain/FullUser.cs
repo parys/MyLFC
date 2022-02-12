@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MyLfc.Domain
 {
-    public class User : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEntity
+    public class FullUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEntity
     {
         // public int Id { get; set; }
         // public string Email { get; set; }

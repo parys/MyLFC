@@ -21,9 +21,9 @@ namespace MyLfc.Application.Users
         {
             private readonly ILiverpoolContext _context;
 
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
 
-            public Handler(ILiverpoolContext context, UserManager<User> userManager)
+            public Handler(ILiverpoolContext context, UserManager<FullUser> userManager)
             {
                 _context = context;
                 _userManager = userManager;
@@ -34,7 +34,7 @@ namespace MyLfc.Application.Users
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), request.Id);
+                    throw new NotFoundException(nameof(FullUser), request.Id);
                 }
 
                 var result = await _userManager.SetLockoutEndDateAsync(user,

@@ -17,7 +17,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset LastModified { get; set; }
 
-        public User Author { get; set; }
+        public FullUser Author { get; set; }
 
         public int AuthorId { get; set; }
 

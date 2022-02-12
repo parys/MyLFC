@@ -42,7 +42,7 @@ namespace MyLfc.Application.Users
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), request.UserId);
+                    throw new NotFoundException(nameof(FullUser), request.UserId);
                 }
 
                 user.UserName = request.Username;

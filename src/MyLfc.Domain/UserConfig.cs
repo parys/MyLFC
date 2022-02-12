@@ -10,6 +10,6 @@
 
         public bool IsPmToEmailNotifyEnabled { get; set; }
 
-        public User User { get; set; }
+        public FullUser User { get; set; }
     }
 }

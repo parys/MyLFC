@@ -26,9 +26,9 @@ namespace MyLfc.Application.Users
         {
             private readonly ILiverpoolContext _context;
 
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
 
-            public Handler(ILiverpoolContext context, UserManager<User> userManager)
+            public Handler(ILiverpoolContext context, UserManager<FullUser> userManager)
             {
                 _context = context;
                 _userManager = userManager;
@@ -39,7 +39,7 @@ namespace MyLfc.Application.Users
                 var user = await _userManager.FindByIdAsync(request.UserId.ToString());
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), request.UserId);
+                    throw new NotFoundException(nameof(FullUser), request.UserId);
                 }
 
                 var oldRoleGroup = await _context.RoleGroups

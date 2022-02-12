@@ -16,8 +16,14 @@ namespace MyLfc.Persistence
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(LiverpoolContext).Assembly.FullName));
+            });
+            
+            services.AddDbContext<AuthLiverpoolContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 options.UseOpenIddict<int>();
             });
+
             services.AddScoped<ILiverpoolContext>(provider => provider.GetService<LiverpoolContext>());
         }
     }

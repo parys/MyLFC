@@ -11,7 +11,7 @@ namespace MyLfc.Application.Tests.Infrastructure.Seeds
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(3)
+                .CreateMany<FullUser>(3)
                 .Select(x =>
                 {
                     x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;

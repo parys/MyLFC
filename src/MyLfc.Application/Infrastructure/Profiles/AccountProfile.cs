@@ -8,7 +8,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
     {
         public AccountProfile()
         {
-            CreateMap<RegisterUserCommand.Request, User>();
+            CreateMap<RegisterUserCommand.Request, FullUser>();
         }
     }
 }

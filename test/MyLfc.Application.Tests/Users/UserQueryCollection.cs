@@ -23,7 +23,7 @@ namespace MyLfc.Application.Tests.Users
 
         public static int MaterialWithComments => Materials[1].Id;
 
-        public static List<User> Users { get; private set; }
+        public static List<FullUser> Users { get; private set; }
 
         public static List<Material> Materials { get; private set; }
 
@@ -44,7 +44,7 @@ namespace MyLfc.Application.Tests.Users
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(5).Select(x =>
+                .CreateMany<FullUser>(5).Select(x =>
                 {
                     x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;
                     return x;

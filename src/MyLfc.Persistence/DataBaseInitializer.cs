@@ -582,7 +582,7 @@ namespace MyLfc.Persistence
         {
             const string email = "deleted@deleted.com";
 
-            var user = new User
+            var user = new FullUser
             {
                // Id = -1,
                 UserName = "deleted",
@@ -606,7 +606,7 @@ namespace MyLfc.Persistence
         {
             const string email = "user@user.com";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "user",
                 Email = email,
@@ -629,7 +629,7 @@ namespace MyLfc.Persistence
         {
             const string email = "a@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "admin",
                 Email = email,
@@ -655,7 +655,7 @@ namespace MyLfc.Persistence
         {
             const string email = "moderator@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "moderator",
                 Email = email,
@@ -681,7 +681,7 @@ namespace MyLfc.Persistence
         {
             const string email = "author@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "author",
                 Email = email,
@@ -706,7 +706,7 @@ namespace MyLfc.Persistence
         {
             const string email = "Intern@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "Intern",
                 Email = email,
@@ -733,7 +733,7 @@ namespace MyLfc.Persistence
         {
             const string email = "Editor@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "Editor",
                 Email = email,
@@ -763,7 +763,7 @@ namespace MyLfc.Persistence
         {
             const string email = "Newsmaker@a.c";
 
-            var user = new User
+            var user = new FullUser
             {
                 UserName = "newsmaker",
                 Email = email,
@@ -1386,16 +1386,16 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             }
         }
 
-        private UserManager<User> GetUserManager()
+        private UserManager<FullUser> GetUserManager()
         {
-            IPasswordHasher<User> hasher = new PasswordHasher<User>();
+            IPasswordHasher<FullUser> hasher = new PasswordHasher<FullUser>();
             IOptions<IdentityOptions> options = Options.Create(new IdentityOptions());
             ILookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
             options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
             options.Value.Lockout.AllowedForNewUsers = true;
             
-            var userStore = new UserStore<User, Role, LiverpoolContext, int>(_context);
-            return new UserManager<User>(userStore, options, hasher, null, null, normalizer, null, null, new Logger<UserManager<User>>(new LoggerFactory()));
+            var userStore = new UserStore<FullUser, Role, LiverpoolContext, int>(_context);
+            return new UserManager<FullUser>(userStore, options, hasher, null, null, normalizer, null, null, new Logger<UserManager<FullUser>>(new LoggerFactory()));
         }
     }
 }

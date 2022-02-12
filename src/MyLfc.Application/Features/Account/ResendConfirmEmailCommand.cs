@@ -29,11 +29,11 @@ namespace MyLfc.Application.Features.Account
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
             private readonly IEmailSender _messageService;
             private readonly IOptions<EmailSettings> _settings;
 
-            public Handler(UserManager<User> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
+            public Handler(UserManager<FullUser> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
             {
                 _userManager = userManager;
                 _settings = settings;
@@ -52,13 +52,13 @@ namespace MyLfc.Application.Features.Account
             }
 
             //TODO duplicate in register
-            private async Task SendConfirmEmailAsync(User user)
+            private async Task SendConfirmEmailAsync(FullUser user)
             {
                 const string registerFinished = "Завершение регистрации";
                 await _messageService.SendEmailAsync(user.Email, registerFinished, await GetConfirmEmailBody(user));
             }
 
-            private async Task<string> GetConfirmEmailBody(User user)
+            private async Task<string> GetConfirmEmailBody(FullUser user)
             {
                 string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = code.Base64ForUrlEncode();

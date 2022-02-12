@@ -19,11 +19,11 @@ namespace MyLfc.Application.Users
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
 
             private readonly RequestContext _requestContext;
 
-            public Handler(RequestContext requestContext, UserManager<User> userManager)
+            public Handler(RequestContext requestContext, UserManager<FullUser> userManager)
             {
                 _requestContext = requestContext;
                 _userManager = userManager;
@@ -34,7 +34,7 @@ namespace MyLfc.Application.Users
                 var user = await _userManager.FindByIdAsync(_requestContext.UserId.ToString());
                 if (user == null)
                 {
-                    throw new NotFoundException(nameof(User), _requestContext.UserId);
+                    throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
                 }
 
                 var roles = await _userManager.GetRolesAsync(user);

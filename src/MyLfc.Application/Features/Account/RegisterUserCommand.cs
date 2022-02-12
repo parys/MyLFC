@@ -45,12 +45,12 @@ namespace MyLfc.Application.Features.Account
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IMapper _mapper;
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<FullUser> _userManager;
             private readonly IEmailSender _messageService;
             private readonly IOptions<EmailSettings> _settings;
             private const string DefaultPhotoPath = "/content/avatars/default.png";
 
-            public Handler(IMapper mapper, UserManager<User> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
+            public Handler(IMapper mapper, UserManager<FullUser> userManager, IOptions<EmailSettings> settings, IEmailSender messageService)
             {
                 _mapper = mapper;
                 _userManager = userManager;
@@ -60,7 +60,7 @@ namespace MyLfc.Application.Features.Account
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = _mapper.Map<User>(request);
+                var user = _mapper.Map<FullUser>(request);
                 user.RegistrationDate = DateTimeOffset.UtcNow;
                 user.LastModified = DateTimeOffset.UtcNow;
                 user.LockoutEnabled = true;
@@ -81,13 +81,13 @@ namespace MyLfc.Application.Features.Account
 
 
             //TODO duplicate in resend confirm
-            private async Task SendConfirmEmailAsync(User user)
+            private async Task SendConfirmEmailAsync(FullUser user)
             {
                 const string registerFinished = "Завершение регистрации";
                 await _messageService.SendEmailAsync(user.Email, registerFinished, await GetConfirmEmailBody(user));
             }
 
-            private async Task<string> GetConfirmEmailBody(User user)
+            private async Task<string> GetConfirmEmailBody(FullUser user)
             {
                 string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = code.Base64ForUrlEncode();

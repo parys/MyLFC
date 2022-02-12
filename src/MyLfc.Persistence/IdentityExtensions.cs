@@ -12,7 +12,7 @@ namespace MyLfc.Persistence
     {
         public static IServiceCollection AddCustomIdentitySettings(this IServiceCollection services)
         {
-            services.AddDefaultIdentity<User>(options =>
+            services.AddDefaultIdentity<FullUser>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 6;

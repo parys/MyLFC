@@ -9,11 +9,11 @@ namespace MyLfc.Domain
 
         public int SenderId { get; set; }
 
-        public User Sender { get; set; }
+        public FullUser Sender { get; set; }
 
         public int ReceiverId { get; set; }
 
-        public User Receiver { get; set; }
+        public FullUser Receiver { get; set; }
 
         [StringLength(50)]
         public string Title { get; set; }

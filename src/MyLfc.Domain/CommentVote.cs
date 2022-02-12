@@ -10,7 +10,7 @@
 
         public bool Positive { get; set; }
 
-        public User User { get; set; }
+        public FullUser User { get; set; }
 
         public Comment Comment { get; set; }
     }

@@ -10,7 +10,7 @@ namespace MyLfc.Domain
 
         public int AuthorId { get; set; }
 
-        public User Author { get; set; }
+        public FullUser Author { get; set; }
 
         public string Message { get; set; }
 

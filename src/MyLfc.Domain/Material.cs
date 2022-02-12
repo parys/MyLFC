@@ -22,7 +22,7 @@ namespace MyLfc.Domain
 
         public DateTimeOffset AdditionTime { get; set; }
 
-        public User Author { get; set; }
+        public FullUser Author { get; set; }
 
         public string Title { get; set; }
 

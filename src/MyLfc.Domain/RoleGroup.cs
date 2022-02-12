@@ -12,6 +12,6 @@ namespace MyLfc.Domain
 
         public ICollection<RoleRoleGroup> RoleGroups { get; set; } = new HashSet<RoleRoleGroup>();
 
-        public ICollection<User> Users { get; set; } = new HashSet<User>();
+        public ICollection<FullUser> Users { get; set; } = new HashSet<FullUser>();
     }
 }

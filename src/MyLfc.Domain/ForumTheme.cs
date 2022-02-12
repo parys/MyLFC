@@ -30,11 +30,11 @@ namespace MyLfc.Domain
 
         public string Description { get; set; }
 
-        public User Author { get; set; }
+        public FullUser Author { get; set; }
 
         public int AuthorId { get; set; }
 
-        public User LastAnswerUser { get; set; }
+        public FullUser LastAnswerUser { get; set; }
 
         public int LastAnswerUserId { get; set; }
 

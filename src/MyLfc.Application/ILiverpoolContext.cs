@@ -13,6 +13,8 @@ namespace MyLfc.Application
 
 
         #region DbSets
+
+    //    public DbSet<LightUser> LightUsers { get; }
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -48,7 +50,7 @@ namespace MyLfc.Application
         public DbSet<Contract> Contracts { get; set; }
 
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<FullUser> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         #endregion
