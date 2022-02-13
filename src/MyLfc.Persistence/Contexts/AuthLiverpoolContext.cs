@@ -15,7 +15,7 @@ namespace MyLfc.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FullLiverpoolContext).Assembly);
         }
     }
 }

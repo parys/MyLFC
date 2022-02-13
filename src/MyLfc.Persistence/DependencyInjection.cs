@@ -11,11 +11,11 @@ namespace MyLfc.Persistence
     {
         public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<LiverpoolContext>(options =>
+            services.AddDbContext<FullLiverpoolContext>(options =>
             {
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(LiverpoolContext).Assembly.FullName));
+                    b => b.MigrationsAssembly(typeof(FullLiverpoolContext).Assembly.FullName));
             });
             
             services.AddDbContext<AuthLiverpoolContext>(options =>
@@ -24,7 +24,7 @@ namespace MyLfc.Persistence
                 options.UseOpenIddict<int>();
             });
 
-            services.AddScoped<ILiverpoolContext>(provider => provider.GetService<LiverpoolContext>());
+            services.AddScoped<ILiverpoolContext>(provider => provider.GetService<FullLiverpoolContext>());
         }
     }
 }

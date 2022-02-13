@@ -9,7 +9,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20190806210053_AddFaqStuff")]
     partial class AddFaqStuff
     {

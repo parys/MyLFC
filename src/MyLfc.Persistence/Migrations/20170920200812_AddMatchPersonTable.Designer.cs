@@ -12,7 +12,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20170920200812_AddMatchPersonTable")]
     partial class AddMatchPersonTable
     {

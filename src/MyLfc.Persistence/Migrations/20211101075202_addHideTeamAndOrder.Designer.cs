@@ -9,7 +9,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20211101075202_addHideTeamAndOrder")]
     partial class addHideTeamAndOrder
     {

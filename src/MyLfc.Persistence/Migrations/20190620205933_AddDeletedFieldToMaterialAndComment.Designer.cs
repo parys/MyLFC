@@ -9,7 +9,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20190620205933_AddDeletedFieldToMaterialAndComment")]
     partial class AddDeletedFieldToMaterialAndComment
     {

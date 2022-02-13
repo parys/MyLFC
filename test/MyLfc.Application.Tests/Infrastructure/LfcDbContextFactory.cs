@@ -8,11 +8,11 @@ namespace MyLfc.Application.Tests.Infrastructure
     {
         public static ILiverpoolContext Create()
         {
-            var options = new DbContextOptionsBuilder<LiverpoolContext>()
+            var options = new DbContextOptionsBuilder<FullLiverpoolContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            var context = new LiverpoolContext(options);
+            var context = new FullLiverpoolContext(options);
 
             context.Database.EnsureCreated();
 

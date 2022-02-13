@@ -28,7 +28,7 @@ namespace MyLfc.Persistence
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
                 })
                 .AddRoles<Role>()
-                .AddEntityFrameworkStores<LiverpoolContext>()
+                .AddEntityFrameworkStores<FullLiverpoolContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>

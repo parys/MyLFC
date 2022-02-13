@@ -10,7 +10,7 @@ using MyLfc.Data.ResourceAccess;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20190422161316_AddTagsToMaterial")]
     partial class AddTagsToMaterial
     {

@@ -9,7 +9,7 @@ using MyLfc.Data.Common;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20170329210014_AddUrlsFieldsToMatch")]
     partial class AddUrlsFieldsToMatch
     {

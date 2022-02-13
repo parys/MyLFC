@@ -9,7 +9,7 @@ using MyLfc.Data.Common;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20170622214256_FixedCommentVoteRelations")]
     partial class FixedCommentVoteRelations
     {

@@ -9,7 +9,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20210117131911_UpdateOpenIdDictV3")]
     partial class UpdateOpenIdDictV3
     {

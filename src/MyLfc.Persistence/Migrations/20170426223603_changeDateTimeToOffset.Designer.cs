@@ -9,7 +9,7 @@ using MyLfc.Data.Common;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20170426223603_changeDateTimeToOffset")]
     partial class changeDateTimeToOffset
     {

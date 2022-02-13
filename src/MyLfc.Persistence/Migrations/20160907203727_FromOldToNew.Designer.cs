@@ -8,7 +8,7 @@ using MyLfc.Data.ResourceAccess;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20160907203727_FromOldToNew")]
     partial class FromOldToNew
     {

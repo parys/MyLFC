@@ -10,7 +10,7 @@ using MyLfc.Data.ResourceAccess;
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
-    [DbContext(typeof(LiverpoolContext))]
+    [DbContext(typeof(FullLiverpoolContext))]
     [Migration("20180830074638_MyLfc.Data.ResourceAccess")]
     partial class MyLfcDataResourceAccess
     {

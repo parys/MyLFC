@@ -7,10 +7,10 @@ using MyLfc.Domain.Polls;
 
 namespace MyLfc.Persistence
 {
-    public sealed class LiverpoolContext : IdentityDbContext<FullUser, Role, int>, ILiverpoolContext
+    public sealed class FullLiverpoolContext : IdentityDbContext<FullUser, Role, int>, ILiverpoolContext
     {
         private static bool _created;
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
+        public FullLiverpoolContext(DbContextOptions<FullLiverpoolContext> options) : base(options)
         {
             if (!_created)
             {
@@ -82,7 +82,7 @@ namespace MyLfc.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LiverpoolContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FullLiverpoolContext).Assembly);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

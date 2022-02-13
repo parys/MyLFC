@@ -15,8 +15,8 @@ namespace MyLfc.Application.Tests.Pms.GetUnreadPmCountQuery
 
     public class GetUnreadPmQueryTestFixture : BaseTestFixture
     {
-        public static int UserId { get; set; }
-        public static int SecondUserId { get; set; }
+        public static int UserId { get; set; } = 22;
+        public static int SecondUserId { get; set; } = 33;
         public static PrivateMessage ImmutablePrivateMessage => PrivateMessages[0];
         public static PrivateMessage PrivateMessageForRead => PrivateMessages[1];
         public static PrivateMessage PrivateMessageThatNotRelatedToAdmin => PrivateMessages[3];
@@ -64,11 +64,11 @@ namespace MyLfc.Application.Tests.Pms.GetUnreadPmCountQuery
                 .Customize(new UserCustomization())
                 .CreateMany<FullUser>(2).ToList();
 
+            users[0].Id = UserId;
+            users[1].Id = SecondUserId;
+
             Context.Users.AddRange(users);
             Context.SaveChanges();
-
-            UserId = users[0].Id;
-            SecondUserId = users[1].Id;
         }
     }
 }

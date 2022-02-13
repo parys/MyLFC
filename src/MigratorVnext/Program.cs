@@ -32,7 +32,7 @@ namespace MigratorVnext
         private static readonly List<ForumTheme> Themes = new();
 
         private static FullUser _deleted;
-        private static readonly LiverpoolContext Db;
+        private static readonly FullLiverpoolContext Db;
         static Program()
         {
           //  Database.SetInitializer(new DatabaseInitializer());
@@ -40,7 +40,7 @@ namespace MigratorVnext
             Db.Database.Migrate();
             new DatabaseInitializer(GetNewContext()).Seed(true);
 
-            var store = new UserStore<FullUser, Role, LiverpoolContext, int>(Db);
+            var store = new UserStore<FullUser, Role, FullLiverpoolContext, int>(Db);
            
             IPasswordHasher<FullUser> hasher = new PasswordHasher<FullUser>();
             //var provider = new MachineKeyProtectionProvider();
@@ -2239,9 +2239,9 @@ namespace MigratorVnext
 
         #endregion
 
-        private static LiverpoolContext GetNewContext()
+        private static FullLiverpoolContext GetNewContext()
         {
-            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>());
+            return new FullLiverpoolContext(new DbContextOptions<FullLiverpoolContext>());
         }
 
         private static string GetFirstImagePath(string message)

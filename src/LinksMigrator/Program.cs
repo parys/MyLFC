@@ -79,11 +79,11 @@ var replaceDictionary = new Dictionary<string, string>
 };
 // MyLFC
 
-var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();
+var optionsBuilder = new DbContextOptionsBuilder<FullLiverpoolContext>();
 optionsBuilder.UseSqlServer(
     "");
 
-var context = new LiverpoolContext(optionsBuilder.Options);
+var context = new FullLiverpoolContext(optionsBuilder.Options);
 
 //await ReplaceInComment();
 

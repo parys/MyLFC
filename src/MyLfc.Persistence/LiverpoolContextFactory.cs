@@ -6,21 +6,21 @@ using Microsoft.Extensions.Configuration;
 namespace MyLfc.Persistence
 {
     [ExcludeFromCodeCoverage]
-    public class LiverpoolContextFactory : IDesignTimeDbContextFactory<LiverpoolContext>
+    public class LiverpoolContextFactory : IDesignTimeDbContextFactory<FullLiverpoolContext>
     {
         IConfiguration config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .AddJsonFile("appsettings.local.json", true)
             .Build();
 
-        public LiverpoolContext CreateDbContext(string[] args)
+        public FullLiverpoolContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<FullLiverpoolContext>();
             optionsBuilder.UseOpenIddict<int>();
             optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("MyLfc.Persistence"));
 
-            return new LiverpoolContext(optionsBuilder.Options);
+            return new FullLiverpoolContext(optionsBuilder.Options);
         }
     }
 }

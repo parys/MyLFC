@@ -20,7 +20,7 @@ namespace MyLfc.Persistence
     [ExcludeFromCodeCoverage]
     public class DatabaseInitializer
     {
-        private readonly LiverpoolContext _context;
+        private readonly FullLiverpoolContext _context;
         private const int CountNews = 100;
         private const int CountBlog = 100;
         private const int CountNewsComments = 100;
@@ -30,7 +30,7 @@ namespace MyLfc.Persistence
         private const MaterialType BlogType = MaterialType.Blogs;
         private const string DefaultPhotoPath = "/content/avatars/default.png";
 
-        public DatabaseInitializer(LiverpoolContext context)
+        public DatabaseInitializer(FullLiverpoolContext context)
         {
             this._context = context;
         }
@@ -180,7 +180,7 @@ namespace MyLfc.Persistence
         private async Task InitializeRoles()
         {
             if (_context.Roles.Any()) return;
-            var roleStore = new RoleStore<Role, LiverpoolContext, int>(_context);
+            var roleStore = new RoleStore<Role, FullLiverpoolContext, int>(_context);
             var roleManager = new RoleManager<Role>(roleStore, null, null, null, null);
 
             var roles = new List<Role>()
@@ -1394,7 +1394,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
             options.Value.Lockout.AllowedForNewUsers = true;
             
-            var userStore = new UserStore<FullUser, Role, LiverpoolContext, int>(_context);
+            var userStore = new UserStore<FullUser, Role, FullLiverpoolContext, int>(_context);
             return new UserManager<FullUser>(userStore, options, hasher, null, null, normalizer, null, null, new Logger<UserManager<FullUser>>(new LoggerFactory()));
         }
     }
