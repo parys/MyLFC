@@ -29,6 +29,8 @@ namespace MyLfc.Application.Materials
             public bool UsePhotoInBody { get; set; }
 
             public string Tags { get; set; }
+
+            public int? UserId { get; set; } 
         }
 
 

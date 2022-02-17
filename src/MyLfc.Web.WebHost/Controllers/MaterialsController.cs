@@ -44,34 +44,6 @@ namespace MyLfc.Web.WebHost.Controllers
             
             return Ok(true);
         }
-
-        /// <summary>
-        /// Creates new material.
-        /// </summary>
-        /// <param name="type">Material type.</param>
-        /// <param name="request">Contains material model.</param>
-        /// <returns>Result of creation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)),
-         HttpPost("{type}")]
-        [Obsolete("Should remove after 1 May 20")]
-        public async Task<IActionResult> CreateOldAsync(string type, [FromBody] CreateMaterialCommand.Request request)
-        {
-            if (!ModelState.IsValid || !Enum.TryParse(type, true, out MaterialType materialType))
-            {
-                return BadRequest(ModelState);
-            }
-
-            request.Type = materialType;
-
-            var result = await Mediator.Send(request);
-            if (!result.Pending)
-            {
-                CacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest, CacheKeysConstants.MaterialsOthers);
-            }
-
-            return Ok(result);
-        }
-
         
         /// <summary>
         /// Creates new material.

@@ -44,15 +44,20 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                var material = _mapper.Map<Material>(request);
                 if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) &&
                     !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))
                 {
-                    request.Pending = true;
+                    material.Pending = true;
+                    material.AuthorId = _requestContext.UserId.Value;
                 }
 
-                var material = _mapper.Map<Material>(request);
+                if (!request.UserId.HasValue)
+                {
+                    material.AuthorId = _requestContext.UserId.Value;
+                }
+
                 material.AdditionTime = DateTimeOffset.UtcNow;
-                material.AuthorId = _requestContext.UserId.Value;
                 material.LastModified = DateTimeOffset.UtcNow;
 
                 _context.Materials.Add(material);
