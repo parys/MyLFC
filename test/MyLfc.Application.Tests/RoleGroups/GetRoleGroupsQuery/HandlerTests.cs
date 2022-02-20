@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
@@ -25,8 +26,8 @@ namespace MyLfc.Application.Tests.RoleGroups.GetRoleGroupsQuery
             var result = await _handler.Handle(new Request{IncludeRoles = true}, CancellationToken.None);
 
             result.Should().NotBeNull();
-            result.Results.Count.Should().BeGreaterThan(0);
-            result.Results.ForEach(x => x.Roles.Count.Should().BeGreaterThan(0));
+            result.Results.Count().Should().BeGreaterThan(0);
+            result.Results.ToList().ForEach(x => x.Roles.Count().Should().BeGreaterThan(0));
         }
     }
 }
