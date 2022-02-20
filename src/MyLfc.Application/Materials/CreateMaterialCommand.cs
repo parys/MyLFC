@@ -44,6 +44,7 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                // TODO update user counters
                 var material = _mapper.Map<Material>(request);
                 if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) &&
                     !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))

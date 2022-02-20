@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -42,14 +43,14 @@ namespace MyLfc.Application.RoleGroups
                     .ProjectTo<RoleGroupListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                return new Response {Results = roleGroups};
+                return new Response {Results = roleGroups.OrderBy(x => x.Name)};
             }
         }
 
 
         public class Response
         {
-            public List<RoleGroupListDto> Results { get; set; }
+            public IEnumerable<RoleGroupListDto> Results { get; set; }
         }
 
 

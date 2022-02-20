@@ -46,6 +46,7 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                // TODO update user counts if we changed author
                 var material = await _context.Materials
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
