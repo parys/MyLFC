@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
-    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="MailKit" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>
