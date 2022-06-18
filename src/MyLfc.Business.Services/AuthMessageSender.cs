@@ -43,6 +43,7 @@ namespace MyLfc.Business.Services
             try
             {
                 using var client = new SmtpClient();
+                client.CheckCertificateRevocation = false;
 
                 await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);

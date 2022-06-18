@@ -3,14 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Domain;
 
 namespace MyLfc.Application.Users
 {
     public class UpdateUserIpAddressCommand
     {
-        public class Request : IRequest<Unit>
+        public class Event : INotification
         {
             public string Ip { get; set; }
 
@@ -18,7 +16,7 @@ namespace MyLfc.Application.Users
         }
 
 
-        public class Handler : IRequestHandler<Request, Unit>
+        public class Handler : INotificationHandler<Event>
         {
             private readonly ILiverpoolContext _context;
 
@@ -27,15 +25,13 @@ namespace MyLfc.Application.Users
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+            public async Task Handle(Event request, CancellationToken cancellationToken)
             {
                 if (!string.IsNullOrWhiteSpace(request.Ip))
                 {
                     await _context.Database.ExecuteSqlInterpolatedAsync(
                         $"UPDATE AspNetUsers SET Ip={request.Ip}, LastModified={DateTimeOffset.UtcNow} WHERE Id={request.UserId}", cancellationToken);
                 }
-
-                return Unit.Value;
             }
         }
     }

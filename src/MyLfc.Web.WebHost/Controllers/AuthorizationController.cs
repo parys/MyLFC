@@ -325,7 +325,7 @@ namespace MyLfc.Web.WebHost.Controllers
         private async Task UpdateIpAddressForUser(int userId)
         {
             var ip = HttpContext.Connection.RemoteIpAddress.ToString();
-            await Mediator.Send(new UpdateUserIpAddressCommand.Request {Ip = ip, UserId = userId});
+            await Mediator.Publish(new UpdateUserIpAddressCommand.Event {Ip = ip, UserId = userId});
         }
     }
 }
