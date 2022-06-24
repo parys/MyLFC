@@ -8,8 +8,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using Xunit;
-using Handler = MyLfc.Application.Materials.AddMaterialReadCommand.Handler;
-using Request = MyLfc.Application.Materials.AddMaterialReadCommand.Request;
+using Handler = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Handler;
+using Request = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Request;
 
 namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand
 {

@@ -7,10 +7,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
-using Handler = MyLfc.Application.Materials.UpdateMaterialCommand.Handler;
-using Request = MyLfc.Application.Materials.UpdateMaterialCommand.Request;
-using Response = MyLfc.Application.Materials.UpdateMaterialCommand.Response;
+using Handler = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Handler;
+using Request = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Request;
+using Response = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Response;
 
 namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
 {
@@ -43,22 +44,23 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
 
             await result.Should().ThrowAsync<NotFoundException>();
 
-            var deletedExam = await _context.Materials.IgnoreQueryFilters()
+            var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.Id == UpdateMaterialCommandTestFixture.DeletedMaterialId);
-            deletedExam.Should().NotBeNull();
-            deletedExam.Id.Should().Be(UpdateMaterialCommandTestFixture.DeletedMaterialId);
+            deletedMaterial.Should().NotBeNull();
+            deletedMaterial.Id.Should().Be(UpdateMaterialCommandTestFixture.DeletedMaterialId);
         }
 
         [Fact]
         public async Task WhenUpdateMaterialCommandIsValid_ReturnsIdOfUpdatedMaterial()
         {
-            var examToUpdate = await _context.Materials.FirstAsync();
-            var oldTitle = examToUpdate.Title;
-            var oldBrief = examToUpdate.Brief;
+            var materialToUpdate = await _context.Materials.FirstAsync();
+            var oldTitle = materialToUpdate.Title;
+            var oldBrief = materialToUpdate.Brief;
 
             var materialCommand = new Fixture().Customize(new UpdateMaterialCommandCustomization())
                 .Create<Request>();
             materialCommand.Id = UpdateMaterialCommandTestFixture.Materials[0].Id;
+            materialCommand.CategoryId = MaterialCategorySeeder.SecondCategoryId;
 
             var result = await _handler.Handle(materialCommand, CancellationToken.None);
 
@@ -71,6 +73,7 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
             updatedEntity.Id.Should().Be(result.Id);
             updatedEntity.Title.Should().NotBe(oldTitle);
             updatedEntity.Brief.Should().NotBe(oldBrief);
+            updatedEntity.CategoryName.Should().Be(MaterialCategorySeeder.SecondCategoryName);
         }
     }
 }

@@ -11,7 +11,7 @@ using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Commands
 {
     public class UpdateMaterialCommand
     {
@@ -29,17 +29,15 @@ namespace MyLfc.Application.Materials
         }
 
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : UpsertMaterialCommand.Handler, IRequestHandler<Request, Response>
         {
-            private readonly ILiverpoolContext _context;
-
             private readonly IMapper _mapper;
 
             private readonly RequestContext _requestContext;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
+                : base(context)
             {
-                _context = context;
                 _mapper = mapper;
                 _requestContext = requestContext;
             }
@@ -67,11 +65,14 @@ namespace MyLfc.Application.Materials
                 }
 
                 material = _mapper.Map(request, material);
+
+                material.UserName = await GetUserName(material.AuthorId, cancellationToken);
+                material.CategoryName = await GetCategoryName(material.CategoryId, cancellationToken);
                 material.LastModified = DateTimeOffset.UtcNow;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = material.Id};
+                return new Response { Id = material.Id };
             }
         }
 

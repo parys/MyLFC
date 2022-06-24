@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Persistence;
 using MyLfc.Data.Common;
 using Xunit;
-using Handler = MyLfc.Application.Materials.CreateMaterialCommand.Handler;
-using Request = MyLfc.Application.Materials.CreateMaterialCommand.Request;
-using Response = MyLfc.Application.Materials.CreateMaterialCommand.Response;
+using Handler = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Handler;
+using Request = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Request;
+using Response = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Response;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 
 namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
 {
@@ -23,6 +24,32 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
         {
             _handler = new Handler(fixture.Context, fixture.AdminRequestContext, fixture.Mapper);
             _context = fixture.Context;
+        }
+
+        [Fact]
+        public async Task WhenMaterialCommandIsValid_ReturnsNewMaterial()
+        {
+            var matCommand = new Fixture()
+                .Create<Request>();
+            matCommand.Type = MaterialType.News;
+            matCommand.UserId = UserSeeder.AdminUserId;
+            matCommand.CategoryId = MaterialCategorySeeder.DefaultCategoryId;
+
+            var result = await _handler.Handle(matCommand, CancellationToken.None);
+
+            result.Should().NotBeNull();
+            result.Id.Should().BeGreaterThan(0);
+
+            var createdEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == result.Id);
+
+            //todo add check by props
+            createdEntity.Should().NotBeNull();
+            createdEntity.Id.Should().Be(result.Id);
+            createdEntity.Type.Should().Be(result.Type);
+            createdEntity.Type.Should().NotBe(MaterialType.Both);
+            createdEntity.UserName.Should().Be(UserSeeder.AdminUserName);
+            createdEntity.CategoryName.Should().Be(MaterialCategorySeeder.DefaultCategoryName);
+
         }
 
         [Fact]

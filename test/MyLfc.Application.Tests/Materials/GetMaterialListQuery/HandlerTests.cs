@@ -5,9 +5,9 @@ using FluentAssertions;
 using MediatR;
 using MyLfc.Persistence;
 using Xunit;
-using Handler = MyLfc.Application.Materials.GetMaterialListQuery.Handler;
-using Request = MyLfc.Application.Materials.GetMaterialListQuery.Request;
-using Response = MyLfc.Application.Materials.GetMaterialListQuery.Response;
+using Handler = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Handler;
+using Request = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Request;
+using Response = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Response;
 
 namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
 {

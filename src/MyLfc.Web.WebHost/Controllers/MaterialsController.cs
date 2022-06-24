@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments.Queries;
-using MyLfc.Application.Materials;
+using MyLfc.Application.Materials.Commands;
+using MyLfc.Application.Materials.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Data.Common;
 

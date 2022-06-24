@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Persistence;
 using Xunit;
-using Handler = MyLfc.Application.Materials.GetMaterialDetailQuery.Handler;
-using Request = MyLfc.Application.Materials.GetMaterialDetailQuery.Request;
-using Response = MyLfc.Application.Materials.GetMaterialDetailQuery.Response;
+using Handler = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Handler;
+using Request = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Request;
+using Response = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Response;
 
 namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MyLfc.Application.Infrastructure.Profiles;
+using MyLfc.Application.Materials;
 using MyLfc.Common.Mappings;
 
 namespace MyLfc.Application.Tests.Infrastructure

@@ -8,7 +8,7 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Commands
 {
     public class DeleteMaterialCommand
     {
@@ -23,7 +23,7 @@ namespace MyLfc.Application.Materials
             private readonly ILiverpoolContext _context;
 
             private readonly RequestContext _requestContext;
-            
+
             public Handler(ILiverpoolContext context, RequestContext requestContext)
             {
                 _context = context;
@@ -35,9 +35,9 @@ namespace MyLfc.Application.Materials
                 var material = await _context.Materials
                     .Include(x => x.Comments)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if ((!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
-                    (!_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs))
+
+                if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News ||
+                    !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs)
                 {
                     throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete material {request.Id}");
                 }
@@ -54,7 +54,7 @@ namespace MyLfc.Application.Materials
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
-                return new Response {Id = material.Id};
+                return new Response { Id = material.Id };
             }
         }
 

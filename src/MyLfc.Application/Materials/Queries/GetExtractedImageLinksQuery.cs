@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using MediatR;
 using MyLfc.Common.Utilities;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Queries
 {
     public class GetExtractedImageLinksQuery
     {
         private const string XpathImages = "//img[contains(@class, 'media-gallery-image')]";
-        
+
         public class Request : IRequest<Response>
         {
             public string Url { get; set; }
@@ -32,7 +32,7 @@ namespace MyLfc.Application.Materials
                 }
                 var htmlImgTags = await HtmlExtractorHelpers.GetHtmlRowsAsync(request.Url, XpathImages);
 
-                var result =new Response();
+                var result = new Response();
                 result.AddRange(htmlImgTags?.Select(x => x.Attributes["data-src"].Value));
                 return result;
             }
@@ -41,7 +41,7 @@ namespace MyLfc.Application.Materials
 
         public class Response : List<string>
         {
-            
+
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using Xunit;
-using Request = MyLfc.Application.Materials.UpdateMaterialCommand.Request;
-using Validator = MyLfc.Application.Materials.UpdateMaterialCommand.Validator;
+using Request = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Request;
+using Validator = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Validator;
 
 namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
 {

@@ -9,8 +9,6 @@ namespace MyLfc.Domain
         public int Id { get; set; }
 
         public int OldId { get; set; }
-        
-        public MaterialCategory Category { get; set; }
 
         public bool Deleted { get; set; }
 
@@ -21,8 +19,6 @@ namespace MyLfc.Domain
         public bool CanCommentary { get; set; }
 
         public DateTimeOffset AdditionTime { get; set; }
-
-        public FullUser Author { get; set; }
 
         public string Title { get; set; }
 
@@ -40,11 +36,12 @@ namespace MyLfc.Domain
 
         public DateTimeOffset LastModified { get; set; }
 
-        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
-
         public int CategoryId { get; set; }
 
+        public string CategoryName { get; set; }
+
         public int AuthorId { get; set; }
+        public string UserName { get; set; }
 
         public MaterialType Type { get; set; }
 
@@ -53,5 +50,11 @@ namespace MyLfc.Domain
         public string Tags { get; set; }
 
         public int CommentsCount { get; set; }
+
+        public FullUser Author { get; set; }
+
+        public MaterialCategory Category { get; set; }
+
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

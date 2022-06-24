@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Persistence;
 using Xunit;
-using Handler = MyLfc.Application.Materials.ActivateMaterialCommand.Handler;
-using Request = MyLfc.Application.Materials.ActivateMaterialCommand.Request;
+using Handler = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Handler;
+using Request = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Request;
 
 namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
 {

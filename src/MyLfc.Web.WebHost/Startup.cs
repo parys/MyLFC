@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Application.Infrastructure.Profiles;
+using MyLfc.Application.Materials;
 using MyLfc.Business.Services.Helpers;
 using MyLfc.Common.Mappings;
 using MyLfc.Common.Utilities;

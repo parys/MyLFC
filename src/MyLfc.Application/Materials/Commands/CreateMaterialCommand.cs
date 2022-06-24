@@ -8,7 +8,7 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Commands
 {
     public class CreateMaterialCommand
     {
@@ -27,17 +27,15 @@ namespace MyLfc.Application.Materials
         }
 
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : UpsertMaterialCommand.Handler, IRequestHandler<Request, Response>
         {
-            private readonly ILiverpoolContext _context;
-
             private readonly RequestContext _requestContext;
 
             private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
+
+            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper) 
+                : base(context)
             {
-                _context = context;
                 _requestContext = requestContext;
                 _mapper = mapper;
             }
@@ -50,7 +48,6 @@ namespace MyLfc.Application.Materials
                     !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))
                 {
                     material.Pending = true;
-                    material.AuthorId = _requestContext.UserId.Value;
                 }
 
                 if (!request.UserId.HasValue)
@@ -58,6 +55,8 @@ namespace MyLfc.Application.Materials
                     material.AuthorId = _requestContext.UserId.Value;
                 }
 
+                material.UserName = await GetUserName(material.AuthorId, cancellationToken);
+                material.CategoryName = await GetCategoryName(material.CategoryId, cancellationToken);
                 material.AdditionTime = DateTimeOffset.UtcNow;
                 material.LastModified = DateTimeOffset.UtcNow;
 

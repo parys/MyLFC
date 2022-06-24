@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using MyLfc.Application.Materials;
+using MyLfc.Application.Materials.Commands;
+using MyLfc.Application.Materials.Queries;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Materials
 {
     public class MaterialProfile : Profile
     {
@@ -13,10 +14,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Material, GetLatestMaterialsQuery.MaterialLatestListDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
-                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
+                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.CategoryName))
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))
@@ -28,10 +29,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Material, GetPinnedMaterialsQuery.MaterialPinnedListDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
-                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
+                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.CategoryName))
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))
@@ -43,11 +44,11 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Material, GetMaterialListQuery.MaterialListDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
-                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
+                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.CategoryName))
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
@@ -60,13 +61,13 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Material, GetMaterialDetailQuery.Response>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.SocialLinks, src => src.MapFrom(x => ContainsSocialLinks(x.Message)))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
-                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
+                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.CategoryName))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
@@ -87,17 +88,17 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
-                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo))
-                .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview))
+                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo.Trim()))
+                .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview.Trim()))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source.Trim()))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
-           CreateMap<Material, CreateMaterialCommand.Response>()
-                .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPath))
-                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
+            CreateMap<Material, CreateMaterialCommand.Response>()
+                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
+                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPath))
+                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
             CreateMap<UpdateMaterialCommand.Request, Material>()
                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.UserId))
@@ -108,8 +109,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
                .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
-               .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo))
-               .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview))
+               .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo.Trim()))
+               .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview.Trim()))
                .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source.Trim()))
                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title.Trim()))
                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));

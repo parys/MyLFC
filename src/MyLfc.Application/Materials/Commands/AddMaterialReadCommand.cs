@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Commands
 {
     public class AddMaterialReadCommand
     {
@@ -18,7 +18,7 @@ namespace MyLfc.Application.Materials
         public class Handler : IRequestHandler<Request, Unit>
         {
             private readonly ILiverpoolContext _context;
-            
+
             public Handler(ILiverpoolContext context)
             {
                 _context = context;

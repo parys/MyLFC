@@ -1,6 +1,10 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Commands
 {
     public class UpsertMaterialCommand
     {
@@ -30,7 +34,7 @@ namespace MyLfc.Application.Materials
 
             public string Tags { get; set; }
 
-            public int? UserId { get; set; } 
+            public int? UserId { get; set; }
         }
 
 
@@ -51,5 +55,33 @@ namespace MyLfc.Application.Materials
                 RuleFor(x => x.PhotoPreview).NotEmpty().Length(1, 400);
             }
         }
+
+        public abstract class Handler
+        {
+            public readonly ILiverpoolContext _context;
+
+            protected Handler(ILiverpoolContext context)
+            {
+                _context = context;
+            }
+
+            public Task<string> GetUserName(int userId, CancellationToken cancellationToken)
+            {
+                return _context.Users.AsNoTracking()
+                    .Where(x => x.Id == userId)
+                    .Select(x => x.UserName)
+                    .FirstOrDefaultAsync(cancellationToken);                    
+            }
+
+            public Task<string> GetCategoryName(int categoryId, CancellationToken cancellationToken)
+            {
+                return _context.MaterialCategories.AsNoTracking()
+                    .Where(x => x.Id == categoryId)
+                    .Select(x => x.Name)
+                    .FirstOrDefaultAsync(cancellationToken);
+            }
+
+        }
+
     }
 }

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Application.Infrastructure.Pipelines;
-using MyLfc.Application.Materials;
+using MyLfc.Application.Materials.Queries;
 
 namespace MyLfc.Application.Infrastructure
 {

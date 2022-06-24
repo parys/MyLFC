@@ -37,7 +37,7 @@ namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
                 .CreateMany<Comment>(10)
                 .Select(x =>
                 {
-                    x.AuthorId = AdminUserId;
+                    x.AuthorId = UserSeeder.AdminUserId;
                     return x;
                 })
                 .ToList();
@@ -57,7 +57,7 @@ namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
                 .Select(x =>
                 {
                     x.CommentId = CommentId;
-                    x.UserId = AdminUserId;
+                    x.UserId = UserSeeder.AdminUserId;
                     x.Positive = true;
                     return x;
                 })

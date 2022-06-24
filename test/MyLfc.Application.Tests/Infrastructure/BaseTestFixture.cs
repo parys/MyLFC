@@ -6,13 +6,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Moq;
 using MyLfc.Application.Infrastructure;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure
 {
     public abstract class BaseTestFixture : IDisposable
     {
-        public const int AdminUserId = 1;
         public ILiverpoolContext Context { get; }
         public IMapper Mapper { get; }
 
@@ -28,7 +28,7 @@ namespace MyLfc.Application.Tests.Infrastructure
             
             AdminRequestContext = new RequestContext
             {
-                UserId = AdminUserId,
+                UserId = UserSeeder.AdminUserId,
                 User = new ClaimsPrincipal(new ClaimsIdentity(GetClaims(), 
                     "Identity.Application", "name", "role"))
             };

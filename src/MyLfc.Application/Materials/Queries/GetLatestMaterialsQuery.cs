@@ -9,13 +9,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Queries
 {
-    public class GetPinnedMaterialsQuery
+    public class GetLatestMaterialsQuery
     {
         public class Request : IRequest<Response>
         {
-            public bool IncludePending { get; set; } = false;
         }
 
 
@@ -24,7 +23,7 @@ namespace MyLfc.Application.Materials
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -35,15 +34,14 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                materialsQuery = request.IncludePending
-                    ? materialsQuery.Where(x => x.OnTop || x.Pending)
-                    : materialsQuery.Where(x => x.OnTop && !x.Pending);
-
-                materialsQuery = materialsQuery.OrderByDescending(x => x.Id);
+                materialsQuery = materialsQuery
+                    .Where(x => !x.Pending)
+                    .Where(x => !x.OnTop)
+                    .OrderByDescending(x => x.Id);
 
                 var result = await materialsQuery
                     .Take(10)
-                    .ProjectTo<MaterialPinnedListDto>(_mapper.ConfigurationProvider)
+                    .ProjectTo<MaterialLatestListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
                 return new Response
@@ -57,12 +55,11 @@ namespace MyLfc.Application.Materials
         [Serializable]
         public class Response
         {
-            public List<MaterialPinnedListDto> Results { get; set; } = new List<MaterialPinnedListDto>();
+            public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
         }
 
-
         [Serializable]
-        public class MaterialPinnedListDto
+        public class MaterialLatestListDto
         {
             public int Id { get; set; }
 
@@ -71,7 +68,7 @@ namespace MyLfc.Application.Materials
             public string CategoryName { get; set; }
 
             public bool CanCommentary { get; set; }
-            
+
             public DateTimeOffset AdditionTime { get; set; }
 
             public int CommentsCount { get; set; }
@@ -81,13 +78,10 @@ namespace MyLfc.Application.Materials
             public int UserId { get; set; }
 
             public string Title { get; set; }
-            
+
             public int Reads { get; set; }
 
-            public bool Pending { get; set; }
-
             public string PhotoPreview { get; set; }
-
             public string Photo { get; set; }
 
             public MaterialType Type { get; set; }

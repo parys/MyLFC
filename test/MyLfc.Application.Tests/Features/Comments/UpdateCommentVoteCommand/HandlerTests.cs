@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Tests.Infrastructure;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
 using Handler = MyLfc.Application.Comments.UpdateCommentVoteCommand.Handler;
 using Request = MyLfc.Application.Comments.UpdateCommentVoteCommand.Request;
@@ -33,7 +34,7 @@ namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
             };
 
             var before = _context.CommentVotes.First(x =>
-                x.CommentId == request.CommentId && x.UserId == BaseTestFixture.AdminUserId);
+                x.CommentId == request.CommentId && x.UserId == UserSeeder.AdminUserId);
 
             var beforeCommentPositiveCount = _context.MaterialComments.First(x => x.Id == request.CommentId).PositiveCount;
             var beforeCommentNegativeCount = _context.MaterialComments.First(x => x.Id == request.CommentId).NegativeCount;
@@ -46,7 +47,7 @@ namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
 
             // we are not changed comment vote
             var after = _context.CommentVotes.First(x =>
-                x.CommentId == request.CommentId && x.UserId == BaseTestFixture.AdminUserId);
+                x.CommentId == request.CommentId && x.UserId == UserSeeder.AdminUserId);
             after.Positive.Should().BeTrue();
 
             // we are not change comment counts

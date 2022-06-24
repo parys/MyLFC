@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using Xunit;
-using Handler = MyLfc.Application.Materials.DeleteMaterialCommand.Handler;
-using Request = MyLfc.Application.Materials.DeleteMaterialCommand.Request;
-using Response = MyLfc.Application.Materials.DeleteMaterialCommand.Response;
+using Handler = MyLfc.Application.Materials.Commands.DeleteMaterialCommand.Handler;
+using Request = MyLfc.Application.Materials.Commands.DeleteMaterialCommand.Request;
+using Response = MyLfc.Application.Materials.Commands.DeleteMaterialCommand.Response;
 
 namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
 {

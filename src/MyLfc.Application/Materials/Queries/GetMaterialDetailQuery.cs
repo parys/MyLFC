@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
+using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Queries
 {
-    public class GetLatestMaterialsQuery
+    public class GetMaterialDetailQuery
     {
         public class Request : IRequest<Response>
         {
+            public int Id { get; set; }
+
+            public bool IncludePending { get; set; } = false;
         }
 
 
@@ -23,7 +25,7 @@ namespace MyLfc.Application.Materials
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -34,20 +36,18 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                materialsQuery = materialsQuery
-                    .Where(x => !x.Pending)
-                    .Where(x => !x.OnTop)
-                    .OrderByDescending(x => x.Id);
+                var material = await materialsQuery
+                    .Include(x => x.Author)
+                    .Include(x => x.Category)
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                var result = await materialsQuery
-                    .Take(10)
-                    .ProjectTo<MaterialLatestListDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-
-                return new Response
+                //needs to avoid projectTo because using a lot of functions
+                if (material == null || material.Pending && !request.IncludePending)
                 {
-                    Results = result
-                };
+                    throw new NotFoundException(nameof(Material), request.Id);
+                }
+
+                return _mapper.Map<Response>(material);
             }
         }
 
@@ -55,38 +55,49 @@ namespace MyLfc.Application.Materials
         [Serializable]
         public class Response
         {
-            public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
-        }
-
-        [Serializable]
-        public class MaterialLatestListDto
-        {
             public int Id { get; set; }
 
             public int CategoryId { get; set; }
 
             public string CategoryName { get; set; }
 
-            public bool CanCommentary { get; set; }
-            
             public DateTimeOffset AdditionTime { get; set; }
-
-            public int CommentsCount { get; set; }
-
-            public string UserName { get; set; }
 
             public int UserId { get; set; }
 
+            public string UserName { get; set; }
+
             public string Title { get; set; }
-            
+
+            public string Brief { get; set; }
+
+            public string Message { get; set; }
+
             public int Reads { get; set; }
 
-            public string PhotoPreview { get; set; }
+            public string Source { get; set; }
+
+            public string ShortLink { get; set; }
+
             public string Photo { get; set; }
+
+            public string PhotoPreview { get; set; }
+
+            public bool Pending { get; set; }
+
+            public bool OnTop { get; set; }
+
+            public bool CanCommentary { get; set; }
+
+            public bool SocialLinks { get; set; }
 
             public MaterialType Type { get; set; }
 
             public string TypeName { get; set; }
+
+            public bool UsePhotoInBody { get; set; }
+
+            public string Tags { get; set; }
         }
     }
 }

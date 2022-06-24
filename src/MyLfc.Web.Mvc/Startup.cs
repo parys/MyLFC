@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using MyLfc.Application.Infrastructure;
-using MyLfc.Application.Infrastructure.Profiles;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Business.Services.Helpers;
@@ -23,6 +22,7 @@ using MyLfc.Common.Utilities;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
 using MyLfc.Common.Mappings;
+using MyLfc.Application.Materials;
 
 namespace MyLfc.Web.Mvc
 {

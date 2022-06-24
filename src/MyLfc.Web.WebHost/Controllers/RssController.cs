@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
-using MyLfc.Application.Materials;
+using MyLfc.Application.Materials.Queries;
 
 namespace MyLfc.Web.WebHost.Controllers
 {

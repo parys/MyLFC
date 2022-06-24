@@ -1,8 +1,8 @@
 ﻿using FluentValidation.TestHelper;
 using MyLfc.Data.Common;
 using Xunit;
-using Request = MyLfc.Application.Materials.CreateMaterialCommand.Request;
-using Validator = MyLfc.Application.Materials.CreateMaterialCommand.Validator;
+using Request = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Request;
+using Validator = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Validator;
 
 namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
 {

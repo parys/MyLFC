@@ -9,7 +9,10 @@ namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
     public class MaterialCategorySeeder
     {
-        public static int DefaultCategoryId { get; set; }
+        public static int DefaultCategoryId { get; set; } = 1;
+        public static string DefaultCategoryName { get; set; } = "DefCategory";
+        public static int SecondCategoryId { get; set; } = 2;
+        public static string SecondCategoryName { get; set; } = "2DefCategory2";
 
         public static void Seed(ILiverpoolContext context)
         {
@@ -17,9 +20,13 @@ namespace MyLfc.Application.Tests.Infrastructure.Seeds
                 .Customize(new MaterialCategoryCustomization(MaterialType.News))
                 .CreateMany<MaterialCategory>(3).ToList();
 
-            context.MaterialCategories.AddRange(newsCategories);
+            newsCategories[0].Id = DefaultCategoryId;
+            newsCategories[0].Name = DefaultCategoryName;
 
-            DefaultCategoryId = newsCategories[0].Id;
+            newsCategories[1].Id = SecondCategoryId;
+            newsCategories[1].Name = SecondCategoryName;
+
+            context.MaterialCategories.AddRange(newsCategories);
 
             var blogsCategories = new Fixture()
                 .Customize(new MaterialCategoryCustomization(MaterialType.Blogs, 5))

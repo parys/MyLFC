@@ -3,11 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
+using MyLfc.Application.Materials.Commands;
+using MyLfc.Application.Materials.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers
 {

@@ -8,7 +8,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyLfc.Application.Materials
+namespace MyLfc.Application.Materials.Queries
 {
     public class GetOtherMaterialsListQuery
     {
