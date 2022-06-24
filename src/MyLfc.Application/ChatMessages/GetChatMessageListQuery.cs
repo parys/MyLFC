@@ -38,7 +38,7 @@ namespace MyLfc.Application.ChatMessages
                 chatMessageQuery =
                     chatMessageQuery.Where(x => x.Type == request.TypeId && x.Id > request.LastMessageId);
 
-                chatMessageQuery = chatMessageQuery.OrderByDescending(x => x.AdditionTime);
+                chatMessageQuery = chatMessageQuery.OrderByDescending(x => x.Id);
                 chatMessageQuery = chatMessageQuery.Take(request.PageSize);
 
                 var messages = await chatMessageQuery
