@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.HelpEntities;
-using MyLfc.Application.Matches;
+using MyLfc.Application.Matches.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Data.Common;

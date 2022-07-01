@@ -78,9 +78,6 @@ namespace MyLfc.Web.Mvc
 
             services.AddCustomRedisCache(Configuration);
 
-            //var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
-            //context.Database.Migrate();
-
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
         }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Application.Matches;
+using MyLfc.Application.Matches.Queries;
 using MyLfc.Domain;
 
 namespace MyLfc.Application.MatchEvents

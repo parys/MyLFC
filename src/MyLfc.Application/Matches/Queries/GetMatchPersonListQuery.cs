@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchPersonListQuery
     {

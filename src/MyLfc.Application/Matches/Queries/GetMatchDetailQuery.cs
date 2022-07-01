@@ -8,7 +8,7 @@ using MyLfc.Application.Clubs;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchDetailQuery
     {
@@ -87,7 +87,7 @@ namespace MyLfc.Application.Matches
             public string ClubName { get; set; }
 
             public bool IsHome { get; set; }
-            
+
             public int HomeClubId { get; set; }
 
             public string HomeClubName { get; set; }

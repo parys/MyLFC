@@ -8,7 +8,7 @@ using MyLfc.Application.Clubs;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchHeaderQuery
     {
@@ -67,7 +67,7 @@ namespace MyLfc.Application.Matches
 
                 response.CommentCount = await _context.MaterialComments
                         .CountAsync(x => x.MatchId == request.Id, cancellationToken);
-                
+
 
                 return response;
             }
@@ -90,7 +90,7 @@ namespace MyLfc.Application.Matches
             public int Id { get; set; }
 
             public bool IsHome { get; set; }
-            
+
             public int HomeClubId { get; set; }
 
             public string HomeClubName { get; set; }

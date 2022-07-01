@@ -1,33 +1,24 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Seasons.Commands
 {
-    public class ToggleHideTeamsCommand
+    public class DeleteSeasonCommand
     {
         public class Request : IRequest<Response>
         {
-            public int MatchId { get; set; } 
+            public int Id { get; set; }
         }
 
 
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(x => x.MatchId).NotEmpty();
-            }
-        }
-        
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ILiverpoolContext _context;
-            
+
             public Handler(ILiverpoolContext context)
             {
                 _context = context;
@@ -35,25 +26,30 @@ namespace MyLfc.Application.Matches
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var match = await _context.Matches.FirstOrDefaultAsync(x => x.Id == request.MatchId, cancellationToken);
+                var season = await _context.Seasons
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                if (match == null)
+                if (season == null)
                 {
-                    throw new NotFoundException(nameof(Match), request.MatchId);
+                    throw new NotFoundException(nameof(Season), request.Id);
                 }
 
-                match.HideTeams = !match.HideTeams;
-
+                _context.Seasons.Remove(season);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response { Result = match.HideTeams };
+                return new Response(season.Id);
             }
         }
 
 
         public class Response
         {
-            public bool Result { get; set; }
+            public Response(int id)
+            {
+                Id = id;
+            }
+
+            public int Id { get; set; }
         }
     }
 }

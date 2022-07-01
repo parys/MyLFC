@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
-using MyLfc.Application.Seasons;
 using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
+using MyLfc.Application.Seasons.Queries;
+using MyLfc.Application.Seasons.Commands;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Seasons
 {
     public class SeasonProfile : Profile
     {
@@ -21,6 +22,8 @@ namespace MyLfc.Application.Infrastructure.Profiles
             CreateMap<Season, GetSeasonListQuery.SeasonListDto>();
 
             CreateMap<Season, GetSeasonDetailQuery.Response>();
+
+            CreateMap<Season, GetCurrentSeasonQuery.Response>();
 
             CreateMap<Season, GetSeasonCalendarQuery.Response>();
 

@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchEventListQuery
     {
@@ -24,7 +24,7 @@ namespace MyLfc.Application.Matches
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -39,7 +39,7 @@ namespace MyLfc.Application.Matches
                     .ProjectTo<MatchEventListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                return new Response{Results = events};
+                return new Response { Results = events };
             }
         }
 

@@ -1,20 +1,27 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Commands
 {
-    public class GetSeasonDetailQuery
+    public class UpdateSeasonCommand
     {
-        public class Request : IRequest<Response>
+        public class Request : UpsertSeasonCommand.Request, IRequest<Response>
         {
             public int Id { get; set; }
+        }
+
+        public class Validator : UpsertSeasonCommand.Validator<Request>
+        {
+            public Validator() : base()
+            {
+                RuleFor(v => v.Id).GreaterThan(0);
+            }
         }
 
 
@@ -23,7 +30,7 @@ namespace MyLfc.Application.Seasons
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -32,26 +39,24 @@ namespace MyLfc.Application.Seasons
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var season = await _context.Seasons.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                var season = await _context.Seasons
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 if (season == null)
                 {
                     throw new NotFoundException(nameof(Season), request.Id);
                 }
+                season = _mapper.Map(request, season);
 
-                return season;
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return new Response { Id = season.Id };
             }
         }
 
-
-        [Serializable]
         public class Response
         {
             public int Id { get; set; }
-
-            public int StartSeasonYear { get; set; }
         }
     }
 }

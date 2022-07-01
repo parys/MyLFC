@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Commands
 {
     public class UpsertSeasonCommand
     {

@@ -9,7 +9,17 @@ namespace MyLfc.Application.Infrastructure.Exceptions
     {
         public IDictionary<string, string[]> Failures { get; } = new Dictionary<string, string[]>();
 
-        public ValidationException(List<ValidationFailure> failures) : base("One or more validation failures have occurred.")
+        public ValidationException(string propertyName, string errorMessage) : base("One or more validation failures have occurred.")
+        {
+            Failures.Add(propertyName, new string[] { errorMessage });
+        }
+
+        public ValidationException(ValidationFailure failure) : base("One or more validation failures have occurred.")
+        {
+            Failures.Add(failure.PropertyName, new string[] { failure.ErrorMessage });
+        }
+
+            public ValidationException(List<ValidationFailure> failures) : base("One or more validation failures have occurred.")
         {
             var propertyNames = failures
                 .Select(e => e.PropertyName)
@@ -24,6 +34,7 @@ namespace MyLfc.Application.Infrastructure.Exceptions
 
                 Failures.Add(propertyName, propertyFailures);
             }
+
         }
     }
 }

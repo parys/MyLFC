@@ -11,7 +11,7 @@ using MyLfc.Domain;
 using MyLfc.Common.Utilities;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Queries
 {
     public class GetSeasonCalendarQuery
     {
@@ -27,17 +27,20 @@ namespace MyLfc.Application.Seasons
 
             private readonly IMapper _mapper;
 
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            private readonly IMediator _mediator;
+
+            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 if (request.SeasonId == 0)
                 {
-                    request.SeasonId = await GetCurrentSeasonIdAsync();
+                    request.SeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).StartSeasonYear;
                 }
                 var season = await _context.Seasons.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == request.SeasonId, cancellationToken);
@@ -88,15 +91,6 @@ namespace MyLfc.Application.Seasons
                 dto.AwayClubName = awayClub.Name;
                 dto.AwayClubLogo = awayClub.Logo;
             }
-
-            //todo duplicates
-            private async Task<int> GetCurrentSeasonIdAsync()
-            {
-                return int.Parse((await _context.HelpEntities.AsNoTracking()
-                                     .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CurrentSeason)).Value ??
-                                 DateTimeOffset.UtcNow.Year.ToString());
-            }
-
 
             private static List<SeasonCalendarMonthDto> GetMonthsWithMatches(IEnumerable<MatchCalendarDto> matches)
             {

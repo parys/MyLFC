@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Queries
 {
     public class GetSeasonStatisticsQuery
     {
@@ -24,7 +24,7 @@ namespace MyLfc.Application.Seasons
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -48,7 +48,7 @@ namespace MyLfc.Application.Seasons
                     .Include(mp => mp.Match).ToList();
                 var persons = events.GroupBy(x => x.PersonId);
 
-                 var results =  persons.Select(person => new PersonStatisticDto
+                var results = persons.Select(person => new PersonStatisticDto
                 {
                     PersonId = person.Key,
                     PersonName = person.First().Person.RussianName,

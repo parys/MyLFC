@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
-using MyLfc.Application.Matches;
 using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
+using MyLfc.Application.Matches.Commands;
+using MyLfc.Application.Matches.Queries;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Matches
 {
     public class MatchProfile : Profile
     {
@@ -26,7 +27,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                     src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, !x.IsHome)))
                 .ForMember(x => x.ScorePenaltyHome,
                     src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)))
-                .ForMember(x => x.SeasonName, src => src.MapFrom(x => $"{x.Season.StartSeasonYear}-{x.Season.StartSeasonYear+1}" ))
+                .ForMember(x => x.SeasonName, src => src.MapFrom(x => $"{x.Season.StartSeasonYear}-{x.Season.StartSeasonYear + 1}"))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.StadiumCity, src => src.MapFrom(x => x.Stadium.City));
 
@@ -47,7 +48,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
 
             CreateMap<Match, GetMatchListQuery.MatchListDto>()
                 .ForMember(x => x.ClubName, src => src.MapFrom(x => x.Club.Name))
-                .ForMember(x => x.TypeName, 
+                .ForMember(x => x.TypeName,
                     src => src.MapFrom(x => x.MatchType.GetNameAttribute()))
                 .ForMember(x => x.ScoreAway,
                     src => src.MapFrom(x => GetScore(x.DateTime, x.Events, !x.IsHome, x.Score)))
@@ -89,7 +90,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(x => x.ReportId, src => src.MapFrom(x => GetOnlyMaterialId(x.ReportId)))
                 ;
         }
-        
+
         private static string GetScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome, string score)
         {
             if (DateTimeOffset.UtcNow >= dateTime)

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MyLfc.Application.Matches;
+using MyLfc.Application.Matches.Queries;
 using MyLfc.Application.MatchPersons;
 using MyLfc.Domain;
 

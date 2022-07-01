@@ -9,7 +9,7 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Queries
 {
     public class GetSeasonListQuery
     {

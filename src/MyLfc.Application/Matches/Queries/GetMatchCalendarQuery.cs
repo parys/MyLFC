@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Clubs;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchCalendarQuery
     {

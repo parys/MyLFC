@@ -4,7 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Matches;
+using MyLfc.Application.Matches.Queries;
 using MyLfc.Domain;
 
 namespace MyLfc.Application.MatchEvents

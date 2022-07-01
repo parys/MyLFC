@@ -1,13 +1,16 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Seasons.Queries
 {
-    public class DeleteMatchCommand
+    public class GetSeasonDetailQuery
     {
         public class Request : IRequest<Response>
         {
@@ -18,32 +21,37 @@ namespace MyLfc.Application.Matches
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ILiverpoolContext _context;
-            
-            public Handler(ILiverpoolContext context)
+
+            private readonly IMapper _mapper;
+
+            public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var match = await _context.Matches
+                var season = await _context.Seasons.AsNoTracking()
+                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (match == null)
+
+                if (season == null)
                 {
-                    throw new NotFoundException(nameof(Match), request.Id);
+                    throw new NotFoundException(nameof(Season), request.Id);
                 }
 
-                _context.Matches.Remove(match);
-
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response {Id = match.Id};
+                return season;
             }
         }
 
+
+        [Serializable]
         public class Response
         {
             public int Id { get; set; }
+
+            public int StartSeasonYear { get; set; }
         }
     }
 }

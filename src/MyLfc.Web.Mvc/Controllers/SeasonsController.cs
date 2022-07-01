@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Seasons;
+using MyLfc.Application.Seasons.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers
 {

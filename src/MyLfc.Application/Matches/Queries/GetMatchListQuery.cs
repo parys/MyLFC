@@ -10,7 +10,7 @@ using MyLfc.Application.Clubs;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Queries
 {
     public class GetMatchListQuery
     {
@@ -27,7 +27,7 @@ namespace MyLfc.Application.Matches
             private readonly IMapper _mapper;
 
             private readonly IMediator _mediator;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
             {
                 _context = context;
@@ -79,7 +79,7 @@ namespace MyLfc.Application.Matches
                     RowCount = await matchesQuery.CountAsync(cancellationToken)
                 };
             }
-            
+
             private static void FillClubsFields(MatchListDto dto, Club homeClub, Club awayClub)
             {
                 dto.HomeClubId = homeClub.Id;

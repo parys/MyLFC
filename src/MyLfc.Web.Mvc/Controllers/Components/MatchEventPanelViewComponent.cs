@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Matches;
+using MyLfc.Application.Matches.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers.Components
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace MyLfc.Application.Matches
+namespace MyLfc.Application.Matches.Commands
 {
     public class UpsertMatchCommand
     {
@@ -15,7 +15,7 @@ namespace MyLfc.Application.Matches
 
             public int TypeId { get; set; }
 
-            public int StadiumId { get; set; }
+            public int? StadiumId { get; set; }
 
             public string ScoreHome { get; set; }
 
@@ -25,8 +25,8 @@ namespace MyLfc.Application.Matches
 
             public int? ScorePenaltyAway { get; set; }
 
-            public int SeasonId { get; set; }
-            
+            public int? SeasonId { get; set; }
+
             public string ReportUrl { get; set; }
 
             public string PhotoUrl { get; set; }
@@ -43,7 +43,9 @@ namespace MyLfc.Application.Matches
         {
             protected Validator()
             {
-     
+                RuleFor(x => x.ClubId).NotEmpty();
+
+                RuleFor(x => x.TypeId).NotEmpty();
             }
         }
     }

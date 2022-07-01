@@ -7,6 +7,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Seasons.Queries;
 using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Transfers
@@ -23,20 +24,23 @@ namespace MyLfc.Application.Transfers
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
+
+            private readonly IMediator _mediator;
+
+            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;
+                _mediator = mediator;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var transfersQuery = _context.Transfers.AsNoTracking();
 
-                var currentSeason = await GetCurrentSeasonIdAsync();
+                var currentSeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).StartSeasonYear;
                 transfersQuery = transfersQuery
-                    .Where(x => x.SeasonId == currentSeason);
+                    .Where(x => x.SeasonId == currentSeasonId);
 
 
                 var result = await transfersQuery

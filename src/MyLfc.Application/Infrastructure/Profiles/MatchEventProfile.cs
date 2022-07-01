@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MyLfc.Application.Matches;
 using MyLfc.Application.MatchEvents;
 using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
+using MyLfc.Application.Matches.Queries;
 
 namespace MyLfc.Application.Infrastructure.Profiles
 {

@@ -1,26 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Seasons
+namespace MyLfc.Application.Seasons.Commands
 {
-    public class UpdateSeasonCommand
+    public class CreateSeasonCommand
     {
         public class Request : UpsertSeasonCommand.Request, IRequest<Response>
         {
-            public int Id { get; set; }
         }
+
 
         public class Validator : UpsertSeasonCommand.Validator<Request>
         {
-            public Validator() : base()
+            public Validator()
             {
-                RuleFor(v => v.Id).GreaterThan(0);
             }
         }
 
@@ -30,7 +26,7 @@ namespace MyLfc.Application.Seasons
             private readonly ILiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(ILiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -39,23 +35,23 @@ namespace MyLfc.Application.Seasons
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var season = await _context.Seasons
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+                var entity = _mapper.Map<Season>(request);
 
-                if (season == null)
-                {
-                    throw new NotFoundException(nameof(Season), request.Id);
-                }
-                season = _mapper.Map(request, season);
-
+                _context.Seasons.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = season.Id};
+                return new Response(entity.Id);
             }
         }
 
+
         public class Response
         {
+            public Response(int id)
+            {
+                Id = id;
+            }
+
             public int Id { get; set; }
         }
     }

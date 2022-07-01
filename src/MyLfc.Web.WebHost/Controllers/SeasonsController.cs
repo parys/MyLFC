@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.HelpEntities;
-using MyLfc.Application.Seasons;
+using MyLfc.Application.Seasons.Commands;
+using MyLfc.Application.Seasons.Queries;
 using MyLfc.Data.Common;
 
 namespace MyLfc.Web.WebHost.Controllers
