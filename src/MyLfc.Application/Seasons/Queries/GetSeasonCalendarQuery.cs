@@ -40,8 +40,9 @@ namespace MyLfc.Application.Seasons.Queries
             {
                 if (request.SeasonId == 0)
                 {
-                    request.SeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).StartSeasonYear;
+                    request.SeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).Id;
                 }
+
                 var season = await _context.Seasons.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == request.SeasonId, cancellationToken);
 
@@ -49,6 +50,7 @@ namespace MyLfc.Application.Seasons.Queries
                 {
                     throw new NotFoundException(nameof(Season), request.SeasonId);
                 }
+
                 var seasonDto = _mapper.Map<Response>(season);
                 seasonDto.Months = GetMonthsWithMatches(await GetMatchesAsync(season.Id));
                 return seasonDto;
