@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Materials;
 using MyLfc.Business.Services.Helpers;
@@ -130,43 +133,47 @@ namespace MyLfc.Web.WebHost
 
             if (Env.IsDevelopment())
             {
-                //services.AddSwaggerGen(options =>
-                //{
-                //    options.SwaggerDoc("v1", new OpenApiInfo()
-                //    {
-                //        Version = "v1",
-                //        Title = "Swagger Sample API",
-                //        Description = "API Sample made",
-                //      //  TermsOfService = "None"
-                //    });
+                services.AddSwaggerGen(options =>
+                {
+                    //options.SwaggerDoc("v1", new OpenApiInfo()
+                    //{
+                    //    Version = "v1",
+                    //    Title = "MyLFC API",
+                    //    Description = "MyLFC API",
+                    //    //  TermsOfService = "None"
+                    //});
 
-                //    //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
-                //    //s    options.IncludeXmlComments(filePath);
-                //    options.OperationFilter<HandleModelbinding>();
 
-                //    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                //    {
-                //        //Type = SecuritySchemeType.OAuth2,
-                //        //Flows = new OpenApiOAuthFlows
-                //        //{
-                //        //    Implicit = new OpenApiOAuthFlow()
-                //        //    {
+                    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
-                //        //    }
-                //        //}"implicit",
-                //        //AuthorizationUrl = "/connect/authorize",
-                //        ////   Extensions = { {"123", new object()}},
-                //        //TokenUrl = "connect/token",
-                //        //Scopes = new Dictionary<string, string>
-                //        //{
-                //        //    {"roles", "roles scope"},
-                //        //    {"openid", "openid scope"}
-                //        //},
-                //    });
+                    options.CustomOperationIds(e =>
+                        $"{e.ActionDescriptor.RouteValues["controller"]}.{e.ActionDescriptor.RouteValues["action"]}");
+                    options.CustomSchemaIds(DefaultSchemaIdSelector);
 
-                //    //   options.OperationFilter<AssignSecurityRequirements>();
-                //});
-            }
+                    //    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                    //    {
+                    //        //Type = SecuritySchemeType.OAuth2,
+                    //        //Flows = new OpenApiOAuthFlows
+                    //        //{
+                    //        //    Implicit = new OpenApiOAuthFlow()
+                    //        //    {
+
+                    //        //    }
+                    //        //}"implicit",
+                    //        //AuthorizationUrl = "/connect/authorize",
+                    //        ////   Extensions = { {"123", new object()}},
+                    //        //TokenUrl = "connect/token",
+                    //        //Scopes = new Dictionary<string, string>
+                    //        //{
+                    //        //    {"roles", "roles scope"},
+                    //        //    {"openid", "openid scope"}
+                    //        //},
+                    //    });
+
+                    //    //   options.OperationFilter<AssignSecurityRequirements>();
+                });
+                }
             services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
             services.AddMediatR();
             
@@ -188,12 +195,13 @@ namespace MyLfc.Web.WebHost
             // app.UseXsrf();
             if (env.IsDevelopment())
             {
-                //  app.UseSwagger();
-                //  app.UseSwaggerUI(c =>
-                //  {
-                //      c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
-                //  });
+                  app.UseSwagger();
+                  app.UseSwaggerUI(c =>
+                  {
+                      c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                      c.RoutePrefix = string.Empty;
+                      // c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                  });
                 var options = new RewriteOptions()
                     .AddRewrite("^/small([0-9]+)(.*)", "$1", true);
 
@@ -246,6 +254,12 @@ namespace MyLfc.Web.WebHost
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ISignalRHubAggregator, SignalRHubAggregator>();
+        }
+
+        private static string DefaultSchemaIdSelector(Type modelType)
+        {
+            var items = modelType.FullName.Split(".");
+            return items.Last().Replace("+", ".");
         }
     }
 }

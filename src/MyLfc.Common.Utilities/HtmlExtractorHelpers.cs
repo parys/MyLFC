@@ -16,7 +16,7 @@ namespace MyLfc.Common.Utilities
                 ServerCertificateCustomValidationCallback =
                     (httpRequestMessage, cert, cetChain, policyErrors) => true
             };
-            using var http = new HttpClient(handler);
+            using var http = new HttpClient(handler); // TODO switch to HttpClientFactory
             var response = await http.GetByteArrayAsync(url);
             var source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
             source = WebUtility.HtmlDecode(source);

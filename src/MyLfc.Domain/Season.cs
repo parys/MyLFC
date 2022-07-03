@@ -5,6 +5,9 @@ namespace MyLfc.Domain
 {
     public class Season : IEntity
     {
+
+        public const int LiverpoolStadiumId = 1;
+
         public int Id { get; set; }
 
         public int StartSeasonYear { get; set; }

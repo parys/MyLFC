@@ -200,5 +200,17 @@ namespace MyLfc.Web.WebHost.Controllers
 
             return Ok(result);
         }
+
+
+        /// <summary>
+        /// Updates matches from 3rd party site.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("Calendar")]
+        public async Task<IActionResult> UpdateCalendar([FromQuery] ParseMatchesCommand.Request request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
     }
 }
