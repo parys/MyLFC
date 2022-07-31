@@ -4,23 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.RoleGroups;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.WebHost.Controllers
+namespace MyLfc.Web.WebHost.Controllers;
+
+/// <summary>
+/// Manages role groups.
+/// </summary>
+[Authorize(Roles = nameof(RolesEnum.AdminStart))]
+public class RoleGroupsController : BaseController
 {
     /// <summary>
-    /// Manages role groups.
+    /// Returns all role groups.
     /// </summary>
-    [Authorize(Roles = nameof(RolesEnum.AdminStart))]
-    public class RoleGroupsController : BaseController
+    /// <returns>Role groups list.</returns>
+    [AllowAnonymous, HttpGet]
+    public async Task<IActionResult> GetAllAsync([FromQuery]GetRoleGroupsQuery.Request request)
     {
-        /// <summary>
-        /// Returns all role groups.
-        /// </summary>
-        /// <returns>Role groups list.</returns>
-        [AllowAnonymous, HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery]GetRoleGroupsQuery.Request request)
-        {
-            var result = await Mediator.Send(request);
-            return Ok(result.Results);
-        }
+        var result = await Mediator.Send(request);
+        return Ok(result.Results);
     }
 }

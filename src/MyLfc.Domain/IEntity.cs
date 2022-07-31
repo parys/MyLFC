@@ -1,7 +1,6 @@
-﻿namespace MyLfc.Domain
+﻿namespace MyLfc.Domain;
+
+public interface IEntity
 {
-    public interface IEntity
-    {
-        int Id { get; set; }
-    }
+    int Id { get; set; }
 }

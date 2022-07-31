@@ -11,48 +11,47 @@ using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Request;
 
-namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand
+namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand;
+
+[Collection(nameof(AddMaterialReadCommandCollection))]
+public class HandlerTests
 {
-    [Collection(nameof(AddMaterialReadCommandCollection))]
-    public class HandlerTests
+    private readonly ILiverpoolContext _context;
+    private readonly IRequestHandler<Request, Unit> _handler;
+
+    public HandlerTests(AddMaterialReadCommandTestFixture fixture)
     {
-        private readonly ILiverpoolContext _context;
-        private readonly IRequestHandler<Request, Unit> _handler;
+        _handler = new Handler(fixture.Context);
+        _context = fixture.Context;
+    }
 
-        public HandlerTests(AddMaterialReadCommandTestFixture fixture)
-        {
-            _handler = new Handler(fixture.Context);
-            _context = fixture.Context;
-        }
+    [Theory]
+    [MemberData(nameof(InvalidMaterialIds))]
+    public void AddMaterialReadCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
+    {
+        Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        [Theory]
-        [MemberData(nameof(InvalidMaterialIds))]
-        public void AddMaterialReadCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
-        {
-            Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
+        result.Should().ThrowAsync<NotFoundException>();
+    }
 
-            result.Should().ThrowAsync<NotFoundException>();
-        }
+    [Fact]
+    public async Task AddMaterialReadCommand_WhenAddReadCommandIsValid_ShouldAddNewRead()
+    {
+        var material = _context.Materials.First(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
+        var oldRead = material.Reads;
+        var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
 
-        [Fact]
-        public async Task AddMaterialReadCommand_WhenAddReadCommandIsValid_ShouldAddNewRead()
-        {
-            var material = _context.Materials.First(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
-            var oldRead = material.Reads;
-            var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
+        result.Should().NotBeNull();
 
-            result.Should().NotBeNull();
+        var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
 
-            var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
+        updatedEntity.Reads.Should().Be(oldRead + 1);
+    }
 
-            updatedEntity.Reads.Should().Be(oldRead + 1);
-        }
-
-        public static IEnumerable<object[]> InvalidMaterialIds()
-        {
-            yield return new object[] { -1 };
-            yield return new object[] { 0 };
-            yield return new object[] { 44444 };
-        }
+    public static IEnumerable<object[]> InvalidMaterialIds()
+    {
+        yield return new object[] { -1 };
+        yield return new object[] { 0 };
+        yield return new object[] { 44444 };
     }
 }

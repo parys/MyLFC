@@ -7,57 +7,56 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Transfers;
+
+public class UpdateTransferCommand
 {
-    public class UpdateTransferCommand
+    public class Request : UpsertTransferCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertTransferCommand.Request, IRequest<Response>
+        public int Id { get; set; }
+    }
+
+    public class Validator : UpsertTransferCommand.Validator<Request>
+    {
+        public Validator()
         {
-            public int Id { get; set; }
+            RuleFor(v => v.Id).NotEmpty();
+        }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
         }
 
-        public class Validator : UpsertTransferCommand.Validator<Request>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Validator()
+            var transfer = await _context.Transfers
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+
+            if (transfer == null)
             {
-                RuleFor(v => v.Id).NotEmpty();
-            }
-        }
-
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Transfer), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var transfer = await _context.Transfers
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            transfer = _mapper.Map(request, transfer);
 
-                if (transfer == null)
-                {
-                    throw new NotFoundException(nameof(Transfer), request.Id);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                transfer = _mapper.Map(request, transfer);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = transfer.Id };
-            }
+            return new Response { Id = transfer.Id };
         }
+    }
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

@@ -8,48 +8,47 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain.Polls;
 
-namespace MyLfc.Application.Polls
+namespace MyLfc.Application.Polls;
+
+public class GetPollDetailQuery
 {
-    public class GetPollDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var poll = await _context.Polls.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (poll == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Poll), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var poll = await _context.Polls.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (poll == null)
-                {
-                    throw new NotFoundException(nameof(Poll), request.Id);
-                }
-
-                return poll;
-            }
+            return poll;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

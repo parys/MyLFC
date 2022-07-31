@@ -8,134 +8,133 @@ using MyLfc.Application.Clubs;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches.Queries
+namespace MyLfc.Application.Matches.Queries;
+
+public class GetMatchDetailQuery
 {
-    public class GetMatchDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        private readonly IMediator _mediator;
+
+        public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
+            _mediator = mediator;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var match = await _context.Matches.AsNoTracking()
+                .Include(x => x.Stadium)
+                .Include(x => x.Club)
+                .Include(x => x.Events)
+                .Include(x => x.Season)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            private readonly IMediator _mediator;
-
-            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
+            if (match == null)
             {
-                _context = context;
-                _mapper = mapper;
-                _mediator = mediator;
+                throw new NotFoundException(nameof(Match), request.Id);
+            }
+            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request(), cancellationToken);
+            if (liverpoolClub == null)
+            {
+                return null;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            var response = _mapper.Map<Response>(match);
+            if (match.IsHome)
             {
-                var match = await _context.Matches.AsNoTracking()
-                    .Include(x => x.Stadium)
-                    .Include(x => x.Club)
-                    .Include(x => x.Events)
-                    .Include(x => x.Season)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (match == null)
-                {
-                    throw new NotFoundException(nameof(Match), request.Id);
-                }
-                var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request(), cancellationToken);
-                if (liverpoolClub == null)
-                {
-                    return null;
-                }
-
-                var response = _mapper.Map<Response>(match);
-                if (match.IsHome)
-                {
-                    FillClubsFields(response, liverpoolClub, match.Club);
-                }
-                else
-                {
-                    FillClubsFields(response, match.Club, liverpoolClub);
-                }
-
-                return response;
+                FillClubsFields(response, liverpoolClub, match.Club);
+            }
+            else
+            {
+                FillClubsFields(response, match.Club, liverpoolClub);
             }
 
-            private static void FillClubsFields(Response dto, Club homeClub, Club awayClub)
-            {
-                dto.HomeClubId = homeClub.Id;
-                dto.HomeClubName = homeClub.Name;
-                dto.HomeClubLogo = homeClub.Logo;
-                dto.AwayClubId = awayClub.Id;
-                dto.AwayClubName = awayClub.Name;
-                dto.AwayClubLogo = awayClub.Logo;
-            }
+            return response;
         }
 
-
-        [Serializable]
-        public class Response
+        private static void FillClubsFields(Response dto, Club homeClub, Club awayClub)
         {
-            public int Id { get; set; }
-
-            public int ClubId { get; set; }
-
-            public string ClubName { get; set; }
-
-            public bool IsHome { get; set; }
-
-            public int HomeClubId { get; set; }
-
-            public string HomeClubName { get; set; }
-
-            public string HomeClubLogo { get; set; }
-
-            public int AwayClubId { get; set; }
-
-            public string AwayClubName { get; set; }
-
-            public string AwayClubLogo { get; set; }
-
-            public DateTimeOffset DateTime { get; set; }
-
-            public int TypeId { get; set; }
-
-            public string TypeName { get; set; }
-
-            public string StadiumName { get; set; }
-
-            public string StadiumCity { get; set; }
-
-            public int StadiumId { get; set; }
-
-            public string ScoreHome { get; set; }
-
-            public int? ScorePenaltyHome { get; set; }
-
-            public string ScoreAway { get; set; }
-
-            public int? ScorePenaltyAway { get; set; }
-
-            public int SeasonId { get; set; }
-
-            public string SeasonName { get; set; }
-
-            // todo migrate data in DB and remove after user ReportId
-            public string ReportUrl { get; set; }
-
-            public string PhotoUrl { get; set; }
-
-            public string VideoUrl { get; set; }
-
-            public int? PreviewId { get; set; }
-
-            public int? ReportId { get; set; }
-
-            public bool HideTeams { get; set; }
+            dto.HomeClubId = homeClub.Id;
+            dto.HomeClubName = homeClub.Name;
+            dto.HomeClubLogo = homeClub.Logo;
+            dto.AwayClubId = awayClub.Id;
+            dto.AwayClubName = awayClub.Name;
+            dto.AwayClubLogo = awayClub.Logo;
         }
+    }
+
+
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
+
+        public int ClubId { get; set; }
+
+        public string ClubName { get; set; }
+
+        public bool IsHome { get; set; }
+
+        public int HomeClubId { get; set; }
+
+        public string HomeClubName { get; set; }
+
+        public string HomeClubLogo { get; set; }
+
+        public int AwayClubId { get; set; }
+
+        public string AwayClubName { get; set; }
+
+        public string AwayClubLogo { get; set; }
+
+        public DateTimeOffset DateTime { get; set; }
+
+        public int TypeId { get; set; }
+
+        public string TypeName { get; set; }
+
+        public string StadiumName { get; set; }
+
+        public string StadiumCity { get; set; }
+
+        public int StadiumId { get; set; }
+
+        public string ScoreHome { get; set; }
+
+        public int? ScorePenaltyHome { get; set; }
+
+        public string ScoreAway { get; set; }
+
+        public int? ScorePenaltyAway { get; set; }
+
+        public int SeasonId { get; set; }
+
+        public string SeasonName { get; set; }
+
+        // todo migrate data in DB and remove after user ReportId
+        public string ReportUrl { get; set; }
+
+        public string PhotoUrl { get; set; }
+
+        public string VideoUrl { get; set; }
+
+        public int? PreviewId { get; set; }
+
+        public int? ReportId { get; set; }
+
+        public bool HideTeams { get; set; }
     }
 }

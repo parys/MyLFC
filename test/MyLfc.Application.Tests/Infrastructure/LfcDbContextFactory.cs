@@ -2,28 +2,27 @@
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Tests.Infrastructure
+namespace MyLfc.Application.Tests.Infrastructure;
+
+public class LfcDbContextFactory
 {
-    public class LfcDbContextFactory
+    public static ILiverpoolContext Create()
     {
-        public static ILiverpoolContext Create()
-        {
-            var options = new DbContextOptionsBuilder<FullLiverpoolContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
+        var options = new DbContextOptionsBuilder<FullLiverpoolContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
 
-            var context = new FullLiverpoolContext(options);
+        var context = new FullLiverpoolContext(options);
 
-            context.Database.EnsureCreated();
+        context.Database.EnsureCreated();
 
-            return context;
-        }
+        return context;
+    }
 
-        public static void Destroy(ILiverpoolContext context)
-        {
-            context.Database.EnsureDeleted();
+    public static void Destroy(ILiverpoolContext context)
+    {
+        context.Database.EnsureDeleted();
 
-            context.Dispose();
-        }
+        context.Dispose();
     }
 }

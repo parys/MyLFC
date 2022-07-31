@@ -1,6 +1,5 @@
-﻿namespace MyLfc.Business.Dto.Polls
+﻿namespace MyLfc.Business.Dto.Polls;
+
+public class PollAnswerUserDto : IDto
 {
-    public class PollAnswerUserDto : IDto
-    {
-    }
 }

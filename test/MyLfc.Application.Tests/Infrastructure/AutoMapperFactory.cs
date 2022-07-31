@@ -2,18 +2,17 @@
 using MyLfc.Application.Materials;
 using MyLfc.Common.Mappings;
 
-namespace MyLfc.Application.Tests.Infrastructure
-{
-    public static class AutoMapperFactory
-    {
-        public static IMapper Create()
-        {
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddMaps(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
-            });
+namespace MyLfc.Application.Tests.Infrastructure;
 
-            return mappingConfig.CreateMapper();
-        }
+public static class AutoMapperFactory
+{
+    public static IMapper Create()
+    {
+        var mappingConfig = new MapperConfiguration(mc =>
+        {
+            mc.AddMaps(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
+        });
+
+        return mappingConfig.CreateMapper();
     }
 }

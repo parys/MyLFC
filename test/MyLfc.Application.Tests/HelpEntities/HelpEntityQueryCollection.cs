@@ -4,25 +4,24 @@ using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
 
-namespace MyLfc.Application.Tests.HelpEntities
+namespace MyLfc.Application.Tests.HelpEntities;
+
+[CollectionDefinition(nameof(HelpEntityQueryCollection))]
+public class HelpEntityQueryCollection : ICollectionFixture<HelpEntityQueryTestFixture> { }
+
+public class HelpEntityQueryTestFixture : BaseTestFixture
 {
-    [CollectionDefinition(nameof(HelpEntityQueryCollection))]
-    public class HelpEntityQueryCollection : ICollectionFixture<HelpEntityQueryTestFixture> { }
-
-    public class HelpEntityQueryTestFixture : BaseTestFixture
+    public HelpEntityQueryTestFixture()
     {
-        public HelpEntityQueryTestFixture()
-        {
-            SeedHelpEntities();
-        }
+        SeedHelpEntities();
+    }
 
-        private void SeedHelpEntities()
-        {
-            var helpEntity = new Fixture()
-                .Create<HelpEntity>();
-            helpEntity.Type = HelperEntityType.BestPlayer;
-            Context.HelpEntities.Add(helpEntity);
-            Context.SaveChanges();
-        }
+    private void SeedHelpEntities()
+    {
+        var helpEntity = new Fixture()
+            .Create<HelpEntity>();
+        helpEntity.Type = HelperEntityType.BestPlayer;
+        Context.HelpEntities.Add(helpEntity);
+        Context.SaveChanges();
     }
 }

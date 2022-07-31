@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace MyLfc.Business.Contracts
+namespace MyLfc.Business.Contracts;
+
+public interface IEmailSender
 {
-    public interface IEmailSender
-    {
-        Task SendEmailAsync(string email, string subject, string message);
+    Task SendEmailAsync(string email, string subject, string message);
 
-        Task SendNewPmToEmailAsync(int userId, string message, int pmId);
+    Task SendNewPmToEmailAsync(int userId, string message, int pmId);
 
-        Task SendEmailAsync(string subject, string message);
-    }
+    Task SendEmailAsync(string subject, string message);
 }

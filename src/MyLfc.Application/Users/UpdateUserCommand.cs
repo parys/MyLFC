@@ -8,57 +8,56 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Users
+namespace MyLfc.Application.Users;
+
+public class UpdateUserCommand
 {
-    public class UpdateUserCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public string FullName { get; set; }
+
+        public bool Gender { get; set; }
+
+        public DateTimeOffset? Birthday { get; set; }
+
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        private readonly RequestContext _requestContext;
+
+        public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
         {
-            public string FullName { get; set; }
-
-            public bool Gender { get; set; }
-
-            public DateTimeOffset? Birthday { get; set; }
-
+            _context = context;
+            _requestContext = requestContext;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Id == _requestContext.UserId, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            private readonly RequestContext _requestContext;
-
-            public Handler(ILiverpoolContext context, RequestContext requestContext, IMapper mapper)
+            if (user == null)
             {
-                _context = context;
-                _requestContext = requestContext;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(x => x.Id == _requestContext.UserId, cancellationToken);
+            user = _mapper.Map(request, user);
 
-                if (user == null)
-                {
-                    throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                user = _mapper.Map(request, user);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response();
-            }
+            return new Response();
         }
+    }
 
-        public class Response
-        {
-            
-        }
+    public class Response
+    {
+        
     }
 }

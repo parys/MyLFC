@@ -1,6 +1,5 @@
-﻿namespace MyLfc.Application.Tests.Features.Comments.Queries.GetCommentListByEntityIdQuery
+﻿namespace MyLfc.Application.Tests.Features.Comments.Queries.GetCommentListByEntityIdQuery;
+
+public class HandlerTests
 {
-    public class HandlerTests
-    {
-    }
 }

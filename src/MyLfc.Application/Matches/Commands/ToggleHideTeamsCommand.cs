@@ -6,54 +6,53 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches.Commands
+namespace MyLfc.Application.Matches.Commands;
+
+public class ToggleHideTeamsCommand
 {
-    public class ToggleHideTeamsCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int MatchId { get; set; }
+    }
+
+
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
         {
-            public int MatchId { get; set; }
+            RuleFor(x => x.MatchId).NotEmpty();
+        }
+    }
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
+        {
+            _context = context;
         }
 
-
-        public class Validator : AbstractValidator<Request>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Validator()
+            var match = await _context.Matches.FirstOrDefaultAsync(x => x.Id == request.MatchId, cancellationToken);
+
+            if (match == null)
             {
-                RuleFor(x => x.MatchId).NotEmpty();
-            }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ILiverpoolContext _context;
-
-            public Handler(ILiverpoolContext context)
-            {
-                _context = context;
+                throw new NotFoundException(nameof(Match), request.MatchId);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var match = await _context.Matches.FirstOrDefaultAsync(x => x.Id == request.MatchId, cancellationToken);
+            match.HideTeams = !match.HideTeams;
 
-                if (match == null)
-                {
-                    throw new NotFoundException(nameof(Match), request.MatchId);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                match.HideTeams = !match.HideTeams;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Result = match.HideTeams };
-            }
+            return new Response { Result = match.HideTeams };
         }
+    }
 
 
-        public class Response
-        {
-            public bool Result { get; set; }
-        }
+    public class Response
+    {
+        public bool Result { get; set; }
     }
 }

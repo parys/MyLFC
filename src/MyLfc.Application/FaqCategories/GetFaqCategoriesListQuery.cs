@@ -10,65 +10,64 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.FaqCategories
+namespace MyLfc.Application.FaqCategories;
+
+public class GetFaqCategoriesListQuery
 {
-    public class GetFaqCategoriesListQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly RequestContext _requestContext;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
         {
+            _context = context;
+            _mapper = mapper;
+            _requestContext = requestContext;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var faqCategories = _context.FaqCategories.AsNoTracking();
 
-            private readonly RequestContext _requestContext;
-
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            if (_requestContext.User == null || !_requestContext.User.IsInRole(nameof(RolesEnum.InfoStart)))
             {
-                _context = context;
-                _mapper = mapper;
-                _requestContext = requestContext;
+                faqCategories = faqCategories.Where(x => !x.ForSiteTeam);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var faqCategories = _context.FaqCategories.AsNoTracking();
-
-                if (_requestContext.User == null || !_requestContext.User.IsInRole(nameof(RolesEnum.InfoStart)))
-                {
-                    faqCategories = faqCategories.Where(x => !x.ForSiteTeam);
-                }
-
-                var result = await faqCategories
-                    .OrderBy(x => x.Order)
-                    .ProjectTo<FaqCategoryListDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-                return new Response {Results = result};
-            }
+            var result = await faqCategories
+                .OrderBy(x => x.Order)
+                .ProjectTo<FaqCategoryListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+            return new Response {Results = result};
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public List<FaqCategoryListDto> Results { get; set; }
-        }
+    [Serializable]
+    public class Response
+    {
+        public List<FaqCategoryListDto> Results { get; set; }
+    }
 
 
-        [Serializable]
-        public class FaqCategoryListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class FaqCategoryListDto
+    {
+        public int Id { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public byte Order { get; set; }
+        public byte Order { get; set; }
 
-            public bool ForSiteTeam { get; set; }
-        }
+        public bool ForSiteTeam { get; set; }
     }
 }

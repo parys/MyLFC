@@ -2,28 +2,27 @@
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
-namespace MyLfc.Application.Tests.Infrastructure
+namespace MyLfc.Application.Tests.Infrastructure;
+
+public class XunitLogger<T> : ILogger<T>, IDisposable
 {
-    public class XunitLogger<T> : ILogger<T>, IDisposable
+    private readonly ITestOutputHelper _output;
+
+    public XunitLogger(ITestOutputHelper output)
     {
-        private readonly ITestOutputHelper _output;
+        _output = output;
+    }
 
-        public XunitLogger(ITestOutputHelper output)
-        {
-            _output = output;
-        }
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    {
+        _output.WriteLine(state.ToString());
+    }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-            _output.WriteLine(state.ToString());
-        }
+    public bool IsEnabled(LogLevel logLevel) => true;
 
-        public bool IsEnabled(LogLevel logLevel) => true;
+    public IDisposable BeginScope<TState>(TState state) => this;
 
-        public IDisposable BeginScope<TState>(TState state) => this;
-
-        public void Dispose()
-        {
-        }
+    public void Dispose()
+    {
     }
 }

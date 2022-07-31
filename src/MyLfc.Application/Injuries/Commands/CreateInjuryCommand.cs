@@ -4,50 +4,49 @@ using AutoMapper;
 using MediatR;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries.Commands
+namespace MyLfc.Application.Injuries.Commands;
+
+public class CreateInjuryCommand
 {
-    public class CreateInjuryCommand
+    public class Request : UpsertInjuryCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertInjuryCommand.Request, IRequest<Response>
+    }
+
+
+    public class Validator : UpsertInjuryCommand.Validator<Request>
+    {
+        public Validator()
         {
         }
+    }
 
 
-        public class Validator : UpsertInjuryCommand.Validator<Request>
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public Validator()
-            {
-            }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var entity = _mapper.Map<Injury>(request);
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
+            _context.Injuries.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity = _mapper.Map<Injury>(request);
-
-                _context.Injuries.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = entity.Id};
-            }
+            return new Response {Id = entity.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

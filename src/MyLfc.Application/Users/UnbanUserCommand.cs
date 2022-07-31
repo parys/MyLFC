@@ -7,52 +7,51 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Users
+namespace MyLfc.Application.Users;
+
+public class UnbanUserCommand
 {
-    public class UnbanUserCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly UserManager<FullUser> _userManager;
+
+        public Handler(ILiverpoolContext context, UserManager<FullUser> userManager)
         {
-            public int Id { get; set; }
+            _context = context;
+            _userManager = userManager;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            private readonly UserManager<FullUser> _userManager;
-
-            public Handler(ILiverpoolContext context, UserManager<FullUser> userManager)
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            if (user == null)
             {
-                _context = context;
-                _userManager = userManager;
+                throw new NotFoundException(nameof(FullUser), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            var result = await _userManager.SetLockoutEndDateAsync(user,
+                new DateTimeOffset?());
+
+            await _context.SaveChangesAsync(cancellationToken);
+            if (!result.Succeeded)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                if (user == null)
-                {
-                    throw new NotFoundException(nameof(FullUser), request.Id);
-                }
-
-                var result = await _userManager.SetLockoutEndDateAsync(user,
-                    new DateTimeOffset?());
-
-                await _context.SaveChangesAsync(cancellationToken);
-                if (!result.Succeeded)
-                {
-                    throw new Exception("Can't unban user");
-                }
-                return new Response { Id = request.Id };
+                throw new Exception("Can't unban user");
             }
+            return new Response { Id = request.Id };
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

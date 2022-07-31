@@ -8,62 +8,61 @@ using MyLfc.Domain;
 using MyLfc.Data.Common;
 using MyLfc.Data.Common.Entities;
 
-namespace MyLfc.Application.HelpEntities
+namespace MyLfc.Application.HelpEntities;
+
+public class GetCommentsNumberQuery
 {
-    public class GetCommentsNumberQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
+            _context = context;
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var entity = await _context.HelpEntities.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CommentsNumber, cancellationToken);
 
-            public Handler(ILiverpoolContext context)
+            if (entity == null)
             {
-                _context = context;
+                return new Response { Result = await SaveAsync(cancellationToken) };
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity = await _context.HelpEntities.AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Type == HelperEntityType.CommentsNumber, cancellationToken);
-
-                if (entity == null)
-                {
-                    return new Response { Result = await SaveAsync(cancellationToken) };
-                }
-
-                return new Response { Result = JsonSerializer.Deserialize<CommentsNumber>(entity.Value) };
-            }
-
-            private async Task<CommentsNumber> SaveAsync(CancellationToken cancellationToken)
-            {
-                var commentsNumber = new CommentsNumber
-                {
-                    AllNumber = await _context.MaterialComments.CountAsync(cancellationToken),
-                    UnverifiedNumber = await _context.MaterialComments.Where(x => !x.IsVerified)
-                        .CountAsync(cancellationToken)
-                };
-
-                var entity = new HelpEntity
-                {
-                    Type = HelperEntityType.CommentsNumber,
-                    Value = JsonSerializer.Serialize(commentsNumber)
-                };
-                _context.HelpEntities.Add(entity);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return commentsNumber;
-            }
+            return new Response { Result = JsonSerializer.Deserialize<CommentsNumber>(entity.Value) };
         }
 
-
-        public class Response
+        private async Task<CommentsNumber> SaveAsync(CancellationToken cancellationToken)
         {
-            public CommentsNumber Result { get; set; }
+            var commentsNumber = new CommentsNumber
+            {
+                AllNumber = await _context.MaterialComments.CountAsync(cancellationToken),
+                UnverifiedNumber = await _context.MaterialComments.Where(x => !x.IsVerified)
+                    .CountAsync(cancellationToken)
+            };
+
+            var entity = new HelpEntity
+            {
+                Type = HelperEntityType.CommentsNumber,
+                Value = JsonSerializer.Serialize(commentsNumber)
+            };
+            _context.HelpEntities.Add(entity);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return commentsNumber;
         }
+    }
+
+
+    public class Response
+    {
+        public CommentsNumber Result { get; set; }
     }
 }

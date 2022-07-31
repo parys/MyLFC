@@ -5,51 +5,50 @@ using AutoMapper;
 using MediatR;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.FaqItems
+namespace MyLfc.Application.FaqItems;
+
+public class CreateFaqItemCommand
 {
-    public class CreateFaqItemCommand
+    public class Request : UpsertFaqItemCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertFaqItemCommand.Request, IRequest<Response>
+    }
+
+
+    public class Validator : UpsertFaqItemCommand.Validator<Request>
+    {
+        public Validator()
         {
         }
+    }
 
 
-        public class Validator : UpsertFaqItemCommand.Validator<Request>
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public Validator()
-            {
-            }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var entity = _mapper.Map<FaqItem>(request);
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
+            entity.LastUpdated = DateTimeOffset.UtcNow;
+            _context.FaqItems.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity = _mapper.Map<FaqItem>(request);
-
-                entity.LastUpdated = DateTimeOffset.UtcNow;
-                _context.FaqItems.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = entity.Id};
-            }
+            return new Response {Id = entity.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

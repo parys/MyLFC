@@ -3,33 +3,32 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Utilities.Extensions;
 
-namespace MyLfc.Web.WebHost.Filters
+namespace MyLfc.Web.WebHost.Filters;
+
+/// <summary>
+/// Parses params to RequestContext.
+/// </summary>
+public class RequestDecorator : IAsyncActionFilter
 {
     /// <summary>
-    /// Parses params to RequestContext.
+    /// Executes before each action execution.
     /// </summary>
-    public class RequestDecorator : IAsyncActionFilter
+    /// <param name="context"></param>
+    /// <param name="next"></param>
+    /// <returns></returns>
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        /// <summary>
-        /// Executes before each action execution.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="next"></param>
-        /// <returns></returns>
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        var services = context.HttpContext.RequestServices;
+        var session = services.GetService(typeof(RequestContext)) as RequestContext;
+
+        var user = context.HttpContext.User;
+
+        if (user.Identity?.IsAuthenticated != false)
         {
-            var services = context.HttpContext.RequestServices;
-            var session = services.GetService(typeof(RequestContext)) as RequestContext;
-
-            var user = context.HttpContext.User;
-
-            if (user.Identity?.IsAuthenticated != false)
-            {
-                session.UserId = user.GetIdSafe();
-                session.User = user;
-            }
-
-            await next();
+            session.UserId = user.GetIdSafe();
+            session.User = user;
         }
+
+        await next();
     }
 }

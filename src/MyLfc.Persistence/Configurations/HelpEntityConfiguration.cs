@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyLfc.Domain;
 
-namespace MyLfc.Persistence.Configurations
+namespace MyLfc.Persistence.Configurations;
+
+public class HelpEntityConfiguration : IEntityTypeConfiguration<HelpEntity>
 {
-    public class HelpEntityConfiguration : IEntityTypeConfiguration<HelpEntity>
+    public void Configure(EntityTypeBuilder<HelpEntity> builder)
     {
-        public void Configure(EntityTypeBuilder<HelpEntity> builder)
-        {
-            builder.ToTable("HelpEntities");
-        }
+        builder.ToTable("HelpEntities");
     }
 }

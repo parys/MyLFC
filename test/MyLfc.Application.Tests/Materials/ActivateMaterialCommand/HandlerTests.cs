@@ -12,49 +12,48 @@ using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Request;
 
-namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
+namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand;
+
+[Collection(nameof(ActivateMaterialCommandCollection))]
+public class HandlerTests
 {
-    [Collection(nameof(ActivateMaterialCommandCollection))]
-    public class HandlerTests
+    private readonly ILiverpoolContext _context;
+    private readonly IRequestHandler<Request, Unit> _handler;
+
+    public HandlerTests(ActivateMaterialCommandTestFixture fixture)
     {
-        private readonly ILiverpoolContext _context;
-        private readonly IRequestHandler<Request, Unit> _handler;
+        _handler = new Handler(fixture.Context);
+        _context = fixture.Context;
+    }
 
-        public HandlerTests(ActivateMaterialCommandTestFixture fixture)
-        {
-            _handler = new Handler(fixture.Context);
-            _context = fixture.Context;
-        }
+    [Theory]
+    [MemberData(nameof(InvalidMaterialIds))]
+    public void ActivateMaterialCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
+    {
+        Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        [Theory]
-        [MemberData(nameof(InvalidMaterialIds))]
-        public void ActivateMaterialCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
-        {
-            Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
+        result.Should().ThrowAsync<NotFoundException>();
+    }
 
-            result.Should().ThrowAsync<NotFoundException>();
-        }
+    [Fact]
+    public async Task ActivateMaterialCommand_WhenActivateCommandIsValid_ShouldChangeMaterialPerndingToFalse()
+    {
+        var material = _context.Materials.First(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
+        material.Pending.Should().BeTrue();
 
-        [Fact]
-        public async Task ActivateMaterialCommand_WhenActivateCommandIsValid_ShouldChangeMaterialPerndingToFalse()
-        {
-            var material = _context.Materials.First(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
-            material.Pending.Should().BeTrue();
+        var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
 
-            var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
+        result.Should().NotBeNull();
 
-            result.Should().NotBeNull();
+        var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
 
-            var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
+        updatedEntity.Pending.Should().BeFalse();
+    }
 
-            updatedEntity.Pending.Should().BeFalse();
-        }
-
-        public static IEnumerable<object[]> InvalidMaterialIds()
-        {
-            yield return new object[] { -1 };
-            yield return new object[] { 0 };
-            yield return new object[] { 44444 };
-        }
+    public static IEnumerable<object[]> InvalidMaterialIds()
+    {
+        yield return new object[] { -1 };
+        yield return new object[] { 0 };
+        yield return new object[] { 44444 };
     }
 }

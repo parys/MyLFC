@@ -9,84 +9,83 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials.Queries
+namespace MyLfc.Application.Materials.Queries;
+
+public class GetLatestMaterialsQuery
 {
-    public class GetLatestMaterialsQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var materialsQuery = _context.Materials.AsNoTracking();
 
-            private readonly IMapper _mapper;
+            materialsQuery = materialsQuery
+                .Where(x => !x.Pending)
+                .Where(x => !x.OnTop)
+                .OrderByDescending(x => x.Id);
 
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            var result = await materialsQuery
+                .Take(10)
+                .ProjectTo<MaterialLatestListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+
+            return new Response
             {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var materialsQuery = _context.Materials.AsNoTracking();
-
-                materialsQuery = materialsQuery
-                    .Where(x => !x.Pending)
-                    .Where(x => !x.OnTop)
-                    .OrderByDescending(x => x.Id);
-
-                var result = await materialsQuery
-                    .Take(10)
-                    .ProjectTo<MaterialLatestListDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-
-                return new Response
-                {
-                    Results = result
-                };
-            }
+                Results = result
+            };
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
-        }
+    [Serializable]
+    public class Response
+    {
+        public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
+    }
 
-        [Serializable]
-        public class MaterialLatestListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class MaterialLatestListDto
+    {
+        public int Id { get; set; }
 
-            public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-            public string CategoryName { get; set; }
+        public string CategoryName { get; set; }
 
-            public bool CanCommentary { get; set; }
+        public bool CanCommentary { get; set; }
 
-            public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
-            public int CommentsCount { get; set; }
+        public int CommentsCount { get; set; }
 
-            public string UserName { get; set; }
+        public string UserName { get; set; }
 
-            public int UserId { get; set; }
+        public int UserId { get; set; }
 
-            public string Title { get; set; }
+        public string Title { get; set; }
 
-            public int Reads { get; set; }
+        public int Reads { get; set; }
 
-            public string PhotoPreview { get; set; }
-            public string Photo { get; set; }
+        public string PhotoPreview { get; set; }
+        public string Photo { get; set; }
 
-            public MaterialType Type { get; set; }
+        public MaterialType Type { get; set; }
 
-            public string TypeName { get; set; }
-        }
+        public string TypeName { get; set; }
     }
 }

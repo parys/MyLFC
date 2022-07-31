@@ -7,48 +7,47 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Common.Utilities;
 
-namespace MyLfc.Application.Users
+namespace MyLfc.Application.Users;
+
+public class ResetUserAvatarCommand
 {
-    public class ResetUserAvatarCommand
+    private static readonly string DefaultPhotoPath = Path.Combine("content", "avatars", "default.png");
+    public class Request : IRequest<Response>
     {
-        private static readonly string DefaultPhotoPath = Path.Combine("content", "avatars", "default.png");
-        public class Request : IRequest<Response>
+        public int UserId { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int UserId { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            public Handler(ILiverpoolContext context)
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+            if (user == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(FullUser), request.UserId);
+            }
+            if (FileHelper.Delete(user.Photo))
+            {
+                user.Photo = DefaultPhotoPath;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
-                if (user == null)
-                {
-                    throw new NotFoundException(nameof(FullUser), request.UserId);
-                }
-                if (FileHelper.Delete(user.Photo))
-                {
-                    user.Photo = DefaultPhotoPath;
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { AvatarPath = DefaultPhotoPath };
-            }
+            return new Response { AvatarPath = DefaultPhotoPath };
         }
+    }
 
 
-        public class Response
-        {
-            public string AvatarPath { get; set; }
-        }
+    public class Response
+    {
+        public string AvatarPath { get; set; }
     }
 }

@@ -24,112 +24,111 @@ using MyLfc.Persistence;
 using MyLfc.Common.Mappings;
 using MyLfc.Application.Materials;
 
-namespace MyLfc.Web.Mvc
+namespace MyLfc.Web.Mvc;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IWebHostEnvironment env)
     {
-        public Startup(IWebHostEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
-            Env = env;
+        builder.AddEnvironmentVariables();
+        Configuration = builder.Build();
+        Env = env;
+    }
+
+    private IConfigurationRoot Configuration { get; }
+
+    private IWebHostEnvironment Env { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+        services.AddCustomResponseCompression();
+        
+        services.Configure<RequestLocalizationOptions>(options =>
+        {
+            options.DefaultRequestCulture = new RequestCulture("ru-RU");
+            options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+            options.RequestCultureProviders = new List<IRequestCultureProvider>();
+        });
+        services.AddRouting(options => options.LowercaseUrls = true);
+        services.AddControllersWithViews().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            
+            //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        });
+        
+        services.AddPersistence(Configuration);
+
+        services.AddDataProtection().SetApplicationName("liverpoolfc-app")
+            .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
+
+        services.AddCustomIdentitySettings();
+        
+        RegisterCoreHelpers(services);
+        services.RegisterServices();
+
+        services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
+        services.AddCustomRedisCache(Configuration);
+
+        services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
+        services.AddMediatR();
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
+
+        app.UseResponseCompression();
+
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
         }
 
-        private IConfigurationRoot Configuration { get; }
+        app.UseDefaultFiles();
 
-        private IWebHostEnvironment Env { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        var cachePeriod = env.IsDevelopment() ? "600" : "604800";
+        app.UseStaticFiles(new StaticFileOptions
         {
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
-            services.AddCustomResponseCompression();
-            
-            services.Configure<RequestLocalizationOptions>(options =>
+            OnPrepareResponse = ctx =>
             {
-                options.DefaultRequestCulture = new RequestCulture("ru-RU");
-                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
-                options.RequestCultureProviders = new List<IRequestCultureProvider>();
-            });
-            services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllersWithViews().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                
-                //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
-            
-            services.AddPersistence(Configuration);
-
-            services.AddDataProtection().SetApplicationName("liverpoolfc-app")
-                .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
-
-            services.AddCustomIdentitySettings();
-            
-            RegisterCoreHelpers(services);
-            services.RegisterServices();
-
-            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-
-            services.AddCustomRedisCache(Configuration);
-
-            services.AddAutoMapper(typeof(MaterialProfile), typeof(ForumMessageMapperProfile));
-            services.AddMediatR();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-
-            app.UseResponseCompression();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+                ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+        });
 
-            app.UseDefaultFiles();
-
-            var cachePeriod = env.IsDevelopment() ? "600" : "604800";
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
-                }
-            });
-
-            app.UseRouting();
-            
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
-        }
-
-        private void RegisterCoreHelpers(IServiceCollection services)
+        app.UseRouting();
+        
+        app.UseEndpoints(endpoints =>
         {
-            services.AddSingleton<IWebHostEnvironment>(Env);
-            services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ISignalRHubAggregator, EmptyHubAggregator>();
-            services.AddScoped<RequestContext>();
-        }
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapRazorPages();
+        });
+    }
+
+    private void RegisterCoreHelpers(IServiceCollection services)
+    {
+        services.AddSingleton<IWebHostEnvironment>(Env);
+        services.AddSingleton<IConfigurationRoot>(Configuration);
+        services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient<ISignalRHubAggregator, EmptyHubAggregator>();
+        services.AddScoped<RequestContext>();
     }
 }

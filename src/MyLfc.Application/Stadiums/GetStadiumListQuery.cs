@@ -9,58 +9,57 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Stadiums
+namespace MyLfc.Application.Stadiums;
+
+public class GetStadiumListQuery
 {
-    public class GetStadiumListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public string Name { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public string Name { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var stadiumsQuery = _context.Stadiums.AsNoTracking();
 
-            private readonly IMapper _mapper;
+            stadiumsQuery = stadiumsQuery.OrderByDescending(x => x.Id);
+
+            if (!string.IsNullOrWhiteSpace(request.Name))
+            {
+                stadiumsQuery = stadiumsQuery.Where(x => x.Name.Contains(request.Name) || x.City.Contains(request.Name));
+            }
             
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var stadiumsQuery = _context.Stadiums.AsNoTracking();
-
-                stadiumsQuery = stadiumsQuery.OrderByDescending(x => x.Id);
-
-                if (!string.IsNullOrWhiteSpace(request.Name))
-                {
-                    stadiumsQuery = stadiumsQuery.Where(x => x.Name.Contains(request.Name) || x.City.Contains(request.Name));
-                }
-                
-                return await stadiumsQuery.GetPagedAsync<Response, Stadium, StadiumListDto>(request, _mapper);
-            }
+            return await stadiumsQuery.GetPagedAsync<Response, Stadium, StadiumListDto>(request, _mapper);
         }
+    }
 
 
-        [Serializable]
-        public class Response : PagedResult<StadiumListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<StadiumListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class StadiumListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class StadiumListDto
+    {
+        public int Id { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public string City { get; set; }
-        }
+        public string City { get; set; }
     }
 }

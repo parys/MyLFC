@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace MyLfc.Data.Common.Entities
+namespace MyLfc.Data.Common.Entities;
+
+[Serializable]
+public class CommentsNumber
 {
-    [Serializable]
-    public class CommentsNumber
-    {
-        public int AllNumber { get; set; }
+    public int AllNumber { get; set; }
 
-        public int UnverifiedNumber { get; set; }
+    public int UnverifiedNumber { get; set; }
 
-    }
 }

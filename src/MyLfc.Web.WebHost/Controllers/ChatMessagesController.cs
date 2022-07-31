@@ -6,87 +6,86 @@ using MyLfc.Common.Web;
 using MyLfc.Data.Common;
 using MyLfc.Web.WebHost.Extensions;
 
-namespace MyLfc.Web.WebHost.Controllers
+namespace MyLfc.Web.WebHost.Controllers;
+
+/// <summary>
+/// Manages chat entities.
+/// </summary>
+public class ChatMessagesController : BaseController
 {
     /// <summary>
-    /// Manages chat entities.
+    /// Adds new chat message.
     /// </summary>
-    public class ChatMessagesController : BaseController
+    /// <param name="request">Message entity</param>
+    /// <returns>Result of creation message.</returns>
+    [Authorize, HttpPost("")]
+    public async Task<IActionResult> CreateAsync([FromBody]CreateChatMessageCommand.Request request)
     {
-        /// <summary>
-        /// Adds new chat message.
-        /// </summary>
-        /// <param name="request">Message entity</param>
-        /// <returns>Result of creation message.</returns>
-        [Authorize, HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]CreateChatMessageCommand.Request request)
-        {
-            request.Ip = HttpContext.GetIp();
-            var result = await Mediator.Send(request);
-            CleanChatCache();
+        request.Ip = HttpContext.GetIp();
+        var result = await Mediator.Send(request);
+        CleanChatCache();
 
-            return Ok(result);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Deletes chat message.
+    /// </summary>
+    /// <param name="request">Message identifier.</param>
+    /// <returns>Result of deleting message.</returns>
+    [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteAsync([FromRoute]DeleteChatMessageCommand.Request request)
+    {
+        var result = await Mediator.Send(request);
+
+        CleanChatCache();
+        return Ok(result);
+    }     
+
+    /// <summary>
+    /// Returns chat messages list.
+    /// </summary>
+    /// <returns>Result of creation message.</returns>
+    [AllowAnonymous, HttpGet("")]
+    public async Task<IActionResult> GetListAsync([FromQuery]GetChatMessageListQuery.Request request)
+    {
+        GetChatMessageListQuery.Response result;
+        if (request.LastMessageId == 0)
+        {
+            result = await CacheManager.GetOrCreateAsync(
+                CacheKeysConstants.ChatName + request.TypeId,
+                async () => await Mediator.Send(request));
+        }
+        else
+        {
+            result = await Mediator.Send(request);
+        }
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Updates club.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="request">Modified club entity.</param>
+    /// <returns>Returns of editing.</returns>
+    [Authorize, HttpPut("{id:int}")]
+    public async Task<IActionResult> EditAsync([FromRoute]int id, [FromBody]UpdateChatMessageCommand.Request request)
+    {
+        if (id != request.Id)
+        {
+            return BadRequest();
         }
 
-        /// <summary>
-        /// Deletes chat message.
-        /// </summary>
-        /// <param name="request">Message identifier.</param>
-        /// <returns>Result of deleting message.</returns>
-        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute]DeleteChatMessageCommand.Request request)
-        {
-            var result = await Mediator.Send(request);
+        var result = await Mediator.Send(request);
 
-            CleanChatCache();
-            return Ok(result);
-        }     
+        CleanChatCache();
+        return Ok(result);
+    }
 
-        /// <summary>
-        /// Returns chat messages list.
-        /// </summary>
-        /// <returns>Result of creation message.</returns>
-        [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> GetListAsync([FromQuery]GetChatMessageListQuery.Request request)
-        {
-            GetChatMessageListQuery.Response result;
-            if (request.LastMessageId == 0)
-            {
-                result = await CacheManager.GetOrCreateAsync(
-                    CacheKeysConstants.ChatName + request.TypeId,
-                    async () => await Mediator.Send(request));
-            }
-            else
-            {
-                result = await Mediator.Send(request);
-            }
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Updates club.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="request">Modified club entity.</param>
-        /// <returns>Returns of editing.</returns>
-        [Authorize, HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAsync([FromRoute]int id, [FromBody]UpdateChatMessageCommand.Request request)
-        {
-            if (id != request.Id)
-            {
-                return BadRequest();
-            }
-
-            var result = await Mediator.Send(request);
-
-            CleanChatCache();
-            return Ok(result);
-        }
-
-        private void CleanChatCache()
-        {
-            CacheManager.Remove(CacheKeysConstants.ChatName + ChatMessageTypeEnum.Mini,
-                CacheKeysConstants.ChatName + ChatMessageTypeEnum.All);
-        }
+    private void CleanChatCache()
+    {
+        CacheManager.Remove(CacheKeysConstants.ChatName + ChatMessageTypeEnum.Mini,
+            CacheKeysConstants.ChatName + ChatMessageTypeEnum.All);
     }
 }

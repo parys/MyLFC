@@ -8,59 +8,58 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials.Commands
+namespace MyLfc.Application.Materials.Commands;
+
+public class DeleteMaterialCommand
 {
-    public class DeleteMaterialCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly RequestContext _requestContext;
+
+        public Handler(ILiverpoolContext context, RequestContext requestContext)
         {
-            public int Id { get; set; }
+            _context = context;
+            _requestContext = requestContext;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var material = await _context.Materials
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly RequestContext _requestContext;
-
-            public Handler(ILiverpoolContext context, RequestContext requestContext)
+            if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News ||
+                !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs)
             {
-                _context = context;
-                _requestContext = requestContext;
+                throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete material {request.Id}");
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            if (material == null)
             {
-                var material = await _context.Materials
-                    .Include(x => x.Comments)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News ||
-                    !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs)
-                {
-                    throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete material {request.Id}");
-                }
-
-                if (material == null)
-                {
-                    throw new NotFoundException(nameof(Material), request.Id);
-                }
-
-                material.Deleted = true;
-                foreach (var comment in material.Comments)
-                {
-                    comment.Deleted = true;
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response { Id = material.Id };
+                throw new NotFoundException(nameof(Material), request.Id);
             }
-        }
 
-        public class Response
-        {
-            public int Id { get; set; }
+            material.Deleted = true;
+            foreach (var comment in material.Comments)
+            {
+                comment.Deleted = true;
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return new Response { Id = material.Id };
         }
+    }
+
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

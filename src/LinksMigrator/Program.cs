@@ -182,6 +182,7 @@ async Task ReplaceInMaterial()
 
 }
 
+#pragma warning disable CS8321 // Local function is declared but never used
 async Task ReplaceInForumMessages()
 {
     var count = await context.ForumThemes.CountAsync(x => x.Description.Contains(searchString));
@@ -222,6 +223,7 @@ async Task ReplaceInForumMessages()
     } while (forumMessage != null);
 
 }
+#pragma warning restore CS8321 // Local function is declared but never used
 
 
 #region console colors
@@ -321,7 +323,9 @@ string DownloadImage(string path)
 
     try
     {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
         using WebClient client = new();
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
         client.DownloadFile(new Uri(path), Path.Combine(baseD, folder, fileName));
     }
 

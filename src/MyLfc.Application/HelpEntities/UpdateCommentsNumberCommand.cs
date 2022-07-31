@@ -6,41 +6,40 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Data.Common;
 using MyLfc.Data.Common.Entities;
 
-namespace MyLfc.Application.HelpEntities
+namespace MyLfc.Application.HelpEntities;
+
+public class UpdateCommentsNumberCommand
 {
-    public class UpdateCommentsNumberCommand
+    public class Request : IRequest
     {
-        public class Request : IRequest
+        public int DiffAllNumbers { get; set; }
+        public int DiffUnverifiedNumbers { get; set; }
+    }
+
+    public class Handler : IRequestHandler<Request>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int DiffAllNumbers { get; set; }
-            public int DiffUnverifiedNumbers { get; set; }
+            _context = context;
         }
 
-        public class Handler : IRequestHandler<Request>
+        public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var commentsEntity =
+                await _context.HelpEntities.FirstAsync(x => x.Type == HelperEntityType.CommentsNumber,
+                    cancellationToken);
 
-            public Handler(ILiverpoolContext context)
-            {
-                _context = context;
-            }
+            var entity = JsonSerializer.Deserialize<CommentsNumber>(commentsEntity.Value);
+            entity.AllNumber += request.DiffAllNumbers;
+            entity.UnverifiedNumber += request.DiffUnverifiedNumbers;
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var commentsEntity =
-                    await _context.HelpEntities.FirstAsync(x => x.Type == HelperEntityType.CommentsNumber,
-                        cancellationToken);
+            commentsEntity.Value = JsonSerializer.Serialize(entity);
 
-                var entity = JsonSerializer.Deserialize<CommentsNumber>(commentsEntity.Value);
-                entity.AllNumber += request.DiffAllNumbers;
-                entity.UnverifiedNumber += request.DiffUnverifiedNumbers;
+            await _context.SaveChangesAsync(cancellationToken);
 
-                commentsEntity.Value = JsonSerializer.Serialize(entity);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
-            }
+            return Unit.Value;
         }
     }
 }

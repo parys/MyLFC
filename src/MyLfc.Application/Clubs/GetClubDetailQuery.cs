@@ -8,58 +8,57 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Clubs
+namespace MyLfc.Application.Clubs;
+
+public class GetClubDetailQuery
 {
-    public class GetClubDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var club = await _context.Clubs.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (club == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Club), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var club = await _context.Clubs.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (club == null)
-                {
-                    throw new NotFoundException(nameof(Club), request.Id);
-                }
-
-                return club;
-            }
+            return club;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public string EnglishName { get; set; }
+        public string EnglishName { get; set; }
 
-            public string StadiumName { get; set; }
+        public string StadiumName { get; set; }
 
-            public int StadiumId { get; set; }
+        public int StadiumId { get; set; }
 
-            public string Logo { get; set; }
-        }
+        public string Logo { get; set; }
     }
 }

@@ -2,13 +2,12 @@
 using MyLfc.Application.Features.Account;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Infrastructure.Profiles
+namespace MyLfc.Application.Infrastructure.Profiles;
+
+public class AccountProfile : Profile
 {
-    public class AccountProfile : Profile
+    public AccountProfile()
     {
-        public AccountProfile()
-        {
-            CreateMap<RegisterUserCommand.Request, FullUser>();
-        }
+        CreateMap<RegisterUserCommand.Request, FullUser>();
     }
 }

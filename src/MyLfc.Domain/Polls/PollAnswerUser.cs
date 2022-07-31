@@ -1,17 +1,16 @@
-﻿namespace MyLfc.Domain.Polls
+﻿namespace MyLfc.Domain.Polls;
+
+public class PollAnswerUser
 {
-    public class PollAnswerUser
-    {
-        public int PollId { get; set; }
+    public int PollId { get; set; }
 
-        public Poll Poll { get; set; }
+    public Poll Poll { get; set; }
 
-        public int PollAnswerId { get; set; }
+    public int PollAnswerId { get; set; }
 
-        public PollAnswer PollAnswer { get; set; }
+    public PollAnswer PollAnswer { get; set; }
 
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public FullUser User { get; set; }
-    }
+    public FullUser User { get; set; }
 }

@@ -8,54 +8,53 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.FaqCategories
+namespace MyLfc.Application.FaqCategories;
+
+public class GetFaqCategoryDetailQuery
 {
-    public class GetFaqCategoryDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var faqCategory = await _context.FaqCategories.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (faqCategory == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(FaqCategory), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var faqCategory = await _context.FaqCategories.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (faqCategory == null)
-                {
-                    throw new NotFoundException(nameof(FaqCategory), request.Id);
-                }
-
-                return faqCategory;
-            }
+            return faqCategory;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public bool ForSiteTeam { get; set; }
+        public bool ForSiteTeam { get; set; }
 
-            public byte Order { get; set; }
-        }
+        public byte Order { get; set; }
     }
 }

@@ -5,51 +5,50 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Seasons.Commands
+namespace MyLfc.Application.Seasons.Commands;
+
+public class DeleteSeasonCommand
 {
-    public class DeleteSeasonCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var season = await _context.Seasons
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            public Handler(ILiverpoolContext context)
+            if (season == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Season), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var season = await _context.Seasons
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            _context.Seasons.Remove(season);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                if (season == null)
-                {
-                    throw new NotFoundException(nameof(Season), request.Id);
-                }
+            return new Response(season.Id);
+        }
+    }
 
-                _context.Seasons.Remove(season);
-                await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response(season.Id);
-            }
+    public class Response
+    {
+        public Response(int id)
+        {
+            Id = id;
         }
 
-
-        public class Response
-        {
-            public Response(int id)
-            {
-                Id = id;
-            }
-
-            public int Id { get; set; }
-        }
+        public int Id { get; set; }
     }
 }

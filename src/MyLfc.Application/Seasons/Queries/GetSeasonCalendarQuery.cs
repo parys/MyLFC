@@ -11,201 +11,200 @@ using MyLfc.Domain;
 using MyLfc.Common.Utilities;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Seasons.Queries
+namespace MyLfc.Application.Seasons.Queries;
+
+public class GetSeasonCalendarQuery
 {
-    public class GetSeasonCalendarQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int SeasonId { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        private readonly IMediator _mediator;
+
+        public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
         {
-            public int SeasonId { get; set; }
+            _context = context;
+            _mapper = mapper;
+            _mediator = mediator;
+        }
+
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        {
+            if (request.SeasonId == 0)
+            {
+                request.SeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).Id;
+            }
+
+            var season = await _context.Seasons.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == request.SeasonId, cancellationToken);
+
+            if (season == null)
+            {
+                throw new NotFoundException(nameof(Season), request.SeasonId);
+            }
+
+            var seasonDto = _mapper.Map<Response>(season);
+            seasonDto.Months = GetMonthsWithMatches(await GetMatchesAsync(season.Id));
+            return seasonDto;
         }
 
 
-        public class Handler : IRequestHandler<Request, Response>
+        private async Task<IEnumerable<MatchCalendarDto>> GetMatchesAsync(int seasonId)
         {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMapper _mapper;
-
-            private readonly IMediator _mediator;
-
-            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
+            var liverpoolClub = await _context.Clubs.AsNoTracking()
+                .FirstAsync(x => x.EnglishName.Contains(GlobalConstants.LiverpoolClubEnglishName));
+            var matches = _context.Matches.AsNoTracking()
+                .Where(x => x.SeasonId == seasonId)
+                .Include(m => m.Club)
+                .Include(m => m.Stadium)
+                .Include(m => m.Events)
+                .OrderBy(m => m.DateTime);
+            var dtos = new List<MatchCalendarDto>();
+            foreach (var match in matches)
             {
-                _context = context;
-                _mapper = mapper;
-                _mediator = mediator;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                if (request.SeasonId == 0)
+                var dto = _mapper.Map<MatchCalendarDto>(match);
+                if (match.IsHome)
                 {
-                    request.SeasonId = (await _mediator.Send(new GetCurrentSeasonQuery.Request(), cancellationToken)).Id;
+                    FillClubsFields(dto, liverpoolClub, match.Club);
                 }
-
-                var season = await _context.Seasons.AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Id == request.SeasonId, cancellationToken);
-
-                if (season == null)
+                else
                 {
-                    throw new NotFoundException(nameof(Season), request.SeasonId);
+                    FillClubsFields(dto, match.Club, liverpoolClub);
                 }
-
-                var seasonDto = _mapper.Map<Response>(season);
-                seasonDto.Months = GetMonthsWithMatches(await GetMatchesAsync(season.Id));
-                return seasonDto;
+                dtos.Add(dto);
             }
-
-
-            private async Task<IEnumerable<MatchCalendarDto>> GetMatchesAsync(int seasonId)
-            {
-                var liverpoolClub = await _context.Clubs.AsNoTracking()
-                    .FirstAsync(x => x.EnglishName.Contains(GlobalConstants.LiverpoolClubEnglishName));
-                var matches = _context.Matches.AsNoTracking()
-                    .Where(x => x.SeasonId == seasonId)
-                    .Include(m => m.Club)
-                    .Include(m => m.Stadium)
-                    .Include(m => m.Events)
-                    .OrderBy(m => m.DateTime);
-                var dtos = new List<MatchCalendarDto>();
-                foreach (var match in matches)
-                {
-                    var dto = _mapper.Map<MatchCalendarDto>(match);
-                    if (match.IsHome)
-                    {
-                        FillClubsFields(dto, liverpoolClub, match.Club);
-                    }
-                    else
-                    {
-                        FillClubsFields(dto, match.Club, liverpoolClub);
-                    }
-                    dtos.Add(dto);
-                }
-                return dtos;
-            }
-
-            private static void FillClubsFields(MatchCalendarDto dto, Club homeClub, Club awayClub)
-            {
-                dto.HomeClubId = homeClub.Id;
-                dto.HomeClubName = homeClub.Name;
-                dto.HomeClubLogo = homeClub.Logo;
-                dto.AwayClubId = awayClub.Id;
-                dto.AwayClubName = awayClub.Name;
-                dto.AwayClubLogo = awayClub.Logo;
-            }
-
-            private static List<SeasonCalendarMonthDto> GetMonthsWithMatches(IEnumerable<MatchCalendarDto> matches)
-            {
-                return new List<SeasonCalendarMonthDto>
-                {
-                    GetMonth("Июль", 7, matches),
-                    GetMonth("Август", 8, matches),
-                    GetMonth("Сентябрь", 9, matches),
-                    GetMonth("Октябрь", 10, matches),
-                    GetMonth("Ноябрь", 11, matches),
-                    GetMonth("Декабрь", 12, matches),
-                    GetMonth("Январь", 1, matches),
-                    GetMonth("Февраль", 2, matches),
-                    GetMonth("Март", 3, matches),
-                    GetMonth("Апрель", 4, matches),
-                    GetMonth("Май", 5, matches),
-                    GetMonth("Июнь", 6, matches)
-                };
-            }
-
-            private static SeasonCalendarMonthDto GetMonth(string name, int monthCount, IEnumerable<MatchCalendarDto> matches)
-            {
-                var matchesForMonth = matches.Where(x => x.DateTime.Month == monthCount);
-                return new SeasonCalendarMonthDto
-                {
-                    Name = name,
-                    Matches = matchesForMonth,
-                    Collapsed = matchesForMonth.All(x => x.DateTime < DateTimeOffset.UtcNow)
-                };
-            }
+            return dtos;
         }
 
-
-        [Serializable]
-        public class Response
+        private static void FillClubsFields(MatchCalendarDto dto, Club homeClub, Club awayClub)
         {
-            public int Id { get; set; }
-
-            public int StartSeasonYear { get; set; }
-
-            public int EndSeasonYear => StartSeasonYear + 1;
-
-            public List<SeasonCalendarMonthDto> Months = new();
+            dto.HomeClubId = homeClub.Id;
+            dto.HomeClubName = homeClub.Name;
+            dto.HomeClubLogo = homeClub.Logo;
+            dto.AwayClubId = awayClub.Id;
+            dto.AwayClubName = awayClub.Name;
+            dto.AwayClubLogo = awayClub.Logo;
         }
 
-        [Serializable]
-        public class SeasonCalendarMonthDto
+        private static List<SeasonCalendarMonthDto> GetMonthsWithMatches(IEnumerable<MatchCalendarDto> matches)
         {
-            public string Name { get; set; }
-
-            public bool Collapsed { get; set; }
-
-            public IEnumerable<MatchCalendarDto> Matches { get; set; } = new HashSet<MatchCalendarDto>();
+            return new List<SeasonCalendarMonthDto>
+            {
+                GetMonth("Июль", 7, matches),
+                GetMonth("Август", 8, matches),
+                GetMonth("Сентябрь", 9, matches),
+                GetMonth("Октябрь", 10, matches),
+                GetMonth("Ноябрь", 11, matches),
+                GetMonth("Декабрь", 12, matches),
+                GetMonth("Январь", 1, matches),
+                GetMonth("Февраль", 2, matches),
+                GetMonth("Март", 3, matches),
+                GetMonth("Апрель", 4, matches),
+                GetMonth("Май", 5, matches),
+                GetMonth("Июнь", 6, matches)
+            };
         }
 
-        [Serializable]
-        public class MatchCalendarDto
+        private static SeasonCalendarMonthDto GetMonth(string name, int monthCount, IEnumerable<MatchCalendarDto> matches)
         {
-            public int Id { get; set; }
-
-            public bool IsHome { get; set; }
-
-            public int ClubId { get; set; }
-
-            public string ClubName { get; set; }
-
-            public int HomeClubId { get; set; }
-
-            public string HomeClubName { get; set; }
-
-            public string HomeClubLogo { get; set; }
-
-            public int AwayClubId { get; set; }
-
-            public string AwayClubName { get; set; }
-
-            public string AwayClubLogo { get; set; }
-
-            public DateTimeOffset DateTime { get; set; }
-
-            public int TypeId { get; set; }
-
-            public string TypeName { get; set; }
-
-            public string StadiumName { get; set; }
-
-            public string StadiumCity { get; set; }
-
-            public int StadiumId { get; set; }
-
-            public string ScoreHome { get; set; }
-
-            public int? ScorePenaltyHome { get; set; }
-
-            public string ScoreAway { get; set; }
-
-            public int? ScorePenaltyAway { get; set; }
-
-            public int SeasonId { get; set; }
-
-            public string SeasonName { get; set; }
-
-            public string ReportUrl { get; set; }
-
-            public string PhotoUrl { get; set; }
-
-            public string VideoUrl { get; set; }
-
-            public int? PreviewId { get; set; }
-
-            public int? ReportId { get; set; }
-
-            public int CommentCount { get; set; }
+            var matchesForMonth = matches.Where(x => x.DateTime.Month == monthCount);
+            return new SeasonCalendarMonthDto
+            {
+                Name = name,
+                Matches = matchesForMonth,
+                Collapsed = matchesForMonth.All(x => x.DateTime < DateTimeOffset.UtcNow)
+            };
         }
+    }
+
+
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
+
+        public int StartSeasonYear { get; set; }
+
+        public int EndSeasonYear => StartSeasonYear + 1;
+
+        public List<SeasonCalendarMonthDto> Months = new();
+    }
+
+    [Serializable]
+    public class SeasonCalendarMonthDto
+    {
+        public string Name { get; set; }
+
+        public bool Collapsed { get; set; }
+
+        public IEnumerable<MatchCalendarDto> Matches { get; set; } = new HashSet<MatchCalendarDto>();
+    }
+
+    [Serializable]
+    public class MatchCalendarDto
+    {
+        public int Id { get; set; }
+
+        public bool IsHome { get; set; }
+
+        public int ClubId { get; set; }
+
+        public string ClubName { get; set; }
+
+        public int HomeClubId { get; set; }
+
+        public string HomeClubName { get; set; }
+
+        public string HomeClubLogo { get; set; }
+
+        public int AwayClubId { get; set; }
+
+        public string AwayClubName { get; set; }
+
+        public string AwayClubLogo { get; set; }
+
+        public DateTimeOffset DateTime { get; set; }
+
+        public int TypeId { get; set; }
+
+        public string TypeName { get; set; }
+
+        public string StadiumName { get; set; }
+
+        public string StadiumCity { get; set; }
+
+        public int StadiumId { get; set; }
+
+        public string ScoreHome { get; set; }
+
+        public int? ScorePenaltyHome { get; set; }
+
+        public string ScoreAway { get; set; }
+
+        public int? ScorePenaltyAway { get; set; }
+
+        public int SeasonId { get; set; }
+
+        public string SeasonName { get; set; }
+
+        public string ReportUrl { get; set; }
+
+        public string PhotoUrl { get; set; }
+
+        public string VideoUrl { get; set; }
+
+        public int? PreviewId { get; set; }
+
+        public int? ReportId { get; set; }
+
+        public int CommentCount { get; set; }
     }
 }

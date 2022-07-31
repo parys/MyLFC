@@ -4,34 +4,33 @@ using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Features.Persons.UpdatePersonCommand
+namespace MyLfc.Application.Tests.Features.Persons.UpdatePersonCommand;
+
+[CollectionDefinition(nameof(UpdatePersonCommandCollection))]
+public class UpdatePersonCommandCollection : ICollectionFixture<UpdatePersonCommandTestFixture>
 {
-    [CollectionDefinition(nameof(UpdatePersonCommandCollection))]
-    public class UpdatePersonCommandCollection : ICollectionFixture<UpdatePersonCommandTestFixture>
+}
+
+public class UpdatePersonCommandTestFixture : BaseTestFixture
+{
+    public static int PersonId;
+
+    public UpdatePersonCommandTestFixture()
     {
+        SeedPersons();
     }
 
-    public class UpdatePersonCommandTestFixture : BaseTestFixture
+    private void SeedPersons()
     {
-        public static int PersonId;
+        var person = new Fixture()
+            .Customize(new PersonCustomization())
+            .Create<Person>();
+        person.Photo = null;
 
-        public UpdatePersonCommandTestFixture()
-        {
-            SeedPersons();
-        }
+        Context.Persons.Add(person);
 
-        private void SeedPersons()
-        {
-            var person = new Fixture()
-                .Customize(new PersonCustomization())
-                .Create<Person>();
-            person.Photo = null;
+        Context.SaveChanges();
 
-            Context.Persons.Add(person);
-
-            Context.SaveChanges();
-
-            PersonId = person.Id;
-        }
+        PersonId = person.Id;
     }
 }

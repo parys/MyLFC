@@ -8,58 +8,57 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries.Queries
+namespace MyLfc.Application.Injuries.Queries;
+
+public class GetInjuryDetailQuery
 {
-    public class GetInjuryDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var injury = await _context.Injuries.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (injury == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Injury), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var injury = await _context.Injuries.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (injury == null)
-                {
-                    throw new NotFoundException(nameof(Injury), request.Id);
-                }
-
-                return injury;
-            }
+            return injury;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-            public string PersonName { get; set; }
+        public string PersonName { get; set; }
 
-            public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
 
-            public DateTimeOffset? EndTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
 
-            public string Description { get; set; }
-        }
+        public string Description { get; set; }
     }
 }

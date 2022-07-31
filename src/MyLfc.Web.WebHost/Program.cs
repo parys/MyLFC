@@ -6,40 +6,39 @@ using Microsoft.Extensions.Hosting;
 using MyLfc.Web.WebHost.BackgroundServices;
 using Serilog;
 
-namespace MyLfc.Web.WebHost
+namespace MyLfc.Web.WebHost;
+
+/// <summary>
+/// Runs kestrel
+/// </summary>
+public class Program
 {
     /// <summary>
-    /// Runs kestrel
+    /// Main method.
     /// </summary>
-    public class Program
+    /// <param name="args">Console arguments.</param>
+    public static void Main(string[] args)
     {
-        /// <summary>
-        /// Main method.
-        /// </summary>
-        /// <param name="args">Console arguments.</param>
-        public static void Main(string[] args)
-        {
-            var builtConfig = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .Build();
-            
-            var host = Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddConfiguration(builtConfig);
-                })
-                .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureServices(services =>
-                {
-                    services.AddHostedService<CleanExpiredTokensService>();
-                })
-                .Build();
+        var builtConfig = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .Build();
+        
+        var host = Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddConfiguration(builtConfig);
+            })
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            })
+            .ConfigureServices(services =>
+            {
+                services.AddHostedService<CleanExpiredTokensService>();
+            })
+            .Build();
 
-            host.Run();
-        }
+        host.Run();
     }
 }

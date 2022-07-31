@@ -8,53 +8,52 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Users
+namespace MyLfc.Application.Users;
+
+public class GetUserRolesQuery
 {
-    public class GetUserRolesQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly UserManager<FullUser> _userManager;
+
+        private readonly RequestContext _requestContext;
+
+        public Handler(RequestContext requestContext, UserManager<FullUser> userManager)
         {
+            _requestContext = requestContext;
+            _userManager = userManager;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly UserManager<FullUser> _userManager;
-
-            private readonly RequestContext _requestContext;
-
-            public Handler(RequestContext requestContext, UserManager<FullUser> userManager)
+            var user = await _userManager.FindByIdAsync(_requestContext.UserId.ToString());
+            if (user == null)
             {
-                _requestContext = requestContext;
-                _userManager = userManager;
+                throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            var roles = await _userManager.GetRolesAsync(user);
+            return new Response
             {
-                var user = await _userManager.FindByIdAsync(_requestContext.UserId.ToString());
-                if (user == null)
-                {
-                    throw new NotFoundException(nameof(FullUser), _requestContext.UserId);
-                }
-
-                var roles = await _userManager.GetRolesAsync(user);
-                return new Response
-                {
-                    UserId = _requestContext.UserId.Value,
-                    UserName = _requestContext.User.Claims.First(x => x.Type == "name").Value,
-                    Roles = roles
-                };
-            }
+                UserId = _requestContext.UserId.Value,
+                UserName = _requestContext.User.Claims.First(x => x.Type == "name").Value,
+                Roles = roles
+            };
         }
+    }
 
 
-        public class Response
-        {
-            public int UserId { get; set; }
+    public class Response
+    {
+        public int UserId { get; set; }
 
-            public string UserName { get; set; }
+        public string UserName { get; set; }
 
-            public IList<string> Roles { get; set; }
-        }
+        public IList<string> Roles { get; set; }
     }
 }

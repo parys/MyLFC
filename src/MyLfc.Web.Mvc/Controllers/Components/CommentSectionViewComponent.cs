@@ -3,27 +3,26 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Comments.Queries;
 
-namespace MyLfc.Web.Mvc.Controllers.Components
+namespace MyLfc.Web.Mvc.Controllers.Components;
+
+[ViewComponent(Name = "CommentSection")]
+public class CommentSectionViewComponent : ViewComponent
 {
-    [ViewComponent(Name = "CommentSection")]
-    public class CommentSectionViewComponent : ViewComponent
+    private readonly IMediator _mediator;
+
+    public CommentSectionViewComponent(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public CommentSectionViewComponent(IMediator mediator)
+    public async Task<IViewComponentResult> InvokeAsync(int? materialId = null, int? matchId = null)
+    {
+        var request = new GetCommentListByEntityIdQuery.Request
         {
-            _mediator = mediator;
-        }
+            MaterialId = materialId,
+            MatchId = matchId
+        };
 
-        public async Task<IViewComponentResult> InvokeAsync(int? materialId = null, int? matchId = null)
-        {
-            var request = new GetCommentListByEntityIdQuery.Request
-            {
-                MaterialId = materialId,
-                MatchId = matchId
-            };
-
-            return View(await _mediator.Send(request));
-        }
+        return View(await _mediator.Send(request));
     }
 }

@@ -2,15 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyLfc.Domain;
 
-namespace MyLfc.Persistence.Configurations
-{
-    public class MaterialCategoryConfiguration : IEntityTypeConfiguration<MaterialCategory>
-    {
-        public void Configure(EntityTypeBuilder<MaterialCategory> builder)
-        {
-            builder.ToTable("MaterialCategories");
+namespace MyLfc.Persistence.Configurations;
 
-            builder.Property(x => x.Name).HasMaxLength(100);
-        }
+public class MaterialCategoryConfiguration : IEntityTypeConfiguration<MaterialCategory>
+{
+    public void Configure(EntityTypeBuilder<MaterialCategory> builder)
+    {
+        builder.ToTable("MaterialCategories");
+
+        builder.Property(x => x.Name).HasMaxLength(100);
     }
 }

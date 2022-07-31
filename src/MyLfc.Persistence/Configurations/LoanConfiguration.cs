@@ -2,22 +2,21 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyLfc.Domain;
 
-namespace MyLfc.Persistence.Configurations
+namespace MyLfc.Persistence.Configurations;
+
+public class LoanConfiguration : IEntityTypeConfiguration<Loan>
 {
-    public class LoanConfiguration : IEntityTypeConfiguration<Loan>
+    public void Configure(EntityTypeBuilder<Loan> builder)
     {
-        public void Configure(EntityTypeBuilder<Loan> builder)
-        {
-            builder.ToTable("Loans");
+        builder.ToTable("Loans");
 
-            builder.HasOne(x => x.Person)
-                .WithMany(x => x.Loans)
-                .HasForeignKey(x => x.PersonId);
+        builder.HasOne(x => x.Person)
+            .WithMany(x => x.Loans)
+            .HasForeignKey(x => x.PersonId);
 
-            builder.HasOne(x => x.Club)
-                .WithMany(x => x.Loans)
-                .HasForeignKey(x => x.ClubId);
+        builder.HasOne(x => x.Club)
+            .WithMany(x => x.Loans)
+            .HasForeignKey(x => x.ClubId);
 
-        }
     }
 }

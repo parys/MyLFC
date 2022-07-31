@@ -1,13 +1,12 @@
-﻿namespace MyLfc.Data.Common
+﻿namespace MyLfc.Data.Common;
+
+/// <summary>
+/// Comment types, should be plural for angular routing.
+/// </summary>
+public enum CommentType
 {
-    /// <summary>
-    /// Comment types, should be plural for angular routing.
-    /// </summary>
-    public enum CommentType
-    {
-        News = 1,
-        Blogs = 2,
-        Matches = 3,
-        Poll = 4,
-    }
+    News = 1,
+    Blogs = 2,
+    Matches = 3,
+    Poll = 4,
 }

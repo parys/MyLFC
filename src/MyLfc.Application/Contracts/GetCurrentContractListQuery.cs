@@ -10,101 +10,100 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Contracts
+namespace MyLfc.Application.Contracts;
+
+public class GetCurrentContractListQuery
 {
-    public class GetCurrentContractListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var contracts = _context.Contracts.AsNoTracking()
+                .Where(x => x.StartDate <= DateTimeOffset.UtcNow && DateTimeOffset.UtcNow <= x.EndDate);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (!string.IsNullOrWhiteSpace(request.SortOn) && !string.IsNullOrWhiteSpace(request.SortDirection))
             {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var contracts = _context.Contracts.AsNoTracking()
-                    .Where(x => x.StartDate <= DateTimeOffset.UtcNow && DateTimeOffset.UtcNow <= x.EndDate);
-
-                if (!string.IsNullOrWhiteSpace(request.SortOn) && !string.IsNullOrWhiteSpace(request.SortDirection))
+                if (request.SortOn.Contains("PersonName", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (request.SortOn.Contains("PersonName", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        contracts = request.SortDirection.ToLower() == "asc"
-                            ? contracts.OrderBy(x => x.Person.LastName)
-                            : contracts.OrderByDescending(x => x.Person.LastName);
-                        request.SortOn = null;
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.StartDate),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.StartDate);
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.EndDate),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.EndDate);
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.Salary),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.Salary);
-                    }
-                    else if (request.SortOn.Contains("Age", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        contracts = request.SortDirection.ToLower() == "desc"
-                            ? contracts.OrderBy(x => x.Person.Birthday)
-                            : contracts.OrderByDescending(x => x.Person.Birthday);
-                        request.SortOn = null;
-                    }
-                    else
-                    {
-                        contracts = contracts.OrderByDescending(x => x.Id);
-                    }
-
+                    contracts = request.SortDirection.ToLower() == "asc"
+                        ? contracts.OrderBy(x => x.Person.LastName)
+                        : contracts.OrderByDescending(x => x.Person.LastName);
+                    request.SortOn = null;
+                }
+                else if (request.SortOn.Contains(nameof(Contract.StartDate),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.StartDate);
+                }
+                else if (request.SortOn.Contains(nameof(Contract.EndDate),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.EndDate);
+                }
+                else if (request.SortOn.Contains(nameof(Contract.Salary),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.Salary);
+                }
+                else if (request.SortOn.Contains("Age", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    contracts = request.SortDirection.ToLower() == "desc"
+                        ? contracts.OrderBy(x => x.Person.Birthday)
+                        : contracts.OrderByDescending(x => x.Person.Birthday);
+                    request.SortOn = null;
+                }
+                else
+                {
+                    contracts = contracts.OrderByDescending(x => x.Id);
                 }
 
-                return new Response
-                {
-                    Results = await contracts.GetQueryableAsync<Contract, CurrentContractListDto>(request, _mapper)
-                };
-
             }
+
+            return new Response
+            {
+                Results = await contracts.GetQueryableAsync<Contract, CurrentContractListDto>(request, _mapper)
+            };
+
         }
+    }
 
-        [Serializable]
-        public class Response
-        {
-            public List<CurrentContractListDto> Results = new();
-        }
+    [Serializable]
+    public class Response
+    {
+        public List<CurrentContractListDto> Results = new();
+    }
 
 
-        [Serializable]
-        public class CurrentContractListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class CurrentContractListDto
+    {
+        public int Id { get; set; }
 
-            public int Salary { get; set; }
+        public int Salary { get; set; }
 
-            public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-            public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-            public DateTimeOffset EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
-            public string PersonName { get; set; }
+        public string PersonName { get; set; }
 
-            public int Age { get; set; }
-        }
+        public int Age { get; set; }
     }
 }

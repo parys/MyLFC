@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace MyLfc.Business.Services.Helpers
+namespace MyLfc.Business.Services.Helpers;
+
+public static class UserMessageHelpers
 {
-    public static class UserMessageHelpers
+    private static readonly List<Regex> Regexes = new();
+
+    static UserMessageHelpers()
     {
-        private static readonly List<Regex> Regexes = new();
+        Regexes.Add(new Regex("[нахуй|хуй|блять|бля|пизда|пиздец|охуеть|сука|сучара|гнида|мудак|нахер|хер|мудень|мудло|]", RegexOptions.Compiled));
+    }
 
-        static UserMessageHelpers()
+    public static string SanitizeCommentByRudeWords(this string message)
+    {
+        foreach (var regex in Regexes)
         {
-            Regexes.Add(new Regex("[нахуй|хуй|блять|бля|пизда|пиздец|охуеть|сука|сучара|гнида|мудак|нахер|хер|мудень|мудло|]", RegexOptions.Compiled));
+            message = regex.Replace(message, "");
         }
-
-        public static string SanitizeCommentByRudeWords(this string message)
-        {
-            foreach (var regex in Regexes)
-            {
-                message = regex.Replace(message, "");
-            }
-            return message;
-        }
+        return message;
     }
 }

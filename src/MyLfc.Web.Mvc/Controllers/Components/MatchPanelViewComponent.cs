@@ -7,30 +7,29 @@ using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.Mvc.Controllers.Components
+namespace MyLfc.Web.Mvc.Controllers.Components;
+
+public class MatchPanelViewComponent : ViewComponent
 {
-    public class MatchPanelViewComponent : ViewComponent
+    private readonly IMediator _mediator;
+    private readonly IDistributedCacheManager _cacheManager;
+
+    public MatchPanelViewComponent(IDistributedCacheManager cache, IMediator mediator)
     {
-        private readonly IMediator _mediator;
-        private readonly IDistributedCacheManager _cacheManager;
+        _cacheManager = cache;
+        _mediator = mediator;
+    }
 
-        public MatchPanelViewComponent(IDistributedCacheManager cache, IMediator mediator)
+    public async Task<IViewComponentResult> InvokeAsync()
+    {
+        var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+        async () => (await _mediator.Send(new GetEntityQuery.Request { Type = HelperEntityType.HeaderMatch })).Value);
+
+        if (!string.IsNullOrWhiteSpace(helpEntity))
         {
-            _cacheManager = cache;
-            _mediator = mediator;
+            var result = await _mediator.Send(new GetMatchHeaderQuery.Request {Id = int.Parse(helpEntity)});
+            return View(result);
         }
-
-        public async Task<IViewComponentResult> InvokeAsync()
-        {
-            var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-            async () => (await _mediator.Send(new GetEntityQuery.Request { Type = HelperEntityType.HeaderMatch })).Value);
-
-            if (!string.IsNullOrWhiteSpace(helpEntity))
-            {
-                var result = await _mediator.Send(new GetMatchHeaderQuery.Request {Id = int.Parse(helpEntity)});
-                return View(result);
-            }
-            return View(null as GetMatchHeaderQuery.Response);
-        }
+        return View(null as GetMatchHeaderQuery.Response);
     }
 }

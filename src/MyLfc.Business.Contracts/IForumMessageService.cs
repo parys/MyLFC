@@ -2,14 +2,13 @@
 using MyLfc.Business.Dto;
 using MyLfc.Business.Dto.Forums;
 
-namespace MyLfc.Business.Contracts
+namespace MyLfc.Business.Contracts;
+
+public interface IForumMessageService
 {
-    public interface IForumMessageService
-    {
-        Task<ForumMessageDto> CreateAsync(ForumMessageDto dto);
+    Task<ForumMessageDto> CreateAsync(ForumMessageDto dto);
 
-        Task<ForumMessageDto> UpdateAsync(ForumMessageDto dto);
+    Task<ForumMessageDto> UpdateAsync(ForumMessageDto dto);
 
-        Task<bool> DeleteAsync(int id);
-    }
+    Task<bool> DeleteAsync(int id);
 }

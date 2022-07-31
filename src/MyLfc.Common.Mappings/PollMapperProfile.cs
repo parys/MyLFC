@@ -2,27 +2,26 @@
 using MyLfc.Domain.Polls;
 using MyLfc.Business.Dto.Polls;
 
-namespace MyLfc.Common.Mappings
+namespace MyLfc.Common.Mappings;
+
+public class PollMapperProfile : Profile
 {
-    public class PollMapperProfile : Profile
+    public PollMapperProfile()
     {
-        public PollMapperProfile()
-        {
-            MapPoll();
-            MapPollAnswer();
-        }
+        MapPoll();
+        MapPollAnswer();
+    }
 
-        private void MapPoll()
-        {
-            CreateMap<Poll, PollDto>();
-            CreateMap<PollDto, Poll>();
-        }
+    private void MapPoll()
+    {
+        CreateMap<Poll, PollDto>();
+        CreateMap<PollDto, Poll>();
+    }
 
-        private void MapPollAnswer()
-        {
-            CreateMap<PollAnswer, PollAnswerDto>();
-             //   .ForMember(dst => dst.Value, src => );
-            CreateMap<PollAnswerDto, PollAnswer>();
-        }
+    private void MapPollAnswer()
+    {
+        CreateMap<PollAnswer, PollAnswerDto>();
+         //   .ForMember(dst => dst.Value, src => );
+        CreateMap<PollAnswerDto, PollAnswer>();
     }
 }

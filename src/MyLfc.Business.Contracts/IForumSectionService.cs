@@ -2,18 +2,17 @@
 using System.Threading.Tasks;
 using MyLfc.Business.Dto.Forums;
 
-namespace MyLfc.Business.Contracts
+namespace MyLfc.Business.Contracts;
+
+public interface IForumSectionService
 {
-    public interface IForumSectionService
-    {
-        Task<ForumSectionDto> CreateAsync(string name);
+    Task<ForumSectionDto> CreateAsync(string name);
 
-        Task<bool> DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id);
 
-     //   Task<ForumDto> GetValueAsync();
+ //   Task<ForumDto> GetValueAsync();
 
-        Task<ForumSectionDto> GetAsync(int id);
+    Task<ForumSectionDto> GetAsync(int id);
 
-        Task<IEnumerable<ForumSectionDto>> GetListAsync(bool isAdmin);
-    }
+    Task<IEnumerable<ForumSectionDto>> GetListAsync(bool isAdmin);
 }

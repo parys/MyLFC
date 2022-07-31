@@ -11,106 +11,105 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Persons
+namespace MyLfc.Application.Persons;
+
+public class GetSquadListQuery
 {
-    public class GetSquadListQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public PersonType Type { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public PersonType Type { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            Expression<Func<Person, bool>> filter = x => true;
+            if (request.Type == PersonType.Loan)
             {
-                _context = context;
-                _mapper = mapper;
+                filter = x => x.Transfers.Any(y => y.OnLoan && !y.Coming && y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
             }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            else if (request.Type == PersonType.First)
             {
-                Expression<Func<Person, bool>> filter = x => true;
-                if (request.Type == PersonType.Loan)
-                {
-                    filter = x => x.Transfers.Any(y => y.OnLoan && !y.Coming && y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
-                }
-                else if (request.Type == PersonType.First)
-                {
-                    filter = x => x.Type == PersonType.First &&
-                                  !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
-                                                        y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
-                }
-                else if (request.Type == PersonType.Academy)
-                {
-                    filter = x => x.Type == PersonType.Academy &&
-                                  !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
-                                                        y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
-                }
-                var squadList = await _context.Persons.AsNoTracking()
-                    .Where(filter)
-                    .ProjectTo<SquadPersonDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-                var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
-                var defenders = squadList.Where(x => x.Position == "Защитник");
-                var midfielders = squadList.Where(x => x.Position == "Полузащитник");
-                var strikers = squadList.Where(x => x.Position == "Форвард");
-                return new Response
-                {
-                    Goalkeepers = goalkeepers.OrderBy(x => x.Number),
-                    Defenders = defenders.OrderBy(x => x.Number),
-                    Midfielders = midfielders.OrderBy(x => x.Number),
-                    Strikers = strikers.OrderBy(x => x.Number)
-                };
+                filter = x => x.Type == PersonType.First &&
+                              !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
+                                                    y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
             }
+            else if (request.Type == PersonType.Academy)
+            {
+                filter = x => x.Type == PersonType.Academy &&
+                              !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
+                                                    y.FinishDate.Value.Date >= DateTimeOffset.UtcNow.Date);
+            }
+            var squadList = await _context.Persons.AsNoTracking()
+                .Where(filter)
+                .ProjectTo<SquadPersonDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+            var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
+            var defenders = squadList.Where(x => x.Position == "Защитник");
+            var midfielders = squadList.Where(x => x.Position == "Полузащитник");
+            var strikers = squadList.Where(x => x.Position == "Форвард");
+            return new Response
+            {
+                Goalkeepers = goalkeepers.OrderBy(x => x.Number),
+                Defenders = defenders.OrderBy(x => x.Number),
+                Midfielders = midfielders.OrderBy(x => x.Number),
+                Strikers = strikers.OrderBy(x => x.Number)
+            };
         }
+    }
 
-        public class Response
-        {
-            public IEnumerable<SquadPersonDto> Goalkeepers;
-            public IEnumerable<SquadPersonDto> Defenders;
-            public IEnumerable<SquadPersonDto> Midfielders;
-            public IEnumerable<SquadPersonDto> Strikers;
-        }
+    public class Response
+    {
+        public IEnumerable<SquadPersonDto> Goalkeepers;
+        public IEnumerable<SquadPersonDto> Defenders;
+        public IEnumerable<SquadPersonDto> Midfielders;
+        public IEnumerable<SquadPersonDto> Strikers;
+    }
 
-        /// <summary>
-        /// todo look at all props
-        /// </summary>
-        public class SquadPersonDto
-        {
-            public int Id { get; set; }
+    /// <summary>
+    /// todo look at all props
+    /// </summary>
+    public class SquadPersonDto
+    {
+        public int Id { get; set; }
 
-            public string FirstName { get; set; }
+        public string FirstName { get; set; }
 
-            public string FirstRussianName { get; set; }
+        public string FirstRussianName { get; set; }
 
-            public string LastName { get; set; }
+        public string LastName { get; set; }
 
-            public string LastRussianName { get; set; }
+        public string LastRussianName { get; set; }
 
-            public string Nickname { get; set; }
+        public string Nickname { get; set; }
 
-            public PersonType Type { get; set; }
+        public PersonType Type { get; set; }
 
-            public string TypeName { get; set; }
+        public string TypeName { get; set; }
 
-            public string Position { get; set; }
+        public string Position { get; set; }
 
-            public byte? Number { get; set; }
+        public byte? Number { get; set; }
 
-            public string Country { get; set; }
+        public string Country { get; set; }
 
-            public DateTimeOffset? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
-            public string Photo { get; set; }
+        public string Photo { get; set; }
 
-            public string Name => $"{FirstName} {LastName}";
-            public string RussianName => $"{FirstRussianName} {LastRussianName}";
-        }
+        public string Name => $"{FirstName} {LastName}";
+        public string RussianName => $"{FirstRussianName} {LastRussianName}";
     }
 }

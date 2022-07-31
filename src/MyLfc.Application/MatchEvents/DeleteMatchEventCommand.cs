@@ -6,53 +6,52 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Matches.Queries;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.MatchEvents
+namespace MyLfc.Application.MatchEvents;
+
+public class DeleteMatchEventCommand
 {
-    public class DeleteMatchEventCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMediator _mediator;
+        
+        public Handler(ILiverpoolContext context, IMediator mediator)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mediator = mediator;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMediator _mediator;
+            var matchEvent = await _context.MatchEvents
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             
-            public Handler(ILiverpoolContext context, IMediator mediator)
+            if (matchEvent == null)
             {
-                _context = context;
-                _mediator = mediator;
+                throw new NotFoundException(nameof(MatchEvent), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var matchEvent = await _context.MatchEvents
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (matchEvent == null)
-                {
-                    throw new NotFoundException(nameof(MatchEvent), request.Id);
-                }
+            _context.MatchEvents.Remove(matchEvent);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.MatchEvents.Remove(matchEvent);
-                await _context.SaveChangesAsync(cancellationToken);
+            var match = await _mediator.Send(new GetMatchDetailQuery.Request { Id = matchEvent.MatchId }, cancellationToken);
 
-                var match = await _mediator.Send(new GetMatchDetailQuery.Request { Id = matchEvent.MatchId }, cancellationToken);
-
-                return new Response
-                    {MatchEvent = new UpsertMatchEventCommand.Response {Id = matchEvent.Id}, Match = match};
-            }
+            return new Response
+                {MatchEvent = new UpsertMatchEventCommand.Response {Id = matchEvent.Id}, Match = match};
         }
+    }
 
 
-        public class Response
-        {
-            public UpsertMatchEventCommand.Response MatchEvent { get; set; }
-            public GetMatchDetailQuery.Response Match { get; set; }
-        }
+    public class Response
+    {
+        public UpsertMatchEventCommand.Response MatchEvent { get; set; }
+        public GetMatchDetailQuery.Response Match { get; set; }
     }
 }

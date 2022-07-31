@@ -4,55 +4,54 @@ using AutoMapper;
 using MediatR;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Stadiums
+namespace MyLfc.Application.Stadiums;
+
+public class CreateStadiumCommand
 {
-    public class CreateStadiumCommand
+    public class Request : UpsertStadiumCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertStadiumCommand.Request, IRequest<Response>
+    }
+
+
+    public class Validator : UpsertStadiumCommand.Validator<Request>
+    {
+        public Validator()
         {
         }
+    }
 
 
-        public class Validator : UpsertStadiumCommand.Validator<Request>
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public Validator()
-            {
-            }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var entity = _mapper.Map<Stadium>(request);
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
+            _context.Stadiums.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity = _mapper.Map<Stadium>(request);
+            return new Response(entity.Id);
+        }
+    }
 
-                _context.Stadiums.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response(entity.Id);
-            }
+    public class Response
+    {
+        public Response(int id)
+        {
+            Id = id;
         }
 
-
-        public class Response
-        {
-            public Response(int id)
-            {
-                Id = id;
-            }
-
-            public int Id { get; set; }
-        }
+        public int Id { get; set; }
     }
 }

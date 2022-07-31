@@ -2,16 +2,15 @@
 using MyLfc.Business.Dto;
 using MyLfc.Business.Dto.Forums;
 
-namespace MyLfc.Business.Contracts
+namespace MyLfc.Business.Contracts;
+
+public interface IForumThemeService
 {
-    public interface IForumThemeService
-    {
-        Task<ForumThemeDto> GetAsync(int id, int page);
+    Task<ForumThemeDto> GetAsync(int id, int page);
 
-        Task<ForumThemeDto> GetAsync(int id);
+    Task<ForumThemeDto> GetAsync(int id);
 
-        Task<ForumThemeDto> CreateAsync(ForumThemeDto dto);
+    Task<ForumThemeDto> CreateAsync(ForumThemeDto dto);
 
-        Task<ForumThemeDto> UpdateAsync(ForumThemeDto dto);
-    }
+    Task<ForumThemeDto> UpdateAsync(ForumThemeDto dto);
 }

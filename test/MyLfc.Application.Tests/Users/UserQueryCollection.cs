@@ -9,97 +9,96 @@ using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Users
+namespace MyLfc.Application.Tests.Users;
+
+[CollectionDefinition(nameof(UserQueryCollection))]
+public class UserQueryCollection : ICollectionFixture<UserQueryTestFixture> { }
+
+
+public class UserQueryTestFixture : BaseTestFixture
 {
-    [CollectionDefinition(nameof(UserQueryCollection))]
-    public class UserQueryCollection : ICollectionFixture<UserQueryTestFixture> { }
+    public static int UserId => Users[0].Id;
+
+    public static int MaterialCategoryId => MaterialCategories[0].Id;
+
+    public static int MaterialWithComments => Materials[1].Id;
+
+    public static List<FullUser> Users { get; private set; }
+
+    public static List<Material> Materials { get; private set; }
+
+    public static List<MaterialCategory> MaterialCategories { get; private set; }
+    public static List<Comment> Comments { get; private set; }
 
 
-    public class UserQueryTestFixture : BaseTestFixture
+    public UserQueryTestFixture()
     {
-        public static int UserId => Users[0].Id;
+        RoleGroupsSeeder.Seed(Context);
+        SeedUsers();
+        SeedMaterialCategories();
+        SeedMaterials();
+        SeedComments();
+    }
 
-        public static int MaterialCategoryId => MaterialCategories[0].Id;
+    private void SeedUsers()
+    {
+        var users = new Fixture()
+            .Customize(new UserCustomization())
+            .CreateMany<FullUser>(5).Select(x =>
+            {
+                x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;
+                return x;
+            }).ToList();
 
-        public static int MaterialWithComments => Materials[1].Id;
+        users.ForEach(x => x.Birthday = DateTimeOffset.UtcNow.AddDays(1));
+        users[0].Birthday = DateTimeOffset.UtcNow;
+        users[0].LastModified = DateTimeOffset.UtcNow;
 
-        public static List<FullUser> Users { get; private set; }
+        Context.Users.AddRange(users);
+        Context.SaveChanges();
 
-        public static List<Material> Materials { get; private set; }
+        Users = users;
+    }
 
-        public static List<MaterialCategory> MaterialCategories { get; private set; }
-        public static List<Comment> Comments { get; private set; }
+    private void SeedMaterials()
+    {
+        var materials = new Fixture()
+            .Customize(new MaterialCustomization(MaterialType.News))
+            .CreateMany<Material>(50).ToList();
 
+        materials.ForEach(x => x.AuthorId = UserId);
+        materials.ForEach(x => x.CategoryId = MaterialCategoryId);
 
-        public UserQueryTestFixture()
-        {
-            RoleGroupsSeeder.Seed(Context);
-            SeedUsers();
-            SeedMaterialCategories();
-            SeedMaterials();
-            SeedComments();
-        }
+        Context.Materials.AddRange(materials);
+        Context.SaveChanges();
 
-        private void SeedUsers()
-        {
-            var users = new Fixture()
-                .Customize(new UserCustomization())
-                .CreateMany<FullUser>(5).Select(x =>
-                {
-                    x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;
-                    return x;
-                }).ToList();
+        Materials = materials;
+    }
 
-            users.ForEach(x => x.Birthday = DateTimeOffset.UtcNow.AddDays(1));
-            users[0].Birthday = DateTimeOffset.UtcNow;
-            users[0].LastModified = DateTimeOffset.UtcNow;
+    private void SeedMaterialCategories()
+    {
+        var materialCategories = new Fixture()
+            .Customize(new MaterialCategoryCustomization(MaterialType.News, 100))
+            .CreateMany<MaterialCategory>(3).ToList();
 
-            Context.Users.AddRange(users);
-            Context.SaveChanges();
+        Context.MaterialCategories.AddRange(materialCategories);
+        Context.SaveChanges();
 
-            Users = users;
-        }
+        MaterialCategories = materialCategories;
+    }
 
-        private void SeedMaterials()
-        {
-            var materials = new Fixture()
-                .Customize(new MaterialCustomization(MaterialType.News))
-                .CreateMany<Material>(50).ToList();
+    private void SeedComments()
+    {
+        var comments = new Fixture()
+            .Customize(new CommentCustomization())
+            .CreateMany<Comment>(3).ToList();
 
-            materials.ForEach(x => x.AuthorId = UserId);
-            materials.ForEach(x => x.CategoryId = MaterialCategoryId);
+        comments.ForEach(x => x.MaterialId = MaterialWithComments);
+        comments.ForEach(x => x.AuthorId = UserId);
+        comments.ForEach(x => x.Type = CommentType.News);
+        Context.MaterialComments.AddRange(comments);
+        Context.SaveChanges();
 
-            Context.Materials.AddRange(materials);
-            Context.SaveChanges();
-
-            Materials = materials;
-        }
-
-        private void SeedMaterialCategories()
-        {
-            var materialCategories = new Fixture()
-                .Customize(new MaterialCategoryCustomization(MaterialType.News, 100))
-                .CreateMany<MaterialCategory>(3).ToList();
-
-            Context.MaterialCategories.AddRange(materialCategories);
-            Context.SaveChanges();
-
-            MaterialCategories = materialCategories;
-        }
-
-        private void SeedComments()
-        {
-            var comments = new Fixture()
-                .Customize(new CommentCustomization())
-                .CreateMany<Comment>(3).ToList();
-
-            comments.ForEach(x => x.MaterialId = MaterialWithComments);
-            comments.ForEach(x => x.AuthorId = UserId);
-            comments.ForEach(x => x.Type = CommentType.News);
-            Context.MaterialComments.AddRange(comments);
-            Context.SaveChanges();
-
-            Comments = comments;
-        }
+        Comments = comments;
     }
 }

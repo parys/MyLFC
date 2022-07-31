@@ -5,30 +5,29 @@ using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand
+namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand;
+
+[CollectionDefinition(nameof(AddMaterialReadCommandCollection))]
+public class AddMaterialReadCommandCollection : ICollectionFixture<AddMaterialReadCommandTestFixture> { }
+
+public class AddMaterialReadCommandTestFixture : BaseTestFixture
 {
-    [CollectionDefinition(nameof(AddMaterialReadCommandCollection))]
-    public class AddMaterialReadCommandCollection : ICollectionFixture<AddMaterialReadCommandTestFixture> { }
+    public static int MaterialId { get; set; }
 
-    public class AddMaterialReadCommandTestFixture : BaseTestFixture
+    public AddMaterialReadCommandTestFixture()
     {
-        public static int MaterialId { get; set; }
+        SeedPendingMaterial();
+    }
 
-        public AddMaterialReadCommandTestFixture()
-        {
-            SeedPendingMaterial();
-        }
+    private void SeedPendingMaterial()
+    {
+        var material = new Fixture()
+            .Customize(new MaterialCustomization(MaterialType.News))
+            .Create<Material>();
 
-        private void SeedPendingMaterial()
-        {
-            var material = new Fixture()
-                .Customize(new MaterialCustomization(MaterialType.News))
-                .Create<Material>();
+        Context.Materials.Add(material);
+        Context.SaveChanges();
 
-            Context.Materials.Add(material);
-            Context.SaveChanges();
-
-            MaterialId = material.Id;
-        }
+        MaterialId = material.Id;
     }
 }

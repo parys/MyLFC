@@ -8,72 +8,71 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Transfers;
+
+public class GetTransferDetailQuery
 {
-    public class GetTransferDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var transfer = await _context.Transfers.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (transfer == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Transfer), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var transfer = await _context.Transfers.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (transfer == null)
-                {
-                    throw new NotFoundException(nameof(Transfer), request.Id);
-                }
-
-                return transfer;
-            }
+            return transfer;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public bool Coming { get; set; }
+        public bool Coming { get; set; }
 
-            public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-            public bool OnLoan { get; set; }
+        public bool OnLoan { get; set; }
 
-            public DateTimeOffset? FinishDate { get; set; }
+        public DateTimeOffset? FinishDate { get; set; }
 
-            public int? Amount { get; set; }
+        public int? Amount { get; set; }
 
-            public int? ClubId { get; set; }
+        public int? ClubId { get; set; }
 
-            public string ClubName { get; set; }
+        public string ClubName { get; set; }
 
-            public string ClubLogo { get; set; }
+        public string ClubLogo { get; set; }
 
-            public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-            public string PersonName { get; set; }
+        public string PersonName { get; set; }
 
-            public int? SeasonId { get; set; }
+        public int? SeasonId { get; set; }
 
-            public string SeasonName { get; set; }
-        }
+        public string SeasonName { get; set; }
     }
 }

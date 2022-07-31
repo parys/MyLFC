@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MyLfc.Web.Mvc.Controllers
+namespace MyLfc.Web.Mvc.Controllers;
+
+public class PersonsController : Controller
 {
-    public class PersonsController : Controller
+    public IActionResult Squad()
     {
-        public IActionResult Squad()
-        {
-            return View();
-        }
+        return View();
     }
 }

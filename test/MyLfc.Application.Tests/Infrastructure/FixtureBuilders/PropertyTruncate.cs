@@ -5,42 +5,41 @@ using AutoFixture;
 using AutoFixture.Kernel;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 
-namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders
+namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
+
+public class PropertyTruncate<TEntity> : ISpecimenBuilder
 {
-    public class PropertyTruncate<TEntity> : ISpecimenBuilder
+    private readonly int _length;
+
+    private readonly PropertyInfo _prop;
+
+    public PropertyTruncate(Expression<Func<TEntity, string>> getter, int length)
     {
-        private readonly int _length;
+        ThrowsIfInvalid(getter);
 
-        private readonly PropertyInfo _prop;
+        _length = length;
+        _prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+    }
 
-        public PropertyTruncate(Expression<Func<TEntity, string>> getter, int length)
+    public object Create(object request, ISpecimenContext context)
+    {
+        var pi = request as PropertyInfo;
+
+        if (pi != null && pi.AreEquivalent(_prop))
         {
-            ThrowsIfInvalid(getter);
-
-            _length = length;
-            _prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+            return context.Create<string>().Substring(0, _length);
         }
 
-        public object Create(object request, ISpecimenContext context)
+        return new NoSpecimen();
+    }
+
+    private static void ThrowsIfInvalid(Expression<Func<TEntity, string>> getter)
+    {
+        var prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+
+        if (prop.PropertyType != typeof(string))
         {
-            var pi = request as PropertyInfo;
-
-            if (pi != null && pi.AreEquivalent(_prop))
-            {
-                return context.Create<string>().Substring(0, _length);
-            }
-
-            return new NoSpecimen();
-        }
-
-        private static void ThrowsIfInvalid(Expression<Func<TEntity, string>> getter)
-        {
-            var prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
-
-            if (prop.PropertyType != typeof(string))
-            {
-                throw new NotSupportedException("Only supported for strings");
-            }
+            throw new NotSupportedException("Only supported for strings");
         }
     }
 }

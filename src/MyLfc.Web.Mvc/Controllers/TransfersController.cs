@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Transfers;
 
-namespace MyLfc.Web.Mvc.Controllers
+namespace MyLfc.Web.Mvc.Controllers;
+
+public class TransfersController : BaseController
 {
-    public class TransfersController : BaseController
+    public async Task<IActionResult> Current()
     {
-        public async Task<IActionResult> Current()
-        {
-            return View(await Mediator.Send(new GetCurrentTransferListQuery.Request()));
-        }
+        return View(await Mediator.Send(new GetCurrentTransferListQuery.Request()));
     }
 }

@@ -10,97 +10,96 @@ using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials.Queries
+namespace MyLfc.Application.Materials.Queries;
+
+public class GetMaterialListQuery
 {
-    public class GetMaterialListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public int? CategoryId { get; set; }
+
+        public int? UserId { get; set; }
+
+        public MaterialType MaterialType { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int? CategoryId { get; set; }
-
-            public int? UserId { get; set; }
-
-            public MaterialType MaterialType { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var materialsQuery = _context.Materials.AsNoTracking();
 
-            private readonly IMapper _mapper;
+            materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
 
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (request.CategoryId.HasValue)
             {
-                _context = context;
-                _mapper = mapper;
+                materialsQuery = materialsQuery.Where(x => x.CategoryId == request.CategoryId.Value);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            if (request.UserId.HasValue)
             {
-                var materialsQuery = _context.Materials.AsNoTracking();
-
-                materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
-
-                if (request.CategoryId.HasValue)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.CategoryId == request.CategoryId.Value);
-                }
-
-                if (request.UserId.HasValue)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.AuthorId == request.UserId.Value);
-                }
-
-                if (request.MaterialType != MaterialType.Both)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.Type == request.MaterialType);
-                }
-
-                return await materialsQuery.GetPagedAsync<Response, Material, MaterialListDto>(request, _mapper);
+                materialsQuery = materialsQuery.Where(x => x.AuthorId == request.UserId.Value);
             }
+
+            if (request.MaterialType != MaterialType.Both)
+            {
+                materialsQuery = materialsQuery.Where(x => x.Type == request.MaterialType);
+            }
+
+            return await materialsQuery.GetPagedAsync<Response, Material, MaterialListDto>(request, _mapper);
         }
+    }
 
 
-        [Serializable]
-        public class Response : PagedResult<MaterialListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<MaterialListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class MaterialListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class MaterialListDto
+    {
+        public int Id { get; set; }
 
-            public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-            public string CategoryName { get; set; }
+        public string CategoryName { get; set; }
 
-            public bool CanCommentary { get; set; }
+        public bool CanCommentary { get; set; }
 
-            public bool Pending { get; set; }
+        public bool Pending { get; set; }
 
-            public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
-            public int CommentsCount { get; set; }
+        public int CommentsCount { get; set; }
 
-            public string UserName { get; set; }
+        public string UserName { get; set; }
 
-            public int UserId { get; set; }
+        public int UserId { get; set; }
 
-            public string Title { get; set; }
+        public string Title { get; set; }
 
-            public string Brief { get; set; }
+        public string Brief { get; set; }
 
-            public int Reads { get; set; }
+        public int Reads { get; set; }
 
-            public string PhotoPreview { get; set; }
-            public string Photo { get; set; }
+        public string PhotoPreview { get; set; }
+        public string Photo { get; set; }
 
-            public MaterialType Type { get; set; }
+        public MaterialType Type { get; set; }
 
-            public string TypeName { get; set; }
-        }
+        public string TypeName { get; set; }
     }
 }

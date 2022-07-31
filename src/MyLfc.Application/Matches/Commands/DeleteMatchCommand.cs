@@ -5,45 +5,44 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches.Commands
+namespace MyLfc.Application.Matches.Commands;
+
+public class DeleteMatchCommand
 {
-    public class DeleteMatchCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var match = await _context.Matches
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            public Handler(ILiverpoolContext context)
+            if (match == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Match), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var match = await _context.Matches
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            _context.Matches.Remove(match);
 
-                if (match == null)
-                {
-                    throw new NotFoundException(nameof(Match), request.Id);
-                }
-
-                _context.Matches.Remove(match);
-
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response { Id = match.Id };
-            }
+            await _context.SaveChangesAsync(cancellationToken);
+            return new Response { Id = match.Id };
         }
+    }
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

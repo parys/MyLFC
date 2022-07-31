@@ -8,59 +8,58 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyLfc.Application.Injuries.Queries
+namespace MyLfc.Application.Injuries.Queries;
+
+public class GetCurrentInjuryListQuery
 {
-    public class GetCurrentInjuryListQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var injuries = await _context.Injuries.AsNoTracking()
+                .Where(x => !x.EndTime.HasValue)
+                .OrderByDescending(i => i.StartTime)
+                .ProjectTo<InjuryListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            return new Response
             {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var injuries = await _context.Injuries.AsNoTracking()
-                    .Where(x => !x.EndTime.HasValue)
-                    .OrderByDescending(i => i.StartTime)
-                    .ProjectTo<InjuryListDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-
-                return new Response
-                {
-                    Results = injuries
-                };
-            }
+                Results = injuries
+            };
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public List<InjuryListDto> Results { get; set; } = new();
-        }
+    [Serializable]
+    public class Response
+    {
+        public List<InjuryListDto> Results { get; set; } = new();
+    }
 
-        [Serializable]
-        public class InjuryListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class InjuryListDto
+    {
+        public int Id { get; set; }
 
-            public string PersonName { get; set; }
+        public string PersonName { get; set; }
 
-            public string PersonPhoto { get; set; }
+        public string PersonPhoto { get; set; }
 
-            public string Description { get; set; }
-        }
+        public string Description { get; set; }
     }
 }

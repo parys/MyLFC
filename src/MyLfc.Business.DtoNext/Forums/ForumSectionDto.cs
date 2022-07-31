@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace MyLfc.Business.Dto.Forums
+namespace MyLfc.Business.Dto.Forums;
+
+public class ForumSectionDto : IDto
 {
-    public class ForumSectionDto : IDto
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public ICollection<ForumSubsectionMiniDto> Subsections { get; set; } = new HashSet<ForumSubsectionMiniDto>();
-    }
+    public ICollection<ForumSubsectionMiniDto> Subsections { get; set; } = new HashSet<ForumSubsectionMiniDto>();
 }

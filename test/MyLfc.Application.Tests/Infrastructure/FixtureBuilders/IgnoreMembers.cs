@@ -3,34 +3,33 @@ using System.Linq;
 using System.Reflection;
 using AutoFixture.Kernel;
 
-namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders
+namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
+
+public class IgnoreMembers : ISpecimenBuilder
 {
-    public class IgnoreMembers : ISpecimenBuilder
+
+    public IEnumerable<string> Members { get; }
+
+
+    public IgnoreMembers(IEnumerable<string> members)
     {
+        Members = members ?? new List<string>();
+    }
 
-        public IEnumerable<string> Members { get; }
+    public object Create(object request, ISpecimenContext context)
+    {
+        var propertyInfo = request as PropertyInfo;
 
-
-        public IgnoreMembers(IEnumerable<string> members)
+        if (propertyInfo == null)
         {
-            Members = members ?? new List<string>();
-        }
-
-        public object Create(object request, ISpecimenContext context)
-        {
-            var propertyInfo = request as PropertyInfo;
-
-            if (propertyInfo == null)
-            {
-                return new NoSpecimen();
-            }
-
-            if (Members.ToList().Contains(propertyInfo.Name))
-            {
-                return null;
-            }
-
             return new NoSpecimen();
         }
+
+        if (Members.ToList().Contains(propertyInfo.Name))
+        {
+            return null;
+        }
+
+        return new NoSpecimen();
     }
 }

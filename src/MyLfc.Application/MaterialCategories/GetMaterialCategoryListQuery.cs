@@ -10,60 +10,59 @@ using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.MaterialCategories
+namespace MyLfc.Application.MaterialCategories;
+
+public class GetMaterialCategoryListQuery
 {
-    public class GetMaterialCategoryListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public MaterialType MaterialType { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public MaterialType MaterialType { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            request.PageSize = 100; // right now need all, but maybe changed in future
+            var materialCategories = _context.MaterialCategories.AsNoTracking()
+                .Where(x => x.MaterialType == request.MaterialType);
+            request.SortDirection = "asc";
+            request.SortOn = nameof(MaterialCategory.Name);
 
-            private readonly IMapper _mapper;
             
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                request.PageSize = 100; // right now need all, but maybe changed in future
-                var materialCategories = _context.MaterialCategories.AsNoTracking()
-                    .Where(x => x.MaterialType == request.MaterialType);
-                request.SortDirection = "asc";
-                request.SortOn = nameof(MaterialCategory.Name);
-
-                
-                return await materialCategories.GetPagedAsync<Response, MaterialCategory, MaterialCategoryListDto>(request, _mapper);
-            }
+            return await materialCategories.GetPagedAsync<Response, MaterialCategory, MaterialCategoryListDto>(request, _mapper);
         }
+    }
 
 
-        [Serializable]
-        public class Response : PagedResult<MaterialCategoryListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<MaterialCategoryListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class MaterialCategoryListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class MaterialCategoryListDto
+    {
+        public int Id { get; set; }
 
-            public int ItemsCount { get; set; }
+        public int ItemsCount { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public string Description { get; set; }
+        public string Description { get; set; }
 
-            public MaterialType MaterialType { get; set; }
-        }
+        public MaterialType MaterialType { get; set; }
     }
 }

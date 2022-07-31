@@ -12,44 +12,43 @@ using Handler = MyLfc.Application.Pms.CreatePmCommand.Handler;
 using Request = MyLfc.Application.Pms.CreatePmCommand.Request;
 using Response = MyLfc.Application.Pms.CreatePmCommand.Response;
 
-namespace MyLfc.Application.Tests.Pms.CreatePmCommand
+namespace MyLfc.Application.Tests.Pms.CreatePmCommand;
+
+[Collection(nameof(CreatePmCommandCollection))]
+public class HandlerTests
 {
-    [Collection(nameof(CreatePmCommandCollection))]
-    public class HandlerTests
+    private readonly ILiverpoolContext _context;
+    private readonly IRequestHandler<Request, Response> _handler;
+    private readonly int adminId;
+
+    public HandlerTests(CreatePmCommandTestFixture fixture)
     {
-        private readonly ILiverpoolContext _context;
-        private readonly IRequestHandler<Request, Response> _handler;
-        private readonly int adminId;
+        var messageObject = new Mock<IEmailSender>();
+        var signalRObject = new Mock<ISignalRHubAggregator>();
+        _context = fixture.Context;
+        _handler = new Handler(fixture.Context, fixture.Mapper, fixture.AdminRequestContext,
+            messageObject.Object, signalRObject.Object);
+        adminId = fixture.AdminRequestContext.UserId.Value;
+    }
 
-        public HandlerTests(CreatePmCommandTestFixture fixture)
+    [Fact]
+    public async Task CreatePm_WhenModelIsValid_ReturnsNewMessageId()
+    {
+        var request = new Request
         {
-            var messageObject = new Mock<IEmailSender>();
-            var signalRObject = new Mock<ISignalRHubAggregator>();
-            _context = fixture.Context;
-            _handler = new Handler(fixture.Context, fixture.Mapper, fixture.AdminRequestContext,
-                messageObject.Object, signalRObject.Object);
-            adminId = fixture.AdminRequestContext.UserId.Value;
-        }
+            ReceiverId = 2,
+            Title = "titlea",
+            Message = "messgaeee"
+        };
+        var result = await _handler.Handle(request, CancellationToken.None);
 
-        [Fact]
-        public async Task CreatePm_WhenModelIsValid_ReturnsNewMessageId()
-        {
-            var request = new Request
-            {
-                ReceiverId = 2,
-                Title = "titlea",
-                Message = "messgaeee"
-            };
-            var result = await _handler.Handle(request, CancellationToken.None);
+        result.Id.Should().BeGreaterThan(0);
 
-            result.Id.Should().BeGreaterThan(0);
-
-            var createdPm = _context.PrivateMessages.First(x => x.Id == result.Id);
-            createdPm.Should().NotBeNull();
-            createdPm.IsRead.Should().BeFalse();
-            createdPm.SenderId.Should().Be(adminId);
-            createdPm.Title.Should().Be(request.Title);
-            createdPm.Message.Should().Be(request.Message);
-        }
+        var createdPm = _context.PrivateMessages.First(x => x.Id == result.Id);
+        createdPm.Should().NotBeNull();
+        createdPm.IsRead.Should().BeFalse();
+        createdPm.SenderId.Should().Be(adminId);
+        createdPm.Title.Should().Be(request.Title);
+        createdPm.Message.Should().Be(request.Message);
     }
 }

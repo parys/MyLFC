@@ -5,68 +5,67 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using MyLfc.Common.Web.OnlineCounting;
 
-namespace MyLfc.Common.Web.Hubs
+namespace MyLfc.Common.Web.Hubs;
+
+/// <summary>
+/// Contains all signalR methods.
+/// </summary>
+[AllowAnonymous]
+public class AnonymHub : Hub
 {
+    private readonly ISignalRHubAggregator _signalRHub;
     /// <summary>
-    /// Contains all signalR methods.
+    /// Constructor.
     /// </summary>
-    [AllowAnonymous]
-    public class AnonymHub : Hub
+    public AnonymHub(ISignalRHubAggregator signalRHub)
     {
-        private readonly ISignalRHubAggregator _signalRHub;
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public AnonymHub(ISignalRHubAggregator signalRHub)
+        _signalRHub = signalRHub;
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    /// Calls when user connected.
+    /// </summary>
+    /// <returns></returns>
+    public override Task OnConnectedAsync()
+    {
+        if (Context.User.Identity.IsAuthenticated)
         {
-            _signalRHub = signalRHub;
+            var model = new OnlineCounterModel
+            {
+                Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub").Value),
+                UserName = Context.User.Claims.First(x => x.Type == "name").Value,
+                ConnectionId = Context.ConnectionId
+            };
+            OnlineUsers.CurrentOnline.AddOrUpdate(Context.ConnectionId, model,
+                (k, v) => model);
+        }
+        else 
+        {
+            OnlineUsers.CurrentOnlineGuests.Add(Context.ConnectionId);
         }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Calls when user connected.
-        /// </summary>
-        /// <returns></returns>
-        public override Task OnConnectedAsync()
-        {
-            if (Context.User.Identity.IsAuthenticated)
-            {
-                var model = new OnlineCounterModel
-                {
-                    Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub").Value),
-                    UserName = Context.User.Claims.First(x => x.Type == "name").Value,
-                    ConnectionId = Context.ConnectionId
-                };
-                OnlineUsers.CurrentOnline.AddOrUpdate(Context.ConnectionId, model,
-                    (k, v) => model);
-            }
-            else 
-            {
-                OnlineUsers.CurrentOnlineGuests.Add(Context.ConnectionId);
-            }
+        _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
+        return base.OnConnectedAsync();
+    }
 
-            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
-            return base.OnConnectedAsync();
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Calls when user disconnected.
-        /// </summary>
-        /// <returns></returns>
-        public override Task OnDisconnectedAsync(Exception ex)
+    /// <inheritdoc />
+    /// <summary>
+    /// Calls when user disconnected.
+    /// </summary>
+    /// <returns></returns>
+    public override Task OnDisconnectedAsync(Exception ex)
+    {
+        if (Context.User.Identity.IsAuthenticated)
         {
-            if (Context.User.Identity.IsAuthenticated)
-            {
-                OnlineUsers.CurrentOnline.TryRemove(Context.ConnectionId, out _);
-            }
-            else
-            {
-                var connectionId = Context.ConnectionId;
-                OnlineUsers.CurrentOnlineGuests.TryTake(out connectionId);
-            }
-            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
-            return base.OnConnectedAsync();//todo research
+            OnlineUsers.CurrentOnline.TryRemove(Context.ConnectionId, out _);
         }
+        else
+        {
+            var connectionId = Context.ConnectionId;
+            OnlineUsers.CurrentOnlineGuests.TryTake(out connectionId);
+        }
+        _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
+        return base.OnConnectedAsync();//todo research
     }
 }

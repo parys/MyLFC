@@ -10,152 +10,151 @@ using MyLfc.Application.Clubs;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Matches.Queries
+namespace MyLfc.Application.Matches.Queries;
+
+public class GetMatchListQuery
 {
-    public class GetMatchListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public int? SeasonId { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        private readonly IMediator _mediator;
+
+        public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
         {
-            public int? SeasonId { get; set; }
+            _context = context;
+            _mapper = mapper;
+            _mediator = mediator;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var matchesQuery = _context.Matches.AsNoTracking();
 
-            private readonly IMapper _mapper;
-
-            private readonly IMediator _mediator;
-
-            public Handler(ILiverpoolContext context, IMapper mapper, IMediator mediator)
+            if (request.SeasonId.HasValue)
             {
-                _context = context;
-                _mapper = mapper;
-                _mediator = mediator;
+                matchesQuery = matchesQuery.Where(m => m.SeasonId == request.SeasonId);
             }
+            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request(), cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            matchesQuery = matchesQuery.AsNoTracking()
+                .Include(m => m.Club)
+                .Include(m => m.Stadium)
+                .Include(m => m.Events)
+                .OrderByDescending(m => m.DateTime);
+
+            var matches = await matchesQuery
+                .Skip(request.SkipCount())
+                .Take(request.PageSize)
+                .ToListAsync(cancellationToken);
+
+            var results = new List<MatchListDto>();
+            foreach (var match in matches)
             {
-                var matchesQuery = _context.Matches.AsNoTracking();
-
-                if (request.SeasonId.HasValue)
+                var dto = _mapper.Map<MatchListDto>(match);
+                if (match.IsHome)
                 {
-                    matchesQuery = matchesQuery.Where(m => m.SeasonId == request.SeasonId);
+                    FillClubsFields(dto, liverpoolClub, match.Club);
                 }
-                var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request(), cancellationToken);
-
-                matchesQuery = matchesQuery.AsNoTracking()
-                    .Include(m => m.Club)
-                    .Include(m => m.Stadium)
-                    .Include(m => m.Events)
-                    .OrderByDescending(m => m.DateTime);
-
-                var matches = await matchesQuery
-                    .Skip(request.SkipCount())
-                    .Take(request.PageSize)
-                    .ToListAsync(cancellationToken);
-
-                var results = new List<MatchListDto>();
-                foreach (var match in matches)
+                else
                 {
-                    var dto = _mapper.Map<MatchListDto>(match);
-                    if (match.IsHome)
-                    {
-                        FillClubsFields(dto, liverpoolClub, match.Club);
-                    }
-                    else
-                    {
-                        FillClubsFields(dto, match.Club, liverpoolClub);
-                    }
-                    results.Add(dto);
+                    FillClubsFields(dto, match.Club, liverpoolClub);
                 }
-
-                return new Response
-                {
-                    PageSize = request.PageSize,
-                    CurrentPage = request.CurrentPage,
-                    Results = results,
-                    RowCount = await matchesQuery.CountAsync(cancellationToken)
-                };
+                results.Add(dto);
             }
 
-            private static void FillClubsFields(MatchListDto dto, Club homeClub, Club awayClub)
+            return new Response
             {
-                dto.HomeClubId = homeClub.Id;
-                dto.HomeClubName = homeClub.Name;
-                dto.HomeClubLogo = homeClub.Logo;
-                dto.AwayClubId = awayClub.Id;
-                dto.AwayClubName = awayClub.Name;
-                dto.AwayClubLogo = awayClub.Logo;
-            }
+                PageSize = request.PageSize,
+                CurrentPage = request.CurrentPage,
+                Results = results,
+                RowCount = await matchesQuery.CountAsync(cancellationToken)
+            };
         }
 
-
-        [Serializable]
-        public class Response : PagedResult<MatchListDto>
+        private static void FillClubsFields(MatchListDto dto, Club homeClub, Club awayClub)
         {
+            dto.HomeClubId = homeClub.Id;
+            dto.HomeClubName = homeClub.Name;
+            dto.HomeClubLogo = homeClub.Logo;
+            dto.AwayClubId = awayClub.Id;
+            dto.AwayClubName = awayClub.Name;
+            dto.AwayClubLogo = awayClub.Logo;
         }
+    }
 
 
-        [Serializable]
-        public class MatchListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response : PagedResult<MatchListDto>
+    {
+    }
 
-            public bool IsHome { get; set; }
 
-            public int ClubId { get; set; }
+    [Serializable]
+    public class MatchListDto
+    {
+        public int Id { get; set; }
 
-            public string ClubName { get; set; }
+        public bool IsHome { get; set; }
 
-            public int HomeClubId { get; set; }
+        public int ClubId { get; set; }
 
-            public string HomeClubName { get; set; }
+        public string ClubName { get; set; }
 
-            public string HomeClubLogo { get; set; }
+        public int HomeClubId { get; set; }
 
-            public int AwayClubId { get; set; }
+        public string HomeClubName { get; set; }
 
-            public string AwayClubName { get; set; }
+        public string HomeClubLogo { get; set; }
 
-            public string AwayClubLogo { get; set; }
+        public int AwayClubId { get; set; }
 
-            public DateTimeOffset DateTime { get; set; }
+        public string AwayClubName { get; set; }
 
-            public int TypeId { get; set; }
+        public string AwayClubLogo { get; set; }
 
-            public string TypeName { get; set; }
+        public DateTimeOffset DateTime { get; set; }
 
-            public string StadiumName { get; set; }
+        public int TypeId { get; set; }
 
-            public string StadiumCity { get; set; }
+        public string TypeName { get; set; }
 
-            public int StadiumId { get; set; }
+        public string StadiumName { get; set; }
 
-            public string ScoreHome { get; set; }
+        public string StadiumCity { get; set; }
 
-            public int? ScorePenaltyHome { get; set; }
+        public int StadiumId { get; set; }
 
-            public string ScoreAway { get; set; }
+        public string ScoreHome { get; set; }
 
-            public int? ScorePenaltyAway { get; set; }
+        public int? ScorePenaltyHome { get; set; }
 
-            public int SeasonId { get; set; }
+        public string ScoreAway { get; set; }
 
-            public string SeasonName { get; set; }
+        public int? ScorePenaltyAway { get; set; }
 
-            public string ReportUrl { get; set; }
+        public int SeasonId { get; set; }
 
-            public string PhotoUrl { get; set; }
+        public string SeasonName { get; set; }
 
-            public string VideoUrl { get; set; }
+        public string ReportUrl { get; set; }
 
-            public int? PreviewId { get; set; }
+        public string PhotoUrl { get; set; }
 
-            public int? ReportId { get; set; }
+        public string VideoUrl { get; set; }
 
-            public int CommentCount { get; set; }
-        }
+        public int? PreviewId { get; set; }
+
+        public int? ReportId { get; set; }
+
+        public int CommentCount { get; set; }
     }
 }

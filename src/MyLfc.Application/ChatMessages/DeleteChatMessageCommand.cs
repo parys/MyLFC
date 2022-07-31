@@ -5,46 +5,45 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.ChatMessages
+namespace MyLfc.Application.ChatMessages;
+
+public class DeleteChatMessageCommand
 {
-    public class DeleteChatMessageCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            public Handler(ILiverpoolContext context)
+            var chatMessage = await _context.ChatMessages
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            
+            if (chatMessage == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(ChatMessage), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var chatMessage = await _context.ChatMessages
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (chatMessage == null)
-                {
-                    throw new NotFoundException(nameof(ChatMessage), request.Id);
-                }
+            _context.ChatMessages.Remove(chatMessage);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.ChatMessages.Remove(chatMessage);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = request.Id};
-            }
+            return new Response {Id = request.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

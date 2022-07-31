@@ -11,76 +11,75 @@ using MyLfc.Common.Utilities;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Comments
+namespace MyLfc.Application.Comments;
+
+public class GetLastCommentListQuery
 {
-    public class GetLastCommentListQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var comments = await _context.MaterialComments
+                .AsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Take(GlobalConstants.LastCommentsCount)
+                .ProjectTo<LastCommentDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            foreach (var comment in comments)
             {
-                _context = context;
-                _mapper = mapper;
+                comment.ClippedMessage = comment.Message.SanitizeComment();
+                comment.Message = string.Empty;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new Response
             {
-                var comments = await _context.MaterialComments
-                    .AsNoTracking()
-                    .OrderByDescending(x => x.Id)
-                    .Take(GlobalConstants.LastCommentsCount)
-                    .ProjectTo<LastCommentDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
-
-                foreach (var comment in comments)
-                {
-                    comment.ClippedMessage = comment.Message.SanitizeComment();
-                    comment.Message = string.Empty;
-                }
-
-                return new Response
-                {
-                    Results = comments
-                };
-            }
+                Results = comments
+            };
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public List<LastCommentDto> Results { get; set; }
-        }
+    [Serializable]
+    public class Response
+    {
+        public List<LastCommentDto> Results { get; set; }
+    }
 
 
-        [Serializable]
-        public class LastCommentDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class LastCommentDto
+    {
+        public int Id { get; set; }
 
-            public string AuthorUserName { get; set; }
+        public string AuthorUserName { get; set; }
 
-            public int AuthorId { get; set; }
-         
-            public string Message { get; set; }
-            public string ClippedMessage { get; set; }
+        public int AuthorId { get; set; }
+     
+        public string Message { get; set; }
+        public string ClippedMessage { get; set; }
 
-            public int? MaterialId { get; set; }
+        public int? MaterialId { get; set; }
 
-            public int? MatchId { get; set; }
-            
-            public CommentType Type { get; set; }
+        public int? MatchId { get; set; }
+        
+        public CommentType Type { get; set; }
 
-            public string TypeName { get; set; }
-        }
+        public string TypeName { get; set; }
     }
 }

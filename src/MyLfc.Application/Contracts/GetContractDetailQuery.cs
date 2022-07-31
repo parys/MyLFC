@@ -8,58 +8,57 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Contracts
+namespace MyLfc.Application.Contracts;
+
+public class GetContractDetailQuery
 {
-    public class GetContractDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var injury = await _context.Contracts.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (injury == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Contract), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var injury = await _context.Contracts.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (injury == null)
-                {
-                    throw new NotFoundException(nameof(Contract), request.Id);
-                }
-
-                return injury;
-            }
+            return injury;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public int Salary { get; set; }
+        public int Salary { get; set; }
 
-            public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-            public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-            public DateTimeOffset EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
-            public string PersonName { get; set; }
-        }
+        public string PersonName { get; set; }
     }
 }

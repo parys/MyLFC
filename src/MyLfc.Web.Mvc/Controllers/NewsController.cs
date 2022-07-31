@@ -10,92 +10,91 @@ using MyLfc.Data.Common;
 using MyLfc.Application.Materials.Commands;
 using MyLfc.Application.Materials.Queries;
 
-namespace MyLfc.Web.Mvc.Controllers
+namespace MyLfc.Web.Mvc.Controllers;
+
+/// <inheritdoc />
+/// <summary>
+/// Manages blogs.
+/// </summary>
+[Route("[controller]")]
+public class NewsController : BaseController
 {
-    /// <inheritdoc />
+    private readonly IDistributedCacheManager _cacheManager;
+
     /// <summary>
-    /// Manages blogs.
+    /// Constructor.
     /// </summary>
-    [Route("[controller]")]
-    public class NewsController : BaseController
+    /// <param name="cache"></param>
+    public NewsController(IDistributedCacheManager cache)
     {
-        private readonly IDistributedCacheManager _cacheManager;
+        _cacheManager = cache;
+    }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="cache"></param>
-        public NewsController(IDistributedCacheManager cache)
+    [Route("")]
+    public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
+    {
+        request.MaterialType = MaterialType.News;
+        return View("../Materials/Index", await Mediator.Send(request));
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> Detail(GetMaterialDetailQuery.Request request)
+    {
+        request.IncludePending = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
+
+        var model = await Mediator.Send(request);
+        if (model == null)
         {
-            _cacheManager = cache;
+            return RedirectToAction("Index", "Blogs");
+        }
+        if (model.Pending)
+        {
+            if ((model.Type == MaterialType.News || User.GetUserId() != model.UserId) &&
+                (User == null || !User.IsInRole(nameof(RolesEnum.NewsStart))))
+            {
+                return BadRequest();
+            }
+        }
+        var label = CacheKeysConstants.Material + request.Id;
+        if (string.IsNullOrWhiteSpace(Request.Cookies[label]))
+        {
+            var options = new CookieOptions { Expires = DateTimeOffset.UtcNow.AddMonths(1) };
+            Response.Cookies.Append(label, "1", options);
+            model.Reads++;
+            await Mediator.Send(new AddMaterialReadCommand.Request{Id = request.Id});
+            UpdateMaterialCacheAddViewAsync(request.Id);
         }
 
-        [Route("")]
-        public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
+        return View("../Materials/Detail", model);
+    }
+
+    private async void UpdateMaterialCacheAddViewAsync(int materialId)
+    {
+        var materialCache = await _cacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
+        if (materialCache != null)
         {
-            request.MaterialType = MaterialType.News;
-            return View("../Materials/Index", await Mediator.Send(request));
+            materialCache.Reads++;
+            _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> Detail(GetMaterialDetailQuery.Request request)
+        var materialsCache =
+            await _cacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
+
+        var material = materialsCache?.Results.FirstOrDefault(x => x.Id == materialId);
+        if (material != null)
         {
-            request.IncludePending = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
-
-            var model = await Mediator.Send(request);
-            if (model == null)
-            {
-                return RedirectToAction("Index", "Blogs");
-            }
-            if (model.Pending)
-            {
-                if ((model.Type == MaterialType.News || User.GetUserId() != model.UserId) &&
-                    (User == null || !User.IsInRole(nameof(RolesEnum.NewsStart))))
-                {
-                    return BadRequest();
-                }
-            }
-            var label = CacheKeysConstants.Material + request.Id;
-            if (string.IsNullOrWhiteSpace(Request.Cookies[label]))
-            {
-                var options = new CookieOptions { Expires = DateTimeOffset.UtcNow.AddMonths(1) };
-                Response.Cookies.Append(label, "1", options);
-                model.Reads++;
-                await Mediator.Send(new AddMaterialReadCommand.Request{Id = request.Id});
-                UpdateMaterialCacheAddViewAsync(request.Id);
-            }
-
-            return View("../Materials/Detail", model);
+            material.Reads++;
+            _cacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
         }
 
-        private async void UpdateMaterialCacheAddViewAsync(int materialId)
+        var materialsPinnedCache =
+            await _cacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
+
+        var materialPinned = materialsPinnedCache?.Results.FirstOrDefault(x => x.Id == materialId);
+        if (material != null)
         {
-            var materialCache = await _cacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
-            if (materialCache != null)
-            {
-                materialCache.Reads++;
-                _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
-            }
-
-            var materialsCache =
-                await _cacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
-
-            var material = materialsCache?.Results.FirstOrDefault(x => x.Id == materialId);
-            if (material != null)
-            {
-                material.Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
-            }
-
-            var materialsPinnedCache =
-                await _cacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
-
-            var materialPinned = materialsPinnedCache?.Results.FirstOrDefault(x => x.Id == materialId);
-            if (material != null)
-            {
-                material.Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialPinned);
-            }
+            material.Reads++;
+            _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialPinned);
         }
     }
 }

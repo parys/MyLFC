@@ -3,19 +3,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MyLfc.Common.Web
+namespace MyLfc.Common.Web;
+
+public static class ResponseCompressionService
 {
-    public static class ResponseCompressionService
+    public static IServiceCollection AddCustomResponseCompression(this IServiceCollection services)
     {
-        public static IServiceCollection AddCustomResponseCompression(this IServiceCollection services)
+        services.AddResponseCompression(options =>
         {
-            services.AddResponseCompression(options =>
-            {
-                options.Providers.Add<BrotliCompressionProvider>();
-                options.Providers.Add<GzipCompressionProvider>();
-                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
-            });
-            return services;
-        }
+            options.Providers.Add<BrotliCompressionProvider>();
+            options.Providers.Add<GzipCompressionProvider>();
+            options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
+        });
+        return services;
     }
 }

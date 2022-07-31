@@ -3,30 +3,29 @@ using System.Threading.Tasks;
 using MediatR;
 using MyLfc.Business.Contracts;
 
-namespace MyLfc.Application.Admin
+namespace MyLfc.Application.Admin;
+
+public class SendTestEmailCommand
 {
-    public class SendTestEmailCommand
+    public class Request : IRequest
     {
-        public class Request : IRequest
+        public string Email { get; set; }
+    }
+
+    public class Handler : IRequestHandler<Request>
+    {
+        private readonly IEmailSender _emailSender;
+
+        public Handler(IEmailSender emailSender)
         {
-            public string Email { get; set; }
+            _emailSender = emailSender;
         }
 
-        public class Handler : IRequestHandler<Request>
+        public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly IEmailSender _emailSender;
+            await _emailSender.SendEmailAsync(request.Email, "test email", "test one");
 
-            public Handler(IEmailSender emailSender)
-            {
-                _emailSender = emailSender;
-            }
-
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
-            {
-                await _emailSender.SendEmailAsync(request.Email, "test email", "test one");
-
-                return Unit.Value;
-            }
+            return Unit.Value;
         }
     }
 }

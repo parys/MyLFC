@@ -1,13 +1,12 @@
 ﻿using MyLfc.Data.Common;
 
-namespace MyLfc.Domain
+namespace MyLfc.Domain;
+
+public class HelpEntity : IEntity
 {
-    public class HelpEntity : IEntity
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public HelperEntityType Type { get; set; }
+    public HelperEntityType Type { get; set; }
 
-        public string Value { get; set; }
-    }
+    public string Value { get; set; }
 }

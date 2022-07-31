@@ -7,64 +7,63 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.HelpEntities
+namespace MyLfc.Application.HelpEntities;
+
+public class CreateOrUpdateEntityCommand
 {
-    public class CreateOrUpdateEntityCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
-        {
-            public HelperEntityType Type { get; set; }
+        public HelperEntityType Type { get; set; }
 
-            public string Value { get; set; }
+        public string Value { get; set; }
+    }
+
+
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
+        {
+            RuleFor(x => x.Type).IsInEnum();
+        }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Validator : AbstractValidator<Request>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Validator()
-            {
-                RuleFor(x => x.Type).IsInEnum();
-            }
-        }
-
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMapper _mapper;
+            var entity =
+                await _context.HelpEntities.FirstOrDefaultAsync(x => x.Type == request.Type, cancellationToken);
             
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (entity == null)
             {
-                _context = context;
-                _mapper = mapper;
+                entity = _mapper.Map<HelpEntity>(request);
+                _context.HelpEntities.Add(entity);
+            }
+            else
+            {
+                entity = _mapper.Map(request, entity);
+                _context.HelpEntities.Update(entity);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity =
-                    await _context.HelpEntities.FirstOrDefaultAsync(x => x.Type == request.Type, cancellationToken);
-                
-                if (entity == null)
-                {
-                    entity = _mapper.Map<HelpEntity>(request);
-                    _context.HelpEntities.Add(entity);
-                }
-                else
-                {
-                    entity = _mapper.Map(request, entity);
-                    _context.HelpEntities.Update(entity);
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response{Id = entity.Id};
-            }
+            await _context.SaveChangesAsync(cancellationToken);
+            return new Response{Id = entity.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

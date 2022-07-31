@@ -1,6 +1,5 @@
-﻿namespace MyLfc.Business.Dto
+﻿namespace MyLfc.Business.Dto;
+
+public interface IDto
 {
-    public interface IDto
-    {
-    }
 }

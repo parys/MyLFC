@@ -6,56 +6,55 @@ using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Comments
+namespace MyLfc.Application.Comments;
+
+public class VerifyCommentCommand
 {
-    public class VerifyCommentCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMediator _mediator;
+        
+        public Handler(ILiverpoolContext context, IMediator mediator)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mediator = mediator;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var comment = await _context.MaterialComments.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMediator _mediator;
-            
-            public Handler(ILiverpoolContext context, IMediator mediator)
+            if (comment == null)
             {
-                _context = context;
-                _mediator = mediator;
+                throw new NotFoundException(nameof(Comment), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var comment = await _context.MaterialComments.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            comment.IsVerified = true;
+            await _context.SaveChangesAsync(cancellationToken);
 
-                if (comment == null)
-                {
-                    throw new NotFoundException(nameof(Comment), request.Id);
-                }
+            await _mediator.Send(
+                new UpdateCommentsNumberCommand.Request
+                    { DiffAllNumbers = 0, DiffUnverifiedNumbers = -1 },
+                cancellationToken);
 
-                comment.IsVerified = true;
-                await _context.SaveChangesAsync(cancellationToken);
-
-                await _mediator.Send(
-                    new UpdateCommentsNumberCommand.Request
-                        { DiffAllNumbers = 0, DiffUnverifiedNumbers = -1 },
-                    cancellationToken);
-
-                return new Response(comment.Id);
-            }
+            return new Response(comment.Id);
         }
+    }
 
-        public class Response
+    public class Response
+    {
+        public Response(int id)
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
-            public int Id { get; set; }
+            Id = id;
         }
+        public int Id { get; set; }
     }
 }

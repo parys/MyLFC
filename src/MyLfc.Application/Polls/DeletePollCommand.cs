@@ -5,46 +5,45 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain.Polls;
 
-namespace MyLfc.Application.Polls
+namespace MyLfc.Application.Polls;
+
+public class DeletePollCommand
 {
-    public class DeletePollCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+        
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var poll = await _context.Polls
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             
-            public Handler(ILiverpoolContext context)
+            if (poll == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Poll), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var poll = await _context.Polls
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (poll == null)
-                {
-                    throw new NotFoundException(nameof(Poll), request.Id);
-                }
+            _context.Polls.Remove(poll);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.Polls.Remove(poll);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = poll.Id};
-            }
+            return new Response {Id = poll.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

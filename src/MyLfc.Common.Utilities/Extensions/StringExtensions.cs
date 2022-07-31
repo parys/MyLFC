@@ -1,18 +1,17 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MyLfc.Common.Utilities.Extensions
-{
-    public static class StringExtensions
-    {
-        public static string SanitizeComment(this string message)
-        {
-            message = Regex.Replace(Regex.Replace(message, "&.*?;", string.Empty), "<.*?>", string.Empty);
-            if (message.Length > GlobalConstants.LastCommentMessageSymbolCount)
-            {
-                message = message[..GlobalConstants.LastCommentMessageSymbolCount] + "...";
-            }
+namespace MyLfc.Common.Utilities.Extensions;
 
-            return message;
+public static class StringExtensions
+{
+    public static string SanitizeComment(this string message)
+    {
+        message = Regex.Replace(Regex.Replace(message, "&.*?;", string.Empty), "<.*?>", string.Empty);
+        if (message.Length > GlobalConstants.LastCommentMessageSymbolCount)
+        {
+            message = message[..GlobalConstants.LastCommentMessageSymbolCount] + "...";
         }
+
+        return message;
     }
 }

@@ -5,46 +5,45 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Injuries.Commands
+namespace MyLfc.Application.Injuries.Commands;
+
+public class DeleteInjuryCommand
 {
-    public class DeleteInjuryCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+        
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var injury = await _context.Injuries
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             
-            public Handler(ILiverpoolContext context)
+            if (injury == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Injury), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var injury = await _context.Injuries
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (injury == null)
-                {
-                    throw new NotFoundException(nameof(Injury), request.Id);
-                }
+            _context.Injuries.Remove(injury);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.Injuries.Remove(injury);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = injury.Id };
-            }
+            return new Response { Id = injury.Id };
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

@@ -2,14 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyLfc.Domain;
 
-namespace MyLfc.Persistence.Configurations
+namespace MyLfc.Persistence.Configurations;
+
+public class WishConfiguration : IEntityTypeConfiguration<Wish>
 {
-    public class WishConfiguration : IEntityTypeConfiguration<Wish>
+    public void Configure(EntityTypeBuilder<Wish> builder)
     {
-        public void Configure(EntityTypeBuilder<Wish> builder)
-        {
-            builder.ToTable("Wishes");
-            
-        }
+        builder.ToTable("Wishes");
+        
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace MyLfc.Data.Common
+﻿namespace MyLfc.Data.Common;
+
+public enum MaterialType
 {
-    public enum MaterialType
-    {
-        Both = 0,
-     //   [EnumMember(Value = "News")]
-        News = 1,
-      //  [EnumMember(Value = "Blog")]
-        Blogs = 2
-    }
+    Both = 0,
+ //   [EnumMember(Value = "News")]
+    News = 1,
+  //  [EnumMember(Value = "Blog")]
+    Blogs = 2
 }

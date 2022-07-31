@@ -2,12 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace MyLfc.Business.Contracts
-{
-    public interface IUploadService
-    {
-        Task<IEnumerable<string>> UploadAsync(IFormFileCollection files);
+namespace MyLfc.Business.Contracts;
 
-        Task<string> UploadAsync(string base64File);
-    }
+public interface IUploadService
+{
+    Task<IEnumerable<string>> UploadAsync(IFormFileCollection files);
+
+    Task<string> UploadAsync(string base64File);
 }

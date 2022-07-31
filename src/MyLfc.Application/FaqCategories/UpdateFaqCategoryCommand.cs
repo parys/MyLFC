@@ -7,57 +7,56 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.FaqCategories
+namespace MyLfc.Application.FaqCategories;
+
+public class UpdateFaqCategoryCommand
 {
-    public class UpdateFaqCategoryCommand
+    public class Request : UpsertFaqCategoryCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertFaqCategoryCommand.Request, IRequest<Response>
+        public int Id { get; set; }
+    }
+
+    public class Validator : UpsertFaqCategoryCommand.Validator<Request>
+    {
+        public Validator()
         {
-            public int Id { get; set; }
+            RuleFor(v => v.Id).NotEmpty();
+        }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
         }
 
-        public class Validator : UpsertFaqCategoryCommand.Validator<Request>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Validator()
+            var faqCategory = await _context.FaqCategories
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+
+            if (faqCategory == null)
             {
-                RuleFor(v => v.Id).NotEmpty();
-            }
-        }
-
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly ILiverpoolContext _context;
-
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(FaqCategory), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var faqCategory = await _context.FaqCategories
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            faqCategory = _mapper.Map(request, faqCategory);
 
-                if (faqCategory == null)
-                {
-                    throw new NotFoundException(nameof(FaqCategory), request.Id);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                faqCategory = _mapper.Map(request, faqCategory);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = faqCategory.Id};
-            }
+            return new Response {Id = faqCategory.Id};
         }
+    }
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

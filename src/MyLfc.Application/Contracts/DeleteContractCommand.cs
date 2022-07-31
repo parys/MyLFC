@@ -5,46 +5,45 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Contracts
+namespace MyLfc.Application.Contracts;
+
+public class DeleteContractCommand
 {
-    public class DeleteContractCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+        
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var contract = await _context.Contracts
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             
-            public Handler(ILiverpoolContext context)
+            if (contract == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Contract), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var contract = await _context.Contracts
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (contract == null)
-                {
-                    throw new NotFoundException(nameof(Contract), request.Id);
-                }
+            _context.Contracts.Remove(contract);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.Contracts.Remove(contract);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = contract.Id };
-            }
+            return new Response { Id = contract.Id };
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

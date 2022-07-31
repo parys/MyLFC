@@ -9,49 +9,48 @@ using Handler = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Handler
 using Request = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Request;
 using Response = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Response;
 
-namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
+namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery;
+
+[Collection(nameof(MaterialQueryCollection))]
+public class HandlerTests
 {
-    [Collection(nameof(MaterialQueryCollection))]
-    public class HandlerTests
+    private readonly ILiverpoolContext _context;
+    private readonly IRequestHandler<Request, Response> _handler;
+
+    public HandlerTests(MaterialQueryTestFixture fixture)
     {
-        private readonly ILiverpoolContext _context;
-        private readonly IRequestHandler<Request, Response> _handler;
+        _context = fixture.Context;
+        _handler = new Handler(fixture.Context, fixture.Mapper);
+    }
 
-        public HandlerTests(MaterialQueryTestFixture fixture)
-        {
-            _context = fixture.Context;
-            _handler = new Handler(fixture.Context, fixture.Mapper);
-        }
+    [Fact]
+    public async Task GetExamList_ReturnPagedResultOfExamListDto()
+    {
+        var result = await _handler.Handle(new Request { PageSize = 10, CurrentPage = 1 },
+            CancellationToken.None);
 
-        [Fact]
-        public async Task GetExamList_ReturnPagedResultOfExamListDto()
-        {
-            var result = await _handler.Handle(new Request { PageSize = 10, CurrentPage = 1 },
-                CancellationToken.None);
+        result.Should().NotBeNull();
+        result.Should().BeOfType<Response>();
+    }
 
-            result.Should().NotBeNull();
-            result.Should().BeOfType<Response>();
-        }
+    [Fact]
+    public async Task GetMaterialList_WhenTakeMoreThanExist_ReturnAllMaterials()
+    {
+        var page = 1;
+        var pageSize = 51;
 
-        [Fact]
-        public async Task GetMaterialList_WhenTakeMoreThanExist_ReturnAllMaterials()
-        {
-            var page = 1;
-            var pageSize = 51;
+        var result = await _handler.Handle(new Request { PageSize = pageSize, CurrentPage = page }, CancellationToken.None);
 
-            var result = await _handler.Handle(new Request { PageSize = pageSize, CurrentPage = page }, CancellationToken.None);
+        var expectedCount = _context.Materials.Skip(1 - page).Take(pageSize).Count();
 
-            var expectedCount = _context.Materials.Skip(1 - page).Take(pageSize).Count();
+        result.Should().NotBeNull();
+        result.Should().BeOfType<Response>();
+        result.Results.Count.Should().BeGreaterThan(0);
+        result.Results.Count.Should().Be(expectedCount - 1); //because of deleted
+        result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).Should().BeTrue();
+        result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).Should().BeTrue();
+        var resultMaterial = result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments);
 
-            result.Should().NotBeNull();
-            result.Should().BeOfType<Response>();
-            result.Results.Count.Should().BeGreaterThan(0);
-            result.Results.Count.Should().Be(expectedCount - 1); //because of deleted
-            result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).Should().BeTrue();
-            result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).Should().BeTrue();
-            var resultMaterial = result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments);
-
-            resultMaterial.CommentsCount.Should().Be(MaterialQueryTestFixture.Comments.Count);
-        }
+        resultMaterial.CommentsCount.Should().Be(MaterialQueryTestFixture.Comments.Count);
     }
 }

@@ -6,69 +6,68 @@ using MyLfc.Application.Tests.Infrastructure.Seeds;
 using MyLfc.Domain;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand
+namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand;
+
+[CollectionDefinition(nameof(UpdateCommentVoteCommandCollection))]
+public class UpdateCommentVoteCommandCollection : ICollectionFixture<UpdateCommentVoteCommandTestFixture> { }
+
+
+public class UpdateCommentVoteCommandTestFixture : BaseTestFixture
 {
-    [CollectionDefinition(nameof(UpdateCommentVoteCommandCollection))]
-    public class UpdateCommentVoteCommandCollection : ICollectionFixture<UpdateCommentVoteCommandTestFixture> { }
+    public static int CommentId { get; set; }
+    public static int SecondCommentId { get; set; }
+
+    //public static PrivateMessage ImmutablePrivateMessage => PrivateMessages[0];
+    //public static PrivateMessage PrivateMessageForRead => PrivateMessages[1];
+    //public static PrivateMessage PrivateMessageThatNotRelatedToAdmin => PrivateMessages[3];
+    //public static List<PrivateMessage> PrivateMessages { get; private set; }
 
 
-    public class UpdateCommentVoteCommandTestFixture : BaseTestFixture
+    public UpdateCommentVoteCommandTestFixture()
     {
-        public static int CommentId { get; set; }
-        public static int SecondCommentId { get; set; }
+        UserSeeder.Seed(Context);
+        SeedComments();
+        SeedCommentVotes();
+    }
 
-        //public static PrivateMessage ImmutablePrivateMessage => PrivateMessages[0];
-        //public static PrivateMessage PrivateMessageForRead => PrivateMessages[1];
-        //public static PrivateMessage PrivateMessageThatNotRelatedToAdmin => PrivateMessages[3];
-        //public static List<PrivateMessage> PrivateMessages { get; private set; }
+    private void SeedComments()
+    {
+        var comments = new Fixture()
+            .Customize(new CommentCustomization())
+            .CreateMany<Comment>(10)
+            .Select(x =>
+            {
+                x.AuthorId = UserSeeder.AdminUserId;
+                return x;
+            })
+            .ToList();
 
+        Context.MaterialComments.AddRange(comments);
+        Context.SaveChanges();
 
-        public UpdateCommentVoteCommandTestFixture()
-        {
-            UserSeeder.Seed(Context);
-            SeedComments();
-            SeedCommentVotes();
-        }
+        CommentId = comments[0].Id;
+        SecondCommentId = comments[1].Id;
+    }
 
-        private void SeedComments()
-        {
-            var comments = new Fixture()
-                .Customize(new CommentCustomization())
-                .CreateMany<Comment>(10)
-                .Select(x =>
-                {
-                    x.AuthorId = UserSeeder.AdminUserId;
-                    return x;
-                })
-                .ToList();
+    private void SeedCommentVotes()
+    {
+        var commentVotes = new Fixture()
+            .Customize(new CommentVoteCustomization())
+            .CreateMany<CommentVote>(2)
+            .Select(x =>
+            {
+                x.CommentId = CommentId;
+                x.UserId = UserSeeder.AdminUserId;
+                x.Positive = true;
+                return x;
+            })
+            .ToList();
 
-            Context.MaterialComments.AddRange(comments);
-            Context.SaveChanges();
+        commentVotes[1].CommentId = SecondCommentId;
+        commentVotes[1].Positive = false;
 
-            CommentId = comments[0].Id;
-            SecondCommentId = comments[1].Id;
-        }
-
-        private void SeedCommentVotes()
-        {
-            var commentVotes = new Fixture()
-                .Customize(new CommentVoteCustomization())
-                .CreateMany<CommentVote>(2)
-                .Select(x =>
-                {
-                    x.CommentId = CommentId;
-                    x.UserId = UserSeeder.AdminUserId;
-                    x.Positive = true;
-                    return x;
-                })
-                .ToList();
-
-            commentVotes[1].CommentId = SecondCommentId;
-            commentVotes[1].Positive = false;
-
-            Context.CommentVotes.AddRange(commentVotes);
-            Context.SaveChanges();
-            
-        }
+        Context.CommentVotes.AddRange(commentVotes);
+        Context.SaveChanges();
+        
     }
 }

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace MyLfc.Common.Web.DistributedCache
+namespace MyLfc.Common.Web.DistributedCache;
+
+public interface IDistributedCacheManager
 {
-    public interface IDistributedCacheManager
-    {
-        void Set<T>(string key, T obj);
+    void Set<T>(string key, T obj);
 
-        void SetString(string key, string obj);
+    void SetString(string key, string obj);
 
-        Task<T> GetAsync<T>(string key);
+    Task<T> GetAsync<T>(string key);
 
-        Task<string> GetStringAsync(string key);
+    Task<string> GetStringAsync(string key);
 
-        void Remove(string key);
+    void Remove(string key);
 
-        void Remove(params string[] keys);
+    void Remove(params string[] keys);
 
-        Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> method);
+    Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> method);
 
-        Task<string> GetOrCreateStringAsync(string key, Func<Task<string>> method);
-    }
+    Task<string> GetOrCreateStringAsync(string key, Func<Task<string>> method);
 }

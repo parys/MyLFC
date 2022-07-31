@@ -9,72 +9,71 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Persons
+namespace MyLfc.Application.Persons;
+
+public class GetPersonDetailQuery
 {
-    public class GetPersonDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var person = await _context.Persons.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (person == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Person), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var person = await _context.Persons.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (person == null)
-                {
-                    throw new NotFoundException(nameof(Person), request.Id);
-                }
-
-                return person;
-            }
+            return person;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public string FirstName { get; set; }
+        public string FirstName { get; set; }
 
-            public string FirstRussianName { get; set; }
+        public string FirstRussianName { get; set; }
 
-            public string LastName { get; set; }
+        public string LastName { get; set; }
 
-            public string LastRussianName { get; set; }
+        public string LastRussianName { get; set; }
 
-            public string Nickname { get; set; }
+        public string Nickname { get; set; }
 
-            public PersonType Type { get; set; }
+        public PersonType Type { get; set; }
 
-            public string TypeName { get; set; }
+        public string TypeName { get; set; }
 
-            public string Position { get; set; }
+        public string Position { get; set; }
 
-            public byte? Number { get; set; }
+        public byte? Number { get; set; }
 
-            public string Country { get; set; }
+        public string Country { get; set; }
 
-            public DateTimeOffset? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
-            public string Photo { get; set; }
-        }
+        public string Photo { get; set; }
     }
 }

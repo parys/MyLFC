@@ -9,47 +9,46 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain.Polls;
 
-namespace MyLfc.Application.Polls
+namespace MyLfc.Application.Polls;
+
+public class GetPollListQuery
 {
-    public class GetPollListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var polls = _context.Polls.AsNoTracking();
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var polls = _context.Polls.AsNoTracking();
-
-                polls = polls.OrderByDescending(x => x.Id);
-                return await polls.GetPagedAsync<Response, Poll, PollListDto>(request, _mapper);
-            }
+            polls = polls.OrderByDescending(x => x.Id);
+            return await polls.GetPagedAsync<Response, Poll, PollListDto>(request, _mapper);
         }
+    }
 
 
-        [Serializable]
-        public class Response : PagedResult<PollListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<PollListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class PollListDto
-        {
-         
-        }
+    [Serializable]
+    public class PollListDto
+    {
+     
     }
 }

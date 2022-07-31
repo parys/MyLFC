@@ -4,27 +4,26 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Application;
 
-namespace MyLfc.Persistence
-{
-    [ExcludeFromCodeCoverage]
-    public static class DependencyInjection
-    {
-        public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<FullLiverpoolContext>(options =>
-            {
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(FullLiverpoolContext).Assembly.FullName));
-            });
-            
-            services.AddDbContext<AuthLiverpoolContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                options.UseOpenIddict<int>();
-            });
+namespace MyLfc.Persistence;
 
-            services.AddScoped<ILiverpoolContext>(provider => provider.GetService<FullLiverpoolContext>());
-        }
+[ExcludeFromCodeCoverage]
+public static class DependencyInjection
+{
+    public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<FullLiverpoolContext>(options =>
+        {
+            options.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(FullLiverpoolContext).Assembly.FullName));
+        });
+        
+        services.AddDbContext<AuthLiverpoolContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.UseOpenIddict<int>();
+        });
+
+        services.AddScoped<ILiverpoolContext>(provider => provider.GetService<FullLiverpoolContext>());
     }
 }

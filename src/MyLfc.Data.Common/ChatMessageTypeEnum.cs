@@ -1,10 +1,9 @@
-﻿namespace MyLfc.Data.Common
+﻿namespace MyLfc.Data.Common;
+
+public enum ChatMessageTypeEnum : byte
 {
-    public enum ChatMessageTypeEnum : byte
-    {
-        Mini = 0,
-        Club = 1,
-        Transfers = 2,
-        All = 3
-    }
+    Mini = 0,
+    Club = 1,
+    Transfers = 2,
+    All = 3
 }

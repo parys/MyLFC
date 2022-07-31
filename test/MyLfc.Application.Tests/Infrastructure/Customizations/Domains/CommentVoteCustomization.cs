@@ -2,17 +2,16 @@
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
+namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
+
+public class CommentVoteCustomization : ICustomization
 {
-    public class CommentVoteCustomization : ICustomization
+    public void Customize(IFixture fixture)
     {
-        public void Customize(IFixture fixture)
-        {
-            fixture.Customizations.Add(new IgnoreMembers(new[] {
-                nameof(CommentVote.Comment),
-                nameof(CommentVote.User),
-            }));
-            
-        }
+        fixture.Customizations.Add(new IgnoreMembers(new[] {
+            nameof(CommentVote.Comment),
+            nameof(CommentVote.User),
+        }));
+        
     }
 }

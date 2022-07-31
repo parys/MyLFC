@@ -1,32 +1,31 @@
 ﻿using System.Collections.Generic;
 using AutoFixture;
 
-namespace MyLfc.Application.Tests.Infrastructure.AutoFixture
+namespace MyLfc.Application.Tests.Infrastructure.AutoFixture;
+
+public class ComposableCustomizationOptions : IComposableCustomizationOptions
 {
-    public class ComposableCustomizationOptions : IComposableCustomizationOptions
+    private readonly IFixture _fixture;
+
+    private readonly List<ICustomization> _customizations;
+
+    public IList<ICustomization> Customizations => _customizations;
+
+    public ComposableCustomizationOptions(IFixture fixture, ICustomization customization)
     {
-        private readonly IFixture _fixture;
+        _customizations = new List<ICustomization> { customization };
+        _fixture = fixture;
+    }
 
-        private readonly List<ICustomization> _customizations;
+    public IFixture Compose()
+    {
+        var builder = _fixture as ComposableCustomizationBuilder ?? new ComposableCustomizationBuilder(_fixture);
 
-        public IList<ICustomization> Customizations => _customizations;
-
-        public ComposableCustomizationOptions(IFixture fixture, ICustomization customization)
+        foreach (var customization in _customizations)
         {
-            _customizations = new List<ICustomization> { customization };
-            _fixture = fixture;
+            customization.Customize(builder);
         }
 
-        public IFixture Compose()
-        {
-            var builder = _fixture as ComposableCustomizationBuilder ?? new ComposableCustomizationBuilder(_fixture);
-
-            foreach (var customization in _customizations)
-            {
-                customization.Customize(builder);
-            }
-
-            return builder.BuildFixture();
-        }
+        return builder.BuildFixture();
     }
 }

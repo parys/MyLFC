@@ -4,55 +4,54 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Materials.Queries;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Web.Mvc.Controllers
+namespace MyLfc.Web.Mvc.Controllers;
+
+/// <inheritdoc />
+/// <summary>
+/// Home controller.
+/// </summary>
+[AllowAnonymous]
+public class HomeController : BaseController
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Home controller.
-    /// </summary>
-    [AllowAnonymous]
-    public class HomeController : BaseController
+    public async Task<IActionResult> Index([FromQuery]GetMaterialListQuery.Request request)
     {
-        public async Task<IActionResult> Index([FromQuery]GetMaterialListQuery.Request request)
-        {
-            request.MaterialType = MaterialType.Both;
-            return View(await Mediator.Send(request));
-        }
+        request.MaterialType = MaterialType.Both;
+        return View(await Mediator.Send(request));
+    }
 
-        [HttpGet("About")]
-        public IActionResult About()
-        {
-            return View();
-        }
+    [HttpGet("About")]
+    public IActionResult About()
+    {
+        return View();
+    }
 
-        [HttpGet("Copyright")]
-        public IActionResult Copyright()
-        {
-            return View();
-        }
+    [HttpGet("Copyright")]
+    public IActionResult Copyright()
+    {
+        return View();
+    }
 
-        [HttpGet("ClubHistory")]
-        public IActionResult ClubHistory()
-        {
-            return View();
-        }
+    [HttpGet("ClubHistory")]
+    public IActionResult ClubHistory()
+    {
+        return View();
+    }
 
-        [HttpGet("AboutClub")]
-        public IActionResult AboutClub()
-        {
-            return View();
-        }
+    [HttpGet("AboutClub")]
+    public IActionResult AboutClub()
+    {
+        return View();
+    }
 
-        [HttpGet("Rules")]
-        public IActionResult Rules()
-        {
-            return View();
-        }
+    [HttpGet("Rules")]
+    public IActionResult Rules()
+    {
+        return View();
+    }
 
-        [HttpGet("Cooperation")]
-        public IActionResult Cooperation()
-        {
-            return View();
-        }
+    [HttpGet("Cooperation")]
+    public IActionResult Cooperation()
+    {
+        return View();
     }
 }

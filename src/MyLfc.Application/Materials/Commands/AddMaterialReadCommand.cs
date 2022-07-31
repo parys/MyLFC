@@ -5,38 +5,37 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Materials.Commands
+namespace MyLfc.Application.Materials.Commands;
+
+public class AddMaterialReadCommand
 {
-    public class AddMaterialReadCommand
+    public class Request : IRequest
     {
-        public class Request : IRequest
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Unit>
+    {
+        private readonly ILiverpoolContext _context;
+
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Unit>
+        public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            public Handler(ILiverpoolContext context)
+            if (material == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(Material), request.Id);
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (material == null)
-                {
-                    throw new NotFoundException(nameof(Material), request.Id);
-                }
-
-                material.Reads++;
-                await _context.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
-            }
+            material.Reads++;
+            await _context.SaveChangesAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

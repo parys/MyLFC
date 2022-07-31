@@ -9,60 +9,59 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Wishes
+namespace MyLfc.Application.Wishes;
+
+public class GetWishDetailQuery
 {
-    public class GetWishDetailQuery
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public int Id { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var transfer = await _context.Wishes.AsNoTracking()
+                .ProjectTo<Response>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (transfer == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new NotFoundException(nameof(Wish), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var transfer = await _context.Wishes.AsNoTracking()
-                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (transfer == null)
-                {
-                    throw new NotFoundException(nameof(Wish), request.Id);
-                }
-
-                return transfer;
-            }
+            return transfer;
         }
+    }
 
 
-        [Serializable]
-        public class Response
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class Response
+    {
+        public int Id { get; set; }
 
-            public string Title { get; set; }
+        public string Title { get; set; }
 
-            public string Message { get; set; }
+        public string Message { get; set; }
 
-            public WishType Type { get; set; }
+        public WishType Type { get; set; }
 
-            public string TypeName { get; set; }
+        public string TypeName { get; set; }
 
-            public WishStateEnum State { get; set; }
+        public WishStateEnum State { get; set; }
 
-            public string StateName { get; set; }
-        }
+        public string StateName { get; set; }
     }
 }

@@ -7,72 +7,71 @@ using Microsoft.Extensions.Logging;
 using OpenIddict.Core;
 using OpenIddict.EntityFrameworkCore.Models;
 
-namespace MyLfc.Web.WebHost.BackgroundServices
+namespace MyLfc.Web.WebHost.BackgroundServices;
+
+/// <summary>
+/// Cleans up database expired tokens.
+/// </summary>
+public class CleanExpiredTokensService : IHostedService, IDisposable
 {
+    private readonly ILogger<CleanExpiredTokensService> _logger;
+    private readonly IServiceProvider _service;
+    private Timer _timer;
+
     /// <summary>
-    /// Cleans up database expired tokens.
+    /// Constructor.
     /// </summary>
-    public class CleanExpiredTokensService : IHostedService, IDisposable
+    /// <param name="logger"></param>
+    /// <param name="service"></param>
+    public CleanExpiredTokensService(ILogger<CleanExpiredTokensService> logger,
+        IServiceProvider service)
     {
-        private readonly ILogger<CleanExpiredTokensService> _logger;
-        private readonly IServiceProvider _service;
-        private Timer _timer;
+        _logger = logger;
+        _service = service;
+    }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="service"></param>
-        public CleanExpiredTokensService(ILogger<CleanExpiredTokensService> logger,
-            IServiceProvider service)
+    /// <summary>
+    /// Starts timer.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        _timer = new Timer(RemoveExpiredTokensAsync, null, TimeSpan.Zero,
+            TimeSpan.FromHours(12));
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Disposes timer.
+    /// </summary>
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+
+    private async void RemoveExpiredTokensAsync(object param)
+    {
+        try
         {
-            _logger = logger;
-            _service = service;
+            using var scope = _service.CreateScope();
+            var calStatRepo = scope.ServiceProvider
+                .GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
+            await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
         }
-
-        /// <summary>
-        /// Starts timer.
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task StartAsync(CancellationToken cancellationToken)
+        catch (Exception exception)
         {
-            _timer = new Timer(RemoveExpiredTokensAsync, null, TimeSpan.Zero,
-                TimeSpan.FromHours(12));
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Disposes timer.
-        /// </summary>
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
-
-        private async void RemoveExpiredTokensAsync(object param)
-        {
-            try
-            {
-                using var scope = _service.CreateScope();
-                var calStatRepo = scope.ServiceProvider
-                    .GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
-                await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Error in background job");
-            }
+            _logger.LogError(exception, "Error in background job");
         }
     }
 }

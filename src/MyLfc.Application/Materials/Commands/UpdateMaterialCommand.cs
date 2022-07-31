@@ -11,74 +11,73 @@ using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Materials.Commands
+namespace MyLfc.Application.Materials.Commands;
+
+public class UpdateMaterialCommand
 {
-    public class UpdateMaterialCommand
+    public class Request : UpsertMaterialCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertMaterialCommand.Request, IRequest<Response>
+        public int Id { get; set; }
+    }
+
+    public class Validator : UpsertMaterialCommand.Validator<Request>
+    {
+        public Validator() : base()
         {
-            public int Id { get; set; }
+            RuleFor(v => v.Id).NotEmpty();
+        }
+    }
+
+
+    public class Handler : UpsertMaterialCommand.Handler, IRequestHandler<Request, Response>
+    {
+        private readonly IMapper _mapper;
+
+        private readonly RequestContext _requestContext;
+
+        public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            : base(context)
+        {
+            _mapper = mapper;
+            _requestContext = requestContext;
         }
 
-        public class Validator : UpsertMaterialCommand.Validator<Request>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Validator() : base()
+            // TODO update user counts if we changed author
+            var material = await _context.Materials
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+
+            if (material == null)
             {
-                RuleFor(v => v.Id).NotEmpty();
-            }
-        }
-
-
-        public class Handler : UpsertMaterialCommand.Handler, IRequestHandler<Request, Response>
-        {
-            private readonly IMapper _mapper;
-
-            private readonly RequestContext _requestContext;
-
-            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
-                : base(context)
-            {
-                _mapper = mapper;
-                _requestContext = requestContext;
+                throw new NotFoundException(nameof(Material), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) &&
+                !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
-                // TODO update user counts if we changed author
-                var material = await _context.Materials
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (material == null)
+                if (material.AuthorId != _requestContext.User?.GetUserId())
                 {
-                    throw new NotFoundException(nameof(Material), request.Id);
+                    throw new UnauthorizedAccessException();
                 }
 
-                if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) &&
-                    !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))
-                {
-                    if (material.AuthorId != _requestContext.User?.GetUserId())
-                    {
-                        throw new UnauthorizedAccessException();
-                    }
-
-                    request.Pending = true;
-                }
-
-                material = _mapper.Map(request, material);
-
-                material.UserName = await GetUserName(material.AuthorId, cancellationToken);
-                material.CategoryName = await GetCategoryName(material.CategoryId, cancellationToken);
-                material.LastModified = DateTimeOffset.UtcNow;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = material.Id };
+                request.Pending = true;
             }
-        }
 
-        public class Response
-        {
-            public int Id { get; set; }
+            material = _mapper.Map(request, material);
+
+            material.UserName = await GetUserName(material.AuthorId, cancellationToken);
+            material.CategoryName = await GetCategoryName(material.CategoryId, cancellationToken);
+            material.LastModified = DateTimeOffset.UtcNow;
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new Response { Id = material.Id };
         }
+    }
+
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

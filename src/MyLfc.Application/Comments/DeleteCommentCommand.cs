@@ -9,79 +9,78 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Comments
+namespace MyLfc.Application.Comments;
+
+public class DeleteCommentCommand
 {
-    public class DeleteCommentCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly RequestContext _requestContext;
+
+        private readonly IMediator _mediator;
+
+        public Handler(ILiverpoolContext context, RequestContext requestContext, IMediator mediator)
         {
-            public int Id { get; set; }
+            _context = context;
+            _requestContext = requestContext;
+            _mediator = mediator;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
-
-            private readonly RequestContext _requestContext;
-
-            private readonly IMediator _mediator;
-
-            public Handler(ILiverpoolContext context, RequestContext requestContext, IMediator mediator)
+            var comment = await _context.MaterialComments
+                .Include(x => x.Children)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            
+            if (comment == null)
             {
-                _context = context;
-                _requestContext = requestContext;
-                _mediator = mediator;
+                throw new NotFoundException(nameof(Comment), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            if(!_requestContext.UserId.HasValue
+               || (!_requestContext.User.IsInRole(nameof(RolesEnum.UserStart))
+                   && _requestContext.UserId.Value != comment.AuthorId))
             {
-                var comment = await _context.MaterialComments
-                    .Include(x => x.Children)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (comment == null)
-                {
-                    throw new NotFoundException(nameof(Comment), request.Id);
-                }
-
-                if(!_requestContext.UserId.HasValue
-                   || (!_requestContext.User.IsInRole(nameof(RolesEnum.UserStart))
-                       && _requestContext.UserId.Value != comment.AuthorId))
-                {
-                    throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete comment {request.Id}");
-                }
-
-
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == comment.AuthorId, cancellationToken);
-                user.CommentsCount--;
-
-                if (comment.MaterialId.HasValue)
-                {
-                    var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == comment.MaterialId.Value,
-                        cancellationToken);
-                    material.CommentsCount--;
-                }
-
-                comment.Deleted = true;
-                foreach (var item in comment.Children)
-                {
-                    item.Parent = comment.Parent;
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                await _mediator.Send(
-                    new UpdateCommentsNumberCommand.Request
-                        { DiffAllNumbers = -1, DiffUnverifiedNumbers = comment.IsVerified ? 0 : -1 }, cancellationToken);
-                return new Response { Id = request.Id };
+                throw new UnauthorizedAccessException($"Current user {_requestContext.UserId} cannot delete comment {request.Id}");
             }
-        }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == comment.AuthorId, cancellationToken);
+            user.CommentsCount--;
+
+            if (comment.MaterialId.HasValue)
+            {
+                var material = await _context.Materials.FirstOrDefaultAsync(x => x.Id == comment.MaterialId.Value,
+                    cancellationToken);
+                material.CommentsCount--;
+            }
+
+            comment.Deleted = true;
+            foreach (var item in comment.Children)
+            {
+                item.Parent = comment.Parent;
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            await _mediator.Send(
+                new UpdateCommentsNumberCommand.Request
+                    { DiffAllNumbers = -1, DiffUnverifiedNumbers = comment.IsVerified ? 0 : -1 }, cancellationToken);
+            return new Response { Id = request.Id };
         }
+    }
+
+
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

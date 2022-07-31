@@ -10,82 +10,81 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Clubs
+namespace MyLfc.Application.Clubs;
+
+public class GetClubListQuery
 {
-    public class GetClubListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public string Name { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public string Name { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var clubs = _context.Clubs.AsNoTracking();
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (!string.IsNullOrWhiteSpace(request.Name))
             {
-                _context = context;
-                _mapper = mapper;
+                clubs = clubs.Where(x => x.Name.Contains(request.Name) || x.EnglishName.Contains(request.Name));
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            Expression<Func<Club, object>> sortBy = x => x.Name;
+            if (!string.IsNullOrWhiteSpace(request.SortOn))
             {
-                var clubs = _context.Clubs.AsNoTracking();
-
-                if (!string.IsNullOrWhiteSpace(request.Name))
+                if (request.SortOn.Contains(nameof(Club.Name),
+                    StringComparison.InvariantCultureIgnoreCase))
                 {
-                    clubs = clubs.Where(x => x.Name.Contains(request.Name) || x.EnglishName.Contains(request.Name));
+                    sortBy = x => x.Name;
                 }
-
-                Expression<Func<Club, object>> sortBy = x => x.Name;
-                if (!string.IsNullOrWhiteSpace(request.SortOn))
+                else if (request.SortOn.Contains(nameof(Club.EnglishName),
+                    StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (request.SortOn.Contains(nameof(Club.Name),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        sortBy = x => x.Name;
-                    }
-                    else if (request.SortOn.Contains(nameof(Club.EnglishName),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        sortBy = x => x.EnglishName;
-                    }
-                    else if (request.SortOn.Contains(nameof(ClubListDto.StadiumName),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        sortBy = x => x.Stadium.Name;
-                    }
+                    sortBy = x => x.EnglishName;
                 }
-
-                return await clubs.GetPagedAsync<Response, Club, ClubListDto>(request, _mapper, sortBy);
+                else if (request.SortOn.Contains(nameof(ClubListDto.StadiumName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Stadium.Name;
+                }
             }
+
+            return await clubs.GetPagedAsync<Response, Club, ClubListDto>(request, _mapper, sortBy);
         }
+    }
 
 
-        [Serializable]
-        public class Response : PagedResult<ClubListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<ClubListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class ClubListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class ClubListDto
+    {
+        public int Id { get; set; }
 
-            public string Name { get; set; }
+        public string Name { get; set; }
 
-            public string EnglishName { get; set; }
+        public string EnglishName { get; set; }
 
-            public string StadiumName { get; set; }
-            
-            public int StadiumId { get; set; }
+        public string StadiumName { get; set; }
+        
+        public int StadiumId { get; set; }
 
-            public string Logo { get; set; }
-        }
+        public string Logo { get; set; }
     }
 }

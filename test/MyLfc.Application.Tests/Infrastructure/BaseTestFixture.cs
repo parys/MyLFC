@@ -9,45 +9,44 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Application.Tests.Infrastructure
+namespace MyLfc.Application.Tests.Infrastructure;
+
+public abstract class BaseTestFixture : IDisposable
 {
-    public abstract class BaseTestFixture : IDisposable
+    public ILiverpoolContext Context { get; }
+    public IMapper Mapper { get; }
+
+    public IWebHostEnvironment Environment { get; }
+    public RequestContext AdminRequestContext { get; }
+
+    protected BaseTestFixture()
     {
-        public ILiverpoolContext Context { get; }
-        public IMapper Mapper { get; }
+        Context = LfcDbContextFactory.Create();
+        Mapper = AutoMapperFactory.Create();
 
-        public IWebHostEnvironment Environment { get; }
-        public RequestContext AdminRequestContext { get; }
-
-        protected BaseTestFixture()
+        Environment = new Mock<IWebHostEnvironment>().Object;
+        
+        AdminRequestContext = new RequestContext
         {
-            Context = LfcDbContextFactory.Create();
-            Mapper = AutoMapperFactory.Create();
+            UserId = UserSeeder.AdminUserId,
+            User = new ClaimsPrincipal(new ClaimsIdentity(GetClaims(), 
+                "Identity.Application", "name", "role"))
+        };
+    }
 
-            Environment = new Mock<IWebHostEnvironment>().Object;
-            
-            AdminRequestContext = new RequestContext
-            {
-                UserId = UserSeeder.AdminUserId,
-                User = new ClaimsPrincipal(new ClaimsIdentity(GetClaims(), 
-                    "Identity.Application", "name", "role"))
-            };
-        }
+    public void Dispose()
+    {
+        LfcDbContextFactory.Destroy(Context);
+    }
 
-        public void Dispose()
-        {
-            LfcDbContextFactory.Destroy(Context);
-        }
+    private static IEnumerable<Claim> GetClaims()
+    {
+        var result = Enum.GetNames(typeof(RolesEnum))
+            .Select(name => new Claim("role", name, "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"))
+            .ToList();
+        result.Add(new Claim("sub", "1", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
+        result.Add(new Claim("name", "admin", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
 
-        private static IEnumerable<Claim> GetClaims()
-        {
-            var result = Enum.GetNames(typeof(RolesEnum))
-                .Select(name => new Claim("role", name, "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"))
-                .ToList();
-            result.Add(new Claim("sub", "1", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
-            result.Add(new Claim("name", "admin", "http://www.w3.org/2001/XMLSchema#string", "LOCAL AUTHORITY"));
-
-            return result;
-        }
+        return result;
     }
 }

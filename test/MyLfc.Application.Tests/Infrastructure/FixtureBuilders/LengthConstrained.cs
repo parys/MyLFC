@@ -5,78 +5,77 @@ using System.Text;
 using AutoFixture.Kernel;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 
-namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders
+namespace MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
+
+public class LengthConstrained<TEntity> : ISpecimenBuilder
 {
-    public class LengthConstrained<TEntity> : ISpecimenBuilder
+    private readonly int _maxLength;
+
+    private readonly int _minLength;
+
+    private readonly PropertyInfo _prop;
+
+    private readonly Random _rnd = new Random();
+
+    public LengthConstrained(Expression<Func<TEntity, string>> getter, int maxLength, int minLength)
     {
-        private readonly int _maxLength;
+        ThrowsIfInvalid(getter, maxLength, minLength);
 
-        private readonly int _minLength;
+        _maxLength = maxLength;
+        _minLength = minLength;
+        _prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+    }
 
-        private readonly PropertyInfo _prop;
+    public object Create(object request, ISpecimenContext context)
+    {
+        var pi = request as PropertyInfo;
 
-        private readonly Random _rnd = new Random();
-
-        public LengthConstrained(Expression<Func<TEntity, string>> getter, int maxLength, int minLength)
+        if (pi != null && pi.AreEquivalent(_prop))
         {
-            ThrowsIfInvalid(getter, maxLength, minLength);
-
-            _maxLength = maxLength;
-            _minLength = minLength;
-            _prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+            return GenerateString(_minLength, _maxLength);
         }
 
-        public object Create(object request, ISpecimenContext context)
+        return new NoSpecimen();
+    }
+
+    private void ThrowsIfInvalid(Expression<Func<TEntity, string>> getter, int maxLength, int minLength)
+    {
+        if (maxLength < 0)
         {
-            var pi = request as PropertyInfo;
-
-            if (pi != null && pi.AreEquivalent(_prop))
-            {
-                return GenerateString(_minLength, _maxLength);
-            }
-
-            return new NoSpecimen();
+            throw new ArgumentOutOfRangeException(nameof(maxLength), "MaxLength should be greater then 0");
         }
 
-        private void ThrowsIfInvalid(Expression<Func<TEntity, string>> getter, int maxLength, int minLength)
+        if (minLength < 0)
         {
-            if (maxLength < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxLength), "MaxLength should be greater then 0");
-            }
-
-            if (minLength < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxLength), "MinLength should be greater then 0");
-            }
-
-            if (minLength > maxLength)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxLength), "MinLength should be less then MaxLength");
-            }
-
-            var prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
-            if (prop.PropertyType != typeof(string))
-            {
-                throw new NotSupportedException("Only supported for strings");
-            }
+            throw new ArgumentOutOfRangeException(nameof(maxLength), "MinLength should be greater then 0");
         }
 
-        private string GenerateString(int minLength, int maxLength)
+        if (minLength > maxLength)
         {
-            const string seed = "acbdefghijklymnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789-()£$";
-
-            var builder = new StringBuilder();
-
-            var length = this._rnd.Next(minLength, maxLength);
-
-            for (var i = 0; i < length; i++)
-            {
-                var character = seed[this._rnd.Next(0, seed.Length - 1)];
-                builder.Append(character);
-            }
-
-            return builder.ToString();
+            throw new ArgumentOutOfRangeException(nameof(maxLength), "MinLength should be less then MaxLength");
         }
+
+        var prop = (PropertyInfo)((MemberExpression)getter.Body).Member;
+        if (prop.PropertyType != typeof(string))
+        {
+            throw new NotSupportedException("Only supported for strings");
+        }
+    }
+
+    private string GenerateString(int minLength, int maxLength)
+    {
+        const string seed = "acbdefghijklymnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789-()£$";
+
+        var builder = new StringBuilder();
+
+        var length = this._rnd.Next(minLength, maxLength);
+
+        for (var i = 0; i < length; i++)
+        {
+            var character = seed[this._rnd.Next(0, seed.Length - 1)];
+            builder.Append(character);
+        }
+
+        return builder.ToString();
     }
 }

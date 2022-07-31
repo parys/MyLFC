@@ -1,21 +1,20 @@
 ﻿using FluentValidation;
 
-namespace MyLfc.Application.Seasons.Commands
+namespace MyLfc.Application.Seasons.Commands;
+
+public class UpsertSeasonCommand
 {
-    public class UpsertSeasonCommand
+    public abstract class Request
     {
-        public abstract class Request
-        {
-            public int StartSeasonYear { get; set; }
-        }
+        public int StartSeasonYear { get; set; }
+    }
 
 
-        public abstract class Validator<T> : AbstractValidator<T> where T : Request
+    public abstract class Validator<T> : AbstractValidator<T> where T : Request
+    {
+        protected Validator()
         {
-            protected Validator()
-            {
-                RuleFor(x => x.StartSeasonYear).GreaterThanOrEqualTo(1892);
-            }
+            RuleFor(x => x.StartSeasonYear).GreaterThanOrEqualTo(1892);
         }
     }
 }

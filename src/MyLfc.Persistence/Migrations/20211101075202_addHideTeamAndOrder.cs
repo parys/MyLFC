@@ -1,35 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyLfc.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations;
+
+public partial class addHideTeamAndOrder : Migration
 {
-    public partial class addHideTeamAndOrder : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<byte>(
-                name: "Order",
-                table: "MatchPersons",
-                type: "tinyint",
-                nullable: false,
-                defaultValue: (byte)0);
+        migrationBuilder.AddColumn<byte>(
+            name: "Order",
+            table: "MatchPersons",
+            type: "tinyint",
+            nullable: false,
+            defaultValue: (byte)0);
 
-            migrationBuilder.AddColumn<bool>(
-                name: "HideTeams",
-                table: "Matches",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-        }
+        migrationBuilder.AddColumn<bool>(
+            name: "HideTeams",
+            table: "Matches",
+            type: "bit",
+            nullable: false,
+            defaultValue: false);
+    }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Order",
-                table: "MatchPersons");
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "Order",
+            table: "MatchPersons");
 
-            migrationBuilder.DropColumn(
-                name: "HideTeams",
-                table: "Matches");
-        }
+        migrationBuilder.DropColumn(
+            name: "HideTeams",
+            table: "Matches");
     }
 }

@@ -9,86 +9,85 @@ using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Contracts
+namespace MyLfc.Application.Contracts;
+
+public class GetContractListQuery
 {
-    public class GetContractListQuery
+    public class Request : PagedQueryBase, IRequest<Response>
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public string Name { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public string Name { get; set; }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var contracts = _context.Contracts.AsNoTracking();
 
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper)
+            if (!string.IsNullOrWhiteSpace(request.SortOn))
             {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var contracts = _context.Contracts.AsNoTracking();
-
-                if (!string.IsNullOrWhiteSpace(request.SortOn))
+                if (request.SortOn.Contains("PersonName", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (request.SortOn.Contains("PersonName", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        contracts = request.SortDirection.ToLower() == "asc"
-                            ? contracts.OrderBy(x => x.Person.LastName)
-                            : contracts.OrderByDescending(x => x.Person.LastName);
-                        request.SortOn = null;
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.StartDate),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.StartDate);
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.EndDate),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.EndDate);
-                    }
-                    else if (request.SortOn.Contains(nameof(Contract.Salary),
-                        StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        request.SortOn = nameof(Contract.Salary);
-                    }
-                    else
-                    {
-                        contracts = contracts.OrderByDescending(x => x.Id);
-                    }
+                    contracts = request.SortDirection.ToLower() == "asc"
+                        ? contracts.OrderBy(x => x.Person.LastName)
+                        : contracts.OrderByDescending(x => x.Person.LastName);
+                    request.SortOn = null;
                 }
-                return await contracts.GetPagedAsync<Response, Contract, ContractListDto>(request, _mapper);
-
+                else if (request.SortOn.Contains(nameof(Contract.StartDate),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.StartDate);
+                }
+                else if (request.SortOn.Contains(nameof(Contract.EndDate),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.EndDate);
+                }
+                else if (request.SortOn.Contains(nameof(Contract.Salary),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    request.SortOn = nameof(Contract.Salary);
+                }
+                else
+                {
+                    contracts = contracts.OrderByDescending(x => x.Id);
+                }
             }
+            return await contracts.GetPagedAsync<Response, Contract, ContractListDto>(request, _mapper);
+
         }
+    }
 
-        [Serializable]
-        public class Response : PagedResult<ContractListDto>
-        {
-        }
+    [Serializable]
+    public class Response : PagedResult<ContractListDto>
+    {
+    }
 
 
-        [Serializable]
-        public class ContractListDto
-        {
-            public int Id { get; set; }
+    [Serializable]
+    public class ContractListDto
+    {
+        public int Id { get; set; }
 
-            public int Salary { get; set; }
+        public int Salary { get; set; }
 
-            public int PersonId { get; set; }
+        public int PersonId { get; set; }
 
-            public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-            public DateTimeOffset EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
-            public string PersonName { get; set; }
-        }
+        public string PersonName { get; set; }
     }
 }

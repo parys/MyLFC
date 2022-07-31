@@ -6,63 +6,62 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Users
+namespace MyLfc.Application.Users;
+
+public class UpdateUserConfigCommand
 {
-    public class UpdateUserConfigCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public bool IsReplyToPmEnabled { get; set; }
+
+        public bool IsReplyToEmailEnabled { get; set; }
+
+        public bool IsPmToEmailNotifyEnabled { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly RequestContext _requestContext;
+
+        private readonly IMapper _mapper;
+
+        public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
         {
-            public bool IsReplyToPmEnabled { get; set; }
-
-            public bool IsReplyToEmailEnabled { get; set; }
-
-            public bool IsPmToEmailNotifyEnabled { get; set; }
+            _context = context;
+            _mapper = mapper;
+            _requestContext = requestContext;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var config = await _context.UserConfigs
+                .FirstOrDefaultAsync(x => x.UserId == _requestContext.UserId, cancellationToken);
 
-            private readonly RequestContext _requestContext;
-
-            private readonly IMapper _mapper;
-
-            public Handler(ILiverpoolContext context, IMapper mapper, RequestContext requestContext)
+            if (config == null)
             {
-                _context = context;
-                _mapper = mapper;
-                _requestContext = requestContext;
+                config = new UserConfig
+                {
+                    UserId = _requestContext.UserId.Value
+                };
+                config = _mapper.Map(request, config);
+                _context.UserConfigs.Add(config);
+            }
+            else
+            {
+                config = _mapper.Map(request, config);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var config = await _context.UserConfigs
-                    .FirstOrDefaultAsync(x => x.UserId == _requestContext.UserId, cancellationToken);
-
-                if (config == null)
-                {
-                    config = new UserConfig
-                    {
-                        UserId = _requestContext.UserId.Value
-                    };
-                    config = _mapper.Map(request, config);
-                    _context.UserConfigs.Add(config);
-                }
-                else
-                {
-                    config = _mapper.Map(request, config);
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response {Id = _requestContext.UserId.Value};
-            }
+            await _context.SaveChangesAsync(cancellationToken);
+            return new Response {Id = _requestContext.UserId.Value};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

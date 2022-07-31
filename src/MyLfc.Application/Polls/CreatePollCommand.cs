@@ -4,50 +4,49 @@ using AutoMapper;
 using MediatR;
 using MyLfc.Domain.Polls;
 
-namespace MyLfc.Application.Polls
+namespace MyLfc.Application.Polls;
+
+public class CreatePollCommand
 {
-    public class CreatePollCommand
+    public class Request : UpsertPollCommand.Request, IRequest<Response>
     {
-        public class Request : UpsertPollCommand.Request, IRequest<Response>
+    }
+
+
+    public class Validator : UpsertPollCommand.Validator<Request>
+    {
+        public Validator()
         {
         }
+    }
 
 
-        public class Validator : UpsertPollCommand.Validator<Request>
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+
+        private readonly IMapper _mapper;
+        
+        public Handler(ILiverpoolContext context, IMapper mapper)
         {
-            public Validator()
-            {
-            }
+            _context = context;
+            _mapper = mapper;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var entity = _mapper.Map<Poll>(request);
 
-            private readonly IMapper _mapper;
-            
-            public Handler(ILiverpoolContext context, IMapper mapper)
-            {
-                _context = context;
-                _mapper = mapper;
-            }
+            _context.Polls.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var entity = _mapper.Map<Poll>(request);
-
-                _context.Polls.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = entity.Id };
-            }
+            return new Response { Id = entity.Id };
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

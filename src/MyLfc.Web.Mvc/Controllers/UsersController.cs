@@ -2,25 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Users;
 
-namespace MyLfc.Web.Mvc.Controllers
+namespace MyLfc.Web.Mvc.Controllers;
+
+[Route("[controller]")]
+public class UsersController : BaseController
 {
-    [Route("[controller]")]
-    public class UsersController : BaseController
+    public async Task<IActionResult> Index(GetUserListQuery.Request request)
     {
-        public async Task<IActionResult> Index(GetUserListQuery.Request request)
-        {
-            var users = await Mediator.Send(request);
-            return View(users);
-        }
+        var users = await Mediator.Send(request);
+        return View(users);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Detail(GetUserDetailQuery.Request request)
-        {
-            var user = await Mediator.Send(request);
-            user.Email = string.Empty;
-            user.Ip = string.Empty;
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Detail(GetUserDetailQuery.Request request)
+    {
+        var user = await Mediator.Send(request);
+        user.Email = string.Empty;
+        user.Ip = string.Empty;
 
-            return View(user);
-        }
+        return View(user);
     }
 }

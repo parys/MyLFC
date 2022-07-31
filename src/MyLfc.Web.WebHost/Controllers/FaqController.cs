@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.FaqCategories;
 
-namespace MyLfc.Web.WebHost.Controllers
+namespace MyLfc.Web.WebHost.Controllers;
+
+/// <summary>
+/// Manages faq.
+/// </summary>
+[AllowAnonymous]
+public class FaqController : BaseController
 {
     /// <summary>
-    /// Manages faq.
+    /// Get faq.
     /// </summary>
-    [AllowAnonymous]
-    public class FaqController : BaseController
+    /// <returns>Details result.</returns>
+    [AllowAnonymous, HttpGet("")]
+    public async Task<IActionResult> Get()
     {
-        /// <summary>
-        /// Get faq.
-        /// </summary>
-        /// <returns>Details result.</returns>
-        [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> Get()
-        {
-            var result = await Mediator.Send(new GetFaqQuery.Request());
-            return Ok(result.Results);
-        }
+        var result = await Mediator.Send(new GetFaqQuery.Request());
+        return Ok(result.Results);
     }
 }

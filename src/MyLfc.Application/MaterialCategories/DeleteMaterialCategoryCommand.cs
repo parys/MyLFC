@@ -5,46 +5,45 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.MaterialCategories
+namespace MyLfc.Application.MaterialCategories;
+
+public class DeleteMaterialCategoryCommand
 {
-    public class DeleteMaterialCategoryCommand
+    public class Request : IRequest<Response>
     {
-        public class Request : IRequest<Response>
+        public int Id { get; set; }
+    }
+
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ILiverpoolContext _context;
+        
+        public Handler(ILiverpoolContext context)
         {
-            public int Id { get; set; }
+            _context = context;
         }
 
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            private readonly ILiverpoolContext _context;
+            var materialCategory = await _context.MaterialCategories
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             
-            public Handler(ILiverpoolContext context)
+            if (materialCategory == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(MaterialCategory), request.Id);
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var materialCategory = await _context.MaterialCategories
-                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-                
-                if (materialCategory == null)
-                {
-                    throw new NotFoundException(nameof(MaterialCategory), request.Id);
-                }
+            _context.MaterialCategories.Remove(materialCategory);
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.MaterialCategories.Remove(materialCategory);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response {Id = materialCategory.Id};
-            }
+            return new Response {Id = materialCategory.Id};
         }
+    }
 
 
-        public class Response
-        {
-            public int Id { get; set; }
-        }
+    public class Response
+    {
+        public int Id { get; set; }
     }
 }

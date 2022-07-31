@@ -2,17 +2,16 @@
 using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
-{
-    [CollectionDefinition(nameof(CreateMaterialCommandCollection))]
-    public class CreateMaterialCommandCollection : ICollectionFixture<CreateMaterialCommandTestFixture> { }
+namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand;
 
-    public class CreateMaterialCommandTestFixture : BaseTestFixture
+[CollectionDefinition(nameof(CreateMaterialCommandCollection))]
+public class CreateMaterialCommandCollection : ICollectionFixture<CreateMaterialCommandTestFixture> { }
+
+public class CreateMaterialCommandTestFixture : BaseTestFixture
+{
+    public CreateMaterialCommandTestFixture() : base()
     {
-        public CreateMaterialCommandTestFixture() : base()
-        {
-            MaterialCategorySeeder.Seed(Context);
-            UserSeeder.Seed(Context);
-        }
+        MaterialCategorySeeder.Seed(Context);
+        UserSeeder.Seed(Context);
     }
 }

@@ -11,35 +11,34 @@ using Handler = MyLfc.Application.HelpEntities.GetEntityQuery.Handler;
 using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;
 using Response = MyLfc.Application.HelpEntities.GetEntityQuery.Response;
 
-namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery
+namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery;
+
+[Collection(nameof(CreateOrUpdateEntityCommandCollection))]
+public class HandlerTests
 {
-    [Collection(nameof(CreateOrUpdateEntityCommandCollection))]
-    public class HandlerTests
+    private readonly IRequestHandler<Request, Response> _handler;
+
+    public HandlerTests(CreateOrUpdateEntityCommandTestFixture fixture)
     {
-        private readonly IRequestHandler<Request, Response> _handler;
+        _handler = new Handler(fixture.Context);
+    }
 
-        public HandlerTests(CreateOrUpdateEntityCommandTestFixture fixture)
-        {
-            _handler = new Handler(fixture.Context);
-        }
+    [Fact]
+    public async Task GivenValidType_ReturnsEntity()
+    {
+        var entityType = HelperEntityType.BestPlayer;
 
-        [Fact]
-        public async Task GivenValidType_ReturnsEntity()
-        {
-            var entityType = HelperEntityType.BestPlayer;
+        var result = await _handler.Handle(new Request { Type = entityType }, CancellationToken.None);
 
-            var result = await _handler.Handle(new Request { Type = entityType }, CancellationToken.None);
+        result.Type.Should().Be(entityType);
+        result.Value.Should().NotBeNullOrWhiteSpace();
+    }
 
-            result.Type.Should().Be(entityType);
-            result.Value.Should().NotBeNullOrWhiteSpace();
-        }
+    [Fact]
+    public void WhenTypeNotExist_ThrowsNotFoundException()
+    {
+        Func<Task> result = async () => await _handler.Handle(new Request { Type = (HelperEntityType) 144 }, CancellationToken.None);
 
-        [Fact]
-        public void WhenTypeNotExist_ThrowsNotFoundException()
-        {
-            Func<Task> result = async () => await _handler.Handle(new Request { Type = (HelperEntityType) 144 }, CancellationToken.None);
-
-            result.Should().ThrowAsync<NotFoundException>();
-        }
+        result.Should().ThrowAsync<NotFoundException>();
     }
 }

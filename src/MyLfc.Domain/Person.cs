@@ -3,58 +3,57 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLfc.Data.Common;
 
-namespace MyLfc.Domain
+namespace MyLfc.Domain;
+
+public class Person: IEntity
 {
-    public class Person: IEntity
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
-        public string FirstRussianName { get; set; }
+    public string FirstRussianName { get; set; }
 
-        public string LastName { get; set; }
+    public string LastName { get; set; }
 
-        public string LastRussianName { get; set; }
+    public string LastRussianName { get; set; }
 
-        public string Nickname { get; set; }
+    public string Nickname { get; set; }
 
-        public PersonType Type { get; set; }
+    public PersonType Type { get; set; }
 
-        public string Position { get; set; }
+    public string Position { get; set; }
 
-        public byte? Number { get; set; }
+    public byte? Number { get; set; }
 
-        public string Photo { get; set; }
+    public string Photo { get; set; }
 
-        public string Country { get; set; }
+    public string Country { get; set; }
 
-        public DateTimeOffset? Birthday { get; set; }
+    public DateTimeOffset? Birthday { get; set; }
 
-        public ICollection<Transfer> Transfers { get; set; } = new HashSet<Transfer>();
+    public ICollection<Transfer> Transfers { get; set; } = new HashSet<Transfer>();
 
-        public ICollection<Injury> Injuries { get; set; } = new HashSet<Injury>();
+    public ICollection<Injury> Injuries { get; set; } = new HashSet<Injury>();
 
-        public ICollection<Loan> Loans { get; set; } = new HashSet<Loan>();
+    public ICollection<Loan> Loans { get; set; } = new HashSet<Loan>();
 
-        public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
+    public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
 
-        public ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
+    public ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
 
-        public ICollection<Contract> Contracts { get; set; } = new HashSet<Contract>();
+    public ICollection<Contract> Contracts { get; set; } = new HashSet<Contract>();
 
-        [NotMapped]
-        public string Name => $"{FirstName} {LastName}";
-        [NotMapped]
-        public string RussianName => $"{FirstRussianName} {LastRussianName}";
+    [NotMapped]
+    public string Name => $"{FirstName} {LastName}";
+    [NotMapped]
+    public string RussianName => $"{FirstRussianName} {LastRussianName}";
 
-        public const int CountryLength = 50;
-        public const int FirstNameLength = 35;
-        public const int LastNameLength = 35;
-        public const int FirstRussianNameLength = 35;
-        public const int LastRussianNameLength = 35;
-        public const int NicknameLength = 20;
-        public const int PositionLength = 100;
-        public const int PhotoLength = 100;
-    }
+    public const int CountryLength = 50;
+    public const int FirstNameLength = 35;
+    public const int LastNameLength = 35;
+    public const int FirstRussianNameLength = 35;
+    public const int LastRussianNameLength = 35;
+    public const int NicknameLength = 20;
+    public const int PositionLength = 100;
+    public const int PhotoLength = 100;
 }

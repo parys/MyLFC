@@ -1,44 +1,43 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyLfc.Data.ResourceAccess.Migrations
+namespace MyLfc.Data.ResourceAccess.Migrations;
+
+public partial class AddNicknameAndNumberToPersonAndMP : Migration
 {
-    public partial class AddNicknameAndNumberToPersonAndMP : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Pending",
-                table: "MaterialComments");
+        migrationBuilder.DropColumn(
+            name: "Pending",
+            table: "MaterialComments");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Nickname",
-                table: "Persons",
-                type: "nvarchar(max)",
-                nullable: true);
+        migrationBuilder.AddColumn<string>(
+            name: "Nickname",
+            table: "Persons",
+            type: "nvarchar(max)",
+            nullable: true);
 
-            migrationBuilder.AddColumn<byte>(
-                name: "Number",
-                table: "MatchPersons",
-                type: "tinyint",
-                nullable: true);
-        }
+        migrationBuilder.AddColumn<byte>(
+            name: "Number",
+            table: "MatchPersons",
+            type: "tinyint",
+            nullable: true);
+    }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Nickname",
-                table: "Persons");
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "Nickname",
+            table: "Persons");
 
-            migrationBuilder.DropColumn(
-                name: "Number",
-                table: "MatchPersons");
+        migrationBuilder.DropColumn(
+            name: "Number",
+            table: "MatchPersons");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "Pending",
-                table: "MaterialComments",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-        }
+        migrationBuilder.AddColumn<bool>(
+            name: "Pending",
+            table: "MaterialComments",
+            type: "bit",
+            nullable: false,
+            defaultValue: false);
     }
 }
