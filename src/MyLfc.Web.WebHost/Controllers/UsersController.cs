@@ -147,7 +147,7 @@ public class UsersController : BaseController
     /// <param name="request">The identifier of unblocking user.</param>
     /// <returns>Result of unblocking user.</returns>
     [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("{id:int}/unban")]
-    public async Task<IActionResult> UnbanUser([FromRoute]BanUserCommand.Request request)
+    public async Task<IActionResult> UnbanUser([FromRoute]UnbanUserCommand.Request request)
     {
         return Ok(await Mediator.Send(request));
     }
