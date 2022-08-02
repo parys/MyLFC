@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Features.Account;
 

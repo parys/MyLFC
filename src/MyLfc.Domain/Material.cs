@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyLfc.Data.Common;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Domain;
 

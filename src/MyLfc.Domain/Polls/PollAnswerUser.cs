@@ -1,4 +1,6 @@
-﻿namespace MyLfc.Domain.Polls;
+﻿using MyLfc.Domain.Identity;
+
+namespace MyLfc.Domain.Polls;
 
 public class PollAnswerUser
 {

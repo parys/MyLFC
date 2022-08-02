@@ -1,5 +1,6 @@
 ﻿using System;
 using MyLfc.Data.Common;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Domain;
 

@@ -16,6 +16,7 @@ using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLfc.Common.Utilities;
 using MyLfc.Data.Common;
+using MyLfc.Domain.Identity;
 
 namespace MigratorVnext;
 

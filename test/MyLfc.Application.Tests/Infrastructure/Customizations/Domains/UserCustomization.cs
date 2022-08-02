@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 

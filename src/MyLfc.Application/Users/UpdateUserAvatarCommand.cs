@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Domain;
 using MyLfc.Common.Utilities;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Users;
 

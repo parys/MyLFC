@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Extensions;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Users;
 

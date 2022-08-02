@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Users;
 

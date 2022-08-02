@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace MyLfc.Domain;
+namespace MyLfc.Domain.Identity;
 
 public class Role : IdentityRole<int>, IEntity
 {

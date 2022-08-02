@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 using MyLfc.Domain.Polls;
 
 namespace MyLfc.Application;

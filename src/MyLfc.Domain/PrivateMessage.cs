@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLfc.Domain.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyLfc.Domain;

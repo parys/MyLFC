@@ -2,6 +2,7 @@
 using AutoMapper;
 using MyLfc.Application.Users;
 using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Infrastructure.Profiles;
 

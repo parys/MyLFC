@@ -4,7 +4,7 @@ using MyLfc.Domain.Identity;
 
 namespace MyLfc.Persistence.Configurations;
 
-public class FullUserConfiguration : IEntityTypeConfiguration<FullUser>
+public class FullUserConfiguration : IEntityTypeConfiguration<A>
 {
     public void Configure(EntityTypeBuilder<FullUser> builder)
     {

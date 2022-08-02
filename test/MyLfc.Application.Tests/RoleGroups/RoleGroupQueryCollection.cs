@@ -4,6 +4,7 @@ using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 using Xunit;
 
 namespace MyLfc.Application.Tests.RoleGroups;

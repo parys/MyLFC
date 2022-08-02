@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace MyLfc.Domain;
+namespace MyLfc.Domain.Identity;
 
 public class FullUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEntity
 {
@@ -21,17 +21,17 @@ public class FullUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEn
     // public string ConcurrencyStamp { get; set; }
     // public string NormalizedEmail { get; set; }
     // public string NormalizedUserName { get; set; }
-    
+
     public ICollection<IdentityUserRole<int>> Roles { get; } = new HashSet<IdentityUserRole<int>>();
     public ICollection<IdentityUserClaim<int>> Claims { get; } = new HashSet<IdentityUserClaim<int>>();
     public ICollection<IdentityUserLogin<int>> Logins { get; } = new HashSet<IdentityUserLogin<int>>();
-    
+
     public string Photo { get; set; }
 
     public string FullName { get; set; }
 
     public bool Gender { get; set; }
-    
+
     public DateTimeOffset RegistrationDate { get; set; }
 
     public string Ip { get; set; }
@@ -58,10 +58,10 @@ public class FullUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEn
 
 
     public int RoleGroupId { get; set; }
-    
+
     public int NewsCount { get; set; }
-    
+
     public int BlogsCount { get; set; }
-    
+
     public int CommentsCount { get; set; }
 }

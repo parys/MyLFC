@@ -6,9 +6,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using MyLfc.Domain;
 using MyLfc.Business.Contracts;
 using MyLfc.Common.Utilities;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Features.Account;
 

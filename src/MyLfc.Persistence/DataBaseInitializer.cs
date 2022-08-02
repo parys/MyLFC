@@ -14,6 +14,7 @@ using MyLfc.Application;
 using MyLfc.Domain;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Persistence;
 

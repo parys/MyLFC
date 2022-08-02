@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application;
 using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 using MyLfc.Domain.Polls;
 
 namespace MyLfc.Persistence;
@@ -88,6 +89,10 @@ public sealed class FullLiverpoolContext : IdentityDbContext<FullUser, Role, int
         {
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
+
+        // TODO wait until implemented
+        // https://github.com/dotnet/efcore/issues/24897
+        // UseModel(Model.Instance)
 
     }
 }

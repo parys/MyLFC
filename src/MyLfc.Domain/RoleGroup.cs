@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MyLfc.Domain.Identity;
+using System.Collections.Generic;
 
 namespace MyLfc.Domain;
 

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLfc.Domain.Polls;
 using MyLfc.Data.Common;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Domain;
 

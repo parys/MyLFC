@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 using OpenIddict.Abstractions;
 
 namespace MyLfc.Persistence;

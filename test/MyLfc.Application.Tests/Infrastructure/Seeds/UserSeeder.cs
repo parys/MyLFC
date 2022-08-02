@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
-using MyLfc.Domain;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds;
 

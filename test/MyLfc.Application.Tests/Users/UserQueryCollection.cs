@@ -8,6 +8,7 @@ using MyLfc.Application.Tests.Infrastructure.Seeds;
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
+using MyLfc.Domain.Identity;
 
 namespace MyLfc.Application.Tests.Users;
 

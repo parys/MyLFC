@@ -1,4 +1,6 @@
-﻿namespace MyLfc.Domain;
+﻿using MyLfc.Domain.Identity;
+
+namespace MyLfc.Domain;
 
 public class CommentVote
 {
