@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain.Identity;
-using MyLfc.Persistence.Configurations;
+using MyLfc.Persistence.Configurations.Identity;
 
 namespace MyLfc.Persistence;
 
-public sealed class AuthLiverpoolContext : IdentityDbContext<FullUser, Role, int>
+public sealed class AuthLiverpoolContext : IdentityDbContext<AuthUser, AuthRole, int>
 {
     public AuthLiverpoolContext(DbContextOptions<AuthLiverpoolContext> options) : base(options)
     {
@@ -16,10 +16,6 @@ public sealed class AuthLiverpoolContext : IdentityDbContext<FullUser, Role, int
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(FullLiverpoolContext).Assembly);
- //       modelBuilder.ApplyConfiguration(new FullUserConfiguration()); // TODO switch to AuthUser
-        //modelBuilder.ApplyConfiguration(new  ());
-        //modelBuilder.ApplyConfiguration(new FullUserConfiguration());
-        //modelBuilder.ApplyConfiguration(new FullUserConfiguration());
+        modelBuilder.ApplyConfiguration(new AuthUserConfiguration()); // TODO switch to AuthUser
     }
 }

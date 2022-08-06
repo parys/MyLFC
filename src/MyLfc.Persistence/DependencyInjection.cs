@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLfc.Application;
+using MyLfc.Persistence.AuthModel;
 
 namespace MyLfc.Persistence;
 
@@ -20,6 +21,7 @@ public static class DependencyInjection
         
         services.AddDbContext<AuthLiverpoolContext>(options =>
         {
+            options.UseModel(AuthLiverpoolContextModel.Instance);
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             options.UseOpenIddict<int>();
         });

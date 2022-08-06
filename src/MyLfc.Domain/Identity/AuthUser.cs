@@ -21,6 +21,9 @@ public class AuthUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEn
     // public string NormalizedEmail { get; set; }
     // public string NormalizedUserName { get; set; }
 
+
+    public string Ip { get; set; }
+
     public ICollection<IdentityUserRole<int>> Roles { get; } = new HashSet<IdentityUserRole<int>>();
     public ICollection<IdentityUserClaim<int>> Claims { get; } = new HashSet<IdentityUserClaim<int>>();
     public ICollection<IdentityUserLogin<int>> Logins { get; } = new HashSet<IdentityUserLogin<int>>();

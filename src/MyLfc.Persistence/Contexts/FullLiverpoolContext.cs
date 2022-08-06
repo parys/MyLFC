@@ -85,6 +85,10 @@ public sealed class FullLiverpoolContext : IdentityDbContext<FullUser, Role, int
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(FullLiverpoolContext).Assembly);
 
+        // remove models for auth context
+        modelBuilder.Ignore(typeof(AuthUser));
+        modelBuilder.Ignore(typeof(AuthRole));
+
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
         {
             relationship.DeleteBehavior = DeleteBehavior.Restrict;

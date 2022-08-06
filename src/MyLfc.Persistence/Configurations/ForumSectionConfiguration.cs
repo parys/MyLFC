@@ -4,11 +4,11 @@ using MyLfc.Domain;
 
 namespace MyLfc.Persistence.Configurations;
 
-public class WishConfiguration : IEntityTypeConfiguration<Wish>
+public class WishConfiguration : IEntityTypeConfiguration<ForumSection>
 {
-    public void Configure(EntityTypeBuilder<Wish> builder)
+    public void Configure(EntityTypeBuilder<ForumSection> builder)
     {
-        builder.ToTable("Wishes");
+        builder.ToTable("ForumSections");
         
     }
 }
