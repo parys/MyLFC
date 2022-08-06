@@ -7,9 +7,9 @@ using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 using Xunit;
-using Handler = MyLfc.Application.Persons.UpdatePersonCommand.Handler;
-using Request = MyLfc.Application.Persons.UpdatePersonCommand.Request;
-using Response = MyLfc.Application.Persons.UpdatePersonCommand.Response;
+using Handler = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Handler;
+using Request = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Request;
+using Response = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Response;
 
 namespace MyLfc.Application.Tests.Features.Persons.UpdatePersonCommand;
 

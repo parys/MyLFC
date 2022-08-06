@@ -5,9 +5,9 @@ using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 using Xunit;
-using Handler = MyLfc.Application.Persons.CreatePersonCommand.Handler;
-using Request = MyLfc.Application.Persons.CreatePersonCommand.Request;
-using Response = MyLfc.Application.Persons.CreatePersonCommand.Response;
+using Handler = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Handler;
+using Request = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Request;
+using Response = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Response;
 
 namespace MyLfc.Application.Tests.Features.Persons.CreatePersonCommand;
 

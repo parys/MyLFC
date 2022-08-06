@@ -9,9 +9,9 @@ using Moq;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Common.Web.Hubs;
 using Xunit;
-using Handler = MyLfc.Application.Pms.GetPmDetailQuery.Handler;
-using Request = MyLfc.Application.Pms.GetPmDetailQuery.Request;
-using Response = MyLfc.Application.Pms.GetPmDetailQuery.Response;
+using Handler = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Handler;
+using Request = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Request;
+using Response = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Response;
 
 namespace MyLfc.Application.Tests.Pms.GetPmDetailQuery;
 

@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Pms;
+using MyLfc.Application.Features.Pms.Commands;
+using MyLfc.Application.Features.Pms.Queries;
 
 namespace MyLfc.Web.WebHost.Controllers;
 

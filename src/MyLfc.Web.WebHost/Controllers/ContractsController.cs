@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Contracts;
+using MyLfc.Application.Features.Contracts.Commands;
+using MyLfc.Application.Features.Contracts.Queries;
 using MyLfc.Data.Common;
 
 namespace MyLfc.Web.WebHost.Controllers;

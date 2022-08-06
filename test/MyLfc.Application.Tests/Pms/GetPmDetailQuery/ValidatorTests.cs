@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using Xunit;
-using Request = MyLfc.Application.Pms.GetPmDetailQuery.Request;
-using Validator = MyLfc.Application.Pms.GetPmDetailQuery.Validator;
+using Request = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Request;
+using Validator = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Validator;
 
 namespace MyLfc.Application.Tests.Pms.GetPmDetailQuery;
 

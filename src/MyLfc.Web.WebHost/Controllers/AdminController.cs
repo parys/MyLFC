@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Admin;
-using MyLfc.Application.HelpEntities;
+using MyLfc.Application.Features.Admin.Commands;
+using MyLfc.Application.Features.HelpEntities.Commands;
 using MyLfc.Common.Utilities;
 using MyLfc.Data.Common;
 

@@ -7,9 +7,9 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 using MyLfc.Data.Common;
 using Xunit;
-using Handler = MyLfc.Application.HelpEntities.GetEntityQuery.Handler;
-using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;
-using Response = MyLfc.Application.HelpEntities.GetEntityQuery.Response;
+using Handler = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Handler;
+using Request = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Request;
+using Response = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Response;
 
 namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery;
 

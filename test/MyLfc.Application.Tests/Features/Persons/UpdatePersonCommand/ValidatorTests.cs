@@ -2,8 +2,8 @@
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
-using Validator = MyLfc.Application.Persons.UpdatePersonCommand.Validator;
-using Request = MyLfc.Application.Persons.UpdatePersonCommand.Request;
+using Validator = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Validator;
+using Request = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Request;
 
 namespace MyLfc.Application.Tests.Features.Persons.UpdatePersonCommand;
 

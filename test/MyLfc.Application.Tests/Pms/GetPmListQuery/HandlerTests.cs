@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Xunit;
-using Handler = MyLfc.Application.Pms.GetPmListQuery.Handler;
-using Request = MyLfc.Application.Pms.GetPmListQuery.Request;
-using Response = MyLfc.Application.Pms.GetPmListQuery.Response;
+using Handler = MyLfc.Application.Features.Pms.Queries.GetPmListQuery.Handler;
+using Request = MyLfc.Application.Features.Pms.Queries.GetPmListQuery.Request;
+using Response = MyLfc.Application.Features.Pms.Queries.GetPmListQuery.Response;
 
 namespace MyLfc.Application.Tests.Pms.GetPmListQuery;
 

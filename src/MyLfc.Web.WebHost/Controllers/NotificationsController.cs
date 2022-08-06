@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Notifications;
+using MyLfc.Application.Features.Notifications.Commands;
+using MyLfc.Application.Features.Notifications.Queries;
 
 namespace MyLfc.Web.WebHost.Controllers;
 

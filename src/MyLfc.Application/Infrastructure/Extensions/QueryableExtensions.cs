@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Pagination;
 
 namespace MyLfc.Application.Infrastructure.Extensions;
 

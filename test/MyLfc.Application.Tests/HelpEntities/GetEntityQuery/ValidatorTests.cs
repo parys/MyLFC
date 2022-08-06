@@ -4,8 +4,8 @@ using FluentValidation.TestHelper;
 using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 using MyLfc.Data.Common;
 using Xunit;
-using Validator = MyLfc.Application.HelpEntities.GetEntityQuery.Validator;
-using Request = MyLfc.Application.HelpEntities.GetEntityQuery.Request;
+using Validator = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Validator;
+using Request = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Request;
 
 namespace MyLfc.Application.Tests.HelpEntities.GetEntityQuery;
 

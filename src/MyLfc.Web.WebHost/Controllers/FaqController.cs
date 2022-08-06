@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.FaqCategories;
+using MyLfc.Application.Features.FaqCategories.Queries;
 
 namespace MyLfc.Web.WebHost.Controllers;
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.HelpEntities;
+using MyLfc.Application.Features.HelpEntities.Commands;
 using MyLfc.Application.Seasons.Commands;
 using MyLfc.Application.Seasons.Queries;
 using MyLfc.Data.Common;

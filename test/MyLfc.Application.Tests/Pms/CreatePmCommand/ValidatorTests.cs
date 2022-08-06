@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using Xunit;
-using Validator = MyLfc.Application.Pms.CreatePmCommand.Validator;
-using Request = MyLfc.Application.Pms.CreatePmCommand.Request;
+using Validator = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Validator;
+using Request = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Request;
 
 namespace MyLfc.Application.Tests.Pms.CreatePmCommand;
 

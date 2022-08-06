@@ -2,8 +2,8 @@
 using MyLfc.Domain;
 using MyLfc.Data.Common;
 using Xunit;
-using Validator = MyLfc.Application.Persons.CreatePersonCommand.Validator;
-using Request = MyLfc.Application.Persons.CreatePersonCommand.Request;
+using Validator = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Validator;
+using Request = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Request;
 
 namespace MyLfc.Application.Tests.Features.Persons.CreatePersonCommand;
 

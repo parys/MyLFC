@@ -9,9 +9,9 @@ using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
-using Handler = MyLfc.Application.Persons.GetPersonDetailQuery.Handler;
-using Request = MyLfc.Application.Persons.GetPersonDetailQuery.Request;
-using Response = MyLfc.Application.Persons.GetPersonDetailQuery.Response;
+using Handler = MyLfc.Application.Features.Persons.Queries.GetPersonDetailQuery.Handler;
+using Request = MyLfc.Application.Features.Persons.Queries.GetPersonDetailQuery.Request;
+using Response = MyLfc.Application.Features.Persons.Queries.GetPersonDetailQuery.Response;
 
 namespace MyLfc.Application.Tests.Features.Persons.GetPersonDetailQuery;
 

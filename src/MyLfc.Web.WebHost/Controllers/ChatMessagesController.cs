@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.ChatMessages;
+using MyLfc.Application.Features.ChatMessages.Commands;
+using MyLfc.Application.Features.ChatMessages.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Data.Common;
 using MyLfc.Web.WebHost.Extensions;

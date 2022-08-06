@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.MatchPersons;
+using MyLfc.Application.Features.MatchPersons.Commands;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;

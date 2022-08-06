@@ -8,9 +8,9 @@ using MyLfc.Common.Web.Hubs;
 using MyLfc.Persistence;
 using MyLfc.Business.Contracts;
 using Xunit;
-using Handler = MyLfc.Application.Pms.CreatePmCommand.Handler;
-using Request = MyLfc.Application.Pms.CreatePmCommand.Request;
-using Response = MyLfc.Application.Pms.CreatePmCommand.Response;
+using Handler = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Handler;
+using Request = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Request;
+using Response = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Response;
 
 namespace MyLfc.Application.Tests.Pms.CreatePmCommand;
 

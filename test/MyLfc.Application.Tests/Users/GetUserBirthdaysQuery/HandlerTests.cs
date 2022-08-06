@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Xunit;
-using Handler = MyLfc.Application.Users.GetUserBirthdaysQuery.Handler;
-using Request = MyLfc.Application.Users.GetUserBirthdaysQuery.Request;
-using Response = MyLfc.Application.Users.GetUserBirthdaysQuery.Response;
+using Handler = MyLfc.Application.Features.Users.Queries.GetUserBirthdaysQuery.Handler;
+using Request = MyLfc.Application.Features.Users.Queries.GetUserBirthdaysQuery.Request;
+using Response = MyLfc.Application.Features.Users.Queries.GetUserBirthdaysQuery.Response;
 
 namespace MyLfc.Application.Tests.Users.GetUserBirthdaysQuery;
 

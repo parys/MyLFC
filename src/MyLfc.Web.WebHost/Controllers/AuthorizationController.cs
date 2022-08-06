@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using MyLfc.Application.Users;
+using MyLfc.Application.Features.Users.Commands;
 using MyLfc.Domain.Identity;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;

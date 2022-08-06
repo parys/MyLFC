@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MyLfc.Application.Users;
+using MyLfc.Application.Features.Users.Queries;
 using MyLfc.Business.Contracts;
 using MyLfc.Common.Utilities;
 

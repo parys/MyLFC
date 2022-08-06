@@ -6,9 +6,9 @@ using MediatR;
 using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
 using Xunit;
-using Handler = MyLfc.Application.Comments.UpdateCommentVoteCommand.Handler;
-using Request = MyLfc.Application.Comments.UpdateCommentVoteCommand.Request;
-using Response = MyLfc.Application.Comments.UpdateCommentVoteCommand.Response;
+using Handler = MyLfc.Application.Features.Comments.Commands.UpdateCommentVoteCommand.Handler;
+using Request = MyLfc.Application.Features.Comments.Commands.UpdateCommentVoteCommand.Request;
+using Response = MyLfc.Application.Features.Comments.Commands.UpdateCommentVoteCommand.Response;
 
 namespace MyLfc.Application.Tests.Features.Comments.UpdateCommentVoteCommand;
 

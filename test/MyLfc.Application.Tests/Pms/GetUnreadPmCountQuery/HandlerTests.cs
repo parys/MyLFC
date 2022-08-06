@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Xunit;
-using Handler = MyLfc.Application.Pms.GetUnreadPmCountQuery.Handler;
-using Request = MyLfc.Application.Pms.GetUnreadPmCountQuery.Request;
-using Response = MyLfc.Application.Pms.GetUnreadPmCountQuery.Response;
+using Handler = MyLfc.Application.Features.Pms.Queries.GetUnreadPmCountQuery.Handler;
+using Request = MyLfc.Application.Features.Pms.Queries.GetUnreadPmCountQuery.Request;
+using Response = MyLfc.Application.Features.Pms.Queries.GetUnreadPmCountQuery.Response;
 
 namespace MyLfc.Application.Tests.Pms.GetUnreadPmCountQuery;
 

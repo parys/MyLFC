@@ -6,9 +6,9 @@ using MediatR;
 using MyLfc.Persistence;
 using MyLfc.Data.Common;
 using Xunit;
-using Handler = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Handler;
-using Request = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Request;
-using Response = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Response;
+using Handler = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Handler;
+using Request = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Request;
+using Response = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Response;
 
 namespace MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 

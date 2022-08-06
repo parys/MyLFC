@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Comments;
+using MyLfc.Application.Features.Comments.Commands;
+using MyLfc.Application.Features.Comments.Queries;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;

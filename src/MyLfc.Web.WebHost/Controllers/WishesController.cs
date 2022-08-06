@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Wishes;
+using MyLfc.Application.Features.Wishes.Commands;
+using MyLfc.Application.Features.Wishes.Queries;
 using MyLfc.Common.Utilities.Extensions;
 using MyLfc.Data.Common;
 

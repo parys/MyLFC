@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Xunit;
-using Handler = MyLfc.Application.RoleGroups.GetRoleGroupsQuery.Handler;
-using Request = MyLfc.Application.RoleGroups.GetRoleGroupsQuery.Request;
-using Response = MyLfc.Application.RoleGroups.GetRoleGroupsQuery.Response;
+using Handler = MyLfc.Application.Features.RoleGroups.Queries.GetRoleGroupsQuery.Handler;
+using Request = MyLfc.Application.Features.RoleGroups.Queries.GetRoleGroupsQuery.Request;
+using Response = MyLfc.Application.Features.RoleGroups.Queries.GetRoleGroupsQuery.Response;
 
 namespace MyLfc.Application.Tests.RoleGroups.GetRoleGroupsQuery;
 

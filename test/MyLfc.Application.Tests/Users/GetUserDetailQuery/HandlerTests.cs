@@ -6,9 +6,9 @@ using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using Xunit;
-using Handler = MyLfc.Application.Users.GetUserDetailQuery.Handler;
-using Request = MyLfc.Application.Users.GetUserDetailQuery.Request;
-using Response = MyLfc.Application.Users.GetUserDetailQuery.Response;
+using Handler = MyLfc.Application.Features.Users.Queries.GetUserDetailQuery.Handler;
+using Request = MyLfc.Application.Features.Users.Queries.GetUserDetailQuery.Request;
+using Response = MyLfc.Application.Features.Users.Queries.GetUserDetailQuery.Response;
 
 namespace MyLfc.Application.Tests.Users.GetUserDetailQuery;
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using FluentValidation.TestHelper;
 using MyLfc.Data.Common;
 using Xunit;
-using Validator = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Validator;
-using Request = MyLfc.Application.HelpEntities.CreateOrUpdateEntityCommand.Request;
+using Validator = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Validator;
+using Request = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Request;
 
 namespace MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 
