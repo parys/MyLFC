@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MyLfc.Data.ResourceAccess.Migrations;
 
+[ExcludeFromCodeCoverage]
 public partial class AddDeletedFieldToMaterialAndComment : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

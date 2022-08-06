@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MyLfc.Data.ResourceAccess.Migrations;
 
+[ExcludeFromCodeCoverage]
 public partial class AddNotificationTable : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

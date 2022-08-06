@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace MyLfc.Data.ResourceAccess.Migrations;
 
+[ExcludeFromCodeCoverage]
 public partial class addUserNameAndCatNameToMaterial : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

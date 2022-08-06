@@ -1,8 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MyLfc.Data.ResourceAccess.Migrations;
 
+[ExcludeFromCodeCoverage]
 public partial class UpdateOpenIdDictV3 : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

@@ -227,3 +227,4 @@ ModelManifest.xml
 /src/MyLfc.Web.WebHost/ClientApp/test
 /src/MyLfc.Web.WebHost/Logs
 appsettings.local.json
+/coveragereport

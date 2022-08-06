@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MyLfc.Data.ResourceAccess.Migrations;
 
+[ExcludeFromCodeCoverage]
 public partial class AddUserConfigTable : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

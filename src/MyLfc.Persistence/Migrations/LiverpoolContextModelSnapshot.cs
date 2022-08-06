@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLfc.Persistence;
+using System.Diagnostics.CodeAnalysis;
+
 
 #nullable disable
 
 namespace MyLfc.Data.ResourceAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     [DbContext(typeof(FullLiverpoolContext))]
     partial class LiverpoolContextModelSnapshot : ModelSnapshot
     {
