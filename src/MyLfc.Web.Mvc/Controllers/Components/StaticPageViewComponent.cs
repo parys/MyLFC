@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.HelpEntities;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Utilities;
 using MyLfc.Data.Common;
+using MyLfc.Application.Features.HelpEntities.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers.Components;
 

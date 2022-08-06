@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Transfers;
+using MyLfc.Application.Features.Transfers.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers;
 

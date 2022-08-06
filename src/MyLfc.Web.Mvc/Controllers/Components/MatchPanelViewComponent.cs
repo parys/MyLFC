@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.HelpEntities;
+using MyLfc.Application.Features.HelpEntities.Queries;
 using MyLfc.Application.Matches.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;

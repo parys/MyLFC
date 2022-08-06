@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Users;
+using MyLfc.Application.Features.Users.Queries;
 
 namespace MyLfc.Web.Mvc.Controllers;
 

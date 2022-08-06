@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.ChatMessages;
+using MyLfc.Application.Features.ChatMessages.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Data.Common;

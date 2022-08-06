@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Application.Comments;
+using MyLfc.Application.Features.Comments.Queries;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 
