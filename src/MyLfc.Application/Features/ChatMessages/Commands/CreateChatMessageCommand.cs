@@ -47,7 +47,7 @@ public class CreateChatMessageCommand
             _context.ChatMessages.Add(chatMessage);
             await _context.SaveChangesAsync(cancellationToken);
 
-            await _mediator.Send(new SendChatMessageNotification.Request { Id = chatMessage.Id }, cancellationToken);
+            await _mediator.Publish(new SendChatMessageNotification.Request { Id = chatMessage.Id }, cancellationToken);
 
             return new Response { Id = chatMessage.Id };
         }
