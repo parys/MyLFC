@@ -36,6 +36,18 @@ public class MaterialConfiguration : IEntityTypeConfiguration<Material>
             .WithMany(x => x.Materials)
             .HasForeignKey(x => x.CategoryId);
 
+        builder.HasIndex(e => e.Pending)
+                    .IsClustered(false)
+                    .HasDatabaseName("IX_Mat_Pending");
+
+        builder.HasIndex(e => new { e.Deleted, e.Pending })
+                    .IsClustered(false)
+                    .HasDatabaseName("IX_Mat_Del_Pen");   
+
+        builder.HasIndex(e => new { e.Deleted, e.Pending, e.OnTop })
+                    .IsClustered(false)
+                    .HasDatabaseName("IX_Mat_Del_Pen_Top");            
+
         builder.HasQueryFilter(x => !x.Deleted);
 
     }
