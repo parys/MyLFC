@@ -136,5 +136,7 @@ public class GetMatchDetailQuery
         public int? ReportId { get; set; }
 
         public bool HideTeams { get; set; }
+
+        public bool Postponed { get; set; }
     }
 }

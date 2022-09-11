@@ -90,7 +90,7 @@ public class GetMatchCalendarQuery
             .Include(m => m.Club)
             .Include(m => m.Events)
             .OrderBy(x => x.DateTime)
-            .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.UtcNow.AddHours(0.5));
+            .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.UtcNow.AddHours(0.2) && !m.Postponed);
         }
 
         private async Task<Match> GetNextMatchAsync()
@@ -100,7 +100,7 @@ public class GetMatchCalendarQuery
                 .Include(m => m.Stadium)
                 .Include(m => m.Events)
                 .OrderBy(x => x.DateTime)
-                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.UtcNow.AddHours(0.5));
+                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.UtcNow.AddHours(0.5) && !m.Postponed);
         }
     }
 
@@ -167,5 +167,7 @@ public class GetMatchCalendarQuery
         public int? ReportId { get; set; }
 
         public int CommentCount { get; set; }
+        
+        public bool Postponed { get; set; }
     }
 }

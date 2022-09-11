@@ -138,5 +138,7 @@ public class GetMatchHeaderQuery
         public int? ReportId { get; set; }
 
         public int CommentCount { get; set; }
+
+        public bool Postponed { get; set; }
     }
 }

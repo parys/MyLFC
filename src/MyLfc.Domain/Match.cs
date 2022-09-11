@@ -38,6 +38,8 @@ public class Match : IEntity
 
     public bool HideTeams { get; set; }
 
+    public bool Postponed { get; set; }
+
     public Stadium Stadium { get; set; }
 
     public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();

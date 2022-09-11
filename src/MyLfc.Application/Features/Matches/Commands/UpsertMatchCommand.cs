@@ -36,6 +36,8 @@ public class UpsertMatchCommand
         public string PreviewId { get; set; }
 
         public string ReportId { get; set; }
+
+        public bool Postponed { get; set; }
     }
 
 
