@@ -36,6 +36,10 @@ public class MaterialConfiguration : IEntityTypeConfiguration<Material>
             .WithMany(x => x.Materials)
             .HasForeignKey(x => x.CategoryId);
 
+        builder.HasIndex(e => e.AdditionTime)
+                    .IsClustered(false)
+                    .HasDatabaseName("IX_Mat_AdditionTime");
+
         builder.HasIndex(e => e.Pending)
                     .IsClustered(false)
                     .HasDatabaseName("IX_Mat_Pending");
