@@ -10,13 +10,14 @@ public static class HtmlExtractorHelpers
 {
     public static async Task<HtmlNode> GetHtmlNodeAsync(string url)
     {
-        using var handler = new HttpClientHandler
-        {
-            ClientCertificateOptions = ClientCertificateOption.Manual, //todo https://github.com/parys/MyLFC/issues/382
-            ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) => true
-        };
-        using var http = new HttpClient(handler); // TODO switch to HttpClientFactory
+        //using var handler = new HttpClientHandler
+        //{
+        //    ClientCertificateOptions = ClientCertificateOption.Manual, //todo https://github.com/parys/MyLFC/issues/382
+        //    ServerCertificateCustomValidationCallback =
+        //        (httpRequestMessage, cert, cetChain, policyErrors) => true
+        //};
+        using var http = new HttpClient(); // TODO switch to HttpClientFactory
+        var response2 = await http.GetStringAsync(url);
         var response = await http.GetByteArrayAsync(url);
         var source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
         source = WebUtility.HtmlDecode(source);
