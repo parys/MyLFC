@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.1" />
     <PackageReference Include="OpenIddict.Core" Version="4.0.0" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="OpenIddict.Server" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.Server" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.1"></PackageReference>
   </ItemGroup>
 
