@@ -25,7 +25,7 @@ jobs:
     - name: Publish
       run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLiverpool.Web.WebApiNext/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v3.0.1
+      uses: easingthemes/ssh-deploy@v3.4.5
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
           ARGS: "-avzr --delete --exclude=/wwwroot/ --exclude=/Logs/ --exclude '*.xml' --exclude 'appsettings.Production.json'"
