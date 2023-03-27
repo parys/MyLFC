@@ -9,7 +9,7 @@ namespace MyLfc.Application.Materials.Commands;
 
 public class ActivateMaterialCommand
 {
-    public class Request : IRequest
+    public class Request : IRequest<Unit>
     {
         public int Id { get; set; }
     }

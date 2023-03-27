@@ -7,12 +7,12 @@ namespace MyLfc.Application.Features.Admin.Commands;
 
 public class SendTestEmailCommand
 {
-    public class Request : IRequest
+    public class Request : IRequest<Unit>
     {
         public string Email { get; set; }
     }
 
-    public class Handler : IRequestHandler<Request>
+    public class Handler : IRequestHandler<Request, Unit>
     {
         private readonly IEmailSender _emailSender;
 

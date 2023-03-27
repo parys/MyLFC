@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Application.Features.Admin.Commands;
 using MyLfc.Application.Infrastructure.Pipelines;
 using MyLfc.Application.Materials.Queries;
 
@@ -14,6 +15,9 @@ public static class DependencyInjection
             .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-        services.AddMediatR(typeof(GetLatestMaterialsQuery).Assembly);
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblies(typeof(CalculateCommentsNumberCommand).Assembly); // TODO research whether it is required
+        });
     }
 }

@@ -11,12 +11,12 @@ public class RecalculateMaterialCommentsCommand
 {
     private static bool _started;
 
-    public class Request : IRequest
+    public class Request : IRequest<Unit>
     {
 
     }
 
-    public class Handler : IRequestHandler<Request>
+    public class Handler : IRequestHandler<Request, Unit>
     {
         private readonly ILiverpoolContext _context;
         private readonly ISignalRHubAggregator _signalRHubAggregator;

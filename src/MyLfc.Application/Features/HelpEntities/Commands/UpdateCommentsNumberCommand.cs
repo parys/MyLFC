@@ -10,13 +10,13 @@ namespace MyLfc.Application.Features.HelpEntities.Commands;
 
 public class UpdateCommentsNumberCommand
 {
-    public class Request : IRequest
+    public class Request : IRequest<Unit>
     {
         public int DiffAllNumbers { get; set; }
         public int DiffUnverifiedNumbers { get; set; }
     }
 
-    public class Handler : IRequestHandler<Request>
+    public class Handler : IRequestHandler<Request, Unit>
     {
         private readonly ILiverpoolContext _context;
 

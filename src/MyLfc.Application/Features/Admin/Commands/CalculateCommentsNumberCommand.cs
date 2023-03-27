@@ -12,12 +12,12 @@ namespace MyLfc.Application.Features.Admin.Commands;
 
 public class CalculateCommentsNumberCommand
 {
-    public class Request : IRequest
+    public class Request : IRequest<Unit>
     {
 
     }
 
-    public class Handler : IRequestHandler<Request>
+    public class Handler : IRequestHandler<Request, Unit>
     {
         private readonly ILiverpoolContext _context;
 
