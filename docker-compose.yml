@@ -15,12 +15,25 @@ services:
     container_name: sql-server-test
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
-      - "1436:1433"
+      - ":1433"
+    volumes:
+      - d:/site/docker/sql/test/data:/var/opt/mssql/data
+      - d:/site/docker/sql/test/log:/var/opt/mssql/log
     environment:
       SA_PASSWORD: "123qwe!Q"
       ACCEPT_EULA: "Y"
 # api test
-
+  api-test:
+    container_name: api-test
+    image: api1:1
+    ports:
+      - "5555:80"
+    volumes:
+      - d:/site/docker/api/test/wwwroot:/wwwroot
+      - d:/site/docker/api/test/config:/config
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - ASPNETCORE_URLS=http://+:80;
 # SSR test
 
 # nginx test

@@ -48,7 +48,8 @@ public class Startup
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            .AddJsonFile($"appsettings.local.json", optional: true);
+            .AddJsonFile($"appsettings.local.json", optional: true)
+            .AddJsonFile($"config/appsettings.prod.json", optional: true);
 
         if (env.IsDevelopment())
         {
