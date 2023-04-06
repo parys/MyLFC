@@ -62,19 +62,19 @@ public static class OpenIdDictMiddleware
                     {
 
                         options.AddEncryptionCertificate(
-                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}.pfx"),
+                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "../config", $"{config.GetSection("Cert")["Name"]}.pfx"),
                             FileMode.Open), config.GetSection("Cert")["password"]);
                         options.AddSigningCertificate(
-                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}2.pfx"),
+                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "../config", $"{config.GetSection("Cert")["Name"]}2.pfx"),
                             FileMode.Open), config.GetSection("Cert")["password"]);
                     }
                     catch
                     {
                         options.AddEncryptionCertificate(
-                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}3.pfx"),
+                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "../config", $"{config.GetSection("Cert")["Name"]}3.pfx"),
                             FileMode.Open), config.GetSection("Cert")["password"]);
                         options.AddSigningCertificate(
-                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "..", $"{config.GetSection("Cert")["Name"]}4.pfx"),
+                            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "../config", $"{config.GetSection("Cert")["Name"]}4.pfx"),
                             FileMode.Open), config.GetSection("Cert")["password"]);
                     }
                 }
