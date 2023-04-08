@@ -31,18 +31,30 @@ services:
 # api test
   api-test:
     container_name: api-test
-    image: api1:1
+   # image: api1:1
+    image: andrewparys/api-test:develop
     ports:
-      - "8080:80"
+      - "1669:80"
     volumes:
-      - d:/site/docker/api/test/wwwroot:/wwwroot
-      - d:/site/docker/api/test/config:/config
+      - d:/site/docker/api/test/wwwroot:/app/wwwroot
+      - d:/site/docker/api/test/config:/app/config
     environment:
       - ASPNETCORE_ENVIRONMENT=Release
       - ASPNETCORE_URLS=http://+:80;
     depends_on:
       sql-server-test:
         condition: service_healthy
+
+   #client test
+  client-test:
+    container_name: client-test
+   # image: api1:1
+    image: andrewparys/client-test:develop
+    ports:
+       - "3000:80"
+    depends_on:
+       - api-test
+
 # SSR test
 
 # nginx test
