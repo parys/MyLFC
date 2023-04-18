@@ -6,14 +6,19 @@ using MyLfc.Domain;
 
 namespace MyLfc.Application.Features.Clubs.Commands;
 
+public class CreateClubCommandRequest : UpsertClubCommand.Request, IRequest<CreateClubCommandResponse>
+{
+}
+public class CreateClubCommandResponse
+{
+    public int Id { get; set; }
+}
+
 public class CreateClubCommand
 {
-    public class Request : UpsertClubCommand.Request, IRequest<Response>
-    {
-    }
 
 
-    public class Validator : UpsertClubCommand.Validator<Request>
+    public class Validator : UpsertClubCommand.Validator<CreateClubCommandRequest>
     {
         public Validator()
         {
@@ -21,7 +26,7 @@ public class CreateClubCommand
     }
 
 
-    public class Handler : IRequestHandler<Request, Response>
+    public class Handler : IRequestHandler<CreateClubCommandRequest, CreateClubCommandResponse>
     {
         private readonly ILiverpoolContext _context;
 
@@ -33,20 +38,14 @@ public class CreateClubCommand
             _mapper = mapper;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<CreateClubCommandResponse> Handle(CreateClubCommandRequest request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Club>(request);
 
             _context.Clubs.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new Response { Id = entity.Id };
+            return new CreateClubCommandResponse { Id = entity.Id };
         }
-    }
-
-
-    public class Response
-    {
-        public int Id { get; set; }
     }
 }

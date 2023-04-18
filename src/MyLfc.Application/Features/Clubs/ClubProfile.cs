@@ -9,13 +9,13 @@ public class ClubProfile : Profile
 {
     public ClubProfile()
     {
-        CreateMap<CreateClubCommand.Request, Club>()
+        CreateMap<CreateClubCommandRequest, Club>()
             .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
             .ForMember(dest => dest.EnglishName, src => src.MapFrom(x => x.EnglishName.Trim()))
             ;
-        ;
+        
 
-        CreateMap<UpdateClubCommand.Request, Club>()
+        CreateMap<UpdateClubCommandRequest, Club>()
             .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name.Trim()))
             .ForMember(dest => dest.EnglishName, src => src.MapFrom(x => x.EnglishName.Trim()))
             ;

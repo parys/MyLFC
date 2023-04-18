@@ -18,7 +18,7 @@ public class ClubsController : BaseController
     /// <param name="request">New club model.</param>
     /// <returns></returns>
     [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-    public async Task<IActionResult> CreateAsync([FromBody]CreateClubCommand.Request request)
+    public async Task<IActionResult> CreateAsync([FromBody]CreateClubCommandRequest request)
     {
         return Ok(await Mediator.Send(request));
     }
@@ -52,7 +52,7 @@ public class ClubsController : BaseController
     /// <param name="request">Modified club entity.</param>
     /// <returns>Returns of editing.</returns>
     [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-    public async Task<IActionResult> EditAsync(int id, [FromBody]UpdateClubCommand.Request request)
+    public async Task<IActionResult> EditAsync(int id, [FromBody]UpdateClubCommandRequest request)
     {
         if (id != request.Id)
         {

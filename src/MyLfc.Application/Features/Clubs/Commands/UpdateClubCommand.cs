@@ -9,14 +9,19 @@ using MyLfc.Domain;
 
 namespace MyLfc.Application.Features.Clubs.Commands;
 
+public class UpdateClubCommandRequest : UpsertClubCommand.Request, IRequest<UpdateClubCommandResponse>
+{
+    public int Id { get; set; }
+}
+public class UpdateClubCommandResponse
+{
+    public int Id { get; set; }
+}
+
 public class UpdateClubCommand
 {
-    public class Request : UpsertClubCommand.Request, IRequest<Response>
-    {
-        public int Id { get; set; }
-    }
 
-    public class Validator : UpsertClubCommand.Validator<Request>
+    public class Validator : UpsertClubCommand.Validator<UpdateClubCommandRequest>
     {
         public Validator()
         {
@@ -25,7 +30,7 @@ public class UpdateClubCommand
     }
 
 
-    public class Handler : IRequestHandler<Request, Response>
+    public class Handler : IRequestHandler<UpdateClubCommandRequest, UpdateClubCommandResponse>
     {
         private readonly ILiverpoolContext _context;
 
@@ -37,7 +42,7 @@ public class UpdateClubCommand
             _mapper = mapper;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<UpdateClubCommandResponse> Handle(UpdateClubCommandRequest request, CancellationToken cancellationToken)
         {
             var club = await _context.Clubs
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
@@ -51,12 +56,7 @@ public class UpdateClubCommand
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new Response { Id = club.Id };
+            return new UpdateClubCommandResponse { Id = club.Id };
         }
-    }
-
-    public class Response
-    {
-        public int Id { get; set; }
     }
 }
