@@ -25,7 +25,7 @@ jobs:
     - name: Publish
       run: dotnet publish /home/runner/work/MyLFC/MyLFC/src/MyLfc.Web.WebHost/ -c Release --output ./artifacts/ -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=false -p:TrimMode=Link
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v3.4.5
+      uses: easingthemes/ssh-deploy@v4.1.10
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
           ARGS: "-avzr --delete --exclude=/wwwroot/ --exclude=/Logs/ --exclude '*.xml' --exclude 'appsettings.Production.json'"
