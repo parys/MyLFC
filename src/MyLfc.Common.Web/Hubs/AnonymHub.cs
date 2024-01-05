@@ -33,7 +33,8 @@ public class AnonymHub : Hub
         {
             var model = new OnlineCounterModel
             {
-                Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub").Value),
+                Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub"
+                || x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value),
                 UserName = Context.User.Claims.First(x => x.Type == "name").Value,
                 ConnectionId = Context.ConnectionId
             };
