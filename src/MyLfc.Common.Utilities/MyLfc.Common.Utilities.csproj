@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.70" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
