@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 
 namespace MyLfc.Web.WebHost.Middlewares;
 
@@ -33,7 +34,7 @@ public static class SignalRExtensions
 
                         if (!string.IsNullOrWhiteSpace(access_token))
                         {
-                            context.Request.Headers.Add("Authorization", new[] {$"Bearer {access_token}"});
+                            context.Request.Headers.Append("Authorization", new[] {$"Bearer {access_token}"});
                         }
                     }
                 }
