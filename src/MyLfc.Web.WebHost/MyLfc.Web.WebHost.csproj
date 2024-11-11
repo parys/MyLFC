@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <ServerGarbageCollection>true</ServerGarbageCollection>
@@ -102,6 +103,7 @@
     <ProjectReference Include="..\MyLfc.Common.Mappings\MyLfc.Common.Mappings.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Utilities\MyLfc.Common.Utilities.csproj" />
     <ProjectReference Include="..\MyLfc.Data.Common\MyLfc.Data.Common.csproj" />
+    <ProjectReference Include="..\MyLfc.ServiceDefaults\MyLfc.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
