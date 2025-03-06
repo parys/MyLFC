@@ -52,7 +52,7 @@ jobs:
           images: andrewparys/api-test
       
       - name: Build and push Docker image
-        uses: docker/build-push-action@11be14d908760a0756f045980728ec5fb7880f74
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
         with:
           context: .
           push: true
