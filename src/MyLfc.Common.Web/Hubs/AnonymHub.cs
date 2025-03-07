@@ -41,7 +41,7 @@ public class AnonymHub : Hub
             OnlineUsers.CurrentOnline.AddOrUpdate(Context.ConnectionId, model,
                 (k, v) => model);
         }
-        else 
+        else
         {
             OnlineUsers.CurrentOnlineGuests.Add(Context.ConnectionId);
         }

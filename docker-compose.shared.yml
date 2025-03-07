@@ -1,0 +1,72 @@
+version: '0.2'
+services:
+# redis
+  cache:
+      container_name: cache
+      image: redis:alpine
+      restart: always
+      ports:
+        - '6380:6379'
+      command: redis-server --save 20 1 --loglevel warning
+      volumes: 
+        - cache:/data
+# sql test
+  sql-server-test:
+    container_name: sql-server-test
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1444:1433"
+    volumes:
+      - home/sql/data:/var/opt/mssql/data
+      - home/sql/log:/var/opt/mssql/log
+    environment:
+      SA_PASSWORD: "123qwe!Q!"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "123qwe!Q" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+# api prod
+  api-prod:
+    container_name: api-prod
+   # image: api1:1
+    image: andrewparys/api-test:develop
+    ports:
+      - "5001:80"
+    volumes:
+      - home/prod/wwwroot:/app/wwwroot
+      - home/prod/config:/app/config
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - ASPNETCORE_URLS=http://+:80;
+    depends_on:
+      sql-server-test:
+        condition: service_healthy
+
+   #client prod
+  client-prod:
+    container_name: client-prod
+    image: andrewparys/client-test:develop
+    ports:
+       - "4001:80"
+    depends_on:
+       - api-prod
+
+# SSR test
+
+# nginx
+  nginx:
+    container_name: nginx
+    image: nginx:1.23.4-alpine
+    ports:
+       - "80:80"
+       - "443:443"
+    volumes:
+      - home/nginx:/etc/nginx
+      - etc/letsencrypt:/etc/letsencrypt
+
+volumes:
+  cache:
+    driver: local
