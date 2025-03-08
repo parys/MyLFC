@@ -1,16 +1,15 @@
-﻿using FluentAssertions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Persistence;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Handler;
 using Request = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Request;
 using Response = MyLfc.Application.Materials.Queries.GetMaterialDetailQuery.Response;
+using Shouldly;
 
 namespace MyLfc.Application.Tests.Materials.GetMaterialDetailQuery;
 
@@ -32,7 +31,7 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -40,12 +39,12 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = MaterialQueryTestFixture.DeletedMaterial }, CancellationToken.None);
 
-        await result.Should().ThrowAsync<NotFoundException>();
+        await result.ShouldThrowAsync<NotFoundException>();
 
         var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == MaterialQueryTestFixture.DeletedMaterial);
 
-        deletedMaterial.Should().NotBeNull();
+        deletedMaterial.ShouldNotBeNull();
     }
 
     [Fact]
@@ -53,21 +52,21 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = MaterialQueryTestFixture.PendingMaterial }, CancellationToken.None);
 
-        await result.Should().ThrowAsync<NotFoundException>();
+        await result.ShouldThrowAsync<NotFoundException>();
 
         var pendingMaterial = await _context.Materials.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == MaterialQueryTestFixture.PendingMaterial);
 
-        pendingMaterial.Should().NotBeNull();
+        pendingMaterial.ShouldNotBeNull();
     }
-    
+
     [Fact]
     public async Task WhenMaterialIdIsValid_ShouldReturnResponse()
     {
         var result = await _handler.Handle(new Request { Id = MaterialQueryTestFixture.MaterialWithComments }, CancellationToken.None);
 
-        result.Should().BeOfType<Response>();
-        result.Id.Should().Be(MaterialQueryTestFixture.MaterialWithComments);
+        result.ShouldBeOfType<Response>();
+        result.Id.ShouldBe(MaterialQueryTestFixture.MaterialWithComments);
     }
 
     [Fact]
@@ -75,8 +74,8 @@ public class HandlerTests
     {
         var result = await _handler.Handle(new Request { Id = MaterialQueryTestFixture.PendingMaterial, IncludePending = true}, CancellationToken.None);
 
-        result.Should().BeOfType<Response>();
-        result.Id.Should().Be(MaterialQueryTestFixture.PendingMaterial);
+        result.ShouldBeOfType<Response>();
+        result.Id.ShouldBe(MaterialQueryTestFixture.PendingMaterial);
     }
 
     public static IEnumerable<object[]> InvalidMaterialIds()

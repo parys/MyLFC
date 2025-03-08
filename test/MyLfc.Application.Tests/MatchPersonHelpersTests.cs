@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
-using MyLfc.Application.Infrastructure;
+﻿using MyLfc.Application.Infrastructure;
 using MyLfc.Data.Common;
+using Shouldly;
 using Xunit;
 
 namespace MyLfc.Application.Tests;
@@ -39,6 +39,6 @@ public class MatchPersonHelpersTests
     {
         var result = MatchPersonHelpers.GetMatchPlaceholderType(input, isHome);
 
-        result.Should().Be(ouput);
+        result.ShouldBe(ouput);
     }
 }

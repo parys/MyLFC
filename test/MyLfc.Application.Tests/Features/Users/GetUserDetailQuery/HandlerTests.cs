@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Users.Queries.GetUserDetailQuery.Handler;
 using Request = MyLfc.Application.Features.Users.Queries.GetUserDetailQuery.Request;
@@ -28,16 +28,16 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
-    
+
     [Fact]
     public async Task WhenUserIdIsValid_ShouldReturnUserDetailDto()
     {
         var result = await _handler.Handle(new Request { Id = UserQueryTestFixture.UserId }, CancellationToken.None);
 
-        result.Should().BeOfType<Response>();
-        result.Id.Should().Be(UserQueryTestFixture.UserId);
+        result.ShouldBeOfType<Response>();
+        result.Id.ShouldBe(UserQueryTestFixture.UserId);
     }
 
     public static IEnumerable<object[]> InvalidUserIds()

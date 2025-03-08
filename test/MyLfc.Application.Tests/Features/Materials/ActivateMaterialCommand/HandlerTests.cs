@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Persistence;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.ActivateMaterialCommand.Request;
@@ -32,22 +31,20 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
     public async Task ActivateMaterialCommand_WhenActivateCommandIsValid_ShouldChangeMaterialPerndingToFalse()
     {
         var material = _context.Materials.First(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
-        material.Pending.Should().BeTrue();
+        material.Pending.ShouldBeTrue();
 
         var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
 
-        result.Should().NotBeNull();
-
         var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
 
-        updatedEntity.Pending.Should().BeFalse();
+        updatedEntity.Pending.ShouldBeFalse();
     }
 
     public static IEnumerable<object[]> InvalidMaterialIds()

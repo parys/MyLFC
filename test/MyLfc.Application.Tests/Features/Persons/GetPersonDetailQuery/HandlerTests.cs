@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Persons.Queries.GetPersonDetailQuery.Handler;
 using Request = MyLfc.Application.Features.Persons.Queries.GetPersonDetailQuery.Request;
@@ -36,8 +36,8 @@ public class HandlerTests
         request.Id = PersonsSeeder.PersonIdWithNickname;
 
         var result = await _handler.Handle(request, CancellationToken.None);
-        
-        result.Id.Should().Be(request.Id);
+
+        result.Id.ShouldBe(request.Id);
         result.ArePublicInstancePropertiesEqual(request);
 
         var objectInDb = _context.Persons.First(x => x.Id == request.Id);
@@ -55,7 +55,7 @@ public class HandlerTests
 
         Func<Task> result = async () =>  await _handler.Handle(request, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
 }

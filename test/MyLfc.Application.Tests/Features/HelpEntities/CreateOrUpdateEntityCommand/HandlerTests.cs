@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
-using MyLfc.Persistence;
 using MyLfc.Data.Common;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Handler;
 using Request = MyLfc.Application.Features.HelpEntities.Commands.CreateOrUpdateEntityCommand.Request;
@@ -29,14 +28,14 @@ public class HandlerTests
     {
         var entityType = HelperEntityType.Fantasy;
         var entityBefore = _context.HelpEntities.FirstOrDefault(x => x.Type == entityType);
-        entityBefore.Should().BeNull();
+        entityBefore.ShouldBeNull();
 
         var result = await _handler.Handle(new Request { Value = "newValue", Type = entityType }, CancellationToken.None);
 
-        result.Id.Should().BeGreaterThan(0);
+        result.Id.ShouldBeGreaterThan(0);
         var entityAfter = _context.HelpEntities.FirstOrDefault(x => x.Type == entityType);
-        entityAfter.Should().NotBeNull();
-        entityAfter.Id.Should().Be(result.Id);
+        entityAfter.ShouldNotBeNull();
+        entityAfter.Id.ShouldBe(result.Id);
     }
 
     [Fact]
@@ -44,15 +43,15 @@ public class HandlerTests
     {
         var entityType = HelperEntityType.BestPlayer;
         var entityBefore = _context.HelpEntities.FirstOrDefault(x => x.Type == entityType);
-        entityBefore.Should().NotBeNull();
+        entityBefore.ShouldNotBeNull();
         var valueBefore = entityBefore.Value;
 
         var result = await _handler.Handle(new Request { Value = "newBestPlayerValue", Type = entityType }, CancellationToken.None);
 
-        result.Id.Should().BeGreaterThan(0);
+        result.Id.ShouldBeGreaterThan(0);
         var entityAfter = _context.HelpEntities.FirstOrDefault(x => x.Type == entityType);
-        entityAfter.Should().NotBeNull();
-        entityAfter.Id.Should().Be(result.Id);
-        entityAfter.Value.Should().NotBe(valueBefore);
+        entityAfter.ShouldNotBeNull();
+        entityAfter.Id.ShouldBe(result.Id);
+        entityAfter.Value.ShouldNotBe(valueBefore);
     }
 }

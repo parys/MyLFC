@@ -1,16 +1,15 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using Moq;
 using MyLfc.Common.Web.Hubs;
-using MyLfc.Persistence;
 using MyLfc.Business.Contracts;
 using Xunit;
 using Handler = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Handler;
 using Request = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Request;
 using Response = MyLfc.Application.Features.Pms.Commands.CreatePmCommand.Response;
+using Shouldly;
 
 namespace MyLfc.Application.Tests.Pms.CreatePmCommand;
 
@@ -42,13 +41,13 @@ public class HandlerTests
         };
         var result = await _handler.Handle(request, CancellationToken.None);
 
-        result.Id.Should().BeGreaterThan(0);
+        result.Id.ShouldBeGreaterThan(0);
 
         var createdPm = _context.PrivateMessages.First(x => x.Id == result.Id);
-        createdPm.Should().NotBeNull();
-        createdPm.IsRead.Should().BeFalse();
-        createdPm.SenderId.Should().Be(adminId);
-        createdPm.Title.Should().Be(request.Title);
-        createdPm.Message.Should().Be(request.Message);
+        createdPm.ShouldNotBeNull();
+        createdPm.IsRead.ShouldBeFalse();
+        createdPm.SenderId.ShouldBe(adminId);
+        createdPm.Title.ShouldBe(request.Title);
+        createdPm.Message.ShouldBe(request.Message);
     }
 }

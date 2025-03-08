@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
-using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Comments.Commands.UpdateCommentVoteCommand.Handler;
 using Request = MyLfc.Application.Features.Comments.Commands.UpdateCommentVoteCommand.Request;
@@ -39,23 +38,23 @@ public class HandlerTests
         var beforeCommentPositiveCount = _context.MaterialComments.First(x => x.Id == request.CommentId).PositiveCount;
         var beforeCommentNegativeCount = _context.MaterialComments.First(x => x.Id == request.CommentId).NegativeCount;
 
-        before.Positive.Should().BeTrue();
+        before.Positive.ShouldBeTrue();
 
         var result = await _handler.Handle(request, CancellationToken.None);
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
 
         // we are not changed comment vote
         var after = _context.CommentVotes.First(x =>
             x.CommentId == request.CommentId && x.UserId == UserSeeder.AdminUserId);
-        after.Positive.Should().BeTrue();
+        after.Positive.ShouldBeTrue();
 
         // we are not change comment counts
         var afterCommentPositiveCount = _context.MaterialComments.First(x => x.Id == request.CommentId).PositiveCount;
         var afterCommentNegativeCount = _context.MaterialComments.First(x => x.Id == request.CommentId).NegativeCount;
 
-        afterCommentPositiveCount.Should().Be(beforeCommentPositiveCount);
-        afterCommentNegativeCount.Should().Be(beforeCommentNegativeCount);
+        afterCommentPositiveCount.ShouldBe(beforeCommentPositiveCount);
+        afterCommentNegativeCount.ShouldBe(beforeCommentNegativeCount);
 
     }
 }

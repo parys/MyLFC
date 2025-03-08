@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
-using MyLfc.Persistence;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Handler;
 using Request = MyLfc.Application.Materials.Queries.GetMaterialListQuery.Request;
@@ -29,8 +28,8 @@ public class HandlerTests
         var result = await _handler.Handle(new Request { PageSize = 10, CurrentPage = 1 },
             CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Response>();
+        result.ShouldNotBeNull();
+        result.ShouldBeOfType<Response>();
     }
 
     [Fact]
@@ -43,14 +42,14 @@ public class HandlerTests
 
         var expectedCount = _context.Materials.Skip(1 - page).Take(pageSize).Count();
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Response>();
-        result.Results.Count.Should().BeGreaterThan(0);
-        result.Results.Count.Should().Be(expectedCount - 1); //because of deleted
-        result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).Should().BeTrue();
-        result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).Should().BeTrue();
+        result.ShouldNotBeNull();
+        result.ShouldBeOfType<Response>();
+        result.Results.Count.ShouldBeGreaterThan(0);
+        result.Results.Count.ShouldBe(expectedCount - 1); //because of deleted
+        result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).ShouldBeTrue();
+        result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).ShouldBeTrue();
         var resultMaterial = result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments);
 
-        resultMaterial.CommentsCount.Should().Be(MaterialQueryTestFixture.Comments.Count);
+        resultMaterial.CommentsCount.ShouldBe(MaterialQueryTestFixture.Comments.Count);
     }
 }

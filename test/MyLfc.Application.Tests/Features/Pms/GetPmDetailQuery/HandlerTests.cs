@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Common.Web.Hubs;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Handler;
 using Request = MyLfc.Application.Features.Pms.Queries.GetPmDetailQuery.Request;
@@ -35,7 +35,7 @@ public class HandlerTests
         Func<Task> result = async () =>
             await _handler.Handle(new Request { Id = 111111 }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -44,12 +44,12 @@ public class HandlerTests
         Func<Task> result = async () =>
             await _handler.Handle(new Request { Id = PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id }, CancellationToken.None);
 
-        await result.Should().ThrowAsync<NotFoundException>();
+        await result.ShouldThrowAsync<NotFoundException>();
 
         var privateMessage = await _context.PrivateMessages.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id);
-        privateMessage.Should().NotBeNull();
-        privateMessage.Id.Should().Be(PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id);
+        privateMessage.ShouldNotBeNull();
+        privateMessage.Id.ShouldBe(PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id);
     }
 
     [Fact]
@@ -57,18 +57,18 @@ public class HandlerTests
     {
         var messageBefore = _context.PrivateMessages.First(x => x.Id == PmQueryTestFixture.PrivateMessageForRead.Id);
 
-        messageBefore.Should().NotBeNull();
-        messageBefore.IsRead.Should().BeFalse();
-        
+        messageBefore.ShouldNotBeNull();
+        messageBefore.IsRead.ShouldBeFalse();
+
         var result = await _handler.Handle(
             new Request{Id = PmQueryTestFixture.PrivateMessageForRead.Id }, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Id.Should().BeGreaterThan(0);
+        result.ShouldNotBeNull();
+        result.Id.ShouldBeGreaterThan(0);
 
         var updatedEntity = await _context.PrivateMessages.FirstOrDefaultAsync(x => x.Id == PmQueryTestFixture.PrivateMessageForRead.Id);
 
-        updatedEntity.Should().NotBeNull();
-        updatedEntity.IsRead.Should().BeTrue();
+        updatedEntity.ShouldNotBeNull();
+        updatedEntity.IsRead.ShouldBeTrue();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.HelpEntities.CreateOrUpdateEntityCommand;
 using MyLfc.Data.Common;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Handler;
 using Request = MyLfc.Application.Features.HelpEntities.Queries.GetEntityQuery.Request;
@@ -30,8 +30,8 @@ public class HandlerTests
 
         var result = await _handler.Handle(new Request { Type = entityType }, CancellationToken.None);
 
-        result.Type.Should().Be(entityType);
-        result.Value.Should().NotBeNullOrWhiteSpace();
+        result.Type.ShouldBe(entityType);
+        result.Value.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -39,6 +39,6 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Type = (HelperEntityType) 144 }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Handler;
 using Request = MyLfc.Application.Features.Persons.Commands.CreatePersonCommand.Request;
@@ -26,10 +26,10 @@ public class HandlerTests
     {
         var request = new Fixture()
             .Create<Request>();
-       
+
         var result = await _handler.Handle(request, CancellationToken.None);
 
-        result.Id.Should().BeGreaterThan(0);
+        result.Id.ShouldBeGreaterThan(0);
 
         result.ArePublicInstancePropertiesEqual(request);
     }

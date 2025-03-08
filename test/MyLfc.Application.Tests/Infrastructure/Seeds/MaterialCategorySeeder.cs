@@ -2,7 +2,6 @@
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
-using MyLfc.Persistence;
 using MyLfc.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds;

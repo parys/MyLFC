@@ -1,16 +1,15 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Persistence;
 using MyLfc.Data.Common;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Request;
 using Response = MyLfc.Application.Materials.Commands.CreateMaterialCommand.Response;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
+using Shouldly;
 
 namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand;
 
@@ -37,18 +36,18 @@ public class HandlerTests
 
         var result = await _handler.Handle(matCommand, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Id.Should().BeGreaterThan(0);
+        result.ShouldNotBeNull();
+        result.Id.ShouldBeGreaterThan(0);
 
         var createdEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == result.Id);
 
         //todo add check by props
-        createdEntity.Should().NotBeNull();
-        createdEntity.Id.Should().Be(result.Id);
-        createdEntity.Type.Should().Be(result.Type);
-        createdEntity.Type.Should().NotBe(MaterialType.Both);
-        createdEntity.UserName.Should().Be(UserSeeder.AdminUserName);
-        createdEntity.CategoryName.Should().Be(MaterialCategorySeeder.DefaultCategoryName);
+        createdEntity.ShouldNotBeNull();
+        createdEntity.Id.ShouldBe(result.Id);
+        createdEntity.Type.ShouldBe(result.Type);
+        createdEntity.Type.ShouldNotBe(MaterialType.Both);
+        createdEntity.UserName.ShouldBe(UserSeeder.AdminUserName);
+        createdEntity.CategoryName.ShouldBe(MaterialCategorySeeder.DefaultCategoryName);
 
     }
 
@@ -61,16 +60,16 @@ public class HandlerTests
 
         var result = await _handler.Handle(matCommand, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Id.Should().BeGreaterThan(0);
+        result.ShouldNotBeNull();
+        result.Id.ShouldBeGreaterThan(0);
 
         var createdEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == result.Id);
 
         //todo add check by props
-        createdEntity.Should().NotBeNull();
-        createdEntity.Id.Should().Be(result.Id);
-        createdEntity.Type.Should().Be(result.Type);
-        createdEntity.Type.Should().NotBe(MaterialType.Both);
+        createdEntity.ShouldNotBeNull();
+        createdEntity.Id.ShouldBe(result.Id);
+        createdEntity.Type.ShouldBe(result.Type);
+        createdEntity.Type.ShouldNotBe(MaterialType.Both);
     }
 
 }

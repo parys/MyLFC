@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.AddMaterialReadCommand.Request;
@@ -31,7 +31,7 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -41,11 +41,9 @@ public class HandlerTests
         var oldRead = material.Reads;
         var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
 
-        result.Should().NotBeNull();
-
         var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
 
-        updatedEntity.Reads.Should().Be(oldRead + 1);
+        updatedEntity.Reads.ShouldBe(oldRead + 1);
     }
 
     public static IEnumerable<object[]> InvalidMaterialIds()

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.RoleGroups.Queries.GetRoleGroupsQuery.Handler;
 using Request = MyLfc.Application.Features.RoleGroups.Queries.GetRoleGroupsQuery.Request;
@@ -25,8 +25,8 @@ public class HandlerTests
     {
         var result = await _handler.Handle(new Request{IncludeRoles = true}, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Results.Count().Should().BeGreaterThan(0);
-        result.Results.ToList().ForEach(x => x.Roles.Count().Should().BeGreaterThan(0));
+        result.ShouldNotBeNull();
+        result.Results.Count().ShouldBeGreaterThan(0);
+        result.Results.ToList().ForEach(x => x.Roles.Count().ShouldBeGreaterThan(0));
     }
 }

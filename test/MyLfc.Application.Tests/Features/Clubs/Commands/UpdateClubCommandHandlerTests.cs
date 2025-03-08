@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoMapper;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Features.Clubs;
 using MyLfc.Application.Features.Clubs.Commands;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
+using Shouldly;
 using Xunit;
 
 
@@ -66,8 +66,8 @@ public class UpdateClubCommandHandlerTests : IDisposable
         var response = await handler.Handle(request, default);
 
         // Assert
-        response.Id.Should().Be(club.Id);
-        club.Name.Should().Be(request.Name);
+        response.Id.ShouldBe(club.Id);
+        club.Name.ShouldBe(request.Name);
     }
 
     public void Dispose()

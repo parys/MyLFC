@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Pms.Queries.GetPmListQuery.Handler;
 using Request = MyLfc.Application.Features.Pms.Queries.GetPmListQuery.Request;
@@ -25,8 +25,8 @@ public class HandlerTests
     {
         var result = await _handler.Handle(new Request(), CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Received.Count().Should().BeGreaterThan(0);
-        result.Sent.Count().Should().BeGreaterThan(0);
+        result.ShouldNotBeNull();
+        result.Received.Count().ShouldBeGreaterThan(0);
+        result.Sent.Count().ShouldBeGreaterThan(0);
     }
 }

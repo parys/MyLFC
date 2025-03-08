@@ -2,12 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
 using MyLfc.Application.Tests.Infrastructure.Seeds;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.UpdateMaterialCommand.Request;
@@ -33,7 +33,7 @@ public class HandlerTests
         Func<Task> result = async () =>
             await _handler.Handle(new Request { Id = 111111 }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -42,12 +42,12 @@ public class HandlerTests
         Func<Task> result = async () =>
             await _handler.Handle(new Request { Id = UpdateMaterialCommandTestFixture.DeletedMaterialId }, CancellationToken.None);
 
-        await result.Should().ThrowAsync<NotFoundException>();
+        await result.ShouldThrowAsync<NotFoundException>();
 
         var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == UpdateMaterialCommandTestFixture.DeletedMaterialId);
-        deletedMaterial.Should().NotBeNull();
-        deletedMaterial.Id.Should().Be(UpdateMaterialCommandTestFixture.DeletedMaterialId);
+        deletedMaterial.ShouldNotBeNull();
+        deletedMaterial.Id.ShouldBe(UpdateMaterialCommandTestFixture.DeletedMaterialId);
     }
 
     [Fact]
@@ -64,15 +64,15 @@ public class HandlerTests
 
         var result = await _handler.Handle(materialCommand, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Id.Should().BeGreaterThan(0);
+        result.ShouldNotBeNull();
+        result.Id.ShouldBeGreaterThan(0);
 
         var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == result.Id);
 
-        updatedEntity.Should().NotBeNull();
-        updatedEntity.Id.Should().Be(result.Id);
-        updatedEntity.Title.Should().NotBe(oldTitle);
-        updatedEntity.Brief.Should().NotBe(oldBrief);
-        updatedEntity.CategoryName.Should().Be(MaterialCategorySeeder.SecondCategoryName);
+        updatedEntity.ShouldNotBeNull();
+        updatedEntity.Id.ShouldBe(result.Id);
+        updatedEntity.Title.ShouldNotBe(oldTitle);
+        updatedEntity.Brief.ShouldNotBe(oldBrief);
+        updatedEntity.CategoryName.ShouldBe(MaterialCategorySeeder.SecondCategoryName);
     }
 }

@@ -1,11 +1,10 @@
 ﻿using AutoFixture;
 using AutoMapper;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using MyLfc.Application.Features.Clubs.Commands;
 using MyLfc.Domain;
 using MyLfc.Persistence;
+using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -45,11 +44,11 @@ public class CreateClubCommandHandlerTests
         var response = await handler.Handle(request, CancellationToken.None);
 
         // Assert
-        response.Id.Should().NotBe(0);
+        response.Id.ShouldNotBe(0);
         var club = await _context.Clubs.FindAsync(response.Id);
-        club.Should().NotBeNull();
+        club.ShouldNotBeNull();
         _context.SaveChanges();
         club = await _context.Clubs.FindAsync(response.Id);
-        club.Should().NotBeNull();
+        club.ShouldNotBeNull();
     }
 }

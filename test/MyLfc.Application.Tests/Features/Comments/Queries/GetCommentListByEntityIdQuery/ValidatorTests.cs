@@ -1,5 +1,5 @@
-﻿using FluentAssertions;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
+using Shouldly;
 using Xunit;
 using Request = MyLfc.Application.Comments.Queries.GetCommentListByEntityIdQuery.Request;
 using Validator = MyLfc.Application.Comments.Queries.GetCommentListByEntityIdQuery.Validator;
@@ -51,7 +51,7 @@ public class ValidatorTests
             MatchId = materialId
         };
         var result = _validator.TestValidate(model);
-        result.IsValid.Should().BeTrue();
+        result.IsValid.ShouldBeTrue();
     }
     #endregion
 }

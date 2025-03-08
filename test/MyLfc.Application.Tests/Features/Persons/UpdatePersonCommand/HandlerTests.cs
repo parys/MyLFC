@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using FluentAssertions;
 using MediatR;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Application.Tests.Infrastructure.Extensions;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Handler;
 using Request = MyLfc.Application.Features.Persons.Commands.UpdatePersonCommand.Request;
@@ -32,8 +32,8 @@ public class HandlerTests
         request.Id = UpdatePersonCommandTestFixture.PersonId;
 
         var result = await _handler.Handle(request, CancellationToken.None);
-        
-        result.Id.Should().Be(request.Id);
+
+        result.Id.ShouldBe(request.Id);
         result.ArePublicInstancePropertiesEqual(request);
     }
 
@@ -49,7 +49,7 @@ public class HandlerTests
 
         Func<Task> result = async () =>  await _handler.Handle(request, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
 }

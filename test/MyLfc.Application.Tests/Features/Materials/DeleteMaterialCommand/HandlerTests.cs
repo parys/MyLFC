@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
+using Shouldly;
 using Xunit;
 using Handler = MyLfc.Application.Materials.Commands.DeleteMaterialCommand.Handler;
 using Request = MyLfc.Application.Materials.Commands.DeleteMaterialCommand.Request;
@@ -29,7 +29,7 @@ public class HandlerTests
     {
         Func<Task> result = async () => await _handler.Handle(new Request { Id = 11111 }, CancellationToken.None);
 
-        result.Should().ThrowAsync<NotFoundException>();
+        result.ShouldThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -39,11 +39,11 @@ public class HandlerTests
             await _handler.Handle(new Request { Id = DeleteMaterialCommandTestFixture.DeletedMaterialId},
                 CancellationToken.None);
 
-       await result.Should().ThrowAsync<NotFoundException>();
+       await result.ShouldThrowAsync<NotFoundException>();
 
         var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == DeleteMaterialCommandTestFixture.DeletedMaterialId);
-        deletedMaterial.Should().NotBeNull();
+        deletedMaterial.ShouldNotBeNull();
     }
 
     //[Fact]
@@ -53,11 +53,11 @@ public class HandlerTests
     //        await _handler.Handle(new Request { Id = DeleteMaterialCommandTestFixture.PendingMaterialId},
     //            CancellationToken.None);
 
-    //    result.Should().Throw<NotFoundException>();
+    //    result.ShouldThrow<NotFoundException>();
 
     //    var deletedMaterial = await _context.Materials.IgnoreQueryFilters()
     //        .FirstOrDefaultAsync(x => x.Id == DeleteMaterialCommandTestFixture.PendingMaterialId);
-    //    deletedMaterial.Should().NotBeNull();
+    //    deletedMaterial.ShouldNotBeNull();
     //}
 
     [Fact]
@@ -68,10 +68,10 @@ public class HandlerTests
                 Id = DeleteMaterialCommandTestFixture.Materials[0].Id
             },CancellationToken.None);
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
 
         var deletedExam = await _context.Materials
             .FirstOrDefaultAsync(x => x.Id == DeleteMaterialCommandTestFixture.Materials[0].Id);
-        deletedExam.Should().BeNull();
+        deletedExam.ShouldBeNull();
     }
 }
