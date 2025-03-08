@@ -9,10 +9,12 @@
     <UserSecretsId>12aa94a0-33c5-4e31-9e62-0c718ec3e38f</UserSecretsId>
   </PropertyGroup>
 
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" /><Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
