@@ -1,6 +1,7 @@
 ﻿using MyLfc.Domain.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLfc.Domain;
 
@@ -14,6 +15,7 @@ public class PrivateMessage : IEntity
 
     public int ReceiverId { get; set; }
 
+    [NotMapped]
     public FullUser Receiver { get; set; }
 
     [StringLength(50)]

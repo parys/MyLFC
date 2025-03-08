@@ -43,7 +43,7 @@ public class CleanExpiredTokensService : IHostedService, IDisposable
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -64,10 +64,10 @@ public class CleanExpiredTokensService : IHostedService, IDisposable
     {
         try
         {
-            using var scope = _service.CreateScope();
-            var calStatRepo = scope.ServiceProvider
-                .GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
-            await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
+         //   using var scope = _service.CreateScope();
+         //   var calStatRepo = scope.ServiceProvider
+        //        .GetRequiredService<OpenIddictTokenManager<OpenIddictEntityFrameworkCoreToken<int>>>();
+        //    await calStatRepo.PruneAsync(DateTimeOffset.UtcNow.AddDays(-1));
         }
         catch (Exception exception)
         {

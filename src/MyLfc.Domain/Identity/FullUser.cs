@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace MyLfc.Domain.Identity;
@@ -47,6 +48,8 @@ public class FullUser : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEn
     public ICollection<Material> Materials { get; set; } = new HashSet<Material>();
 
     public ICollection<PrivateMessage> SentPrivateMessages { get; set; } = new HashSet<PrivateMessage>();
+
+    [NotMapped]
     public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; } = new HashSet<PrivateMessage>();
     public ICollection<ChatMessage> ChatMessages { get; set; } = new HashSet<ChatMessage>();
     public ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
