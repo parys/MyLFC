@@ -26,7 +26,7 @@ public static class OpenIdDictMiddleware
                 options.UseEntityFrameworkCore(opts =>
                 {
                     opts.ReplaceDefaultEntities<int>();
-                    opts.UseDbContext<AuthLiverpoolContext>();
+                    opts.UseDbContext<FullLiverpoolContext>(); //todo
                 });
             })
             .AddServer(options =>
@@ -37,7 +37,7 @@ public static class OpenIdDictMiddleware
                 options.AllowPasswordFlow()
                     .AllowRefreshTokenFlow()
 
-                    .SetRefreshTokenReuseLeeway(TimeSpan.FromDays(14))                        
+                    .SetRefreshTokenReuseLeeway(TimeSpan.FromDays(14))
                     .SetRefreshTokenLifetime(TimeSpan.FromDays(14));
 
                 // Mark the "email", "profile", "roles" and "demo_api" scopes as supported scopes.
@@ -45,7 +45,7 @@ public static class OpenIdDictMiddleware
 
                 //to be able to get user at FE side
                 options.DisableAccessTokenEncryption();
-                
+
                 options.DisableTokenStorage();
 
                 // During development, you can disable the HTTPS requirement.

@@ -25,17 +25,19 @@ public static class DependencyInjection
 
             services.AddDbContext<FullLiverpoolContext>(options =>
             {
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(FullLiverpoolContext).Assembly.FullName));
+                //options.UseSqlServer(
+                //    configuration.GetConnectionString("DefaultConnection"),
+                //    b => b.MigrationsAssembly(typeof(FullLiverpoolContext).Assembly.FullName));
+                options.UseInMemoryDatabase("TestDb");
+                options.UseOpenIddict<int>();
             });
 
-            services.AddDbContext<AuthLiverpoolContext>(options =>
-            {
-                options.UseModel(AuthLiverpoolContextModel.Instance);
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                options.UseOpenIddict<int>();
-            }); 
+            //services.AddDbContext<AuthLiverpoolContext>(options =>
+            //{
+            //    options.UseModel(AuthLiverpoolContextModel.Instance);
+            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            //    options.UseOpenIddict<int>();
+            //});
         }
 
         services.AddScoped<ILiverpoolContext>(provider => provider.GetService<FullLiverpoolContext>());

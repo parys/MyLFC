@@ -92,7 +92,22 @@ public class AccountController : BaseController
     public async Task<IActionResult> Register([FromBody] RegisterUserCommand.Request request)
     {
         var result = await Mediator.Send(request);
-        
+
+        return Ok(result.Result.Succeeded);
+    }
+
+    [AllowAnonymous, HttpGet("Register2")]
+    public async Task<IActionResult> Register2()
+    {
+        var request = new RegisterUserCommand.Request
+        {
+            ConfirmPassword = "passw1!",
+            Password = "passw1!",
+            Email = "asa@aaa.aa",
+            UserName = "asda123"
+        };
+        var result = await Mediator.Send(request);
+
         return Ok(result.Result.Succeeded);
     }
 
@@ -112,6 +127,6 @@ public class AccountController : BaseController
         var result = await Mediator.Send(request);
         return Ok(result.Result);
     }
-    
-    
+
+
 }
