@@ -9,11 +9,11 @@
     <UserSecretsId>12aa94a0-33c5-4e31-9e62-0c718ec3e38f</UserSecretsId>
   </PropertyGroup>
 
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.4.1" />
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.5.3" />
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.4.1" />
-    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.4.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.5.3" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="9.4.1" />
   </ItemGroup>
 
